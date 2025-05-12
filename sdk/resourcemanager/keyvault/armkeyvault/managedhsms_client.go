@@ -45,7 +45,7 @@ func NewManagedHsmsClient(subscriptionID string, credential azcore.TokenCredenti
 // CheckMhsmNameAvailability - Checks that the managed hsm name is valid and is not already in use.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - mhsmName - The name of the managed hsm.
 //   - options - ManagedHsmsClientCheckMhsmNameAvailabilityOptions contains the optional parameters for the ManagedHsmsClient.CheckMhsmNameAvailability
 //     method.
@@ -83,7 +83,7 @@ func (client *ManagedHsmsClient) checkMhsmNameAvailabilityCreateRequest(ctx cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, mhsmName); err != nil {
@@ -104,7 +104,7 @@ func (client *ManagedHsmsClient) checkMhsmNameAvailabilityHandleResponse(resp *h
 // BeginCreateOrUpdate - Create or update a managed HSM Pool in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - name - Name of the managed HSM Pool
 //   - parameters - Parameters to create or update the managed HSM Pool
@@ -130,7 +130,7 @@ func (client *ManagedHsmsClient) BeginCreateOrUpdate(ctx context.Context, resour
 // CreateOrUpdate - Create or update a managed HSM Pool in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 func (client *ManagedHsmsClient) createOrUpdate(ctx context.Context, resourceGroupName string, name string, parameters ManagedHsm, options *ManagedHsmsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedHsmsClient.BeginCreateOrUpdate"
@@ -172,7 +172,7 @@ func (client *ManagedHsmsClient) createOrUpdateCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -184,7 +184,7 @@ func (client *ManagedHsmsClient) createOrUpdateCreateRequest(ctx context.Context
 // BeginDelete - Deletes the specified managed HSM Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - name - The name of the managed HSM Pool to delete
 //   - options - ManagedHsmsClientBeginDeleteOptions contains the optional parameters for the ManagedHsmsClient.BeginDelete method.
@@ -208,7 +208,7 @@ func (client *ManagedHsmsClient) BeginDelete(ctx context.Context, resourceGroupN
 // Delete - Deletes the specified managed HSM Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 func (client *ManagedHsmsClient) deleteOperation(ctx context.Context, resourceGroupName string, name string, options *ManagedHsmsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedHsmsClient.BeginDelete"
@@ -250,7 +250,7 @@ func (client *ManagedHsmsClient) deleteCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -259,7 +259,7 @@ func (client *ManagedHsmsClient) deleteCreateRequest(ctx context.Context, resour
 // Get - Gets the specified managed HSM Pool.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - name - The name of the managed HSM Pool.
 //   - options - ManagedHsmsClientGetOptions contains the optional parameters for the ManagedHsmsClient.Get method.
@@ -305,7 +305,7 @@ func (client *ManagedHsmsClient) getCreateRequest(ctx context.Context, resourceG
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -323,7 +323,7 @@ func (client *ManagedHsmsClient) getHandleResponse(resp *http.Response) (Managed
 // GetDeleted - Gets the specified deleted managed HSM.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - name - The name of the deleted managed HSM.
 //   - location - The location of the deleted managed HSM.
 //   - options - ManagedHsmsClientGetDeletedOptions contains the optional parameters for the ManagedHsmsClient.GetDeleted method.
@@ -369,7 +369,7 @@ func (client *ManagedHsmsClient) getDeletedCreateRequest(ctx context.Context, na
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -387,7 +387,7 @@ func (client *ManagedHsmsClient) getDeletedHandleResponse(resp *http.Response) (
 // NewListByResourceGroupPager - The List operation gets information about the managed HSM Pools associated with the subscription
 // and within the specified resource group.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - options - ManagedHsmsClientListByResourceGroupOptions contains the optional parameters for the ManagedHsmsClient.NewListByResourceGroupPager
 //     method.
@@ -433,7 +433,7 @@ func (client *ManagedHsmsClient) listByResourceGroupCreateRequest(ctx context.Co
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -450,7 +450,7 @@ func (client *ManagedHsmsClient) listByResourceGroupHandleResponse(resp *http.Re
 
 // NewListBySubscriptionPager - The List operation gets information about the managed HSM Pools associated with the subscription.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - options - ManagedHsmsClientListBySubscriptionOptions contains the optional parameters for the ManagedHsmsClient.NewListBySubscriptionPager
 //     method.
 func (client *ManagedHsmsClient) NewListBySubscriptionPager(options *ManagedHsmsClientListBySubscriptionOptions) *runtime.Pager[ManagedHsmsClientListBySubscriptionResponse] {
@@ -491,7 +491,7 @@ func (client *ManagedHsmsClient) listBySubscriptionCreateRequest(ctx context.Con
 	if options != nil && options.Top != nil {
 		reqQP.Set("$top", strconv.FormatInt(int64(*options.Top), 10))
 	}
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -508,7 +508,7 @@ func (client *ManagedHsmsClient) listBySubscriptionHandleResponse(resp *http.Res
 
 // NewListDeletedPager - The List operation gets information about the deleted managed HSMs associated with the subscription.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - options - ManagedHsmsClientListDeletedOptions contains the optional parameters for the ManagedHsmsClient.NewListDeletedPager
 //     method.
 func (client *ManagedHsmsClient) NewListDeletedPager(options *ManagedHsmsClientListDeletedOptions) *runtime.Pager[ManagedHsmsClientListDeletedResponse] {
@@ -546,7 +546,7 @@ func (client *ManagedHsmsClient) listDeletedCreateRequest(ctx context.Context, _
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -564,7 +564,7 @@ func (client *ManagedHsmsClient) listDeletedHandleResponse(resp *http.Response) 
 // BeginPurgeDeleted - Permanently deletes the specified managed HSM.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - name - The name of the soft-deleted managed HSM.
 //   - location - The location of the soft-deleted managed HSM.
 //   - options - ManagedHsmsClientBeginPurgeDeletedOptions contains the optional parameters for the ManagedHsmsClient.BeginPurgeDeleted
@@ -589,7 +589,7 @@ func (client *ManagedHsmsClient) BeginPurgeDeleted(ctx context.Context, name str
 // PurgeDeleted - Permanently deletes the specified managed HSM.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 func (client *ManagedHsmsClient) purgeDeleted(ctx context.Context, name string, location string, options *ManagedHsmsClientBeginPurgeDeletedOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedHsmsClient.BeginPurgeDeleted"
@@ -631,7 +631,7 @@ func (client *ManagedHsmsClient) purgeDeletedCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -640,7 +640,7 @@ func (client *ManagedHsmsClient) purgeDeletedCreateRequest(ctx context.Context, 
 // BeginUpdate - Update a managed HSM Pool in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the managed HSM pool.
 //   - name - Name of the managed HSM Pool
 //   - parameters - Parameters to patch the managed HSM Pool
@@ -665,7 +665,7 @@ func (client *ManagedHsmsClient) BeginUpdate(ctx context.Context, resourceGroupN
 // Update - Update a managed HSM Pool in the specified subscription.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 func (client *ManagedHsmsClient) update(ctx context.Context, resourceGroupName string, name string, parameters ManagedHsm, options *ManagedHsmsClientBeginUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ManagedHsmsClient.BeginUpdate"
@@ -707,7 +707,7 @@ func (client *ManagedHsmsClient) updateCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {

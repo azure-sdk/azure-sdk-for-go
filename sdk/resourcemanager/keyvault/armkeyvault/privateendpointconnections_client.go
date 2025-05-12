@@ -45,7 +45,7 @@ func NewPrivateEndpointConnectionsClient(subscriptionID string, credential azcor
 // BeginDelete - Deletes the specified private endpoint connection associated with the key vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the key vault.
 //   - vaultName - The name of the key vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
@@ -71,7 +71,7 @@ func (client *PrivateEndpointConnectionsClient) BeginDelete(ctx context.Context,
 // Delete - Deletes the specified private endpoint connection associated with the key vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 func (client *PrivateEndpointConnectionsClient) deleteOperation(ctx context.Context, resourceGroupName string, vaultName string, privateEndpointConnectionName string, options *PrivateEndpointConnectionsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "PrivateEndpointConnectionsClient.BeginDelete"
@@ -117,7 +117,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -126,7 +126,7 @@ func (client *PrivateEndpointConnectionsClient) deleteCreateRequest(ctx context.
 // Get - Gets the specified private endpoint connection associated with the key vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the key vault.
 //   - vaultName - The name of the key vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
@@ -178,7 +178,7 @@ func (client *PrivateEndpointConnectionsClient) getCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -196,7 +196,7 @@ func (client *PrivateEndpointConnectionsClient) getHandleResponse(resp *http.Res
 // NewListByResourcePager - The List operation gets information about the private endpoint connections associated with the
 // vault.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the key vault.
 //   - vaultName - The name of the key vault.
 //   - options - PrivateEndpointConnectionsClientListByResourceOptions contains the optional parameters for the PrivateEndpointConnectionsClient.NewListByResourcePager
@@ -244,7 +244,7 @@ func (client *PrivateEndpointConnectionsClient) listByResourceCreateRequest(ctx 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -262,7 +262,7 @@ func (client *PrivateEndpointConnectionsClient) listByResourceHandleResponse(res
 // Put - Updates the specified private endpoint connection associated with the key vault.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-11-01
+// Generated from API version 2025-05-01
 //   - resourceGroupName - Name of the resource group that contains the key vault.
 //   - vaultName - The name of the key vault.
 //   - privateEndpointConnectionName - Name of the private endpoint connection associated with the key vault.
@@ -315,7 +315,7 @@ func (client *PrivateEndpointConnectionsClient) putCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-11-01")
+	reqQP.Set("api-version", "2025-05-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {
