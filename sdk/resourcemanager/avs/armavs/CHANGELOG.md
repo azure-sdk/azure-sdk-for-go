@@ -1,5 +1,100 @@
 # Release History
 
+## 3.0.0 (2025-05-12)
+### Breaking Changes
+
+- Function `*IscsiPathsClient.BeginCreateOrUpdate` parameter(s) have been changed from `(context.Context, string, string, IscsiPath, *IscsiPathsClientBeginCreateOrUpdateOptions)` to `(context.Context, string, string, string, IscsiPath, *IscsiPathsClientBeginCreateOrUpdateOptions)`
+- Function `*IscsiPathsClient.BeginDelete` parameter(s) have been changed from `(context.Context, string, string, *IscsiPathsClientBeginDeleteOptions)` to `(context.Context, string, string, string, *IscsiPathsClientBeginDeleteOptions)`
+- Function `*IscsiPathsClient.Get` parameter(s) have been changed from `(context.Context, string, string, *IscsiPathsClientGetOptions)` to `(context.Context, string, string, string, *IscsiPathsClientGetOptions)`
+- Function `*WorkloadNetworksClient.BeginCreateDNSService` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworksClientBeginCreateDNSServiceOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworksClientBeginCreateDNSServiceOptions)`
+- Function `*WorkloadNetworksClient.BeginCreateDNSZone` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworksClientBeginCreateDNSZoneOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworksClientBeginCreateDNSZoneOptions)`
+- Function `*WorkloadNetworksClient.BeginCreateDhcp` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworksClientBeginCreateDhcpOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworksClientBeginCreateDhcpOptions)`
+- Function `*WorkloadNetworksClient.BeginCreatePortMirroring` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworksClientBeginCreatePortMirroringOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworksClientBeginCreatePortMirroringOptions)`
+- Function `*WorkloadNetworksClient.BeginCreatePublicIP` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkPublicIP, *WorkloadNetworksClientBeginCreatePublicIPOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkPublicIP, *WorkloadNetworksClientBeginCreatePublicIPOptions)`
+- Function `*WorkloadNetworksClient.BeginCreateVMGroup` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworksClientBeginCreateVMGroupOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworksClientBeginCreateVMGroupOptions)`
+- Function `*WorkloadNetworksClient.BeginDeleteDhcp` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientBeginDeleteDhcpOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientBeginDeleteDhcpOptions)`
+- Function `*WorkloadNetworksClient.BeginDeleteSegment` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientBeginDeleteSegmentOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientBeginDeleteSegmentOptions)`
+- Function `*WorkloadNetworksClient.BeginUpdateDNSService` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworksClientBeginUpdateDNSServiceOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDNSService, *WorkloadNetworksClientBeginUpdateDNSServiceOptions)`
+- Function `*WorkloadNetworksClient.BeginUpdateDNSZone` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworksClientBeginUpdateDNSZoneOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDNSZone, *WorkloadNetworksClientBeginUpdateDNSZoneOptions)`
+- Function `*WorkloadNetworksClient.BeginUpdateDhcp` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworksClientBeginUpdateDhcpOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkDhcp, *WorkloadNetworksClientBeginUpdateDhcpOptions)`
+- Function `*WorkloadNetworksClient.BeginUpdatePortMirroring` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworksClientBeginUpdatePortMirroringOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkPortMirroring, *WorkloadNetworksClientBeginUpdatePortMirroringOptions)`
+- Function `*WorkloadNetworksClient.BeginUpdateVMGroup` parameter(s) have been changed from `(context.Context, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworksClientBeginUpdateVMGroupOptions)` to `(context.Context, string, string, string, string, WorkloadNetworkVMGroup, *WorkloadNetworksClientBeginUpdateVMGroupOptions)`
+- Function `*WorkloadNetworksClient.Get` parameter(s) have been changed from `(context.Context, string, string, *WorkloadNetworksClientGetOptions)` to `(context.Context, string, string, string, *WorkloadNetworksClientGetOptions)`
+- Function `*WorkloadNetworksClient.GetDNSService` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetDNSServiceOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetDNSServiceOptions)`
+- Function `*WorkloadNetworksClient.GetDNSZone` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetDNSZoneOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetDNSZoneOptions)`
+- Function `*WorkloadNetworksClient.GetGateway` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetGatewayOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetGatewayOptions)`
+- Function `*WorkloadNetworksClient.GetPortMirroring` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetPortMirroringOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetPortMirroringOptions)`
+- Function `*WorkloadNetworksClient.GetPublicIP` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetPublicIPOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetPublicIPOptions)`
+- Function `*WorkloadNetworksClient.GetSegment` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetSegmentOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetSegmentOptions)`
+- Function `*WorkloadNetworksClient.GetVMGroup` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetVMGroupOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetVMGroupOptions)`
+- Function `*WorkloadNetworksClient.GetVirtualMachine` parameter(s) have been changed from `(context.Context, string, string, string, *WorkloadNetworksClientGetVirtualMachineOptions)` to `(context.Context, string, string, string, string, *WorkloadNetworksClientGetVirtualMachineOptions)`
+- Function `*WorkloadNetworksClient.NewListDNSZonesPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListDNSZonesOptions)` to `(string, string, string, *WorkloadNetworksClientListDNSZonesOptions)`
+- Function `*WorkloadNetworksClient.NewListDhcpPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListDhcpOptions)` to `(string, string, string, *WorkloadNetworksClientListDhcpOptions)`
+- Function `*WorkloadNetworksClient.NewListGatewaysPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListGatewaysOptions)` to `(string, string, string, *WorkloadNetworksClientListGatewaysOptions)`
+- Function `*WorkloadNetworksClient.NewListPortMirroringPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListPortMirroringOptions)` to `(string, string, string, *WorkloadNetworksClientListPortMirroringOptions)`
+- Function `*WorkloadNetworksClient.NewListPublicIPsPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListPublicIPsOptions)` to `(string, string, string, *WorkloadNetworksClientListPublicIPsOptions)`
+- Function `*WorkloadNetworksClient.NewListSegmentsPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListSegmentsOptions)` to `(string, string, string, *WorkloadNetworksClientListSegmentsOptions)`
+- Function `*WorkloadNetworksClient.NewListVMGroupsPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListVMGroupsOptions)` to `(string, string, string, *WorkloadNetworksClientListVMGroupsOptions)`
+- Function `*WorkloadNetworksClient.NewListVirtualMachinesPager` parameter(s) have been changed from `(string, string, *WorkloadNetworksClientListVirtualMachinesOptions)` to `(string, string, string, *WorkloadNetworksClientListVirtualMachinesOptions)`
+- Type of `PrivateCloudIdentity.Type` has been changed from `*ResourceIdentityType` to `*SystemAssignedServiceIdentityType`
+- Type of `ScriptExecutionProperties.NamedOutputs` has been changed from `map[string]any` to `map[string]*ScriptExecutionPropertiesNamedOutput`
+- Enum `ResourceIdentityType` has been removed
+- Function `*WorkloadNetworksClient.BeginCreateSegments` has been removed
+- Function `*WorkloadNetworksClient.NewListDNSServicesPager` has been removed
+- Function `*WorkloadNetworksClient.BeginUpdateSegments` has been removed
+- Field `SKU` of struct `LocationsClientCheckTrialAvailabilityOptions` has been removed
+- Field `PlacementPolicy` of struct `PlacementPoliciesClientUpdateResponse` has been removed
+
+### Features Added
+
+- New enum type `HostKind` with values `HostKindGeneral`, `HostKindSpecialized`
+- New enum type `HostMaintenance` with values `HostMaintenanceReplacement`, `HostMaintenanceUpgrade`
+- New enum type `HostProvisioningState` with values `HostProvisioningStateCanceled`, `HostProvisioningStateFailed`, `HostProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkProvisioningState` with values `ProvisionedNetworkProvisioningStateCanceled`, `ProvisionedNetworkProvisioningStateFailed`, `ProvisionedNetworkProvisioningStateSucceeded`
+- New enum type `ProvisionedNetworkTypes` with values `ProvisionedNetworkTypesEsxManagement`, `ProvisionedNetworkTypesEsxReplication`, `ProvisionedNetworkTypesHcxManagement`, `ProvisionedNetworkTypesHcxUplink`, `ProvisionedNetworkTypesVcenterManagement`, `ProvisionedNetworkTypesVmotion`, `ProvisionedNetworkTypesVsan`
+- New enum type `ResourceSKUResourceType` with values `ResourceSKUResourceTypePrivateClouds`, `ResourceSKUResourceTypePrivateCloudsClusters`
+- New enum type `ResourceSKURestrictionsReasonCode` with values `ResourceSKURestrictionsReasonCodeNotAvailableForSubscription`, `ResourceSKURestrictionsReasonCodeQuotaID`
+- New enum type `ResourceSKURestrictionsType` with values `ResourceSKURestrictionsTypeLocation`, `ResourceSKURestrictionsTypeZone`
+- New enum type `SystemAssignedServiceIdentityType` with values `SystemAssignedServiceIdentityTypeNone`, `SystemAssignedServiceIdentityTypeSystemAssigned`
+- New function `*ClientFactory.NewHostsClient() *HostsClient`
+- New function `*ClientFactory.NewProvisionedNetworksClient() *ProvisionedNetworksClient`
+- New function `*ClientFactory.NewSKUsClient() *SKUsClient`
+- New function `*GeneralHostProperties.GetHostProperties() *HostProperties`
+- New function `*HostProperties.GetHostProperties() *HostProperties`
+- New function `NewHostsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HostsClient, error)`
+- New function `*HostsClient.Get(context.Context, string, string, string, string, *HostsClientGetOptions) (HostsClientGetResponse, error)`
+- New function `*HostsClient.NewListPager(string, string, string, *HostsClientListOptions) *runtime.Pager[HostsClientListResponse]`
+- New function `NewProvisionedNetworksClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ProvisionedNetworksClient, error)`
+- New function `*ProvisionedNetworksClient.Get(context.Context, string, string, string, *ProvisionedNetworksClientGetOptions) (ProvisionedNetworksClientGetResponse, error)`
+- New function `*ProvisionedNetworksClient.NewListPager(string, string, *ProvisionedNetworksClientListOptions) *runtime.Pager[ProvisionedNetworksClientListResponse]`
+- New function `NewSKUsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SKUsClient, error)`
+- New function `*SKUsClient.NewListPager(*SKUsClientListOptions) *runtime.Pager[SKUsClientListResponse]`
+- New function `*SpecializedHostProperties.GetHostProperties() *HostProperties`
+- New function `*WorkloadNetworksClient.BeginCreateSegment(context.Context, string, string, string, string, WorkloadNetworkSegment, *WorkloadNetworksClientBeginCreateSegmentOptions) (*runtime.Poller[WorkloadNetworksClientCreateSegmentResponse], error)`
+- New function `*WorkloadNetworksClient.NewListDNSServicePager(string, string, string, *WorkloadNetworksClientListDNSServiceOptions) *runtime.Pager[WorkloadNetworksClientListDNSServiceResponse]`
+- New function `*WorkloadNetworksClient.BeginUpdateSegment(context.Context, string, string, string, string, WorkloadNetworkSegment, *WorkloadNetworksClientBeginUpdateSegmentOptions) (*runtime.Poller[WorkloadNetworksClientUpdateSegmentResponse], error)`
+- New struct `GeneralHostProperties`
+- New struct `Host`
+- New struct `HostListResult`
+- New struct `PagedResourceSKU`
+- New struct `ProvisionedNetwork`
+- New struct `ProvisionedNetworkListResult`
+- New struct `ProvisionedNetworkProperties`
+- New struct `PureStorageVolume`
+- New struct `ResourceSKU`
+- New struct `ResourceSKUCapabilities`
+- New struct `ResourceSKULocationInfo`
+- New struct `ResourceSKURestrictionInfo`
+- New struct `ResourceSKURestrictions`
+- New struct `ResourceSKUZoneDetails`
+- New struct `ScriptExecutionPropertiesNamedOutput`
+- New struct `SpecializedHostProperties`
+- New field `ManagementNetwork`, `UplinkNetwork` in struct `AddonHcxProperties`
+- New field `PureStorageVolume` in struct `DatastoreProperties`
+- New field `Sku` in struct `LocationsClientCheckTrialAvailabilityOptions`
+- New field `Zones` in struct `PrivateCloud`
+
+
 ## 2.0.0 (2024-09-26)
 ### Breaking Changes
 
