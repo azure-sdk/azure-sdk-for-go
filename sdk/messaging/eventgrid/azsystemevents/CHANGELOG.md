@@ -1,5 +1,69 @@
 # Release History
 
+## 1.0.0 (2025-05-13)
+### Breaking Changes
+
+- Type of `ACSMessageDeliveryStatusUpdatedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSMessageReceivedEventData.Error` has been changed from `*Error` to `*InternalACSMessageChannelEventError`
+- Type of `ACSRouterJobClassificationFailedEventData.Errors` has been changed from `[]*Error` to `[]InternalACSRouterCommunicationError`
+
+### Features Added
+
+- New value `TypeACSCallEnded`, `TypeACSCallParticipantAdded`, `TypeACSCallParticipantRemoved`, `TypeACSCallStarted`, `TypeACSChatAzureBotCommandReceivedInThread`, `TypeACSChatTypingIndicatorReceivedInThread` added to enum type `string`
+- New enum type `ACSCallEndedByKind` with values `ACSCallEndedByKindMicrosoftInternal`, `ACSCallEndedByKindParticipant`
+- New enum type `ACSCallParticipantRoleKind` with values `ACSCallParticipantRoleKindAttendee`, `ACSCallParticipantRoleKindCollaborator`, `ACSCallParticipantRoleKindConsumer`, `ACSCallParticipantRoleKindOrganizer`, `ACSCallParticipantRoleKindPresenter`
+- New struct `ACSCallEndReasonProperties`
+- New struct `ACSCallEndedByProperties`
+- New struct `ACSCallEndedEventData`
+- New struct `ACSCallGroupProperties`
+- New struct `ACSCallParticipantAddedEventData`
+- New struct `ACSCallParticipantEventProperties`
+- New struct `ACSCallParticipantProperties`
+- New struct `ACSCallParticipantRemovedEventData`
+- New struct `ACSCallRoomProperties`
+- New struct `ACSCallStartedEventData`
+- New struct `ACSCallingEventProperties`
+- New struct `ACSChatAzureBotCommandReceivedInThreadEventData`
+- New struct `ACSChatEventBaseProperties`
+- New struct `ACSChatEventInThreadBaseProperties`
+- New struct `ACSChatMessageEventBaseProperties`
+- New struct `ACSChatMessageEventInThreadBaseProperties`
+- New struct `ACSChatThreadEventBaseProperties`
+- New struct `ACSChatThreadEventInThreadBaseProperties`
+- New struct `ACSChatTypingIndicatorReceivedInThreadEventData`
+- New struct `ACSMessageEventData`
+- New struct `ACSRouterEventData`
+- New struct `ACSRouterJobEventData`
+- New struct `ACSRouterWorkerEventData`
+- New struct `ACSSMSEventBaseProperties`
+- New struct `APIManagementCircuitBreakerClosedEventData`
+- New struct `APIManagementCircuitBreakerOpenedEventData`
+- New struct `APIManagementCircuitBreakerProperties`
+- New struct `APIManagementExpiredGatewayTokenProperties`
+- New struct `APIManagementGatewayProperties`
+- New struct `APIManagementGatewayTokenExpiredEventData`
+- New struct `APIManagementGatewayTokenNearExpiryEventData`
+- New struct `APIManagementNearExpiryGatewayTokenProperties`
+- New struct `AVSClusterEventData`
+- New struct `AVSPrivateCloudEventData`
+- New struct `AVSScriptExecutionEventData`
+- New struct `AppConfigurationSnapshotEventData`
+- New struct `ContainerRegistryArtifactEventData`
+- New struct `ContainerRegistryEventData`
+- New struct `ContainerServiceClusterSupportEventData`
+- New struct `ContainerServiceNodePoolRollingEventData`
+- New struct `DeviceConnectionStateEventProperties`
+- New struct `DeviceLifeCycleEventProperties`
+- New struct `DeviceTelemetryEventProperties`
+- New struct `EdgeSolutionVersionPublishedEventData`
+- New struct `EventGridMQTTClientEventData`
+- New struct `InternalACSMessageChannelEventError`
+- New struct `InternalACSRouterCommunicationError`
+- New struct `MapsGeofenceEventProperties`
+- New struct `ResourceNotificationsResourceDeletedEventData`
+- New struct `ResourceNotificationsResourceUpdatedEventData`
+
+
 ## 0.6.2 (2025-05-06)
 
 ### Features Added
