@@ -62,6 +62,12 @@ type ConnectionString struct {
 	Name *string
 }
 
+// DataAPIProperties - Data API properties.
+type DataAPIProperties struct {
+	// The mode to indicate whether the Mongo Data API is enabled for a cluster.
+	Mode *DataAPIMode
+}
+
 // FirewallRule - Represents a mongo cluster firewall rule.
 type FirewallRule struct {
 	// The resource-specific properties for this resource.
@@ -146,13 +152,15 @@ type MongoCluster struct {
 	Type *string
 }
 
-// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+// Operation - REST API Operation
+//
+// Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-	ActionType *ActionType
-
-	// READ-ONLY; Localized display information for this particular operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
+
+	// READ-ONLY; Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
 
 	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for Azure
 	// Resource Manager/control-plane operations.
@@ -195,9 +203,9 @@ type OperationListResult struct {
 	NextLink *string
 }
 
-// PrivateEndpoint - The Private Endpoint resource.
+// PrivateEndpoint - The private endpoint resource.
 type PrivateEndpoint struct {
-	// READ-ONLY; The resource identifier for private endpoint
+	// READ-ONLY; The resource identifier of the private endpoint
 	ID *string
 }
 
@@ -336,6 +344,9 @@ type Properties struct {
 
 	// The mode to create a mongo cluster.
 	CreateMode *CreateMode
+
+	// The Data API properties of the mongo cluster.
+	DataAPI *DataAPIProperties
 
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
@@ -491,6 +502,9 @@ type UpdateProperties struct {
 
 	// The compute properties of the mongo cluster.
 	Compute *ComputeProperties
+
+	// The Data API properties of the mongo cluster.
+	DataAPI *DataAPIProperties
 
 	// The high availability properties of the mongo cluster.
 	HighAvailability *HighAvailabilityProperties
