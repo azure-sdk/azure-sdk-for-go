@@ -1526,6 +1526,27 @@ type DefaultVirtualMachineScaleSetInfo struct {
 	DefaultVirtualMachineScaleSet *SubResource
 }
 
+// DiagnosticBase - Contains metadata of a diagnostic type
+type DiagnosticBase struct {
+	// Contains additional properties of a diagnostic
+	Properties *DiagnosticProperties
+
+	// READ-ONLY; Resource Id
+	ID *string
+
+	// READ-ONLY; Resource name
+	Name *string
+
+	// READ-ONLY; Resource type
+	Type *string
+}
+
+// DiagnosticProperties - Contains additional properties of a diagnostic
+type DiagnosticProperties struct {
+	// Describes what are the supported resource types for a diagnostic.
+	SupportedResourceTypes []*string
+}
+
 // DiagnosticsProfile - Specifies the boot diagnostic settings state. Minimum api-version: 2015-06-15.
 type DiagnosticsProfile struct {
 	// Boot Diagnostics is a debugging feature which allows you to view Console Output and Screenshot to diagnose VM status. NOTE:
@@ -2211,6 +2232,40 @@ type EncryptionSettingsElement struct {
 	// Key Vault Key Url and vault id of the key encryption key. KeyEncryptionKey is optional and when provided is used to unwrap
 	// the disk encryption key.
 	KeyEncryptionKey *KeyVaultAndKeyReference
+}
+
+// ErrorAdditionalInfo - The resource management error additional info.
+type ErrorAdditionalInfo struct {
+	// READ-ONLY; The additional info.
+	Info any
+
+	// READ-ONLY; The additional info type.
+	Type *string
+}
+
+// ErrorDetail - The error detail.
+type ErrorDetail struct {
+	// READ-ONLY; The error additional info.
+	AdditionalInfo []*ErrorAdditionalInfo
+
+	// READ-ONLY; The error code.
+	Code *string
+
+	// READ-ONLY; The error details.
+	Details []*ErrorDetail
+
+	// READ-ONLY; The error message.
+	Message *string
+
+	// READ-ONLY; The error target.
+	Target *string
+}
+
+// ErrorResponse - Common error response for all Azure Resource Manager APIs to return error details for failed operations.
+// (This also follows the OData error response format.).
+type ErrorResponse struct {
+	// The error object.
+	Error *ErrorDetail
 }
 
 // EventGridAndResourceGraph - Specifies eventGridAndResourceGraph related Scheduled Event related configurations.
@@ -4340,6 +4395,25 @@ type Placement struct {
 	ZonePlacementPolicy *ZonePlacementPolicyType
 }
 
+// PlacementScore - The spot placement score for sku/region/zone combination.
+type PlacementScore struct {
+	// The availability zone.
+	AvailabilityZone *string
+
+	// Whether the desired quota is available.
+	IsQuotaAvailable *bool
+
+	// The region.
+	Region *string
+
+	// The resource's CRP virtual machine SKU size.
+	SKU *string
+
+	// A placement score indicating the likelihood of successfully allocating the specified Spot VM(s), as well as the expected
+	// lifetimes of the Spot VM(s) after allocation.
+	Score *string
+}
+
 // Plan - Specifies information about the marketplace image used to create the virtual machine. This element is only used
 // for marketplace images. Before you can use a marketplace image from an API, you must
 // enable the image for programmatic use. In the Azure portal, find the marketplace image that you want to use and then click
@@ -4923,6 +4997,12 @@ type ResourceSharingProfile struct {
 	// 2023-09-01. Please refer to https://aka.ms/computereservationsharing for more
 	// details.
 	SubscriptionIDs []*SubResource
+}
+
+// ResourceSize - SpotPlacementRecommender API response.
+type ResourceSize struct {
+	// The resource's CRP virtual machine SKU size.
+	SKU *string
 }
 
 // ResourceURIList - The List resources which are encrypted with the disk encryption set.
@@ -6139,6 +6219,40 @@ type SoftDeletePolicy struct {
 type SourceVault struct {
 	// Resource Id
 	ID *string
+}
+
+// SpotPlacementScoresInput - SpotPlacementScores API Input.
+type SpotPlacementScoresInput struct {
+	// Defines if the scope is zonal or regional.
+	AvailabilityZones *bool
+
+	// Desired instance count per region/zone based on the scope.
+	DesiredCount *int32
+
+	// The desired regions
+	DesiredLocations []*string
+
+	// The desired virtual machine SKU sizes.
+	DesiredSizes []*ResourceSize
+}
+
+// SpotPlacementScoresResponse - SpotPlacementScores API response.
+type SpotPlacementScoresResponse struct {
+	// Defines if the scope is zonal or regional.
+	AvailabilityZones *bool
+
+	// Desired instance count per region/zone based on the scope.
+	DesiredCount *int32
+
+	// The desired regions
+	DesiredLocations []*string
+
+	// The desired virtual machine SKU sizes.
+	DesiredSizes []*ResourceSize
+
+	// A placement score indicating the likelihood of successfully allocating the specified Spot VM(s), as well as the expected
+	// lifetimes of the Spot VM(s) after allocation.
+	PlacementScores []*PlacementScore
 }
 
 // SpotRestorePolicy - Specifies the Spot-Try-Restore properties for the virtual machine scale set. With this property customer

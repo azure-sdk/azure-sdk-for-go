@@ -337,6 +337,14 @@ func (c *ClientFactory) NewSoftDeletedResourceClient() *SoftDeletedResourceClien
 	}
 }
 
+// NewSpotPlacementScoresClient creates a new instance of SpotPlacementScoresClient.
+func (c *ClientFactory) NewSpotPlacementScoresClient() *SpotPlacementScoresClient {
+	return &SpotPlacementScoresClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewUsageClient creates a new instance of UsageClient.
 func (c *ClientFactory) NewUsageClient() *UsageClient {
 	return &UsageClient{
