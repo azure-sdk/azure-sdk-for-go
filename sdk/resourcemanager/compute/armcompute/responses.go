@@ -1105,6 +1105,18 @@ type SoftDeletedResourceClientListByArtifactNameResponse struct {
 	GallerySoftDeletedResourceList
 }
 
+// SpotPlacementScoresClientGetResponse contains the response from method SpotPlacementScoresClient.Get.
+type SpotPlacementScoresClientGetResponse struct {
+	// Contains metadata of a diagnostic type
+	DiagnosticBase
+}
+
+// SpotPlacementScoresClientPostResponse contains the response from method SpotPlacementScoresClient.Post.
+type SpotPlacementScoresClientPostResponse struct {
+	// SpotPlacementScores API response.
+	SpotPlacementScoresResponse
+}
+
 // UsageClientListResponse contains the response from method UsageClient.NewListPager.
 type UsageClientListResponse struct {
 	// The List Usages operation response.

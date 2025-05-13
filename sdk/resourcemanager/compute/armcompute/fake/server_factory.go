@@ -130,6 +130,9 @@ type ServerFactory struct {
 	// SoftDeletedResourceServer contains the fakes for client SoftDeletedResourceClient
 	SoftDeletedResourceServer SoftDeletedResourceServer
 
+	// SpotPlacementScoresServer contains the fakes for client SpotPlacementScoresClient
+	SpotPlacementScoresServer SpotPlacementScoresServer
+
 	// UsageServer contains the fakes for client UsageClient
 	UsageServer UsageServer
 
@@ -225,6 +228,7 @@ type ServerFactoryTransport struct {
 	trSharedGalleryImagesServer                     *SharedGalleryImagesServerTransport
 	trSnapshotsServer                               *SnapshotsServerTransport
 	trSoftDeletedResourceServer                     *SoftDeletedResourceServerTransport
+	trSpotPlacementScoresServer                     *SpotPlacementScoresServerTransport
 	trUsageServer                                   *UsageServerTransport
 	trVirtualMachineExtensionImagesServer           *VirtualMachineExtensionImagesServerTransport
 	trVirtualMachineExtensionsServer                *VirtualMachineExtensionsServerTransport
@@ -428,6 +432,11 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 			return NewSoftDeletedResourceServerTransport(&s.srv.SoftDeletedResourceServer)
 		})
 		resp, err = s.trSoftDeletedResourceServer.Do(req)
+	case "SpotPlacementScoresClient":
+		initServer(s, &s.trSpotPlacementScoresServer, func() *SpotPlacementScoresServerTransport {
+			return NewSpotPlacementScoresServerTransport(&s.srv.SpotPlacementScoresServer)
+		})
+		resp, err = s.trSpotPlacementScoresServer.Do(req)
 	case "UsageClient":
 		initServer(s, &s.trUsageServer, func() *UsageServerTransport { return NewUsageServerTransport(&s.srv.UsageServer) })
 		resp, err = s.trUsageServer.Do(req)

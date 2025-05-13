@@ -1,5 +1,23 @@
 # Release History
 
+## 6.5.0 (2025-05-13)
+### Features Added
+
+- New function `*ClientFactory.NewSpotPlacementScoresClient() *SpotPlacementScoresClient`
+- New function `NewSpotPlacementScoresClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SpotPlacementScoresClient, error)`
+- New function `*SpotPlacementScoresClient.Get(context.Context, string, *SpotPlacementScoresClientGetOptions) (SpotPlacementScoresClientGetResponse, error)`
+- New function `*SpotPlacementScoresClient.Post(context.Context, string, SpotPlacementScoresInput, *SpotPlacementScoresClientPostOptions) (SpotPlacementScoresClientPostResponse, error)`
+- New struct `DiagnosticBase`
+- New struct `DiagnosticProperties`
+- New struct `ErrorAdditionalInfo`
+- New struct `ErrorDetail`
+- New struct `ErrorResponse`
+- New struct `PlacementScore`
+- New struct `ResourceSize`
+- New struct `SpotPlacementScoresInput`
+- New struct `SpotPlacementScoresResponse`
+
+
 ## 6.4.0 (2025-03-28)
 ### Features Added
 

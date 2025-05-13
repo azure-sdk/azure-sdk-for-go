@@ -1174,6 +1174,16 @@ type SoftDeletedResourceClientListByArtifactNameOptions struct {
 	// placeholder for future optional parameters
 }
 
+// SpotPlacementScoresClientGetOptions contains the optional parameters for the SpotPlacementScoresClient.Get method.
+type SpotPlacementScoresClientGetOptions struct {
+	// placeholder for future optional parameters
+}
+
+// SpotPlacementScoresClientPostOptions contains the optional parameters for the SpotPlacementScoresClient.Post method.
+type SpotPlacementScoresClientPostOptions struct {
+	// placeholder for future optional parameters
+}
+
 // UsageClientListOptions contains the optional parameters for the UsageClient.NewListPager method.
 type UsageClientListOptions struct {
 	// placeholder for future optional parameters
