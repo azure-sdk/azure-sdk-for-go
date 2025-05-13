@@ -1,0 +1,4 @@
+directory: specification/marketplacecatalog/Reviews.Management
+commit: 9b584023f8d55b3995c778d1ad3839eb3191e8d6
+repo: Azure/azure-rest-api-specs
+additionalDirectories: 
