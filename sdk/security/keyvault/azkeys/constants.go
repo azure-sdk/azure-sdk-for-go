@@ -4,7 +4,7 @@
 
 package azkeys
 
-// CurveName - Elliptic curve name.
+// CurveName - Elliptic curve name. For valid values, see JsonWebKeyCurveName.
 type CurveName string
 
 const (
@@ -25,6 +25,59 @@ func PossibleCurveNameValues() []CurveName {
 		CurveNameP256K,
 		CurveNameP384,
 		CurveNameP521,
+	}
+}
+
+// DeletionRecoveryLevel - Reflects the deletion recovery level currently in effect for certificates in the current vault.
+// If it contains 'Purgeable', the certificate can be permanently deleted by a privileged user; otherwise, only the system
+// can purge the certificate, at the end of the retention interval.
+type DeletionRecoveryLevel string
+
+const (
+	// DeletionRecoveryLevelCustomizedRecoverable - Denotes a vault state in which deletion is recoverable without the possibility
+	// for immediate and permanent deletion (i.e. purge when 7 <= SoftDeleteRetentionInDays < 90).This level guarantees the recoverability
+	// of the deleted entity during the retention interval and while the subscription is still available.
+	DeletionRecoveryLevelCustomizedRecoverable DeletionRecoveryLevel = "CustomizedRecoverable"
+	// DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription - Denotes a vault and subscription state in which deletion
+	// is recoverable, immediate and permanent deletion (i.e. purge) is not permitted, and in which the subscription itself cannot
+	// be permanently canceled when 7 <= SoftDeleteRetentionInDays < 90. This level guarantees the recoverability of the deleted
+	// entity during the retention interval, and also reflects the fact that the subscription itself cannot be cancelled.
+	DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription DeletionRecoveryLevel = "CustomizedRecoverable+ProtectedSubscription"
+	// DeletionRecoveryLevelCustomizedRecoverablePurgeable - Denotes a vault state in which deletion is recoverable, and which
+	// also permits immediate and permanent deletion (i.e. purge when 7 <= SoftDeleteRetentionInDays < 90). This level guarantees
+	// the recoverability of the deleted entity during the retention interval, unless a Purge operation is requested, or the subscription
+	// is cancelled.
+	DeletionRecoveryLevelCustomizedRecoverablePurgeable DeletionRecoveryLevel = "CustomizedRecoverable+Purgeable"
+	// DeletionRecoveryLevelPurgeable - Denotes a vault state in which deletion is an irreversible operation, without the possibility
+	// for recovery. This level corresponds to no protection being available against a Delete operation; the data is irretrievably
+	// lost upon accepting a Delete operation at the entity level or higher (vault, resource group, subscription etc.)
+	DeletionRecoveryLevelPurgeable DeletionRecoveryLevel = "Purgeable"
+	// DeletionRecoveryLevelRecoverable - Denotes a vault state in which deletion is recoverable without the possibility for immediate
+	// and permanent deletion (i.e. purge). This level guarantees the recoverability of the deleted entity during the retention
+	// interval(90 days) and while the subscription is still available. System wil permanently delete it after 90 days, if not
+	// recovered
+	DeletionRecoveryLevelRecoverable DeletionRecoveryLevel = "Recoverable"
+	// DeletionRecoveryLevelRecoverableProtectedSubscription - Denotes a vault and subscription state in which deletion is recoverable
+	// within retention interval (90 days), immediate and permanent deletion (i.e. purge) is not permitted, and in which the subscription
+	// itself cannot be permanently canceled. System wil permanently delete it after 90 days, if not recovered
+	DeletionRecoveryLevelRecoverableProtectedSubscription DeletionRecoveryLevel = "Recoverable+ProtectedSubscription"
+	// DeletionRecoveryLevelRecoverablePurgeable - Denotes a vault state in which deletion is recoverable, and which also permits
+	// immediate and permanent deletion (i.e. purge). This level guarantees the recoverability of the deleted entity during the
+	// retention interval (90 days), unless a Purge operation is requested, or the subscription is cancelled. System wil permanently
+	// delete it after 90 days, if not recovered
+	DeletionRecoveryLevelRecoverablePurgeable DeletionRecoveryLevel = "Recoverable+Purgeable"
+)
+
+// PossibleDeletionRecoveryLevelValues returns the possible values for the DeletionRecoveryLevel const type.
+func PossibleDeletionRecoveryLevelValues() []DeletionRecoveryLevel {
+	return []DeletionRecoveryLevel{
+		DeletionRecoveryLevelCustomizedRecoverable,
+		DeletionRecoveryLevelCustomizedRecoverableProtectedSubscription,
+		DeletionRecoveryLevelCustomizedRecoverablePurgeable,
+		DeletionRecoveryLevelPurgeable,
+		DeletionRecoveryLevelRecoverable,
+		DeletionRecoveryLevelRecoverableProtectedSubscription,
+		DeletionRecoveryLevelRecoverablePurgeable,
 	}
 }
 
@@ -120,7 +173,7 @@ func PossibleKeyEncryptionAlgorithmValues() []KeyEncryptionAlgorithm {
 	}
 }
 
-// KeyOperation - JSON web key operations.
+// KeyOperation - JSON web key operations. For more information, see JsonWebKeyOperation.
 type KeyOperation string
 
 const (
@@ -128,7 +181,8 @@ const (
 	KeyOperationDecrypt KeyOperation = "decrypt"
 	// KeyOperationEncrypt - Indicates that the key can be used to encrypt.
 	KeyOperationEncrypt KeyOperation = "encrypt"
-
+	// KeyOperationExport - Indicates that the private component of the key can be exported.
+	KeyOperationExport KeyOperation = "export"
 	// KeyOperationImport - Indicates that the key can be imported during creation.
 	KeyOperationImport KeyOperation = "import"
 	// KeyOperationSign - Indicates that the key can be used to sign.
@@ -146,7 +200,7 @@ func PossibleKeyOperationValues() []KeyOperation {
 	return []KeyOperation{
 		KeyOperationDecrypt,
 		KeyOperationEncrypt,
-
+		KeyOperationExport,
 		KeyOperationImport,
 		KeyOperationSign,
 		KeyOperationUnwrapKey,
@@ -203,7 +257,8 @@ func PossibleKeyTypeValues() []KeyType {
 	}
 }
 
-// SignatureAlgorithm - The signing/verification algorithm identifier.
+// SignatureAlgorithm - The signing/verification algorithm identifier. For more information on possible algorithm types, see
+// JsonWebKeySignatureAlgorithm.
 type SignatureAlgorithm string
 
 const (
@@ -233,6 +288,8 @@ const (
 	SignatureAlgorithmRS384 SignatureAlgorithm = "RS384"
 	// SignatureAlgorithmRS512 - RSASSA-PKCS1-v1_5 using SHA-512, as described in https://tools.ietf.org/html/rfc7518
 	SignatureAlgorithmRS512 SignatureAlgorithm = "RS512"
+	// SignatureAlgorithmRSNULL - Reserved
+	SignatureAlgorithmRSNULL SignatureAlgorithm = "RSNULL"
 )
 
 // PossibleSignatureAlgorithmValues returns the possible values for the SignatureAlgorithm const type.
@@ -251,5 +308,6 @@ func PossibleSignatureAlgorithmValues() []SignatureAlgorithm {
 		SignatureAlgorithmRS256,
 		SignatureAlgorithmRS384,
 		SignatureAlgorithmRS512,
+		SignatureAlgorithmRSNULL,
 	}
 }
