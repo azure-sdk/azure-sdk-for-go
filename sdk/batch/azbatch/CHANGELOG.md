@@ -1,5 +1,399 @@
 # Release History
 
+## 1.0.0 (2025-05-13)
+### Breaking Changes
+
+- Function `*Client.CreateJob` parameter(s) have been changed from `(context.Context, CreateJobContent, *CreateJobOptions)` to `(context.Context, CreateJobOptions, *CreateJobOptions)`
+- Function `*Client.CreateJobSchedule` parameter(s) have been changed from `(context.Context, CreateJobScheduleContent, *CreateJobScheduleOptions)` to `(context.Context, CreateJobScheduleOptions, *CreateJobScheduleOptions)`
+- Function `*Client.CreateNodeUser` parameter(s) have been changed from `(context.Context, string, string, CreateNodeUserContent, *CreateNodeUserOptions)` to `(context.Context, string, string, CreateNodeUserOptions, *CreateNodeUserOptions)`
+- Function `*Client.CreatePool` parameter(s) have been changed from `(context.Context, CreatePoolContent, *CreatePoolOptions)` to `(context.Context, CreatePoolOptions, *CreatePoolOptions)`
+- Function `*Client.CreateTask` parameter(s) have been changed from `(context.Context, string, CreateTaskContent, *CreateTaskOptions)` to `(context.Context, string, CreateTaskOptions, *CreateTaskOptions)`
+- Function `*Client.DisableJob` parameter(s) have been changed from `(context.Context, string, DisableJobContent, *DisableJobOptions)` to `(context.Context, string, DisableJobOptions, *DisableJobOptions)`
+- Function `*Client.EnablePoolAutoScale` parameter(s) have been changed from `(context.Context, string, EnablePoolAutoScaleContent, *EnablePoolAutoScaleOptions)` to `(context.Context, string, EnablePoolAutoScaleOptions, *EnablePoolAutoScaleOptions)`
+- Function `*Client.EvaluatePoolAutoScale` parameter(s) have been changed from `(context.Context, string, EvaluatePoolAutoScaleContent, *EvaluatePoolAutoScaleOptions)` to `(context.Context, string, EvaluatePoolAutoScaleOptions, *EvaluatePoolAutoScaleOptions)`
+- Function `*Client.RemoveNodes` parameter(s) have been changed from `(context.Context, string, RemoveNodeContent, *RemoveNodesOptions)` to `(context.Context, string, RemoveNodeOptions, *RemoveNodesOptions)`
+- Function `*Client.ReplaceNodeUser` parameter(s) have been changed from `(context.Context, string, string, string, UpdateNodeUserContent, *ReplaceNodeUserOptions)` to `(context.Context, string, string, string, UpdateNodeUserOptions, *ReplaceNodeUserOptions)`
+- Function `*Client.ReplacePoolProperties` parameter(s) have been changed from `(context.Context, string, ReplacePoolContent, *ReplacePoolPropertiesOptions)` to `(context.Context, string, ReplacePoolOptions, *ReplacePoolPropertiesOptions)`
+- Function `*Client.ResizePool` parameter(s) have been changed from `(context.Context, string, ResizePoolContent, *ResizePoolOptions)` to `(context.Context, string, ResizePoolOptions, *ResizePoolOptions)`
+- Function `*Client.UpdateJob` parameter(s) have been changed from `(context.Context, string, UpdateJobContent, *UpdateJobOptions)` to `(context.Context, string, UpdateJobOptions, *UpdateJobOptions)`
+- Function `*Client.UpdateJobSchedule` parameter(s) have been changed from `(context.Context, string, UpdateJobScheduleContent, *UpdateJobScheduleOptions)` to `(context.Context, string, UpdateJobScheduleOptions, *UpdateJobScheduleOptions)`
+- Function `*Client.UpdatePool` parameter(s) have been changed from `(context.Context, string, UpdatePoolContent, *UpdatePoolOptions)` to `(context.Context, string, UpdatePoolOptions, *UpdatePoolOptions)`
+- Function `*Client.UploadNodeLogs` parameter(s) have been changed from `(context.Context, string, string, UploadNodeLogsContent, *UploadNodeLogsOptions)` to `(context.Context, string, string, UploadNodeLogsOptions, *UploadNodeLogsOptions)`
+- Type of `CancelCertificateDeletionResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `Certificate.Data` has been changed from `*string` to `[]byte`
+- Type of `CreateCertificateResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreateJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreateJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreateNodeUserResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreatePoolResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreateTaskCollectionResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `CreateTaskResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeallocateNodeOptions.Parameters` has been changed from `*DeallocateNodeContent` to `*DeallocateNodeOptions`
+- Type of `DeallocateNodeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteCertificateResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeletePoolOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeletePoolOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteTaskOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DeleteTaskOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisableNodeSchedulingOptions.Parameters` has been changed from `*DisableNodeSchedulingContent` to `*DisableNodeSchedulingOptions`
+- Type of `DisableNodeSchedulingResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `DisablePoolAutoScaleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnableNodeSchedulingResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnablePoolAutoScaleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnablePoolAutoScaleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `EnablePoolAutoScaleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `EvaluatePoolAutoScaleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ExitOptions.JobAction` has been changed from `*JobAction` to `*JobActionKind`
+- Type of `GetApplicationResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetCertificateResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetJobTaskCountsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetNodeExtensionResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetNodeFilePropertiesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetNodeFileResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetNodeRemoteLoginSettingsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetNodeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetPoolOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetPoolOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetPoolResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetTaskFilePropertiesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetTaskFileResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetTaskOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetTaskOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `GetTaskResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `JobScheduleExistsOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `JobScheduleExistsOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `JobScheduleExistsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `JobSchedulingError.Category` has been changed from `*ErrorCategory` to `*ErrorSourceCategory`
+- Type of `ListApplicationsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListCertificatesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListJobPreparationAndReleaseTaskStatusResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListJobSchedulesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListJobsFromScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListJobsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListNodeExtensionsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListNodeFilesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListNodesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListPoolNodeCountsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListPoolsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListSubTasksResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListSupportedImagesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListTaskFilesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ListTasksResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `OutputFileBlobContainerDestination.UploadHeaders` has been changed from `[]HTTPHeader` to `[]OutputFileUploadHeader`
+- Type of `PoolExistsOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `PoolExistsOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `PoolExistsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReactivateTaskOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReactivateTaskOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReactivateTaskResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `RebootNodeOptions.Parameters` has been changed from `*RebootNodeContent` to `*RebootNodeOptions`
+- Type of `RebootNodeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReimageNodeOptions.Parameters` has been changed from `*ReimageNodeContent` to `*ReimageNodeOptions`
+- Type of `ReimageNodeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `RemoveNodesOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `RemoveNodesOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `RemoveNodesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceNodeUserResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplacePoolPropertiesResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceTaskOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceTaskOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ReplaceTaskResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `ResizePoolOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ResizePoolOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `ResizePoolResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `StartNodeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `StopPoolResizeOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `StopPoolResizeOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `StopPoolResizeResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `SupportedImage.ImageReference` has been changed from `*ImageReference` to `*VMImageReference`
+- Type of `TaskFailureInfo.Category` has been changed from `*ErrorCategory` to `*ErrorSourceCategory`
+- Type of `TerminateJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateJobOptions.Parameters` has been changed from `*TerminateJobContent` to `*TerminateJobOptions`
+- Type of `TerminateJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateTaskOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateTaskOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `TerminateTaskResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobScheduleOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobScheduleOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdateJobScheduleResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdatePoolOptions.IfMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdatePoolOptions.IfNoneMatch` has been changed from `*azcore.ETag` to `*string`
+- Type of `UpdatePoolResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `UploadNodeLogsResponse.ETag` has been changed from `*azcore.ETag` to `*string`
+- Type of `VirtualMachineConfiguration.ImageReference` has been changed from `*ImageReference` to `*VMImageReference`
+- Type of `VirtualMachineInfo.ImageReference` has been changed from `*ImageReference` to `*VMImageReference`
+- Enum `ErrorCategory` has been removed
+- Enum `JobAction` has been removed
+- Enum `NodeRebootOption` has been removed
+- Enum `OnAllTasksComplete` has been removed
+- Enum `OnTaskFailure` has been removed
+- Struct `AddTaskCollectionResult` has been removed
+- Struct `CreateJobContent` has been removed
+- Struct `CreateJobScheduleContent` has been removed
+- Struct `CreateNodeUserContent` has been removed
+- Struct `CreatePoolContent` has been removed
+- Struct `CreateTaskContent` has been removed
+- Struct `DeallocateNodeContent` has been removed
+- Struct `DisableJobContent` has been removed
+- Struct `DisableNodeSchedulingContent` has been removed
+- Struct `EnablePoolAutoScaleContent` has been removed
+- Struct `EvaluatePoolAutoScaleContent` has been removed
+- Struct `HTTPHeader` has been removed
+- Struct `ImageReference` has been removed
+- Struct `OSDisk` has been removed
+- Struct `RebootNodeContent` has been removed
+- Struct `ReimageNodeContent` has been removed
+- Struct `RemoveNodeContent` has been removed
+- Struct `ReplacePoolContent` has been removed
+- Struct `ResizePoolContent` has been removed
+- Struct `TaskAddResult` has been removed
+- Struct `TerminateJobContent` has been removed
+- Struct `UpdateJobContent` has been removed
+- Struct `UpdateJobScheduleContent` has been removed
+- Struct `UpdateNodeUserContent` has been removed
+- Struct `UpdatePoolContent` has been removed
+- Struct `UploadNodeLogsContent` has been removed
+- Field `OCPDate` of struct `CancelCertificateDeletionOptions` has been removed
+- Field `OCPDate` of struct `CreateCertificateOptions` has been removed
+- Field `OCPDate` of struct `CreateJobOptions` has been removed
+- Field `OCPDate` of struct `CreateJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `CreateNodeUserOptions` has been removed
+- Field `OCPDate` of struct `CreatePoolOptions` has been removed
+- Field `OCPDate` of struct `CreateTaskCollectionOptions` has been removed
+- Field `AddTaskCollectionResult` of struct `CreateTaskCollectionResponse` has been removed
+- Field `OCPDate` of struct `CreateTaskOptions` has been removed
+- Field `OCPDate` of struct `DeallocateNodeOptions` has been removed
+- Field `OCPDate` of struct `DeleteCertificateOptions` has been removed
+- Field `OCPDate` of struct `DeleteJobOptions` has been removed
+- Field `OCPDate` of struct `DeleteJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `DeleteNodeFileOptions` has been removed
+- Field `OCPDate` of struct `DeleteNodeUserOptions` has been removed
+- Field `OCPDate` of struct `DeletePoolOptions` has been removed
+- Field `OCPDate` of struct `DeleteTaskFileOptions` has been removed
+- Field `OCPDate` of struct `DeleteTaskOptions` has been removed
+- Field `OCPDate` of struct `DisableJobOptions` has been removed
+- Field `OCPDate` of struct `DisableJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `DisableNodeSchedulingOptions` has been removed
+- Field `OCPDate` of struct `DisablePoolAutoScaleOptions` has been removed
+- Field `OCPDate` of struct `EnableJobOptions` has been removed
+- Field `OCPDate` of struct `EnableJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `EnableNodeSchedulingOptions` has been removed
+- Field `OCPDate` of struct `EnablePoolAutoScaleOptions` has been removed
+- Field `OCPDate` of struct `EvaluatePoolAutoScaleOptions` has been removed
+- Field `OCPDate` of struct `GetApplicationOptions` has been removed
+- Field `OCPDate` of struct `GetCertificateOptions` has been removed
+- Field `OCPDate` of struct `GetJobOptions` has been removed
+- Field `OCPDate` of struct `GetJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `GetJobTaskCountsOptions` has been removed
+- Field `OCPDate` of struct `GetNodeExtensionOptions` has been removed
+- Field `OCPDate`, `OCPRange` of struct `GetNodeFileOptions` has been removed
+- Field `OCPDate` of struct `GetNodeFilePropertiesOptions` has been removed
+- Field `OCPBatchFileIsDirectory`, `OCPBatchFileMode`, `OCPBatchFileURL`, `OCPCreationTime` of struct `GetNodeFilePropertiesResponse` has been removed
+- Field `OCPBatchFileIsDirectory`, `OCPBatchFileMode`, `OCPBatchFileURL`, `OCPCreationTime` of struct `GetNodeFileResponse` has been removed
+- Field `OCPDate` of struct `GetNodeOptions` has been removed
+- Field `OCPDate` of struct `GetNodeRemoteLoginSettingsOptions` has been removed
+- Field `OCPDate` of struct `GetPoolOptions` has been removed
+- Field `OCPDate`, `OCPRange` of struct `GetTaskFileOptions` has been removed
+- Field `OCPDate` of struct `GetTaskFilePropertiesOptions` has been removed
+- Field `OCPBatchFileIsDirectory`, `OCPBatchFileMode`, `OCPBatchFileURL`, `OCPCreationTime` of struct `GetTaskFilePropertiesResponse` has been removed
+- Field `OCPBatchFileIsDirectory`, `OCPBatchFileMode`, `OCPBatchFileURL`, `OCPCreationTime` of struct `GetTaskFileResponse` has been removed
+- Field `OCPDate` of struct `GetTaskOptions` has been removed
+- Field `OnAllTasksComplete`, `OnTaskFailure`, `Stats` of struct `Job` has been removed
+- Field `SkipWithdrawFromVNet` of struct `JobNetworkConfiguration` has been removed
+- Field `Stats` of struct `JobSchedule` has been removed
+- Field `OCPDate` of struct `JobScheduleExistsOptions` has been removed
+- Field `NumFailedTasks`, `NumSucceededTasks`, `NumTaskRetries`, `ReadIOGiB`, `WriteIOGiB` of struct `JobScheduleStatistics` has been removed
+- Field `OnAllTasksComplete`, `OnTaskFailure` of struct `JobSpecification` has been removed
+- Field `NumFailedTasks`, `NumSucceededTasks`, `NumTaskRetries`, `ReadIOGiB`, `ReadIOps`, `WriteIOGiB`, `WriteIOps` of struct `JobStatistics` has been removed
+- Field `OCPDate` of struct `ListApplicationsOptions` has been removed
+- Field `OCPDate` of struct `ListCertificatesOptions` has been removed
+- Field `OCPDate` of struct `ListJobPreparationAndReleaseTaskStatusOptions` has been removed
+- Field `OCPDate` of struct `ListJobSchedulesOptions` has been removed
+- Field `OCPDate` of struct `ListJobsFromScheduleOptions` has been removed
+- Field `OCPDate` of struct `ListJobsOptions` has been removed
+- Field `OCPDate` of struct `ListNodeExtensionsOptions` has been removed
+- Field `OCPDate` of struct `ListNodeFilesOptions` has been removed
+- Field `OCPDate` of struct `ListNodesOptions` has been removed
+- Field `OCPDate` of struct `ListPoolNodeCountsOptions` has been removed
+- Field `OCPDate` of struct `ListPoolsOptions` has been removed
+- Field `OCPDate` of struct `ListSubTasksOptions` has been removed
+- Field `OCPDate` of struct `ListSupportedImagesOptions` has been removed
+- Field `OCPDate` of struct `ListTaskFilesOptions` has been removed
+- Field `OCPDate` of struct `ListTasksOptions` has been removed
+- Field `DynamicVNetAssignmentScope` of struct `NetworkConfiguration` has been removed
+- Field `Stats` of struct `Pool` has been removed
+- Field `OCPDate` of struct `PoolExistsOptions` has been removed
+- Field `ResourceStats`, `UsageStats` of struct `PoolStatistics` has been removed
+- Field `OCPDate` of struct `ReactivateTaskOptions` has been removed
+- Field `OCPDate` of struct `RebootNodeOptions` has been removed
+- Field `OCPDate` of struct `ReimageNodeOptions` has been removed
+- Field `OCPDate` of struct `RemoveNodesOptions` has been removed
+- Field `OCPDate` of struct `ReplaceJobOptions` has been removed
+- Field `OCPDate` of struct `ReplaceJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `ReplaceNodeUserOptions` has been removed
+- Field `OCPDate` of struct `ReplacePoolPropertiesOptions` has been removed
+- Field `OCPDate` of struct `ReplaceTaskOptions` has been removed
+- Field `OCPDate` of struct `ResizePoolOptions` has been removed
+- Field `OCPDate` of struct `StartNodeOptions` has been removed
+- Field `OCPDate` of struct `StopPoolResizeOptions` has been removed
+- Field `Stats` of struct `Task` has been removed
+- Field `Value` of struct `TaskGroup` has been removed
+- Field `ReadIOGiB`, `WriteIOGiB` of struct `TaskStatistics` has been removed
+- Field `OCPDate` of struct `TerminateJobOptions` has been removed
+- Field `OCPDate` of struct `TerminateJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `TerminateTaskOptions` has been removed
+- Field `OCPDate` of struct `UpdateJobOptions` has been removed
+- Field `OCPDate` of struct `UpdateJobScheduleOptions` has been removed
+- Field `OCPDate` of struct `UpdatePoolOptions` has been removed
+- Field `OCPDate` of struct `UploadNodeLogsOptions` has been removed
+- Field `OSDisk` of struct `VirtualMachineConfiguration` has been removed
+
+### Features Added
+
+- New enum type `AllTasksCompleteMode` with values `AllTasksCompleteModeNoAction`, `AllTasksCompleteModeTerminateJob`
+- New enum type `ErrorSourceCategory` with values `ErrorSourceCategoryServerError`, `ErrorSourceCategoryUserError`
+- New enum type `JobActionKind` with values `JobActionKindDisable`, `JobActionKindNone`, `JobActionKindTerminate`
+- New enum type `NodeRebootKind` with values `NodeRebootKindRequeue`, `NodeRebootKindRetainedData`, `NodeRebootKindTaskCompletion`, `NodeRebootKindTerminate`
+- New enum type `TaskFailureMode` with values `TaskFailureModeNoAction`, `TaskFailureModePerformExitOptionsJobAction`
+- New struct `CreateTaskCollectionResult`
+- New struct `OsDisk`
+- New struct `OutputFileUploadHeader`
+- New struct `RemoveNodeOptions`
+- New struct `ReplacePoolOptions`
+- New struct `TaskCreateResult`
+- New struct `UpdateNodeUserOptions`
+- New struct `VMImageReference`
+- New field `Ocpdate` in struct `CancelCertificateDeletionOptions`
+- New field `Ocpdate` in struct `CreateCertificateOptions`
+- New field `Ocpdate` in struct `CreateJobOptions`
+- New field `Ocpdate` in struct `CreateJobScheduleOptions`
+- New field `Ocpdate` in struct `CreateNodeUserOptions`
+- New field `Ocpdate` in struct `CreatePoolOptions`
+- New field `Ocpdate` in struct `CreateTaskCollectionOptions`
+- New anonymous field `CreateTaskCollectionResult` in struct `CreateTaskCollectionResponse`
+- New field `Ocpdate` in struct `CreateTaskOptions`
+- New field `Ocpdate` in struct `DeallocateNodeOptions`
+- New field `Ocpdate` in struct `DeleteCertificateOptions`
+- New field `Ocpdate` in struct `DeleteJobOptions`
+- New field `Ocpdate` in struct `DeleteJobScheduleOptions`
+- New field `Ocpdate` in struct `DeleteNodeFileOptions`
+- New field `Ocpdate` in struct `DeleteNodeUserOptions`
+- New field `Ocpdate` in struct `DeletePoolOptions`
+- New field `Ocpdate` in struct `DeleteTaskFileOptions`
+- New field `Ocpdate` in struct `DeleteTaskOptions`
+- New field `Ocpdate` in struct `DisableJobOptions`
+- New field `Ocpdate` in struct `DisableJobScheduleOptions`
+- New field `Ocpdate` in struct `DisableNodeSchedulingOptions`
+- New field `Ocpdate` in struct `DisablePoolAutoScaleOptions`
+- New field `Ocpdate` in struct `EnableJobOptions`
+- New field `Ocpdate` in struct `EnableJobScheduleOptions`
+- New field `Ocpdate` in struct `EnableNodeSchedulingOptions`
+- New field `Ocpdate` in struct `EnablePoolAutoScaleOptions`
+- New field `Ocpdate` in struct `EvaluatePoolAutoScaleOptions`
+- New field `Ocpdate` in struct `GetApplicationOptions`
+- New field `Ocpdate` in struct `GetCertificateOptions`
+- New field `Ocpdate` in struct `GetJobOptions`
+- New field `Ocpdate` in struct `GetJobScheduleOptions`
+- New field `Ocpdate` in struct `GetJobTaskCountsOptions`
+- New field `Ocpdate` in struct `GetNodeExtensionOptions`
+- New field `OcpRange`, `Ocpdate` in struct `GetNodeFileOptions`
+- New field `Ocpdate` in struct `GetNodeFilePropertiesOptions`
+- New field `OcpBatchFileIsdirectory`, `OcpBatchFileMode`, `OcpBatchFileURL`, `OcpCreationTime` in struct `GetNodeFilePropertiesResponse`
+- New field `OcpBatchFileIsdirectory`, `OcpBatchFileMode`, `OcpBatchFileURL`, `OcpCreationTime` in struct `GetNodeFileResponse`
+- New field `Ocpdate` in struct `GetNodeOptions`
+- New field `Ocpdate` in struct `GetNodeRemoteLoginSettingsOptions`
+- New field `Ocpdate` in struct `GetPoolOptions`
+- New field `OcpRange`, `Ocpdate` in struct `GetTaskFileOptions`
+- New field `Ocpdate` in struct `GetTaskFilePropertiesOptions`
+- New field `OcpBatchFileIsdirectory`, `OcpBatchFileMode`, `OcpBatchFileURL`, `OcpCreationTime` in struct `GetTaskFilePropertiesResponse`
+- New field `OcpBatchFileIsdirectory`, `OcpBatchFileMode`, `OcpBatchFileURL`, `OcpCreationTime` in struct `GetTaskFileResponse`
+- New field `Ocpdate` in struct `GetTaskOptions`
+- New field `AllTasksCompleteMode`, `JobStatistics`, `TaskFailureMode` in struct `Job`
+- New field `SkipWithdrawFromVnet` in struct `JobNetworkConfiguration`
+- New field `JobScheduleStatistics` in struct `JobSchedule`
+- New field `Ocpdate` in struct `JobScheduleExistsOptions`
+- New field `FailedTasksCount`, `ReadIoGiB`, `SucceededTasksCount`, `TaskRetriesCount`, `WriteIoGiB` in struct `JobScheduleStatistics`
+- New field `AllTasksCompleteMode`, `TaskFailureMode` in struct `JobSpecification`
+- New field `FailedTasksCount`, `ReadIoGiB`, `ReadIops`, `SucceededTasksCount`, `TaskRetriesCount`, `WriteIoGiB`, `WriteIops` in struct `JobStatistics`
+- New field `Ocpdate` in struct `ListApplicationsOptions`
+- New field `Ocpdate` in struct `ListCertificatesOptions`
+- New field `Ocpdate` in struct `ListJobPreparationAndReleaseTaskStatusOptions`
+- New field `Ocpdate` in struct `ListJobSchedulesOptions`
+- New field `Ocpdate` in struct `ListJobsFromScheduleOptions`
+- New field `Ocpdate` in struct `ListJobsOptions`
+- New field `Ocpdate` in struct `ListNodeExtensionsOptions`
+- New field `Ocpdate` in struct `ListNodeFilesOptions`
+- New field `Ocpdate` in struct `ListNodesOptions`
+- New field `Ocpdate` in struct `ListPoolNodeCountsOptions`
+- New field `Ocpdate` in struct `ListPoolsOptions`
+- New field `Ocpdate` in struct `ListSubTasksOptions`
+- New field `Ocpdate` in struct `ListSupportedImagesOptions`
+- New field `Ocpdate` in struct `ListTaskFilesOptions`
+- New field `Ocpdate` in struct `ListTasksOptions`
+- New field `DynamicVnetAssignmentScope` in struct `NetworkConfiguration`
+- New field `PoolStatistics` in struct `Pool`
+- New field `Ocpdate` in struct `PoolExistsOptions`
+- New field `ResourceStatistics`, `UsageStatistics` in struct `PoolStatistics`
+- New field `Ocpdate` in struct `ReactivateTaskOptions`
+- New field `Ocpdate` in struct `RebootNodeOptions`
+- New field `Ocpdate` in struct `ReimageNodeOptions`
+- New field `Ocpdate` in struct `RemoveNodesOptions`
+- New field `Ocpdate` in struct `ReplaceJobOptions`
+- New field `Ocpdate` in struct `ReplaceJobScheduleOptions`
+- New field `Ocpdate` in struct `ReplaceNodeUserOptions`
+- New field `Ocpdate` in struct `ReplacePoolPropertiesOptions`
+- New field `Ocpdate` in struct `ReplaceTaskOptions`
+- New field `Ocpdate` in struct `ResizePoolOptions`
+- New field `Ocpdate` in struct `StartNodeOptions`
+- New field `Ocpdate` in struct `StopPoolResizeOptions`
+- New field `TaskStatistics` in struct `Task`
+- New field `Values` in struct `TaskGroup`
+- New field `ReadIoGiB`, `WriteIoGiB` in struct `TaskStatistics`
+- New field `Ocpdate` in struct `TerminateJobOptions`
+- New field `Ocpdate` in struct `TerminateJobScheduleOptions`
+- New field `Ocpdate` in struct `TerminateTaskOptions`
+- New field `Ocpdate` in struct `UpdateJobOptions`
+- New field `Ocpdate` in struct `UpdateJobScheduleOptions`
+- New field `Ocpdate` in struct `UpdatePoolOptions`
+- New field `Ocpdate` in struct `UploadNodeLogsOptions`
+- New field `OsDisk` in struct `VirtualMachineConfiguration`
+
+
 ## 0.1.1 (Unreleased)
 
 ### Features Added
