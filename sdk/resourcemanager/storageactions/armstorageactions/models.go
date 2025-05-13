@@ -137,12 +137,11 @@ type StorageTaskAssignment struct {
 
 // StorageTaskAssignmentsListResult - The response from the List Storage Tasks operation.
 type StorageTaskAssignmentsListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of Resource IDs. Returned when total number of requested Resource
-	// IDs exceed maximum page size.
-	NextLink *string
-
 	// READ-ONLY; List of Storage Task Assignment Resource IDs associated with this Storage Task.
 	Value []*StorageTaskAssignment
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
 }
 
 // StorageTaskOperation - Represents an operation to be performed on the object
@@ -329,12 +328,11 @@ type StorageTaskReportProperties struct {
 
 // StorageTaskReportSummary - Fetch Storage Tasks Run Summary.
 type StorageTaskReportSummary struct {
-	// READ-ONLY; Request URL that can be used to query next page of storage task run results summary. Returned when the number
-	// of run instances and summary reports exceed maximum page size.
-	NextLink *string
-
 	// READ-ONLY; Gets storage tasks run result summary.
 	Value []*StorageTaskReportInstance
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
 }
 
 // StorageTaskUpdateParameters - Parameters of the storage task update request
@@ -343,7 +341,7 @@ type StorageTaskUpdateParameters struct {
 	Identity *ManagedServiceIdentity
 
 	// Properties of the storage task.
-	Properties *StorageTaskProperties
+	Properties *StorageTaskUpdateProperties
 
 	// Gets or sets a list of key value pairs that describe the resource. These tags can be used in viewing and grouping this
 	// resource (across resource groups). A maximum of 15 tags can be provided for a
@@ -351,14 +349,34 @@ type StorageTaskUpdateParameters struct {
 	Tags map[string]*string
 }
 
+// StorageTaskUpdateProperties - Properties of the storage task.
+type StorageTaskUpdateProperties struct {
+	// The storage task action that is executed
+	Action *StorageTaskAction
+
+	// Text that describes the purpose of the storage task
+	Description *string
+
+	// Storage Task is enabled when set to true and disabled when set to false
+	Enabled *bool
+
+	// READ-ONLY; The creation date and time of the storage task in UTC.
+	CreationTimeInUTC *time.Time
+
+	// READ-ONLY; Represents the provisioning state of the storage task.
+	ProvisioningState *ProvisioningState
+
+	// READ-ONLY; Storage task version.
+	TaskVersion *int64
+}
+
 // StorageTasksListResult - The response from the List Storage Task operation.
 type StorageTasksListResult struct {
-	// READ-ONLY; Request URL that can be used to query next page of storage tasks. Returned when total number of requested storage
-	// tasks exceed maximum page size.
-	NextLink *string
-
 	// READ-ONLY; Gets the list of storage tasks and their properties.
 	Value []*StorageTask
+
+	// READ-ONLY; The link to the next page of items
+	NextLink *string
 }
 
 // SystemData - Metadata pertaining to creation and last modification of the resource.
