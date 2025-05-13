@@ -18,6 +18,873 @@ type AdvancedSettings struct {
 	InternalCerts *CertManagerCertOptions
 }
 
+// AkriConnectorProperties - AkriConnector properties.
+type AkriConnectorProperties struct {
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AkriConnectorResource - AkriConnector resource.
+type AkriConnectorResource struct {
+	// READ-ONLY; Name of AkriConnector resource.
+	Name *string
+
+	// Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *AkriConnectorProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AkriConnectorResourceListResult - The response of a AkriConnectorResource list operation.
+type AkriConnectorResourceListResult struct {
+	// REQUIRED; The AkriConnectorResource items on this page
+	Value []*AkriConnectorResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AkriConnectorTemplateAioMetadata properties.
+type AkriConnectorTemplateAioMetadata struct {
+	// The maximum version of AIO required for the connector.
+	AioMaxVersion *string
+
+	// The minimum version of AIO required for the connector.
+	AioMinVersion *string
+}
+
+// AkriConnectorTemplateAllocation properties.
+type AkriConnectorTemplateAllocation struct {
+	// REQUIRED; The allocation policy type.
+	Policy *AkriConnectorTemplateAllocationPolicy
+}
+
+// GetAkriConnectorTemplateAllocation implements the AkriConnectorTemplateAllocationClassification interface for type AkriConnectorTemplateAllocation.
+func (a *AkriConnectorTemplateAllocation) GetAkriConnectorTemplateAllocation() *AkriConnectorTemplateAllocation {
+	return a
+}
+
+// AkriConnectorTemplateBucketizedAllocation properties.
+type AkriConnectorTemplateBucketizedAllocation struct {
+	// REQUIRED; The bucketized allocation of AEPs for connectors.
+	BucketSize *int32
+
+	// CONSTANT; The allocation policy type.
+	// Field has constant value AkriConnectorTemplateAllocationPolicyBucketized, any specified value is ignored.
+	Policy *AkriConnectorTemplateAllocationPolicy
+}
+
+// GetAkriConnectorTemplateAllocation implements the AkriConnectorTemplateAllocationClassification interface for type AkriConnectorTemplateBucketizedAllocation.
+func (a *AkriConnectorTemplateBucketizedAllocation) GetAkriConnectorTemplateAllocation() *AkriConnectorTemplateAllocation {
+	return &AkriConnectorTemplateAllocation{
+		Policy: a.Policy,
+	}
+}
+
+// AkriConnectorTemplateDeviceInboundEndpointConfigurationSchemaRefs properties.
+type AkriConnectorTemplateDeviceInboundEndpointConfigurationSchemaRefs struct {
+	// The additional configuration schema reference.
+	AdditionalConfigSchemaRef *string
+
+	// The default configuration schema reference for datasets.
+	DefaultDatasetConfigSchemaRef *string
+
+	// The default configuration schema reference for events.
+	DefaultEventsConfigSchemaRef *string
+
+	// The default configuration schema reference for process control.
+	DefaultProcessControlConfigSchemaRef *string
+
+	// The default configuration schema reference for streams.
+	DefaultStreamsConfigSchemaRef *string
+}
+
+// AkriConnectorTemplateDeviceInboundEndpointType properties.
+type AkriConnectorTemplateDeviceInboundEndpointType struct {
+	// REQUIRED; The type of the device inbound endpoint.
+	EndpointType *string
+
+	// REQUIRED; The version of the device inbound endpoint.
+	Version *string
+
+	// The configuration schema references for the device inbound endpoint.
+	ConfigurationSchemaRefs *AkriConnectorTemplateDeviceInboundEndpointConfigurationSchemaRefs
+}
+
+// AkriConnectorTemplateDiagnostics properties.
+type AkriConnectorTemplateDiagnostics struct {
+	// REQUIRED; The log settings for the Connector template.
+	Logs *AkriConnectorsDiagnosticsLogs
+}
+
+// AkriConnectorTemplateHelmAdvancedConfiguration properties.
+type AkriConnectorTemplateHelmAdvancedConfiguration struct {
+	// Delete operation configuration for the Helm chart.
+	Delete *AkriConnectorTemplateHelmDeleteConfiguration
+
+	// Install operation configuration for the Helm chart.
+	Install *AkriConnectorTemplateHelmInstallConfiguration
+
+	// Upgrade operation configuration for the Helm chart.
+	Upgrade *AkriConnectorTemplateHelmUpgradeConfiguration
+}
+
+// AkriConnectorTemplateHelmAuthSecretRef properties.
+type AkriConnectorTemplateHelmAuthSecretRef struct {
+	// REQUIRED; The key of the password in the secret.
+	PasswordKey *string
+
+	// REQUIRED; The name of the secret.
+	SecretRef *string
+
+	// REQUIRED; The key of the username in the secret.
+	UsernameKey *string
+}
+
+// AkriConnectorTemplateHelmConfiguration properties.
+type AkriConnectorTemplateHelmConfiguration struct {
+	// REQUIRED; The Helm configuration settings.
+	HelmConfigurationSettings *AkriConnectorTemplateHelmConfigurationSettings
+
+	// CONSTANT; The runtime configuration type for the Connector template.
+	// Field has constant value AkriConnectorTemplateRuntimeConfigurationTypeHelmConfiguration, any specified value is ignored.
+	RuntimeConfigurationType *AkriConnectorTemplateRuntimeConfigurationType
+}
+
+// GetAkriConnectorTemplateRuntimeConfiguration implements the AkriConnectorTemplateRuntimeConfigurationClassification interface
+// for type AkriConnectorTemplateHelmConfiguration.
+func (a *AkriConnectorTemplateHelmConfiguration) GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration {
+	return &AkriConnectorTemplateRuntimeConfiguration{
+		RuntimeConfigurationType: a.RuntimeConfigurationType,
+	}
+}
+
+// AkriConnectorTemplateHelmConfigurationSettings - AkriConnectorTemplateHelmConfiguration properties.
+type AkriConnectorTemplateHelmConfigurationSettings struct {
+	// REQUIRED; The release name of the Helm chart.
+	ReleaseName *string
+
+	// REQUIRED; The version of the Helm chart.
+	Version *string
+
+	// Advanced configuration for the Helm chart.
+	// Install, upgrade, and uninstall options for the helm chart such as atomic, wait, timeout, `wait_for_jobs`, and `disable_hooks`.
+	AdvancedConfiguration *AkriConnectorTemplateHelmAdvancedConfiguration
+
+	// The registry settings for the helm chart to be used.
+	RegistrySettings AkriConnectorTemplateHelmRegistrySettingsClassification
+
+	// A map of values to pass to the helm chart.
+	Values map[string]*string
+}
+
+// AkriConnectorTemplateHelmContainerRegistry properties.
+type AkriConnectorTemplateHelmContainerRegistry struct {
+	// REQUIRED; The registry settings for the container registry.
+	ContainerRegistrySettings *AkriConnectorTemplateHelmContainerRegistrySettings
+
+	// CONSTANT; The container registry reference.
+	// Field has constant value AkriConnectorTemplateHelmRegistrySettingsTypeContainerRegistry, any specified value is ignored.
+	RegistrySettingsType *AkriConnectorTemplateHelmRegistrySettingsType
+}
+
+// GetAkriConnectorTemplateHelmRegistrySettings implements the AkriConnectorTemplateHelmRegistrySettingsClassification interface
+// for type AkriConnectorTemplateHelmContainerRegistry.
+func (a *AkriConnectorTemplateHelmContainerRegistry) GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings {
+	return &AkriConnectorTemplateHelmRegistrySettings{
+		RegistrySettingsType: a.RegistrySettingsType,
+	}
+}
+
+// AkriConnectorTemplateHelmContainerRegistrySettings properties.
+type AkriConnectorTemplateHelmContainerRegistrySettings struct {
+	// REQUIRED; The registry to use for the Helm chart.
+	Registry *string
+
+	// REQUIRED; The repository to use for the Helm chart.
+	Repository *string
+
+	// Optional reference to a secret in the same namespace to use for pulling the Helm chart.
+	AuthSecretRef *AkriConnectorTemplateHelmAuthSecretRef
+}
+
+// AkriConnectorTemplateHelmDeleteConfiguration properties.
+type AkriConnectorTemplateHelmDeleteConfiguration struct {
+	// Atomic flag for the operation.
+	Atomic *bool
+
+	// Disable hooks flag for the operation.
+	DisableHooks *bool
+
+	// The timeout for the operation in seconds.
+	Timeout *int32
+
+	// The wait flag for the operation.
+	Wait *bool
+
+	// The wait for jobs flag.
+	WaitForJobs *bool
+}
+
+// AkriConnectorTemplateHelmInstallConfiguration properties.
+type AkriConnectorTemplateHelmInstallConfiguration struct {
+	// Atomic flag for the operation.
+	Atomic *bool
+
+	// Disable hooks flag for the operation.
+	DisableHooks *bool
+
+	// The timeout for the operation in seconds.
+	Timeout *int32
+
+	// The wait flag for the operation.
+	Wait *bool
+
+	// The wait for jobs flag.
+	WaitForJobs *bool
+}
+
+// AkriConnectorTemplateHelmRegistryEndpointRef properties.
+type AkriConnectorTemplateHelmRegistryEndpointRef struct {
+	// REQUIRED; The name of the registry endpoint.
+	RegistryEndpointRef *string
+
+	// CONSTANT; The registry endpoint reference.
+	// Field has constant value AkriConnectorTemplateHelmRegistrySettingsTypeRegistryEndpointRef, any specified value is ignored.
+	RegistrySettingsType *AkriConnectorTemplateHelmRegistrySettingsType
+}
+
+// GetAkriConnectorTemplateHelmRegistrySettings implements the AkriConnectorTemplateHelmRegistrySettingsClassification interface
+// for type AkriConnectorTemplateHelmRegistryEndpointRef.
+func (a *AkriConnectorTemplateHelmRegistryEndpointRef) GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings {
+	return &AkriConnectorTemplateHelmRegistrySettings{
+		RegistrySettingsType: a.RegistrySettingsType,
+	}
+}
+
+// AkriConnectorTemplateHelmRegistrySettings properties.
+type AkriConnectorTemplateHelmRegistrySettings struct {
+	// REQUIRED
+	RegistrySettingsType *AkriConnectorTemplateHelmRegistrySettingsType
+}
+
+// GetAkriConnectorTemplateHelmRegistrySettings implements the AkriConnectorTemplateHelmRegistrySettingsClassification interface
+// for type AkriConnectorTemplateHelmRegistrySettings.
+func (a *AkriConnectorTemplateHelmRegistrySettings) GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings {
+	return a
+}
+
+// AkriConnectorTemplateHelmUpgradeConfiguration properties.
+type AkriConnectorTemplateHelmUpgradeConfiguration struct {
+	// Atomic flag for the operation.
+	Atomic *bool
+
+	// Disable hooks flag for the operation.
+	DisableHooks *bool
+
+	// The timeout for the operation in seconds.
+	Timeout *int32
+
+	// The wait flag for the operation.
+	Wait *bool
+
+	// The wait for jobs flag.
+	WaitForJobs *bool
+}
+
+// AkriConnectorTemplateManagedConfiguration properties.
+type AkriConnectorTemplateManagedConfiguration struct {
+	// REQUIRED; The managed configuration settings.
+	ManagedConfigurationSettings AkriConnectorTemplateManagedConfigurationSettingsClassification
+
+	// CONSTANT; The runtime configuration type for the Connector template.
+	// Field has constant value AkriConnectorTemplateRuntimeConfigurationTypeManagedConfiguration, any specified value is ignored.
+	RuntimeConfigurationType *AkriConnectorTemplateRuntimeConfigurationType
+}
+
+// GetAkriConnectorTemplateRuntimeConfiguration implements the AkriConnectorTemplateRuntimeConfigurationClassification interface
+// for type AkriConnectorTemplateManagedConfiguration.
+func (a *AkriConnectorTemplateManagedConfiguration) GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration {
+	return &AkriConnectorTemplateRuntimeConfiguration{
+		RuntimeConfigurationType: a.RuntimeConfigurationType,
+	}
+}
+
+// AkriConnectorTemplateManagedConfigurationSettings - AkriConnectorTemplateManagedConfiguration properties.
+type AkriConnectorTemplateManagedConfigurationSettings struct {
+	// REQUIRED; The type of the managed configuration.
+	ManagedConfigurationType *AkriConnectorTemplateManagedConfigurationType
+
+	// Additional configuration for the image of the managed configuration.
+	AdditionalConfiguration map[string]*string
+
+	// Allocation settings for the managed configuration.
+	Allocation AkriConnectorTemplateAllocationClassification
+
+	// The persistent volume claim templates for the managed configuration.
+	// See https://raw.githubusercontent.com/kubernetes/kubernetes/refs/heads/master/api/openapi-spec/v3/apis__apps__v1_openapi.json.
+	PersistentVolumeClaimTemplates []map[string]any
+
+	// The persistent volume claims for the managed configuration.
+	PersistentVolumeClaims []*AkriConnectorTemplatePersistentVolumeClaim
+
+	// Connector secrets that will be mounted onto all connector instances.
+	Secrets []*AkriConnectorsSecret
+
+	// Trust list for the connector. This is used to specify the certificates that all connector instances should trust.
+	TrustSettings *AkriConnectorTemplateTrustList
+}
+
+// GetAkriConnectorTemplateManagedConfigurationSettings implements the AkriConnectorTemplateManagedConfigurationSettingsClassification
+// interface for type AkriConnectorTemplateManagedConfigurationSettings.
+func (a *AkriConnectorTemplateManagedConfigurationSettings) GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings {
+	return a
+}
+
+// AkriConnectorTemplatePersistentVolumeClaim properties.
+type AkriConnectorTemplatePersistentVolumeClaim struct {
+	// REQUIRED; The name of the persistent volume claim.
+	ClaimName *string
+
+	// REQUIRED; The mount path for the persistent volume claim.
+	MountPath *string
+}
+
+// AkriConnectorTemplateProperties - AkriConnectorTemplate properties.
+type AkriConnectorTemplateProperties struct {
+	// REQUIRED; Device inbound endpoint types.
+	DeviceInboundEndpointTypes []*AkriConnectorTemplateDeviceInboundEndpointType
+
+	// REQUIRED; The runtime configuration for the Connector template.
+	RuntimeConfiguration AkriConnectorTemplateRuntimeConfigurationClassification
+
+	// Metadata about AIO.
+	AioMetadata *AkriConnectorTemplateAioMetadata
+
+	// Diagnostics settings for the Connector template.
+	Diagnostics *AkriConnectorTemplateDiagnostics
+
+	// Mqtt connection configuration settings.
+	MqttConnectionConfiguration *AkriConnectorsMqttConnectionConfiguration
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AkriConnectorTemplateResource - AkriConnectorTemplate resource.
+type AkriConnectorTemplateResource struct {
+	// READ-ONLY; Name of AkriConnectorTemplate resource.
+	Name *string
+
+	// Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *AkriConnectorTemplateProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AkriConnectorTemplateResourceListResult - The response of a AkriConnectorTemplateResource list operation.
+type AkriConnectorTemplateResourceListResult struct {
+	// REQUIRED; The AkriConnectorTemplateResource items on this page
+	Value []*AkriConnectorTemplateResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AkriConnectorTemplateRuntimeConfiguration properties.
+type AkriConnectorTemplateRuntimeConfiguration struct {
+	// REQUIRED; Runtime configuration type for the Connector template.
+	RuntimeConfigurationType *AkriConnectorTemplateRuntimeConfigurationType
+}
+
+// GetAkriConnectorTemplateRuntimeConfiguration implements the AkriConnectorTemplateRuntimeConfigurationClassification interface
+// for type AkriConnectorTemplateRuntimeConfiguration.
+func (a *AkriConnectorTemplateRuntimeConfiguration) GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration {
+	return a
+}
+
+// AkriConnectorTemplateRuntimeImageConfiguration properties.
+type AkriConnectorTemplateRuntimeImageConfiguration struct {
+	// REQUIRED; The image configuration settings.
+	ImageConfigurationSettings *AkriConnectorTemplateRuntimeImageConfigurationSettings
+
+	// CONSTANT; The managed configuration type for the Connector template.
+	// Field has constant value AkriConnectorTemplateManagedConfigurationTypeImageConfiguration, any specified value is ignored.
+	ManagedConfigurationType *AkriConnectorTemplateManagedConfigurationType
+
+	// Additional configuration for the image of the managed configuration.
+	AdditionalConfiguration map[string]*string
+
+	// Allocation settings for the managed configuration.
+	Allocation AkriConnectorTemplateAllocationClassification
+
+	// The persistent volume claim templates for the managed configuration.
+	// See https://raw.githubusercontent.com/kubernetes/kubernetes/refs/heads/master/api/openapi-spec/v3/apis__apps__v1_openapi.json.
+	PersistentVolumeClaimTemplates []map[string]any
+
+	// The persistent volume claims for the managed configuration.
+	PersistentVolumeClaims []*AkriConnectorTemplatePersistentVolumeClaim
+
+	// Connector secrets that will be mounted onto all connector instances.
+	Secrets []*AkriConnectorsSecret
+
+	// Trust list for the connector. This is used to specify the certificates that all connector instances should trust.
+	TrustSettings *AkriConnectorTemplateTrustList
+}
+
+// GetAkriConnectorTemplateManagedConfigurationSettings implements the AkriConnectorTemplateManagedConfigurationSettingsClassification
+// interface for type AkriConnectorTemplateRuntimeImageConfiguration.
+func (a *AkriConnectorTemplateRuntimeImageConfiguration) GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings {
+	return &AkriConnectorTemplateManagedConfigurationSettings{
+		AdditionalConfiguration:        a.AdditionalConfiguration,
+		Allocation:                     a.Allocation,
+		ManagedConfigurationType:       a.ManagedConfigurationType,
+		PersistentVolumeClaimTemplates: a.PersistentVolumeClaimTemplates,
+		PersistentVolumeClaims:         a.PersistentVolumeClaims,
+		Secrets:                        a.Secrets,
+		TrustSettings:                  a.TrustSettings,
+	}
+}
+
+// AkriConnectorTemplateRuntimeImageConfigurationSettings - AkriConnectorTemplateRuntimeImageConfiguration properties.
+type AkriConnectorTemplateRuntimeImageConfigurationSettings struct {
+	// REQUIRED; The image name without any registry reference, tag or digest.
+	ImageName *string
+
+	// The pull policy of the image.
+	ImagePullPolicy *AkriConnectorsImagePullPolicy
+
+	// The registry settings for the image. You can omit this field if using the default docker hub repository or using a local
+	// image.
+	RegistrySettings AkriConnectorsRegistrySettingsClassification
+
+	// The number of replicas to be set up.
+	Replicas *int32
+
+	// Optional image tag or digest. If not specified, the default tag is `latest`.
+	TagDigestSettings AkriConnectorsTagDigestSettingsClassification
+}
+
+// AkriConnectorTemplateRuntimeStatefulSetConfiguration properties.
+type AkriConnectorTemplateRuntimeStatefulSetConfiguration struct {
+	// CONSTANT; The managed configuration type for the Connector template.
+	// Field has constant value AkriConnectorTemplateManagedConfigurationTypeStatefulSetConfiguration, any specified value is
+	// ignored.
+	ManagedConfigurationType *AkriConnectorTemplateManagedConfigurationType
+
+	// REQUIRED; The stateful set configuration settings.
+	StatefulSetConfigurationSettings map[string]any
+
+	// Additional configuration for the image of the managed configuration.
+	AdditionalConfiguration map[string]*string
+
+	// Allocation settings for the managed configuration.
+	Allocation AkriConnectorTemplateAllocationClassification
+
+	// The persistent volume claim templates for the managed configuration.
+	// See https://raw.githubusercontent.com/kubernetes/kubernetes/refs/heads/master/api/openapi-spec/v3/apis__apps__v1_openapi.json.
+	PersistentVolumeClaimTemplates []map[string]any
+
+	// The persistent volume claims for the managed configuration.
+	PersistentVolumeClaims []*AkriConnectorTemplatePersistentVolumeClaim
+
+	// Connector secrets that will be mounted onto all connector instances.
+	Secrets []*AkriConnectorsSecret
+
+	// Trust list for the connector. This is used to specify the certificates that all connector instances should trust.
+	TrustSettings *AkriConnectorTemplateTrustList
+}
+
+// GetAkriConnectorTemplateManagedConfigurationSettings implements the AkriConnectorTemplateManagedConfigurationSettingsClassification
+// interface for type AkriConnectorTemplateRuntimeStatefulSetConfiguration.
+func (a *AkriConnectorTemplateRuntimeStatefulSetConfiguration) GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings {
+	return &AkriConnectorTemplateManagedConfigurationSettings{
+		AdditionalConfiguration:        a.AdditionalConfiguration,
+		Allocation:                     a.Allocation,
+		ManagedConfigurationType:       a.ManagedConfigurationType,
+		PersistentVolumeClaimTemplates: a.PersistentVolumeClaimTemplates,
+		PersistentVolumeClaims:         a.PersistentVolumeClaims,
+		Secrets:                        a.Secrets,
+		TrustSettings:                  a.TrustSettings,
+	}
+}
+
+// AkriConnectorTemplateTrustList properties.
+type AkriConnectorTemplateTrustList struct {
+	// REQUIRED; The secret reference for certificates to trust.
+	TrustListSecretRef *string
+}
+
+// AkriConnectorsContainerRegistry properties.
+type AkriConnectorsContainerRegistry struct {
+	// REQUIRED; The registry settings for the container registry.
+	ContainerRegistrySettings *AkriConnectorsContainerRegistrySettings
+
+	// CONSTANT; The registry settings type.
+	// Field has constant value AkriConnectorsRegistrySettingsTypeContainerRegistry, any specified value is ignored.
+	RegistrySettingsType *AkriConnectorsRegistrySettingsType
+}
+
+// GetAkriConnectorsRegistrySettings implements the AkriConnectorsRegistrySettingsClassification interface for type AkriConnectorsContainerRegistry.
+func (a *AkriConnectorsContainerRegistry) GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings {
+	return &AkriConnectorsRegistrySettings{
+		RegistrySettingsType: a.RegistrySettingsType,
+	}
+}
+
+// AkriConnectorsContainerRegistrySettings - AkriConnectorsContainerRegistry properties.
+type AkriConnectorsContainerRegistrySettings struct {
+	// REQUIRED; The container registry to use for the artifact.
+	Registry *string
+
+	// Optional list of references to secrets in the same namespace to use for pulling the connector image.
+	ImagePullSecrets []*AkriConnectorsImagePullSecret
+}
+
+// AkriConnectorsDiagnosticsLogs - AkriConnectorsDiagnostic Log properties.
+type AkriConnectorsDiagnosticsLogs struct {
+	// The log level. Examples - 'debug', 'info', 'warn', 'error', 'trace'.
+	Level *string
+}
+
+// AkriConnectorsDigest properties.
+type AkriConnectorsDigest struct {
+	// REQUIRED; The digest of the image.
+	Digest *string
+
+	// CONSTANT; The tag or digest type.
+	// Field has constant value AkriConnectorsTagDigestTypeDigest, any specified value is ignored.
+	TagDigestType *AkriConnectorsTagDigestType
+}
+
+// GetAkriConnectorsTagDigestSettings implements the AkriConnectorsTagDigestSettingsClassification interface for type AkriConnectorsDigest.
+func (a *AkriConnectorsDigest) GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings {
+	return &AkriConnectorsTagDigestSettings{
+		TagDigestType: a.TagDigestType,
+	}
+}
+
+// AkriConnectorsImagePullSecret properties.
+type AkriConnectorsImagePullSecret struct {
+	// REQUIRED; The name of the image pull secret.
+	SecretRef *string
+}
+
+// AkriConnectorsMqttAuthentication properties.
+type AkriConnectorsMqttAuthentication struct {
+	// REQUIRED; The authentication method for the MQTT connection.
+	Method *AkriConnectorsMqttAuthenticationMethod
+}
+
+// GetAkriConnectorsMqttAuthentication implements the AkriConnectorsMqttAuthenticationClassification interface for type AkriConnectorsMqttAuthentication.
+func (a *AkriConnectorsMqttAuthentication) GetAkriConnectorsMqttAuthentication() *AkriConnectorsMqttAuthentication {
+	return a
+}
+
+// AkriConnectorsMqttConnectionConfiguration properties.
+type AkriConnectorsMqttConnectionConfiguration struct {
+	// Authentication properties.
+	Authentication AkriConnectorsMqttAuthenticationClassification
+
+	// Host of the Broker in the form of <hostname>:<port>.
+	Host *string
+
+	// KeepAlive for connection in seconds.
+	KeepAliveSeconds *int32
+
+	// The max number of messages to keep in flight. For subscribe, this is the receive maximum. For publish, this is the maximum
+	// number of messages to send before waiting for an ack.
+	MaxInflightMessages *int32
+
+	// The protocol to use for the connection. Currently only `mqtt` is supported.
+	Protocol *AkriConnectorsMqttProtocolType
+
+	// Session expiry in seconds.
+	SessionExpirySeconds *int32
+
+	// TLS configuration.
+	TLS *TLSProperties
+}
+
+// AkriConnectorsRegistryEndpointRef properties.
+type AkriConnectorsRegistryEndpointRef struct {
+	// REQUIRED; The name of the registry endpoint.
+	RegistryEndpointRef *string
+
+	// CONSTANT; The registry endpoint reference.
+	// Field has constant value AkriConnectorsRegistrySettingsTypeRegistryEndpointRef, any specified value is ignored.
+	RegistrySettingsType *AkriConnectorsRegistrySettingsType
+}
+
+// GetAkriConnectorsRegistrySettings implements the AkriConnectorsRegistrySettingsClassification interface for type AkriConnectorsRegistryEndpointRef.
+func (a *AkriConnectorsRegistryEndpointRef) GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings {
+	return &AkriConnectorsRegistrySettings{
+		RegistrySettingsType: a.RegistrySettingsType,
+	}
+}
+
+// AkriConnectorsRegistrySettings properties.
+type AkriConnectorsRegistrySettings struct {
+	// REQUIRED
+	RegistrySettingsType *AkriConnectorsRegistrySettingsType
+}
+
+// GetAkriConnectorsRegistrySettings implements the AkriConnectorsRegistrySettingsClassification interface for type AkriConnectorsRegistrySettings.
+func (a *AkriConnectorsRegistrySettings) GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings {
+	return a
+}
+
+// AkriConnectorsSecret properties.
+type AkriConnectorsSecret struct {
+	// REQUIRED; The application-defined alias for the secret.
+	SecretAlias *string
+
+	// REQUIRED; The key in the secret to be mounted.
+	SecretKey *string
+
+	// REQUIRED; The name of the secret to be mounted.
+	SecretRef *string
+}
+
+// AkriConnectorsServiceAccountAuthentication properties.
+type AkriConnectorsServiceAccountAuthentication struct {
+	// CONSTANT; The authentication method for the MQTT connection.
+	// Field has constant value AkriConnectorsMqttAuthenticationMethodServiceAccountToken, any specified value is ignored.
+	Method *AkriConnectorsMqttAuthenticationMethod
+
+	// REQUIRED; The service account token for the MQTT connection.
+	ServiceAccountTokenSettings *AkriConnectorsServiceAccountTokenSettings
+}
+
+// GetAkriConnectorsMqttAuthentication implements the AkriConnectorsMqttAuthenticationClassification interface for type AkriConnectorsServiceAccountAuthentication.
+func (a *AkriConnectorsServiceAccountAuthentication) GetAkriConnectorsMqttAuthentication() *AkriConnectorsMqttAuthentication {
+	return &AkriConnectorsMqttAuthentication{
+		Method: a.Method,
+	}
+}
+
+// AkriConnectorsServiceAccountTokenSettings properties.
+type AkriConnectorsServiceAccountTokenSettings struct {
+	// REQUIRED; The audience for the service account token.
+	Audience *string
+}
+
+// AkriConnectorsTag properties.
+type AkriConnectorsTag struct {
+	// REQUIRED; The tag of the image.
+	Tag *string
+
+	// CONSTANT; The tag or digest type.
+	// Field has constant value AkriConnectorsTagDigestTypeTag, any specified value is ignored.
+	TagDigestType *AkriConnectorsTagDigestType
+}
+
+// GetAkriConnectorsTagDigestSettings implements the AkriConnectorsTagDigestSettingsClassification interface for type AkriConnectorsTag.
+func (a *AkriConnectorsTag) GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings {
+	return &AkriConnectorsTagDigestSettings{
+		TagDigestType: a.TagDigestType,
+	}
+}
+
+// AkriConnectorsTagDigestSettings properties.
+type AkriConnectorsTagDigestSettings struct {
+	// REQUIRED; The tag or digest type.
+	TagDigestType *AkriConnectorsTagDigestType
+}
+
+// GetAkriConnectorsTagDigestSettings implements the AkriConnectorsTagDigestSettingsClassification interface for type AkriConnectorsTagDigestSettings.
+func (a *AkriConnectorsTagDigestSettings) GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings {
+	return a
+}
+
+// AkriDiscoveryHandlerAioMetadata - Metadata about AIO.
+type AkriDiscoveryHandlerAioMetadata struct {
+	// The maximum version of AIO required for the connector.
+	AioMaxVersion *string
+
+	// The minimum version of AIO required for the connector.
+	AioMinVersion *string
+}
+
+// AkriDiscoveryHandlerDiagnostics properties.
+type AkriDiscoveryHandlerDiagnostics struct {
+	// REQUIRED; The log settings for the Connector template.
+	Logs *AkriConnectorsDiagnosticsLogs
+}
+
+// AkriDiscoveryHandlerDiscoverableDeviceEndpointType properties.
+type AkriDiscoveryHandlerDiscoverableDeviceEndpointType struct {
+	// REQUIRED; The type of the endpoint.
+	EndpointType *string
+
+	// REQUIRED; The version of the endpoint.
+	Version *string
+}
+
+// AkriDiscoveryHandlerImageConfiguration - AkriDiscoveryHandler Image configuration properties.
+type AkriDiscoveryHandlerImageConfiguration struct {
+	// REQUIRED; The image name without any registry reference, tag or digest.
+	ImageName *string
+
+	// The pull policy of the image.
+	ImagePullPolicy *AkriConnectorsImagePullPolicy
+
+	// The registry settings for the image. You can omit this field if using the default docker hub repository or using a local
+	// image.
+	RegistrySettings AkriConnectorsRegistrySettingsClassification
+
+	// The number of replicas to be set up.
+	Replicas *int32
+
+	// Optional image tag or digest. If not specified, the default tag is `latest`.
+	TagDigestSettings AkriConnectorsTagDigestSettingsClassification
+}
+
+// AkriDiscoveryHandlerProperties - AkriDiscoveryHandler properties.
+type AkriDiscoveryHandlerProperties struct {
+	// REQUIRED; Device inbound endpoint types.
+	DiscoverableDeviceEndpointTypes []*AkriDiscoveryHandlerDiscoverableDeviceEndpointType
+
+	// REQUIRED; The image configuration for the AkriDiscoveryHandler.
+	ImageConfiguration *AkriDiscoveryHandlerImageConfiguration
+
+	// REQUIRED; Schedule for the AkriDiscoveryHandler.
+	Schedule AkriDiscoveryHandlerScheduleClassification
+
+	// Additional configuration for the AkriDiscoveryHandler.
+	AdditionalConfiguration map[string]*string
+
+	// Metadata about AIO.
+	AioMetadata *AkriDiscoveryHandlerAioMetadata
+
+	// Diagnostics settings for the AkriDiscoveryHandler.
+	Diagnostics *AkriDiscoveryHandlerDiagnostics
+
+	// Mode of the AkriDiscoveryHandler.
+	Mode *OperationalMode
+
+	// Mqtt connection configuration settings.
+	MqttConnectionConfiguration *AkriConnectorsMqttConnectionConfiguration
+
+	// Secrets that will be mounted onto discovery handler.
+	Secrets []*AkriConnectorsSecret
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// AkriDiscoveryHandlerResource - AkriDiscoveryHandler resource.
+type AkriDiscoveryHandlerResource struct {
+	// READ-ONLY; Name of AkriDiscoveryHandler resource.
+	Name *string
+
+	// Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *AkriDiscoveryHandlerProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// AkriDiscoveryHandlerResourceListResult - The response of a AkriDiscoveryHandlerResource list operation.
+type AkriDiscoveryHandlerResourceListResult struct {
+	// REQUIRED; The AkriDiscoveryHandlerResource items on this page
+	Value []*AkriDiscoveryHandlerResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// AkriDiscoveryHandlerSchedule properties.
+type AkriDiscoveryHandlerSchedule struct {
+	// REQUIRED; Schedule type.
+	ScheduleType *AkriDiscoveryHandlerScheduleType
+}
+
+// GetAkriDiscoveryHandlerSchedule implements the AkriDiscoveryHandlerScheduleClassification interface for type AkriDiscoveryHandlerSchedule.
+func (a *AkriDiscoveryHandlerSchedule) GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule {
+	return a
+}
+
+// AkriDiscoveryHandlerScheduleContinuous properties.
+type AkriDiscoveryHandlerScheduleContinuous struct {
+	// REQUIRED; The time to run the discovery handler.
+	Continuous *string
+
+	// CONSTANT; Schedule type.
+	// Field has constant value AkriDiscoveryHandlerScheduleTypeContinuous, any specified value is ignored.
+	ScheduleType *AkriDiscoveryHandlerScheduleType
+}
+
+// GetAkriDiscoveryHandlerSchedule implements the AkriDiscoveryHandlerScheduleClassification interface for type AkriDiscoveryHandlerScheduleContinuous.
+func (a *AkriDiscoveryHandlerScheduleContinuous) GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule {
+	return &AkriDiscoveryHandlerSchedule{
+		ScheduleType: a.ScheduleType,
+	}
+}
+
+// AkriDiscoveryHandlerScheduleCron properties.
+type AkriDiscoveryHandlerScheduleCron struct {
+	// REQUIRED; The cron expression for the schedule.
+	Cron *string
+
+	// CONSTANT; Schedule type.
+	// Field has constant value AkriDiscoveryHandlerScheduleTypeCron, any specified value is ignored.
+	ScheduleType *AkriDiscoveryHandlerScheduleType
+}
+
+// GetAkriDiscoveryHandlerSchedule implements the AkriDiscoveryHandlerScheduleClassification interface for type AkriDiscoveryHandlerScheduleCron.
+func (a *AkriDiscoveryHandlerScheduleCron) GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule {
+	return &AkriDiscoveryHandlerSchedule{
+		ScheduleType: a.ScheduleType,
+	}
+}
+
+// AkriDiscoveryHandlerScheduleRunOnce properties.
+type AkriDiscoveryHandlerScheduleRunOnce struct {
+	// REQUIRED; The time to run the discovery handler.
+	RunOnce *string
+
+	// CONSTANT; Schedule type.
+	// Field has constant value AkriDiscoveryHandlerScheduleTypeRunOnce, any specified value is ignored.
+	ScheduleType *AkriDiscoveryHandlerScheduleType
+}
+
+// GetAkriDiscoveryHandlerSchedule implements the AkriDiscoveryHandlerScheduleClassification interface for type AkriDiscoveryHandlerScheduleRunOnce.
+func (a *AkriDiscoveryHandlerScheduleRunOnce) GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule {
+	return &AkriDiscoveryHandlerSchedule{
+		ScheduleType: a.ScheduleType,
+	}
+}
+
 // AuthorizationConfig - Broker AuthorizationConfig properties
 type AuthorizationConfig struct {
 	// Enable caching of the authorization rules.
@@ -37,6 +904,12 @@ type AuthorizationRule struct {
 
 	// Give access to state store resources.
 	StateStoreResources []*StateStoreResourceRule
+}
+
+// AzureDeviceRegistryNamespaceRef - Azure Device Registry Namespace reference.
+type AzureDeviceRegistryNamespaceRef struct {
+	// REQUIRED; The resource ID of the Azure Device Registry Namespace.
+	ResourceID *string
 }
 
 // BackendChain - Desired properties of the backend instances of the broker
@@ -72,14 +945,14 @@ type BrokerAuthenticationProperties struct {
 
 // BrokerAuthenticationResource - Instance broker authentication resource
 type BrokerAuthenticationResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance broker authentication resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *BrokerAuthenticationProperties
-
-	// READ-ONLY; Name of Instance broker authentication resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -129,6 +1002,9 @@ type BrokerAuthenticatorMethodSat struct {
 
 // BrokerAuthenticatorMethodX509 - X509 for BrokerAuthentication.
 type BrokerAuthenticatorMethodX509 struct {
+	// X509 authentication attributes properties.
+	AdditionalValidation *BrokerAuthenticatorValidationMethods
+
 	// X509 authorization attributes properties.
 	AuthorizationAttributes map[string]*BrokerAuthenticatorMethodX509Attributes
 
@@ -171,14 +1047,14 @@ type BrokerAuthorizationProperties struct {
 
 // BrokerAuthorizationResource - Instance broker authorizations resource
 type BrokerAuthorizationResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance broker authorization resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *BrokerAuthorizationProperties
-
-	// READ-ONLY; Name of Instance broker authorization resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -232,14 +1108,14 @@ type BrokerListenerProperties struct {
 
 // BrokerListenerResource - Instance broker resource
 type BrokerListenerResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance broker listener resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *BrokerListenerProperties
-
-	// READ-ONLY; Name of Instance broker listener resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -258,6 +1134,62 @@ type BrokerListenerResourceListResult struct {
 
 	// The link to the next page of items
 	NextLink *string
+}
+
+// BrokerPersistence - Disk persistence configuration.
+// When persistence is enabled, certain items (non-performance-critical data) selected for persistence will reside only on
+// disk. Below are the affected items:
+// - Retained messages will be stored on disk only.
+// - WILL messages will be stored on disk only.
+// - DSS key/value pairs will be stored on disk only, except for performance-critical items like timed locks, which remain
+// in both disk and memory for improved performance.
+// Optional. Everything is in-memory if not set.
+// Note: if configured, all MQTT session states are written to disk.
+type BrokerPersistence struct {
+	// REQUIRED; The max size of the message buffer on disk. If a PVC template is specified using persistentVolumeClaimSpec Then
+	// this size is used as the request and limit sizes of that template. If a PVC template isn't specified Then local-path provisioner
+	// is requested with this size limit. Required.
+	MaxSize *string
+
+	// Client sets the specified user property key/value in the CONNECT/SUBSCRIBE/PUBLISH.
+	// Optionally, if the customer specifies a configurable user property, it will work to enable persistence dynamically. The
+	// default user property key is 'aio-persistence' and value 'true'.
+	DynamicSettings *BrokerPersistenceDynamicSettings
+
+	// Controls settings related to encryption of the persistence database. Optional, defaults to enabling encryption.
+	Encryption *BrokerPersistenceEncryption
+
+	// Use the specified persistent volume claim template to mount a persistent volume. Same object as in diskBackedMessageBuffer,
+	// but with a limitation that access modes field must be set to `ReadWriteOncePod`.
+	// If unset, a default PVC with default properties will be used. Among other things this PVC will use the cluster default
+	// storage class, which may or may not be using a local path provisioner. User is opting in to sub-optimal behavior if they
+	// leave this unset or set it without the storage class field, and their cluster default is not a local path class.
+	PersistentVolumeClaimSpec *VolumeClaimSpec
+
+	// Controls which topic's retained messages should be persisted to disk.
+	Retain BrokerRetainMessagesPolicyClassification
+
+	// Controls which keys should be persisted to disk for the state store.
+	StateStore BrokerStateStorePolicyClassification
+
+	// Controls which subscriber message queues should be persisted to disk. Important: to facilitate reconnection, session state
+	// metadata are ALWAYS written to disk if any persistence setting is specified, even if this section isn't set.
+	SubscriberQueue BrokerSubscriberQueuePolicyClassification
+}
+
+// BrokerPersistenceDynamicSettings - Dynamic settings of the persistence.
+type BrokerPersistenceDynamicSettings struct {
+	// REQUIRED; The user property key to enable persistence.
+	UserPropertyKey *string
+
+	// REQUIRED; The user property value to enable persistence.
+	UserPropertyValue *string
+}
+
+// BrokerPersistenceEncryption - Broker Persistence Encryption properties.
+type BrokerPersistenceEncryption struct {
+	// REQUIRED; Determines if encryption is enabled.
+	Mode *OperationalMode
 }
 
 // BrokerProperties - Broker Resource properties
@@ -282,20 +1214,23 @@ type BrokerProperties struct {
 	// Memory profile of Broker.
 	MemoryProfile *BrokerMemoryProfile
 
+	// The persistence settings of the Broker.
+	Persistence *BrokerPersistence
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
 }
 
 // BrokerResource - Instance broker resource
 type BrokerResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of broker.
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *BrokerProperties
-
-	// READ-ONLY; Name of broker.
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -329,6 +1264,148 @@ type BrokerResourceRule struct {
 	// A list of topics or topic patterns that match the topics that the clients can publish or subscribe to. This subfield is
 	// required if the method is Publish or Subscribe.
 	Topics []*string
+}
+
+// BrokerRetainMessagesCustomPolicy - Custom Broker Retain Message Policy.
+type BrokerRetainMessagesCustomPolicy struct {
+	// CONSTANT; The mode of the policy.
+	// Field has constant value BrokerPersistencePolicyModeCustom, any specified value is ignored.
+	Mode *BrokerPersistencePolicyMode
+
+	// REQUIRED; Settings for the policy.
+	RetainSettings *BrokerRetainMessagesSettings
+}
+
+// GetBrokerRetainMessagesPolicy implements the BrokerRetainMessagesPolicyClassification interface for type BrokerRetainMessagesCustomPolicy.
+func (b *BrokerRetainMessagesCustomPolicy) GetBrokerRetainMessagesPolicy() *BrokerRetainMessagesPolicy {
+	return &BrokerRetainMessagesPolicy{
+		Mode: b.Mode,
+	}
+}
+
+// BrokerRetainMessagesDynamic - Dynamic settings of BrokerRetainMessagesCustomPolicy.
+type BrokerRetainMessagesDynamic struct {
+	// REQUIRED; Mode of the BrokerRetainMessagesCustomPolicy.
+	Mode *OperationalMode
+}
+
+// BrokerRetainMessagesPolicy - Broker Retain policy properties.
+type BrokerRetainMessagesPolicy struct {
+	// REQUIRED; 'All' to persist all retain messages, 'None' to not persist any, 'Custom' to persist only the specified topics.
+	Mode *BrokerPersistencePolicyMode
+}
+
+// GetBrokerRetainMessagesPolicy implements the BrokerRetainMessagesPolicyClassification interface for type BrokerRetainMessagesPolicy.
+func (b *BrokerRetainMessagesPolicy) GetBrokerRetainMessagesPolicy() *BrokerRetainMessagesPolicy {
+	return b
+}
+
+// BrokerRetainMessagesSettings - Broker Retain Messages properties.
+type BrokerRetainMessagesSettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property. Works in addition to other groups
+	// (logical OR).
+	Dynamic *BrokerRetainMessagesDynamic
+
+	// List of topics under which retained messages would be persisted to disk. Wildcards # and + supported.
+	Topics []*string
+}
+
+// BrokerStateStoreCustomPolicy - Broker State Store Custom Policy.
+type BrokerStateStoreCustomPolicy struct {
+	// CONSTANT; The mode of the policy.
+	// Field has constant value BrokerPersistencePolicyModeCustom, any specified value is ignored.
+	Mode *BrokerPersistencePolicyMode
+
+	// REQUIRED; Settings for the policy.
+	StateStoreSettings *BrokerStateStorePolicySettings
+}
+
+// GetBrokerStateStorePolicy implements the BrokerStateStorePolicyClassification interface for type BrokerStateStoreCustomPolicy.
+func (b *BrokerStateStoreCustomPolicy) GetBrokerStateStorePolicy() *BrokerStateStorePolicy {
+	return &BrokerStateStorePolicy{
+		Mode: b.Mode,
+	}
+}
+
+// BrokerStateStoreDynamic - Dynamic settings of BrokerStateStoreCustomPolicy.
+type BrokerStateStoreDynamic struct {
+	// REQUIRED; Mode of the BrokerStateStoreCustomPolicy.
+	Mode *OperationalMode
+}
+
+// BrokerStateStorePolicy - Broker State Store Policy.
+type BrokerStateStorePolicy struct {
+	// REQUIRED; 'All' to persist all keys, 'None' to not persist any, 'Custom' to persist only the specified keys.
+	Mode *BrokerPersistencePolicyMode
+}
+
+// GetBrokerStateStorePolicy implements the BrokerStateStorePolicyClassification interface for type BrokerStateStorePolicy.
+func (b *BrokerStateStorePolicy) GetBrokerStateStorePolicy() *BrokerStateStorePolicy { return b }
+
+// BrokerStateStorePolicyResources - Broker State Store Policy Resources properties.
+type BrokerStateStorePolicyResources struct {
+	// REQUIRED; The key to persist to disk.
+	KeyType *BrokerStateStoreKeyType
+
+	// REQUIRED; List of keys to persist to disk, required.
+	Keys []*string
+}
+
+// BrokerStateStorePolicySettings - Broker State Store Custom Policy Settings.
+type BrokerStateStorePolicySettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property. Works in addition to other groups
+	// (logical OR).
+	Dynamic *BrokerStateStoreDynamic
+
+	// List of key and key type to persist to disk.
+	StateStoreResources []*BrokerStateStorePolicyResources
+}
+
+// BrokerSubscriberQueueCustomPolicy - Custom Subscriber Queue Policy Properties.
+type BrokerSubscriberQueueCustomPolicy struct {
+	// CONSTANT; The mode of the policy.
+	// Field has constant value BrokerPersistencePolicyModeCustom, any specified value is ignored.
+	Mode *BrokerPersistencePolicyMode
+
+	// REQUIRED; Custom policy, required if mode is Custom. Subscriber queues from all groups are persisted to disk (logical OR).
+	SubscriberQueueSettings *BrokerSubscriberQueueCustomPolicySettings
+}
+
+// GetBrokerSubscriberQueuePolicy implements the BrokerSubscriberQueuePolicyClassification interface for type BrokerSubscriberQueueCustomPolicy.
+func (b *BrokerSubscriberQueueCustomPolicy) GetBrokerSubscriberQueuePolicy() *BrokerSubscriberQueuePolicy {
+	return &BrokerSubscriberQueuePolicy{
+		Mode: b.Mode,
+	}
+}
+
+// BrokerSubscriberQueueCustomPolicySettings - Broker Subscriber Queue Custom Policy properties.
+type BrokerSubscriberQueueCustomPolicySettings struct {
+	// Controls if MQTT clients can request for disk persistence via `MQTTv5` user property. Works in addition to other groups
+	// (logical OR).
+	Dynamic *BrokerSubscriberQueueDynamic
+
+	// List of client IDs of the subscribers, wildcard * supported.
+	SubscriberClientIDs []*string
+
+	// List of topics under which messages would be persisted to disk for each subscriber. Wildcards # and + supported.
+	Topics []*string
+}
+
+// BrokerSubscriberQueueDynamic - Dynamic settings of BrokerSubscriberQueueCustomPolicy.
+type BrokerSubscriberQueueDynamic struct {
+	// REQUIRED; Mode of the BrokerSubscriberQueueCustomPolicy.
+	Mode *OperationalMode
+}
+
+// BrokerSubscriberQueuePolicy - Broker Subscriber Queue Policy properties.
+type BrokerSubscriberQueuePolicy struct {
+	// REQUIRED; 'All' to persist all subscriber queues, 'None' to not persist any, 'Custom' to persist only the specified queues.
+	Mode *BrokerPersistencePolicyMode
+}
+
+// GetBrokerSubscriberQueuePolicy implements the BrokerSubscriberQueuePolicyClassification interface for type BrokerSubscriberQueuePolicy.
+func (b *BrokerSubscriberQueuePolicy) GetBrokerSubscriberQueuePolicy() *BrokerSubscriberQueuePolicy {
+	return b
 }
 
 // Cardinality properties
@@ -420,6 +1497,27 @@ type ClientConfig struct {
 	SubscriberQueueLimit *SubscriberQueueLimit
 }
 
+// DatafloGraphDestinationNode - DataflowGraph destination node properties.
+type DatafloGraphDestinationNode struct {
+	// REQUIRED; Destination configuration.
+	DestinationSettings *DataflowGraphDestinationNodeSettings
+
+	// REQUIRED; Name of the node.
+	Name *string
+
+	// CONSTANT; Type of the destination node.
+	// Field has constant value DataflowGraphNodeTypeDestination, any specified value is ignored.
+	Type *DataflowGraphNodeType
+}
+
+// GetDataflowGraphNode implements the DataflowGraphNodeClassification interface for type DatafloGraphDestinationNode.
+func (d *DatafloGraphDestinationNode) GetDataflowGraphNode() *DataflowGraphNode {
+	return &DataflowGraphNode{
+		Name: d.Name,
+		Type: d.Type,
+	}
+}
+
 // DataflowBuiltInTransformationDataset - Dataflow BuiltIn Transformation dataset properties
 type DataflowBuiltInTransformationDataset struct {
 	// REQUIRED; List of fields for enriching from the Broker State Store.
@@ -504,6 +1602,10 @@ type DataflowDestinationOperationSettings struct {
 type DataflowEndpointAuthenticationAccessToken struct {
 	// REQUIRED; Token secret name.
 	SecretRef *string
+}
+
+// DataflowEndpointAuthenticationAnonymous - DataflowEndpoint Anonymous Authentication properties
+type DataflowEndpointAuthenticationAnonymous struct {
 }
 
 // DataflowEndpointAuthenticationSasl - DataflowEndpoint Authentication Sasl properties
@@ -772,6 +1874,21 @@ type DataflowEndpointMqttAuthentication struct {
 	X509CertificateSettings *DataflowEndpointAuthenticationX509
 }
 
+// DataflowEndpointOpenTelemetry - OpenTelemetry endpoint properties.
+type DataflowEndpointOpenTelemetry struct {
+	// REQUIRED; Authentication properties for OpenTelemetry endpoints
+	Authentication DataflowOpenTelemetryAuthenticationClassification
+
+	// REQUIRED; Host of the OpenTelemetry in the form of <host>:<port>.
+	Host *string
+
+	// Batching configuration.
+	Batching *BatchingConfiguration
+
+	// TLS configuration.
+	TLS *TLSProperties
+}
+
 // DataflowEndpointProperties - DataflowEndpoint Resource properties. NOTE - Only one type of endpoint is supported for one
 // Resource
 type DataflowEndpointProperties struct {
@@ -787,6 +1904,9 @@ type DataflowEndpointProperties struct {
 	// Microsoft Fabric endpoint.
 	FabricOneLakeSettings *DataflowEndpointFabricOneLake
 
+	// The type of the Kafka host. E.g FabricRT, EventGrid.
+	HostType *DataflowEnpointHostType
+
 	// Kafka endpoint.
 	KafkaSettings *DataflowEndpointKafka
 
@@ -796,20 +1916,23 @@ type DataflowEndpointProperties struct {
 	// Broker endpoint.
 	MqttSettings *DataflowEndpointMqtt
 
+	// OpenTelemetry endpoint.
+	OpenTelemetrySettings *DataflowEndpointOpenTelemetry
+
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
 }
 
 // DataflowEndpointResource - Instance dataflowEndpoint resource
 type DataflowEndpointResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance dataflowEndpoint resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *DataflowEndpointProperties
-
-	// READ-ONLY; Name of Instance dataflowEndpoint resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -828,6 +1951,249 @@ type DataflowEndpointResourceListResult struct {
 
 	// The link to the next page of items
 	NextLink *string
+}
+
+// DataflowGraphConnectionInput - DataflowGraph DataflowGraphNode Connection Input.
+type DataflowGraphConnectionInput struct {
+	// REQUIRED; Name of the source node.
+	Name *string
+
+	// Schema settings for the source node.
+	Schema *DataflowGraphSchemaSettings
+}
+
+// DataflowGraphConnectionOutput - DataflowGraph DataflowGraphNode Connection Output.
+type DataflowGraphConnectionOutput struct {
+	// REQUIRED; Name of the destination node.
+	Name *string
+}
+
+// DataflowGraphDestinationNodeSettings - DataflowGraph destination node settings.
+type DataflowGraphDestinationNodeSettings struct {
+	// REQUIRED; Data destination at the endpoint.
+	DataDestination *string
+
+	// REQUIRED; The endpoint reference for the destination.
+	EndpointRef *string
+
+	// Output schema settings.
+	OutputSchemaSettings *DataflowGraphSchemaSettings
+}
+
+// DataflowGraphGraphNode - DataflowGraph graph node properties.
+type DataflowGraphGraphNode struct {
+	// REQUIRED; Graph configuration.
+	GraphSettings *DataflowGraphNodeGraphSettings
+
+	// REQUIRED; Name of the node.
+	Name *string
+
+	// CONSTANT; Type of the graph node.
+	// Field has constant value DataflowGraphNodeTypeGraph, any specified value is ignored.
+	Type *DataflowGraphNodeType
+}
+
+// GetDataflowGraphNode implements the DataflowGraphNodeClassification interface for type DataflowGraphGraphNode.
+func (d *DataflowGraphGraphNode) GetDataflowGraphNode() *DataflowGraphNode {
+	return &DataflowGraphNode{
+		Name: d.Name,
+		Type: d.Type,
+	}
+}
+
+// DataflowGraphGraphNodeConfiguration - DataflowGraph graph node configuration.
+type DataflowGraphGraphNodeConfiguration struct {
+	// REQUIRED; Key of the configuration.
+	Key *string
+
+	// REQUIRED; Value of the configuration.
+	Value *string
+}
+
+// DataflowGraphNode - DataflowGraph node properties.
+type DataflowGraphNode struct {
+	// REQUIRED; Name of the node.
+	Name *string
+
+	// REQUIRED; Type of the node.
+	Type *DataflowGraphNodeType
+}
+
+// GetDataflowGraphNode implements the DataflowGraphNodeClassification interface for type DataflowGraphNode.
+func (d *DataflowGraphNode) GetDataflowGraphNode() *DataflowGraphNode { return d }
+
+// DataflowGraphNodeConnection - DataflowGraph DataflowGraphNode Connection.
+type DataflowGraphNodeConnection struct {
+	// REQUIRED; Information about the source node.
+	From *DataflowGraphConnectionInput
+
+	// REQUIRED; Information about the destination node.
+	To *DataflowGraphConnectionOutput
+}
+
+// DataflowGraphNodeGraphSettings - DataflowGraph graph node settings.
+type DataflowGraphNodeGraphSettings struct {
+	// REQUIRED; The artifact name and version to pull.
+	Artifact *string
+
+	// REQUIRED; Reference to the registry endpoint for pulling the artifact.
+	RegistryEndpointRef *string
+
+	// Configuration key-value pairs.
+	Configuration []*DataflowGraphGraphNodeConfiguration
+}
+
+// DataflowGraphProperties - DataflowGraph properties.
+type DataflowGraphProperties struct {
+	// REQUIRED; List of connections between nodes in the dataflow graph.
+	NodeConnections []*DataflowGraphNodeConnection
+
+	// REQUIRED; List of nodes in the dataflow graph.
+	Nodes []DataflowGraphNodeClassification
+
+	// The mode of the dataflow graph.
+	Mode *OperationalMode
+
+	// Disk persistence mode.
+	RequestDiskPersistence *OperationalMode
+
+	// READ-ONLY; The provisioning state of the dataflow graph.
+	ProvisioningState *ProvisioningState
+}
+
+// DataflowGraphResource - Instance dataflowEndpoint resource.
+type DataflowGraphResource struct {
+	// READ-ONLY; Name of Instance dataflowEndpoint resource.
+	Name *string
+
+	// Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *DataflowGraphProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// DataflowGraphResourceListResult - The response of a DataflowGraphResource list operation.
+type DataflowGraphResourceListResult struct {
+	// REQUIRED; The DataflowGraphResource items on this page
+	Value []*DataflowGraphResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// DataflowGraphSchemaSettings - DataflowGraph output schema settings.
+type DataflowGraphSchemaSettings struct {
+	// REQUIRED; Reference to the schema that describes the output of the transformation.
+	SchemaRef *string
+
+	// Output serialization format.
+	SerializationFormat *DataflowGraphSerializationFormat
+}
+
+// DataflowGraphSourceNode - DataflowGraph source node properties.
+type DataflowGraphSourceNode struct {
+	// REQUIRED; Name of the node.
+	Name *string
+
+	// REQUIRED; Source configuration.
+	SourceSettings *DataflowGraphSourceSettings
+
+	// CONSTANT; Type of the source node.
+	// Field has constant value DataflowGraphNodeTypeSource, any specified value is ignored.
+	Type *DataflowGraphNodeType
+}
+
+// GetDataflowGraphNode implements the DataflowGraphNodeClassification interface for type DataflowGraphSourceNode.
+func (d *DataflowGraphSourceNode) GetDataflowGraphNode() *DataflowGraphNode {
+	return &DataflowGraphNode{
+		Name: d.Name,
+		Type: d.Type,
+	}
+}
+
+// DataflowGraphSourceSettings - DataflowGraph source node settings.
+type DataflowGraphSourceSettings struct {
+	// REQUIRED; List of data sources.
+	DataSources []*string
+
+	// REQUIRED; The endpoint reference for the source.
+	EndpointRef *string
+}
+
+// DataflowOpenTelemetryAnonymousAuthentication properties.
+type DataflowOpenTelemetryAnonymousAuthentication struct {
+	// REQUIRED; Settings for the anonymous connection
+	AnonymousSettings *DataflowEndpointAuthenticationAnonymous
+
+	// CONSTANT; The authentication method.
+	// Field has constant value DataflowOpenTelemetryAuthenticationMethodAnonymous, any specified value is ignored.
+	Method *DataflowOpenTelemetryAuthenticationMethod
+}
+
+// GetDataflowOpenTelemetryAuthentication implements the DataflowOpenTelemetryAuthenticationClassification interface for type
+// DataflowOpenTelemetryAnonymousAuthentication.
+func (d *DataflowOpenTelemetryAnonymousAuthentication) GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication {
+	return &DataflowOpenTelemetryAuthentication{
+		Method: d.Method,
+	}
+}
+
+// DataflowOpenTelemetryAuthentication - Dataflow OpenTelemetry authentication properties.
+type DataflowOpenTelemetryAuthentication struct {
+	// REQUIRED; The authentication method.
+	Method *DataflowOpenTelemetryAuthenticationMethod
+}
+
+// GetDataflowOpenTelemetryAuthentication implements the DataflowOpenTelemetryAuthenticationClassification interface for type
+// DataflowOpenTelemetryAuthentication.
+func (d *DataflowOpenTelemetryAuthentication) GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication {
+	return d
+}
+
+// DataflowOpenTelemetryServiceAccountAuthentication properties.
+type DataflowOpenTelemetryServiceAccountAuthentication struct {
+	// CONSTANT; The authentication method.
+	// Field has constant value DataflowOpenTelemetryAuthenticationMethodServiceAccountToken, any specified value is ignored.
+	Method *DataflowOpenTelemetryAuthenticationMethod
+
+	// REQUIRED; Kubernetes service account token authentication.
+	ServiceAccountTokenSettings *DataflowEndpointAuthenticationServiceAccountToken
+}
+
+// GetDataflowOpenTelemetryAuthentication implements the DataflowOpenTelemetryAuthenticationClassification interface for type
+// DataflowOpenTelemetryServiceAccountAuthentication.
+func (d *DataflowOpenTelemetryServiceAccountAuthentication) GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication {
+	return &DataflowOpenTelemetryAuthentication{
+		Method: d.Method,
+	}
+}
+
+// DataflowOpenTelemetryX509CertificateAuthentication properties.
+type DataflowOpenTelemetryX509CertificateAuthentication struct {
+	// CONSTANT; The authentication method.
+	// Field has constant value DataflowOpenTelemetryAuthenticationMethodX509Certificate, any specified value is ignored.
+	Method *DataflowOpenTelemetryAuthenticationMethod
+
+	// REQUIRED; X.509 certificate authentication settings.
+	X509CertificateSettings *DataflowEndpointAuthenticationX509
+}
+
+// GetDataflowOpenTelemetryAuthentication implements the DataflowOpenTelemetryAuthenticationClassification interface for type
+// DataflowOpenTelemetryX509CertificateAuthentication.
+func (d *DataflowOpenTelemetryX509CertificateAuthentication) GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication {
+	return &DataflowOpenTelemetryAuthentication{
+		Method: d.Method,
+	}
 }
 
 // DataflowOperation - Dataflow Operation properties. NOTE - One only method is allowed to be used for one entry.
@@ -862,14 +2228,14 @@ type DataflowProfileProperties struct {
 
 // DataflowProfileResource - Instance dataflowProfile resource
 type DataflowProfileResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance dataflowProfile resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *DataflowProfileProperties
-
-	// READ-ONLY; Name of Instance dataflowProfile resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -904,14 +2270,14 @@ type DataflowProperties struct {
 
 // DataflowResource - Instance dataflowProfile dataflow resource
 type DataflowResource struct {
-	// REQUIRED; Edge location of the resource.
+	// READ-ONLY; Name of Instance dataflowProfile dataflow resource
+	Name *string
+
+	// Edge location of the resource.
 	ExtendedLocation *ExtendedLocation
 
 	// The resource-specific properties for this resource.
 	Properties *DataflowProperties
-
-	// READ-ONLY; Name of Instance dataflowProfile dataflow resource
-	Name *string
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
 	ID *string
@@ -997,6 +2363,15 @@ type GenerateResourceLimits struct {
 	CPU *OperationalMode
 }
 
+// InstanceFeature - The features of the AIO Instance.
+type InstanceFeature struct {
+	// The state of the feature.
+	Mode *InstanceFeatureMode
+
+	// The settings of the feature.
+	Settings map[string]*OperationalMode
+}
+
 // InstancePatchModel - The Instance update model.
 type InstancePatchModel struct {
 	// The managed service identities assigned to this resource.
@@ -1011,8 +2386,17 @@ type InstanceProperties struct {
 	// REQUIRED; The reference to the Schema Registry for this AIO Instance.
 	SchemaRegistryRef *SchemaRegistryRef
 
+	// The Azure Device Registry Namespace used by Assets, Discovered Assets and devices
+	AdrNamespaceRef *AzureDeviceRegistryNamespaceRef
+
+	// The reference to the AIO Secret provider class.
+	DefaultSecretProviderClassRef *SecretProviderClassRef
+
 	// Detailed description of the Instance.
 	Description *string
+
+	// The features of the AIO Instance.
+	Features map[string]*InstanceFeature
 
 	// READ-ONLY; The status of the last operation.
 	ProvisioningState *ProvisioningState
@@ -1132,13 +2516,15 @@ type Metrics struct {
 	PrometheusPort *int32
 }
 
-// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+// Operation - REST API Operation
+//
+// Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
-	// Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
-	ActionType *ActionType
-
-	// READ-ONLY; Localized display information for this particular operation.
+	// Localized display information for this particular operation.
 	Display *OperationDisplay
+
+	// READ-ONLY; Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
+	ActionType *ActionType
 
 	// READ-ONLY; Whether the operation applies to data-plane. This is "true" for data-plane operations and "false" for Azure
 	// Resource Manager/control-plane operations.
@@ -1205,6 +2591,212 @@ type ProfileDiagnostics struct {
 	Metrics *Metrics
 }
 
+// RegistryEndpointAnonymousAuthentication - Anonymous authentication
+type RegistryEndpointAnonymousAuthentication struct {
+	// REQUIRED; Anonymous authentication properties
+	AnonymousSettings *RegistryEndpointAnonymousSettings
+
+	// CONSTANT; The authentication method.
+	// Field has constant value RegistryEndpointAuthenticationMethodAnonymous, any specified value is ignored.
+	Method *RegistryEndpointAuthenticationMethod
+}
+
+// GetRegistryEndpointAuthentication implements the RegistryEndpointAuthenticationClassification interface for type RegistryEndpointAnonymousAuthentication.
+func (r *RegistryEndpointAnonymousAuthentication) GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication {
+	return &RegistryEndpointAuthentication{
+		Method: r.Method,
+	}
+}
+
+// RegistryEndpointAnonymousSettings - RegistryEndpoint Anonymous authentication properties
+type RegistryEndpointAnonymousSettings struct {
+}
+
+// RegistryEndpointArtifactPullSecretAuthentication - Artifact Pull Secret authentication
+type RegistryEndpointArtifactPullSecretAuthentication struct {
+	// REQUIRED; Artifact Pull Secret authentication properties
+	ArtifactPullSecretSettings *RegistryEndpointArtifactPullSecretSettings
+
+	// CONSTANT; The authentication method.
+	// Field has constant value RegistryEndpointAuthenticationMethodArtifactPullSecret, any specified value is ignored.
+	Method *RegistryEndpointAuthenticationMethod
+}
+
+// GetRegistryEndpointAuthentication implements the RegistryEndpointAuthenticationClassification interface for type RegistryEndpointArtifactPullSecretAuthentication.
+func (r *RegistryEndpointArtifactPullSecretAuthentication) GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication {
+	return &RegistryEndpointAuthentication{
+		Method: r.Method,
+	}
+}
+
+// RegistryEndpointArtifactPullSecretSettings - RegistryEndpoint Artifact Pull Secret authentication properties
+type RegistryEndpointArtifactPullSecretSettings struct {
+	// REQUIRED; The name of the kubernetes secret that contains the artifact pull secret.
+	SecretRef *string
+}
+
+// RegistryEndpointAuthentication - Model for RegistryEndpointAuthentication
+type RegistryEndpointAuthentication struct {
+	// REQUIRED; The authentication method.
+	Method *RegistryEndpointAuthenticationMethod
+}
+
+// GetRegistryEndpointAuthentication implements the RegistryEndpointAuthenticationClassification interface for type RegistryEndpointAuthentication.
+func (r *RegistryEndpointAuthentication) GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication {
+	return r
+}
+
+// RegistryEndpointProperties - RegistryEndpoint properties
+type RegistryEndpointProperties struct {
+	// REQUIRED; The authentication settings for the Azure Container Registry.
+	Authentication RegistryEndpointAuthenticationClassification
+
+	// REQUIRED; The Container Registry endpoint hostname.
+	Host *string
+
+	// Trust settings for the registry endpoint
+	TrustSettings *RegistryEndpointTrustedSettings
+
+	// READ-ONLY; The status of the last operation.
+	ProvisioningState *ProvisioningState
+}
+
+// RegistryEndpointResource - RegistryEndpoint resource
+type RegistryEndpointResource struct {
+	// READ-ONLY; Name of RegistryEndpoint resource
+	Name *string
+
+	// Edge location of the resource.
+	ExtendedLocation *ExtendedLocation
+
+	// The resource-specific properties for this resource.
+	Properties *RegistryEndpointProperties
+
+	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
+	ID *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
+
+	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
+	Type *string
+}
+
+// RegistryEndpointResourceListResult - The response of a RegistryEndpointResource list operation.
+type RegistryEndpointResourceListResult struct {
+	// REQUIRED; The RegistryEndpointResource items on this page
+	Value []*RegistryEndpointResource
+
+	// The link to the next page of items
+	NextLink *string
+}
+
+// RegistryEndpointSystemAssignedIdentityAuthentication - System assigned identity authentication
+type RegistryEndpointSystemAssignedIdentityAuthentication struct {
+	// CONSTANT; The authentication method.
+	// Field has constant value RegistryEndpointAuthenticationMethodSystemAssignedManagedIdentity, any specified value is ignored.
+	Method *RegistryEndpointAuthenticationMethod
+
+	// REQUIRED; System assigned managed identity properties
+	SystemAssignedManagedIdentitySettings *RegistryEndpointSystemAssignedManagedIdentitySettings
+}
+
+// GetRegistryEndpointAuthentication implements the RegistryEndpointAuthenticationClassification interface for type RegistryEndpointSystemAssignedIdentityAuthentication.
+func (r *RegistryEndpointSystemAssignedIdentityAuthentication) GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication {
+	return &RegistryEndpointAuthentication{
+		Method: r.Method,
+	}
+}
+
+// RegistryEndpointSystemAssignedManagedIdentitySettings - System assigned managed identity properties
+type RegistryEndpointSystemAssignedManagedIdentitySettings struct {
+	// Audience of the service to authenticate against. Optional; defaults to the audience for Service host configuration.
+	Audience *string
+}
+
+// RegistryEndpointTrustedSettings properties
+type RegistryEndpointTrustedSettings struct {
+	// REQUIRED; The trust properties for the registry endpoint.
+	TrustedSigningKeys RegistryEndpointTrustedSigningKeyClassification
+}
+
+// RegistryEndpointTrustedSigningKey - RegistryEndpoint Trust properties
+type RegistryEndpointTrustedSigningKey struct {
+	// REQUIRED; The trust type for the registry endpoint.
+	Type *RegistryEndpointTrustedSigningKeyType
+}
+
+// GetRegistryEndpointTrustedSigningKey implements the RegistryEndpointTrustedSigningKeyClassification interface for type
+// RegistryEndpointTrustedSigningKey.
+func (r *RegistryEndpointTrustedSigningKey) GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey {
+	return r
+}
+
+// RegistryEndpointTrustedSigningKeyConfigMap - Settings for RegistryEndpoint trust provided through a configmap.
+type RegistryEndpointTrustedSigningKeyConfigMap struct {
+	// REQUIRED; The name of the configmap.
+	ConfigMapRef *string
+
+	// CONSTANT; The trust type for the registry endpoint.
+	// Field has constant value RegistryEndpointTrustedSigningKeyTypeConfigMap, any specified value is ignored.
+	Type *RegistryEndpointTrustedSigningKeyType
+}
+
+// GetRegistryEndpointTrustedSigningKey implements the RegistryEndpointTrustedSigningKeyClassification interface for type
+// RegistryEndpointTrustedSigningKeyConfigMap.
+func (r *RegistryEndpointTrustedSigningKeyConfigMap) GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey {
+	return &RegistryEndpointTrustedSigningKey{
+		Type: r.Type,
+	}
+}
+
+// RegistryEndpointTrustedSigningKeySecret - Settings for RegistryEndpoint trust provided through a secret.
+type RegistryEndpointTrustedSigningKeySecret struct {
+	// REQUIRED; The name of the secret.
+	SecretRef *string
+
+	// CONSTANT; The trust type for the registry endpoint.
+	// Field has constant value RegistryEndpointTrustedSigningKeyTypeSecret, any specified value is ignored.
+	Type *RegistryEndpointTrustedSigningKeyType
+}
+
+// GetRegistryEndpointTrustedSigningKey implements the RegistryEndpointTrustedSigningKeyClassification interface for type
+// RegistryEndpointTrustedSigningKeySecret.
+func (r *RegistryEndpointTrustedSigningKeySecret) GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey {
+	return &RegistryEndpointTrustedSigningKey{
+		Type: r.Type,
+	}
+}
+
+// RegistryEndpointUserAssignedIdentityAuthentication - User assigned identity authentication
+type RegistryEndpointUserAssignedIdentityAuthentication struct {
+	// CONSTANT; The authentication method.
+	// Field has constant value RegistryEndpointAuthenticationMethodUserAssignedManagedIdentity, any specified value is ignored.
+	Method *RegistryEndpointAuthenticationMethod
+
+	// REQUIRED; User assigned managed identity properties
+	UserAssignedManagedIdentitySettings *RegistryEndpointUserAssignedManagedIdentitySettings
+}
+
+// GetRegistryEndpointAuthentication implements the RegistryEndpointAuthenticationClassification interface for type RegistryEndpointUserAssignedIdentityAuthentication.
+func (r *RegistryEndpointUserAssignedIdentityAuthentication) GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication {
+	return &RegistryEndpointAuthentication{
+		Method: r.Method,
+	}
+}
+
+// RegistryEndpointUserAssignedManagedIdentitySettings - User assigned managed identity properties
+type RegistryEndpointUserAssignedManagedIdentitySettings struct {
+	// REQUIRED; Client ID for the user-assigned managed identity.
+	ClientID *string
+
+	// REQUIRED; Tenant ID.
+	TenantID *string
+
+	// Resource identifier (application ID URI) of the resource, affixed with the .default suffix.
+	Scope *string
+}
+
 // SanForCert - Subject Alternative Names (SANs) for certificate.
 type SanForCert struct {
 	// REQUIRED; DNS SANs.
@@ -1217,6 +2809,12 @@ type SanForCert struct {
 // SchemaRegistryRef - The reference to the Schema Registry for this AIO Instance.
 type SchemaRegistryRef struct {
 	// REQUIRED; The resource ID of the Schema Registry.
+	ResourceID *string
+}
+
+// SecretProviderClassRef - The reference to the AIO Secret provider class.
+type SecretProviderClassRef struct {
+	// REQUIRED; The resource ID of the AIO Secret provider class.
 	ResourceID *string
 }
 
@@ -1332,12 +2930,23 @@ type UserAssignedIdentity struct {
 
 // VolumeClaimResourceRequirements properties
 type VolumeClaimResourceRequirements struct {
+	// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+	// This field is immutable. It can only be set for containers.
+	Claims []*VolumeClaimResourceRequirementsClaims
+
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits map[string]*string
 
 	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults
 	// to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests map[string]*string
+}
+
+// VolumeClaimResourceRequirementsClaims properties.
+type VolumeClaimResourceRequirementsClaims struct {
+	// REQUIRED; Name of the resource. This must match the name of a resource in spec.resourceClaims.
+	Name *string
 }
 
 // VolumeClaimSpec properties

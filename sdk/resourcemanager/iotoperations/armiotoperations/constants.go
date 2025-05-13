@@ -6,7 +6,7 @@ package armiotoperations
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/iotoperations/armiotoperations"
-	moduleVersion = "v1.0.0"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -21,6 +21,183 @@ const (
 func PossibleActionTypeValues() []ActionType {
 	return []ActionType{
 		ActionTypeInternal,
+	}
+}
+
+// AkriConnectorTemplateAllocationPolicy - AkriConnectorTemplateAllocationPolicy properties.
+type AkriConnectorTemplateAllocationPolicy string
+
+const (
+	// AkriConnectorTemplateAllocationPolicyBucketized - Bucketized allocation policy.
+	AkriConnectorTemplateAllocationPolicyBucketized AkriConnectorTemplateAllocationPolicy = "Bucketized"
+)
+
+// PossibleAkriConnectorTemplateAllocationPolicyValues returns the possible values for the AkriConnectorTemplateAllocationPolicy const type.
+func PossibleAkriConnectorTemplateAllocationPolicyValues() []AkriConnectorTemplateAllocationPolicy {
+	return []AkriConnectorTemplateAllocationPolicy{
+		AkriConnectorTemplateAllocationPolicyBucketized,
+	}
+}
+
+// AkriConnectorTemplateHelmRegistrySettingsType - AkriConnectorTemplateHelmRegistrySettingsType values.
+type AkriConnectorTemplateHelmRegistrySettingsType string
+
+const (
+	// AkriConnectorTemplateHelmRegistrySettingsTypeContainerRegistry - A Container Registry reference.
+	AkriConnectorTemplateHelmRegistrySettingsTypeContainerRegistry AkriConnectorTemplateHelmRegistrySettingsType = "ContainerRegistry"
+	// AkriConnectorTemplateHelmRegistrySettingsTypeRegistryEndpointRef - A Registry Endpoint reference.
+	AkriConnectorTemplateHelmRegistrySettingsTypeRegistryEndpointRef AkriConnectorTemplateHelmRegistrySettingsType = "RegistryEndpointRef"
+)
+
+// PossibleAkriConnectorTemplateHelmRegistrySettingsTypeValues returns the possible values for the AkriConnectorTemplateHelmRegistrySettingsType const type.
+func PossibleAkriConnectorTemplateHelmRegistrySettingsTypeValues() []AkriConnectorTemplateHelmRegistrySettingsType {
+	return []AkriConnectorTemplateHelmRegistrySettingsType{
+		AkriConnectorTemplateHelmRegistrySettingsTypeContainerRegistry,
+		AkriConnectorTemplateHelmRegistrySettingsTypeRegistryEndpointRef,
+	}
+}
+
+// AkriConnectorTemplateManagedConfigurationType - Managed configuration types.
+type AkriConnectorTemplateManagedConfigurationType string
+
+const (
+	// AkriConnectorTemplateManagedConfigurationTypeImageConfiguration - Image Configuration Type.
+	AkriConnectorTemplateManagedConfigurationTypeImageConfiguration AkriConnectorTemplateManagedConfigurationType = "ImageConfiguration"
+	// AkriConnectorTemplateManagedConfigurationTypeStatefulSetConfiguration - StatefulSet Configuration Type.
+	AkriConnectorTemplateManagedConfigurationTypeStatefulSetConfiguration AkriConnectorTemplateManagedConfigurationType = "StatefulSetConfiguration"
+)
+
+// PossibleAkriConnectorTemplateManagedConfigurationTypeValues returns the possible values for the AkriConnectorTemplateManagedConfigurationType const type.
+func PossibleAkriConnectorTemplateManagedConfigurationTypeValues() []AkriConnectorTemplateManagedConfigurationType {
+	return []AkriConnectorTemplateManagedConfigurationType{
+		AkriConnectorTemplateManagedConfigurationTypeImageConfiguration,
+		AkriConnectorTemplateManagedConfigurationTypeStatefulSetConfiguration,
+	}
+}
+
+// AkriConnectorTemplateRuntimeConfigurationType - Runtime configuration types.
+type AkriConnectorTemplateRuntimeConfigurationType string
+
+const (
+	// AkriConnectorTemplateRuntimeConfigurationTypeHelmConfiguration - Helm Configuration Type.
+	AkriConnectorTemplateRuntimeConfigurationTypeHelmConfiguration AkriConnectorTemplateRuntimeConfigurationType = "HelmConfiguration"
+	// AkriConnectorTemplateRuntimeConfigurationTypeManagedConfiguration - Managed Configuration Type.
+	AkriConnectorTemplateRuntimeConfigurationTypeManagedConfiguration AkriConnectorTemplateRuntimeConfigurationType = "ManagedConfiguration"
+)
+
+// PossibleAkriConnectorTemplateRuntimeConfigurationTypeValues returns the possible values for the AkriConnectorTemplateRuntimeConfigurationType const type.
+func PossibleAkriConnectorTemplateRuntimeConfigurationTypeValues() []AkriConnectorTemplateRuntimeConfigurationType {
+	return []AkriConnectorTemplateRuntimeConfigurationType{
+		AkriConnectorTemplateRuntimeConfigurationTypeHelmConfiguration,
+		AkriConnectorTemplateRuntimeConfigurationTypeManagedConfiguration,
+	}
+}
+
+// AkriConnectorsImagePullPolicy - Image pull policy.
+type AkriConnectorsImagePullPolicy string
+
+const (
+	// AkriConnectorsImagePullPolicyAlways - Always pull the image.
+	AkriConnectorsImagePullPolicyAlways AkriConnectorsImagePullPolicy = "Always"
+	// AkriConnectorsImagePullPolicyIfNotPresent - IfNotPresent pull the image.
+	AkriConnectorsImagePullPolicyIfNotPresent AkriConnectorsImagePullPolicy = "IfNotPresent"
+	// AkriConnectorsImagePullPolicyNever - Never pull the image.
+	AkriConnectorsImagePullPolicyNever AkriConnectorsImagePullPolicy = "Never"
+)
+
+// PossibleAkriConnectorsImagePullPolicyValues returns the possible values for the AkriConnectorsImagePullPolicy const type.
+func PossibleAkriConnectorsImagePullPolicyValues() []AkriConnectorsImagePullPolicy {
+	return []AkriConnectorsImagePullPolicy{
+		AkriConnectorsImagePullPolicyAlways,
+		AkriConnectorsImagePullPolicyIfNotPresent,
+		AkriConnectorsImagePullPolicyNever,
+	}
+}
+
+// AkriConnectorsMqttAuthenticationMethod - AkriConnectorsMqttAuthenticationMethod properties.
+type AkriConnectorsMqttAuthenticationMethod string
+
+const (
+	// AkriConnectorsMqttAuthenticationMethodServiceAccountToken - Service Account Token authentication.
+	AkriConnectorsMqttAuthenticationMethodServiceAccountToken AkriConnectorsMqttAuthenticationMethod = "ServiceAccountToken"
+)
+
+// PossibleAkriConnectorsMqttAuthenticationMethodValues returns the possible values for the AkriConnectorsMqttAuthenticationMethod const type.
+func PossibleAkriConnectorsMqttAuthenticationMethodValues() []AkriConnectorsMqttAuthenticationMethod {
+	return []AkriConnectorsMqttAuthenticationMethod{
+		AkriConnectorsMqttAuthenticationMethodServiceAccountToken,
+	}
+}
+
+// AkriConnectorsMqttProtocolType - Mqtt protocol types.
+type AkriConnectorsMqttProtocolType string
+
+const (
+	// AkriConnectorsMqttProtocolTypeMqtt - Mqtt protocol.
+	AkriConnectorsMqttProtocolTypeMqtt AkriConnectorsMqttProtocolType = "Mqtt"
+)
+
+// PossibleAkriConnectorsMqttProtocolTypeValues returns the possible values for the AkriConnectorsMqttProtocolType const type.
+func PossibleAkriConnectorsMqttProtocolTypeValues() []AkriConnectorsMqttProtocolType {
+	return []AkriConnectorsMqttProtocolType{
+		AkriConnectorsMqttProtocolTypeMqtt,
+	}
+}
+
+// AkriConnectorsRegistrySettingsType - AkriConnectorsRegistrySettings properties.
+type AkriConnectorsRegistrySettingsType string
+
+const (
+	// AkriConnectorsRegistrySettingsTypeContainerRegistry - A Container Registry reference.
+	AkriConnectorsRegistrySettingsTypeContainerRegistry AkriConnectorsRegistrySettingsType = "ContainerRegistry"
+	// AkriConnectorsRegistrySettingsTypeRegistryEndpointRef - A Registry Endpoint reference.
+	AkriConnectorsRegistrySettingsTypeRegistryEndpointRef AkriConnectorsRegistrySettingsType = "RegistryEndpointRef"
+)
+
+// PossibleAkriConnectorsRegistrySettingsTypeValues returns the possible values for the AkriConnectorsRegistrySettingsType const type.
+func PossibleAkriConnectorsRegistrySettingsTypeValues() []AkriConnectorsRegistrySettingsType {
+	return []AkriConnectorsRegistrySettingsType{
+		AkriConnectorsRegistrySettingsTypeContainerRegistry,
+		AkriConnectorsRegistrySettingsTypeRegistryEndpointRef,
+	}
+}
+
+// AkriConnectorsTagDigestType - AkriConnectorsTagDigestType values.
+type AkriConnectorsTagDigestType string
+
+const (
+	// AkriConnectorsTagDigestTypeDigest - Indicates that a digest should be specified.
+	AkriConnectorsTagDigestTypeDigest AkriConnectorsTagDigestType = "Digest"
+	// AkriConnectorsTagDigestTypeTag - Indicates that a tag should be specified.
+	AkriConnectorsTagDigestTypeTag AkriConnectorsTagDigestType = "Tag"
+)
+
+// PossibleAkriConnectorsTagDigestTypeValues returns the possible values for the AkriConnectorsTagDigestType const type.
+func PossibleAkriConnectorsTagDigestTypeValues() []AkriConnectorsTagDigestType {
+	return []AkriConnectorsTagDigestType{
+		AkriConnectorsTagDigestTypeDigest,
+		AkriConnectorsTagDigestTypeTag,
+	}
+}
+
+// AkriDiscoveryHandlerScheduleType - AkriDiscoveryHandlerScheduleType properties.
+type AkriDiscoveryHandlerScheduleType string
+
+const (
+	// AkriDiscoveryHandlerScheduleTypeContinuous - The discovery handler should run continuously.
+	AkriDiscoveryHandlerScheduleTypeContinuous AkriDiscoveryHandlerScheduleType = "Continuous"
+	// AkriDiscoveryHandlerScheduleTypeCron - The schedule is a cron expression.
+	AkriDiscoveryHandlerScheduleTypeCron AkriDiscoveryHandlerScheduleType = "Cron"
+	// AkriDiscoveryHandlerScheduleTypeRunOnce - The discovery handler should run once.
+	AkriDiscoveryHandlerScheduleTypeRunOnce AkriDiscoveryHandlerScheduleType = "RunOnce"
+)
+
+// PossibleAkriDiscoveryHandlerScheduleTypeValues returns the possible values for the AkriDiscoveryHandlerScheduleType const type.
+func PossibleAkriDiscoveryHandlerScheduleTypeValues() []AkriDiscoveryHandlerScheduleType {
+	return []AkriDiscoveryHandlerScheduleType{
+		AkriDiscoveryHandlerScheduleTypeContinuous,
+		AkriDiscoveryHandlerScheduleTypeCron,
+		AkriDiscoveryHandlerScheduleTypeRunOnce,
 	}
 }
 
@@ -45,6 +222,24 @@ func PossibleBrokerAuthenticationMethodValues() []BrokerAuthenticationMethod {
 	}
 }
 
+// BrokerAuthenticatorValidationMethods - X509 authentication validation methods.
+type BrokerAuthenticatorValidationMethods string
+
+const (
+	// BrokerAuthenticatorValidationMethodsAzureDeviceRegistry - Additional validation is performed using the Azure Device Registry.
+	BrokerAuthenticatorValidationMethodsAzureDeviceRegistry BrokerAuthenticatorValidationMethods = "AzureDeviceRegistry"
+	// BrokerAuthenticatorValidationMethodsNone - No additional validation is performed
+	BrokerAuthenticatorValidationMethodsNone BrokerAuthenticatorValidationMethods = "None"
+)
+
+// PossibleBrokerAuthenticatorValidationMethodsValues returns the possible values for the BrokerAuthenticatorValidationMethods const type.
+func PossibleBrokerAuthenticatorValidationMethodsValues() []BrokerAuthenticatorValidationMethods {
+	return []BrokerAuthenticatorValidationMethods{
+		BrokerAuthenticatorValidationMethodsAzureDeviceRegistry,
+		BrokerAuthenticatorValidationMethodsNone,
+	}
+}
+
 // BrokerMemoryProfile - The memory profile settings of the Broker
 type BrokerMemoryProfile string
 
@@ -66,6 +261,27 @@ func PossibleBrokerMemoryProfileValues() []BrokerMemoryProfile {
 		BrokerMemoryProfileLow,
 		BrokerMemoryProfileMedium,
 		BrokerMemoryProfileTiny,
+	}
+}
+
+// BrokerPersistencePolicyMode - Broker Persistence Policy Mode values.
+type BrokerPersistencePolicyMode string
+
+const (
+	// BrokerPersistencePolicyModeAll - Policy mode for All.
+	BrokerPersistencePolicyModeAll BrokerPersistencePolicyMode = "All"
+	// BrokerPersistencePolicyModeCustom - Indicates that the policy is a custom policy.
+	BrokerPersistencePolicyModeCustom BrokerPersistencePolicyMode = "Custom"
+	// BrokerPersistencePolicyModeNone - Policy mode for None.
+	BrokerPersistencePolicyModeNone BrokerPersistencePolicyMode = "None"
+)
+
+// PossibleBrokerPersistencePolicyModeValues returns the possible values for the BrokerPersistencePolicyMode const type.
+func PossibleBrokerPersistencePolicyModeValues() []BrokerPersistencePolicyMode {
+	return []BrokerPersistencePolicyMode{
+		BrokerPersistencePolicyModeAll,
+		BrokerPersistencePolicyModeCustom,
+		BrokerPersistencePolicyModeNone,
 	}
 }
 
@@ -105,6 +321,28 @@ func PossibleBrokerResourceDefinitionMethodsValues() []BrokerResourceDefinitionM
 		BrokerResourceDefinitionMethodsConnect,
 		BrokerResourceDefinitionMethodsPublish,
 		BrokerResourceDefinitionMethodsSubscribe,
+	}
+}
+
+// BrokerStateStoreKeyType - Broker State Store Key Type properties.
+type BrokerStateStoreKeyType string
+
+const (
+	// BrokerStateStoreKeyTypeBinary - Used to match a binary key.
+	BrokerStateStoreKeyTypeBinary BrokerStateStoreKeyType = "Binary"
+	// BrokerStateStoreKeyTypePattern - Used for glob-style pattern matching.
+	BrokerStateStoreKeyTypePattern BrokerStateStoreKeyType = "Pattern"
+	// BrokerStateStoreKeyTypeString - Used to do exact match, for example, when a key contains characters that might be otherwise
+	// matched as a pattern (*, ?, [0-9]).
+	BrokerStateStoreKeyTypeString BrokerStateStoreKeyType = "String"
+)
+
+// PossibleBrokerStateStoreKeyTypeValues returns the possible values for the BrokerStateStoreKeyType const type.
+func PossibleBrokerStateStoreKeyTypeValues() []BrokerStateStoreKeyType {
+	return []BrokerStateStoreKeyType{
+		BrokerStateStoreKeyTypeBinary,
+		BrokerStateStoreKeyTypePattern,
+		BrokerStateStoreKeyTypeString,
 	}
 }
 
@@ -316,6 +554,81 @@ func PossibleDataflowEndpointKafkaPartitionStrategyValues() []DataflowEndpointKa
 	}
 }
 
+// DataflowEnpointHostType - DataflowEndpoint Host Type properties
+type DataflowEnpointHostType string
+
+const (
+	// DataflowEnpointHostTypeCustomKafka - Custom Kafka Type
+	DataflowEnpointHostTypeCustomKafka DataflowEnpointHostType = "CustomKafka"
+	// DataflowEnpointHostTypeCustomMqtt - Custom MQTT Type
+	DataflowEnpointHostTypeCustomMqtt DataflowEnpointHostType = "CustomMqtt"
+	// DataflowEnpointHostTypeEventGrid - EventGrid Type
+	DataflowEnpointHostTypeEventGrid DataflowEnpointHostType = "EventGrid"
+	// DataflowEnpointHostTypeEventhub - EventHub Type
+	DataflowEnpointHostTypeEventhub DataflowEnpointHostType = "Eventhub"
+	// DataflowEnpointHostTypeFabricRT - Fabric Real-Time Type
+	DataflowEnpointHostTypeFabricRT DataflowEnpointHostType = "FabricRT"
+	// DataflowEnpointHostTypeLocalBroker - Local MQTT Type
+	DataflowEnpointHostTypeLocalBroker DataflowEnpointHostType = "LocalBroker"
+)
+
+// PossibleDataflowEnpointHostTypeValues returns the possible values for the DataflowEnpointHostType const type.
+func PossibleDataflowEnpointHostTypeValues() []DataflowEnpointHostType {
+	return []DataflowEnpointHostType{
+		DataflowEnpointHostTypeCustomKafka,
+		DataflowEnpointHostTypeCustomMqtt,
+		DataflowEnpointHostTypeEventGrid,
+		DataflowEnpointHostTypeEventhub,
+		DataflowEnpointHostTypeFabricRT,
+		DataflowEnpointHostTypeLocalBroker,
+	}
+}
+
+// DataflowGraphNodeType - DataflowGraph node types.
+type DataflowGraphNodeType string
+
+const (
+	// DataflowGraphNodeTypeDestination - Dataflow destination node.
+	DataflowGraphNodeTypeDestination DataflowGraphNodeType = "Destination"
+	// DataflowGraphNodeTypeGraph - Dataflow graph node.
+	DataflowGraphNodeTypeGraph DataflowGraphNodeType = "Graph"
+	// DataflowGraphNodeTypeSource - Dataflow source node.
+	DataflowGraphNodeTypeSource DataflowGraphNodeType = "Source"
+)
+
+// PossibleDataflowGraphNodeTypeValues returns the possible values for the DataflowGraphNodeType const type.
+func PossibleDataflowGraphNodeTypeValues() []DataflowGraphNodeType {
+	return []DataflowGraphNodeType{
+		DataflowGraphNodeTypeDestination,
+		DataflowGraphNodeTypeGraph,
+		DataflowGraphNodeTypeSource,
+	}
+}
+
+// DataflowGraphSerializationFormat - Serialization format for dataflow graph.
+type DataflowGraphSerializationFormat string
+
+const (
+	// DataflowGraphSerializationFormatAvro - Avro serialization format.
+	DataflowGraphSerializationFormatAvro DataflowGraphSerializationFormat = "Avro"
+	// DataflowGraphSerializationFormatDelta - Delta Format
+	DataflowGraphSerializationFormatDelta DataflowGraphSerializationFormat = "Delta"
+	// DataflowGraphSerializationFormatJSON - JSON Format
+	DataflowGraphSerializationFormatJSON DataflowGraphSerializationFormat = "Json"
+	// DataflowGraphSerializationFormatParquet - Parquet Format
+	DataflowGraphSerializationFormatParquet DataflowGraphSerializationFormat = "Parquet"
+)
+
+// PossibleDataflowGraphSerializationFormatValues returns the possible values for the DataflowGraphSerializationFormat const type.
+func PossibleDataflowGraphSerializationFormatValues() []DataflowGraphSerializationFormat {
+	return []DataflowGraphSerializationFormat{
+		DataflowGraphSerializationFormatAvro,
+		DataflowGraphSerializationFormatDelta,
+		DataflowGraphSerializationFormatJSON,
+		DataflowGraphSerializationFormatParquet,
+	}
+}
+
 // DataflowMappingType - Dataflow type mapping properties
 type DataflowMappingType string
 
@@ -343,6 +656,27 @@ func PossibleDataflowMappingTypeValues() []DataflowMappingType {
 	}
 }
 
+// DataflowOpenTelemetryAuthenticationMethod - Dataflow OpenTelemetry authentication method values.
+type DataflowOpenTelemetryAuthenticationMethod string
+
+const (
+	// DataflowOpenTelemetryAuthenticationMethodAnonymous - Connects anonymously.
+	DataflowOpenTelemetryAuthenticationMethodAnonymous DataflowOpenTelemetryAuthenticationMethod = "Anonymous"
+	// DataflowOpenTelemetryAuthenticationMethodServiceAccountToken - Uses serviceaccount token.
+	DataflowOpenTelemetryAuthenticationMethodServiceAccountToken DataflowOpenTelemetryAuthenticationMethod = "ServiceAccountToken"
+	// DataflowOpenTelemetryAuthenticationMethodX509Certificate - Uses x509 certificate.
+	DataflowOpenTelemetryAuthenticationMethodX509Certificate DataflowOpenTelemetryAuthenticationMethod = "X509Certificate"
+)
+
+// PossibleDataflowOpenTelemetryAuthenticationMethodValues returns the possible values for the DataflowOpenTelemetryAuthenticationMethod const type.
+func PossibleDataflowOpenTelemetryAuthenticationMethodValues() []DataflowOpenTelemetryAuthenticationMethod {
+	return []DataflowOpenTelemetryAuthenticationMethod{
+		DataflowOpenTelemetryAuthenticationMethodAnonymous,
+		DataflowOpenTelemetryAuthenticationMethodServiceAccountToken,
+		DataflowOpenTelemetryAuthenticationMethodX509Certificate,
+	}
+}
+
 // EndpointType - DataflowEndpoint Type properties
 type EndpointType string
 
@@ -359,6 +693,8 @@ const (
 	EndpointTypeLocalStorage EndpointType = "LocalStorage"
 	// EndpointTypeMqtt - Broker Type
 	EndpointTypeMqtt EndpointType = "Mqtt"
+	// EndpointTypeOpenTelemetry - OpenTelemetry Type
+	EndpointTypeOpenTelemetry EndpointType = "OpenTelemetry"
 )
 
 // PossibleEndpointTypeValues returns the possible values for the EndpointType const type.
@@ -370,6 +706,7 @@ func PossibleEndpointTypeValues() []EndpointType {
 		EndpointTypeKafka,
 		EndpointTypeLocalStorage,
 		EndpointTypeMqtt,
+		EndpointTypeOpenTelemetry,
 	}
 }
 
@@ -418,6 +755,27 @@ const (
 func PossibleFilterTypeValues() []FilterType {
 	return []FilterType{
 		FilterTypeFilter,
+	}
+}
+
+// InstanceFeatureMode - The enum defining mode of a feature.
+type InstanceFeatureMode string
+
+const (
+	// InstanceFeatureModeDisabled - Opt out of a feature
+	InstanceFeatureModeDisabled InstanceFeatureMode = "Disabled"
+	// InstanceFeatureModePreview - Opt in to enable a preview feature
+	InstanceFeatureModePreview InstanceFeatureMode = "Preview"
+	// InstanceFeatureModeStable - Opt in to enable a stable feature
+	InstanceFeatureModeStable InstanceFeatureMode = "Stable"
+)
+
+// PossibleInstanceFeatureModeValues returns the possible values for the InstanceFeatureMode const type.
+func PossibleInstanceFeatureModeValues() []InstanceFeatureMode {
+	return []InstanceFeatureMode{
+		InstanceFeatureModeDisabled,
+		InstanceFeatureModePreview,
+		InstanceFeatureModeStable,
 	}
 }
 
@@ -683,6 +1041,48 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateProvisioning,
 		ProvisioningStateSucceeded,
 		ProvisioningStateUpdating,
+	}
+}
+
+// RegistryEndpointAuthenticationMethod - The authentication method.
+type RegistryEndpointAuthenticationMethod string
+
+const (
+	// RegistryEndpointAuthenticationMethodAnonymous - Anonymous Option
+	RegistryEndpointAuthenticationMethodAnonymous RegistryEndpointAuthenticationMethod = "Anonymous"
+	// RegistryEndpointAuthenticationMethodArtifactPullSecret - Artifact Pull Secret authentication
+	RegistryEndpointAuthenticationMethodArtifactPullSecret RegistryEndpointAuthenticationMethod = "ArtifactPullSecret"
+	// RegistryEndpointAuthenticationMethodSystemAssignedManagedIdentity - SystemAssignedManagedIdentity type
+	RegistryEndpointAuthenticationMethodSystemAssignedManagedIdentity RegistryEndpointAuthenticationMethod = "SystemAssignedManagedIdentity"
+	// RegistryEndpointAuthenticationMethodUserAssignedManagedIdentity - UserAssignedManagedIdentity type
+	RegistryEndpointAuthenticationMethodUserAssignedManagedIdentity RegistryEndpointAuthenticationMethod = "UserAssignedManagedIdentity"
+)
+
+// PossibleRegistryEndpointAuthenticationMethodValues returns the possible values for the RegistryEndpointAuthenticationMethod const type.
+func PossibleRegistryEndpointAuthenticationMethodValues() []RegistryEndpointAuthenticationMethod {
+	return []RegistryEndpointAuthenticationMethod{
+		RegistryEndpointAuthenticationMethodAnonymous,
+		RegistryEndpointAuthenticationMethodArtifactPullSecret,
+		RegistryEndpointAuthenticationMethodSystemAssignedManagedIdentity,
+		RegistryEndpointAuthenticationMethodUserAssignedManagedIdentity,
+	}
+}
+
+// RegistryEndpointTrustedSigningKeyType - RegistryEndpointTrustedSigningKeyType values
+type RegistryEndpointTrustedSigningKeyType string
+
+const (
+	// RegistryEndpointTrustedSigningKeyTypeConfigMap - Trust settings stored in a Kubernetes ConfigMap.
+	RegistryEndpointTrustedSigningKeyTypeConfigMap RegistryEndpointTrustedSigningKeyType = "ConfigMap"
+	// RegistryEndpointTrustedSigningKeyTypeSecret - Trust settings stored in a Kubernetes Secret.
+	RegistryEndpointTrustedSigningKeyTypeSecret RegistryEndpointTrustedSigningKeyType = "Secret"
+)
+
+// PossibleRegistryEndpointTrustedSigningKeyTypeValues returns the possible values for the RegistryEndpointTrustedSigningKeyType const type.
+func PossibleRegistryEndpointTrustedSigningKeyTypeValues() []RegistryEndpointTrustedSigningKeyType {
+	return []RegistryEndpointTrustedSigningKeyType{
+		RegistryEndpointTrustedSigningKeyTypeConfigMap,
+		RegistryEndpointTrustedSigningKeyTypeSecret,
 	}
 }
 

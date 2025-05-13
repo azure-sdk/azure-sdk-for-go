@@ -1,5 +1,209 @@
 # Release History
 
+## 1.1.0-beta.1 (2025-05-13)
+### Features Added
+
+- New value `EndpointTypeOpenTelemetry` added to enum type `EndpointType`
+- New enum type `AkriConnectorTemplateAllocationPolicy` with values `AkriConnectorTemplateAllocationPolicyBucketized`
+- New enum type `AkriConnectorTemplateHelmRegistrySettingsType` with values `AkriConnectorTemplateHelmRegistrySettingsTypeContainerRegistry`, `AkriConnectorTemplateHelmRegistrySettingsTypeRegistryEndpointRef`
+- New enum type `AkriConnectorTemplateManagedConfigurationType` with values `AkriConnectorTemplateManagedConfigurationTypeImageConfiguration`, `AkriConnectorTemplateManagedConfigurationTypeStatefulSetConfiguration`
+- New enum type `AkriConnectorTemplateRuntimeConfigurationType` with values `AkriConnectorTemplateRuntimeConfigurationTypeHelmConfiguration`, `AkriConnectorTemplateRuntimeConfigurationTypeManagedConfiguration`
+- New enum type `AkriConnectorsImagePullPolicy` with values `AkriConnectorsImagePullPolicyAlways`, `AkriConnectorsImagePullPolicyIfNotPresent`, `AkriConnectorsImagePullPolicyNever`
+- New enum type `AkriConnectorsMqttAuthenticationMethod` with values `AkriConnectorsMqttAuthenticationMethodServiceAccountToken`
+- New enum type `AkriConnectorsMqttProtocolType` with values `AkriConnectorsMqttProtocolTypeMqtt`
+- New enum type `AkriConnectorsRegistrySettingsType` with values `AkriConnectorsRegistrySettingsTypeContainerRegistry`, `AkriConnectorsRegistrySettingsTypeRegistryEndpointRef`
+- New enum type `AkriConnectorsTagDigestType` with values `AkriConnectorsTagDigestTypeDigest`, `AkriConnectorsTagDigestTypeTag`
+- New enum type `AkriDiscoveryHandlerScheduleType` with values `AkriDiscoveryHandlerScheduleTypeContinuous`, `AkriDiscoveryHandlerScheduleTypeCron`, `AkriDiscoveryHandlerScheduleTypeRunOnce`
+- New enum type `BrokerAuthenticatorValidationMethods` with values `BrokerAuthenticatorValidationMethodsAzureDeviceRegistry`, `BrokerAuthenticatorValidationMethodsNone`
+- New enum type `BrokerPersistencePolicyMode` with values `BrokerPersistencePolicyModeAll`, `BrokerPersistencePolicyModeCustom`, `BrokerPersistencePolicyModeNone`
+- New enum type `BrokerStateStoreKeyType` with values `BrokerStateStoreKeyTypeBinary`, `BrokerStateStoreKeyTypePattern`, `BrokerStateStoreKeyTypeString`
+- New enum type `DataflowEnpointHostType` with values `DataflowEnpointHostTypeCustomKafka`, `DataflowEnpointHostTypeCustomMqtt`, `DataflowEnpointHostTypeEventGrid`, `DataflowEnpointHostTypeEventhub`, `DataflowEnpointHostTypeFabricRT`, `DataflowEnpointHostTypeLocalBroker`
+- New enum type `DataflowGraphNodeType` with values `DataflowGraphNodeTypeDestination`, `DataflowGraphNodeTypeGraph`, `DataflowGraphNodeTypeSource`
+- New enum type `DataflowGraphSerializationFormat` with values `DataflowGraphSerializationFormatAvro`, `DataflowGraphSerializationFormatDelta`, `DataflowGraphSerializationFormatJSON`, `DataflowGraphSerializationFormatParquet`
+- New enum type `DataflowOpenTelemetryAuthenticationMethod` with values `DataflowOpenTelemetryAuthenticationMethodAnonymous`, `DataflowOpenTelemetryAuthenticationMethodServiceAccountToken`, `DataflowOpenTelemetryAuthenticationMethodX509Certificate`
+- New enum type `InstanceFeatureMode` with values `InstanceFeatureModeDisabled`, `InstanceFeatureModePreview`, `InstanceFeatureModeStable`
+- New enum type `RegistryEndpointAuthenticationMethod` with values `RegistryEndpointAuthenticationMethodAnonymous`, `RegistryEndpointAuthenticationMethodArtifactPullSecret`, `RegistryEndpointAuthenticationMethodSystemAssignedManagedIdentity`, `RegistryEndpointAuthenticationMethodUserAssignedManagedIdentity`
+- New enum type `RegistryEndpointTrustedSigningKeyType` with values `RegistryEndpointTrustedSigningKeyTypeConfigMap`, `RegistryEndpointTrustedSigningKeyTypeSecret`
+- New function `NewAkriConnectorClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AkriConnectorClient, error)`
+- New function `*AkriConnectorClient.BeginCreateOrUpdate(context.Context, string, string, string, string, AkriConnectorResource, *AkriConnectorClientBeginCreateOrUpdateOptions) (*runtime.Poller[AkriConnectorClientCreateOrUpdateResponse], error)`
+- New function `*AkriConnectorClient.BeginDelete(context.Context, string, string, string, string, *AkriConnectorClientBeginDeleteOptions) (*runtime.Poller[AkriConnectorClientDeleteResponse], error)`
+- New function `*AkriConnectorClient.Get(context.Context, string, string, string, string, *AkriConnectorClientGetOptions) (AkriConnectorClientGetResponse, error)`
+- New function `*AkriConnectorClient.NewListByTemplatePager(string, string, string, *AkriConnectorClientListByTemplateOptions) *runtime.Pager[AkriConnectorClientListByTemplateResponse]`
+- New function `*AkriConnectorTemplateAllocation.GetAkriConnectorTemplateAllocation() *AkriConnectorTemplateAllocation`
+- New function `*AkriConnectorTemplateBucketizedAllocation.GetAkriConnectorTemplateAllocation() *AkriConnectorTemplateAllocation`
+- New function `NewAkriConnectorTemplateClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AkriConnectorTemplateClient, error)`
+- New function `*AkriConnectorTemplateClient.BeginCreateOrUpdate(context.Context, string, string, string, AkriConnectorTemplateResource, *AkriConnectorTemplateClientBeginCreateOrUpdateOptions) (*runtime.Poller[AkriConnectorTemplateClientCreateOrUpdateResponse], error)`
+- New function `*AkriConnectorTemplateClient.BeginDelete(context.Context, string, string, string, *AkriConnectorTemplateClientBeginDeleteOptions) (*runtime.Poller[AkriConnectorTemplateClientDeleteResponse], error)`
+- New function `*AkriConnectorTemplateClient.Get(context.Context, string, string, string, *AkriConnectorTemplateClientGetOptions) (AkriConnectorTemplateClientGetResponse, error)`
+- New function `*AkriConnectorTemplateClient.NewListByInstanceResourcePager(string, string, *AkriConnectorTemplateClientListByInstanceResourceOptions) *runtime.Pager[AkriConnectorTemplateClientListByInstanceResourceResponse]`
+- New function `*AkriConnectorTemplateHelmConfiguration.GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration`
+- New function `*AkriConnectorTemplateHelmContainerRegistry.GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings`
+- New function `*AkriConnectorTemplateHelmRegistryEndpointRef.GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings`
+- New function `*AkriConnectorTemplateHelmRegistrySettings.GetAkriConnectorTemplateHelmRegistrySettings() *AkriConnectorTemplateHelmRegistrySettings`
+- New function `*AkriConnectorTemplateManagedConfiguration.GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration`
+- New function `*AkriConnectorTemplateManagedConfigurationSettings.GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings`
+- New function `*AkriConnectorTemplateRuntimeConfiguration.GetAkriConnectorTemplateRuntimeConfiguration() *AkriConnectorTemplateRuntimeConfiguration`
+- New function `*AkriConnectorTemplateRuntimeImageConfiguration.GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings`
+- New function `*AkriConnectorTemplateRuntimeStatefulSetConfiguration.GetAkriConnectorTemplateManagedConfigurationSettings() *AkriConnectorTemplateManagedConfigurationSettings`
+- New function `*AkriConnectorsContainerRegistry.GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings`
+- New function `*AkriConnectorsDigest.GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings`
+- New function `*AkriConnectorsMqttAuthentication.GetAkriConnectorsMqttAuthentication() *AkriConnectorsMqttAuthentication`
+- New function `*AkriConnectorsRegistryEndpointRef.GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings`
+- New function `*AkriConnectorsRegistrySettings.GetAkriConnectorsRegistrySettings() *AkriConnectorsRegistrySettings`
+- New function `*AkriConnectorsServiceAccountAuthentication.GetAkriConnectorsMqttAuthentication() *AkriConnectorsMqttAuthentication`
+- New function `*AkriConnectorsTag.GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings`
+- New function `*AkriConnectorsTagDigestSettings.GetAkriConnectorsTagDigestSettings() *AkriConnectorsTagDigestSettings`
+- New function `NewAkriDiscoveryHandlerClient(string, azcore.TokenCredential, *arm.ClientOptions) (*AkriDiscoveryHandlerClient, error)`
+- New function `*AkriDiscoveryHandlerClient.BeginCreateOrUpdate(context.Context, string, string, string, AkriDiscoveryHandlerResource, *AkriDiscoveryHandlerClientBeginCreateOrUpdateOptions) (*runtime.Poller[AkriDiscoveryHandlerClientCreateOrUpdateResponse], error)`
+- New function `*AkriDiscoveryHandlerClient.BeginDelete(context.Context, string, string, string, *AkriDiscoveryHandlerClientBeginDeleteOptions) (*runtime.Poller[AkriDiscoveryHandlerClientDeleteResponse], error)`
+- New function `*AkriDiscoveryHandlerClient.Get(context.Context, string, string, string, *AkriDiscoveryHandlerClientGetOptions) (AkriDiscoveryHandlerClientGetResponse, error)`
+- New function `*AkriDiscoveryHandlerClient.NewListByInstanceResourcePager(string, string, *AkriDiscoveryHandlerClientListByInstanceResourceOptions) *runtime.Pager[AkriDiscoveryHandlerClientListByInstanceResourceResponse]`
+- New function `*AkriDiscoveryHandlerSchedule.GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule`
+- New function `*AkriDiscoveryHandlerScheduleContinuous.GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule`
+- New function `*AkriDiscoveryHandlerScheduleCron.GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule`
+- New function `*AkriDiscoveryHandlerScheduleRunOnce.GetAkriDiscoveryHandlerSchedule() *AkriDiscoveryHandlerSchedule`
+- New function `*BrokerRetainMessagesCustomPolicy.GetBrokerRetainMessagesPolicy() *BrokerRetainMessagesPolicy`
+- New function `*BrokerRetainMessagesPolicy.GetBrokerRetainMessagesPolicy() *BrokerRetainMessagesPolicy`
+- New function `*BrokerStateStoreCustomPolicy.GetBrokerStateStorePolicy() *BrokerStateStorePolicy`
+- New function `*BrokerStateStorePolicy.GetBrokerStateStorePolicy() *BrokerStateStorePolicy`
+- New function `*BrokerSubscriberQueueCustomPolicy.GetBrokerSubscriberQueuePolicy() *BrokerSubscriberQueuePolicy`
+- New function `*BrokerSubscriberQueuePolicy.GetBrokerSubscriberQueuePolicy() *BrokerSubscriberQueuePolicy`
+- New function `*ClientFactory.NewAkriConnectorClient() *AkriConnectorClient`
+- New function `*ClientFactory.NewAkriConnectorTemplateClient() *AkriConnectorTemplateClient`
+- New function `*ClientFactory.NewAkriDiscoveryHandlerClient() *AkriDiscoveryHandlerClient`
+- New function `*ClientFactory.NewDataflowGraphClient() *DataflowGraphClient`
+- New function `*ClientFactory.NewRegistryEndpointClient() *RegistryEndpointClient`
+- New function `*DatafloGraphDestinationNode.GetDataflowGraphNode() *DataflowGraphNode`
+- New function `NewDataflowGraphClient(string, azcore.TokenCredential, *arm.ClientOptions) (*DataflowGraphClient, error)`
+- New function `*DataflowGraphClient.BeginCreateOrUpdate(context.Context, string, string, string, string, DataflowGraphResource, *DataflowGraphClientBeginCreateOrUpdateOptions) (*runtime.Poller[DataflowGraphClientCreateOrUpdateResponse], error)`
+- New function `*DataflowGraphClient.BeginDelete(context.Context, string, string, string, string, *DataflowGraphClientBeginDeleteOptions) (*runtime.Poller[DataflowGraphClientDeleteResponse], error)`
+- New function `*DataflowGraphClient.Get(context.Context, string, string, string, string, *DataflowGraphClientGetOptions) (DataflowGraphClientGetResponse, error)`
+- New function `*DataflowGraphClient.NewListByDataflowProfilePager(string, string, string, *DataflowGraphClientListByDataflowProfileOptions) *runtime.Pager[DataflowGraphClientListByDataflowProfileResponse]`
+- New function `*DataflowGraphGraphNode.GetDataflowGraphNode() *DataflowGraphNode`
+- New function `*DataflowGraphNode.GetDataflowGraphNode() *DataflowGraphNode`
+- New function `*DataflowGraphSourceNode.GetDataflowGraphNode() *DataflowGraphNode`
+- New function `*DataflowOpenTelemetryAnonymousAuthentication.GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication`
+- New function `*DataflowOpenTelemetryAuthentication.GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication`
+- New function `*DataflowOpenTelemetryServiceAccountAuthentication.GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication`
+- New function `*DataflowOpenTelemetryX509CertificateAuthentication.GetDataflowOpenTelemetryAuthentication() *DataflowOpenTelemetryAuthentication`
+- New function `*RegistryEndpointAnonymousAuthentication.GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication`
+- New function `*RegistryEndpointArtifactPullSecretAuthentication.GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication`
+- New function `*RegistryEndpointAuthentication.GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication`
+- New function `NewRegistryEndpointClient(string, azcore.TokenCredential, *arm.ClientOptions) (*RegistryEndpointClient, error)`
+- New function `*RegistryEndpointClient.BeginCreateOrUpdate(context.Context, string, string, string, RegistryEndpointResource, *RegistryEndpointClientBeginCreateOrUpdateOptions) (*runtime.Poller[RegistryEndpointClientCreateOrUpdateResponse], error)`
+- New function `*RegistryEndpointClient.BeginDelete(context.Context, string, string, string, *RegistryEndpointClientBeginDeleteOptions) (*runtime.Poller[RegistryEndpointClientDeleteResponse], error)`
+- New function `*RegistryEndpointClient.Get(context.Context, string, string, string, *RegistryEndpointClientGetOptions) (RegistryEndpointClientGetResponse, error)`
+- New function `*RegistryEndpointClient.NewListByInstanceResourcePager(string, string, *RegistryEndpointClientListByInstanceResourceOptions) *runtime.Pager[RegistryEndpointClientListByInstanceResourceResponse]`
+- New function `*RegistryEndpointSystemAssignedIdentityAuthentication.GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication`
+- New function `*RegistryEndpointTrustedSigningKey.GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey`
+- New function `*RegistryEndpointTrustedSigningKeyConfigMap.GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey`
+- New function `*RegistryEndpointTrustedSigningKeySecret.GetRegistryEndpointTrustedSigningKey() *RegistryEndpointTrustedSigningKey`
+- New function `*RegistryEndpointUserAssignedIdentityAuthentication.GetRegistryEndpointAuthentication() *RegistryEndpointAuthentication`
+- New struct `AkriConnectorProperties`
+- New struct `AkriConnectorResource`
+- New struct `AkriConnectorResourceListResult`
+- New struct `AkriConnectorTemplateAioMetadata`
+- New struct `AkriConnectorTemplateBucketizedAllocation`
+- New struct `AkriConnectorTemplateDeviceInboundEndpointConfigurationSchemaRefs`
+- New struct `AkriConnectorTemplateDeviceInboundEndpointType`
+- New struct `AkriConnectorTemplateDiagnostics`
+- New struct `AkriConnectorTemplateHelmAdvancedConfiguration`
+- New struct `AkriConnectorTemplateHelmAuthSecretRef`
+- New struct `AkriConnectorTemplateHelmConfiguration`
+- New struct `AkriConnectorTemplateHelmConfigurationSettings`
+- New struct `AkriConnectorTemplateHelmContainerRegistry`
+- New struct `AkriConnectorTemplateHelmContainerRegistrySettings`
+- New struct `AkriConnectorTemplateHelmDeleteConfiguration`
+- New struct `AkriConnectorTemplateHelmInstallConfiguration`
+- New struct `AkriConnectorTemplateHelmRegistryEndpointRef`
+- New struct `AkriConnectorTemplateHelmUpgradeConfiguration`
+- New struct `AkriConnectorTemplateManagedConfiguration`
+- New struct `AkriConnectorTemplatePersistentVolumeClaim`
+- New struct `AkriConnectorTemplateProperties`
+- New struct `AkriConnectorTemplateResource`
+- New struct `AkriConnectorTemplateResourceListResult`
+- New struct `AkriConnectorTemplateRuntimeImageConfiguration`
+- New struct `AkriConnectorTemplateRuntimeImageConfigurationSettings`
+- New struct `AkriConnectorTemplateRuntimeStatefulSetConfiguration`
+- New struct `AkriConnectorTemplateTrustList`
+- New struct `AkriConnectorsContainerRegistry`
+- New struct `AkriConnectorsContainerRegistrySettings`
+- New struct `AkriConnectorsDiagnosticsLogs`
+- New struct `AkriConnectorsDigest`
+- New struct `AkriConnectorsImagePullSecret`
+- New struct `AkriConnectorsMqttConnectionConfiguration`
+- New struct `AkriConnectorsRegistryEndpointRef`
+- New struct `AkriConnectorsSecret`
+- New struct `AkriConnectorsServiceAccountAuthentication`
+- New struct `AkriConnectorsServiceAccountTokenSettings`
+- New struct `AkriConnectorsTag`
+- New struct `AkriDiscoveryHandlerAioMetadata`
+- New struct `AkriDiscoveryHandlerDiagnostics`
+- New struct `AkriDiscoveryHandlerDiscoverableDeviceEndpointType`
+- New struct `AkriDiscoveryHandlerImageConfiguration`
+- New struct `AkriDiscoveryHandlerProperties`
+- New struct `AkriDiscoveryHandlerResource`
+- New struct `AkriDiscoveryHandlerResourceListResult`
+- New struct `AkriDiscoveryHandlerScheduleContinuous`
+- New struct `AkriDiscoveryHandlerScheduleCron`
+- New struct `AkriDiscoveryHandlerScheduleRunOnce`
+- New struct `AzureDeviceRegistryNamespaceRef`
+- New struct `BrokerPersistence`
+- New struct `BrokerPersistenceDynamicSettings`
+- New struct `BrokerPersistenceEncryption`
+- New struct `BrokerRetainMessagesCustomPolicy`
+- New struct `BrokerRetainMessagesDynamic`
+- New struct `BrokerRetainMessagesSettings`
+- New struct `BrokerStateStoreCustomPolicy`
+- New struct `BrokerStateStoreDynamic`
+- New struct `BrokerStateStorePolicyResources`
+- New struct `BrokerStateStorePolicySettings`
+- New struct `BrokerSubscriberQueueCustomPolicy`
+- New struct `BrokerSubscriberQueueCustomPolicySettings`
+- New struct `BrokerSubscriberQueueDynamic`
+- New struct `DatafloGraphDestinationNode`
+- New struct `DataflowEndpointAuthenticationAnonymous`
+- New struct `DataflowEndpointOpenTelemetry`
+- New struct `DataflowGraphConnectionInput`
+- New struct `DataflowGraphConnectionOutput`
+- New struct `DataflowGraphDestinationNodeSettings`
+- New struct `DataflowGraphGraphNode`
+- New struct `DataflowGraphGraphNodeConfiguration`
+- New struct `DataflowGraphNodeConnection`
+- New struct `DataflowGraphNodeGraphSettings`
+- New struct `DataflowGraphProperties`
+- New struct `DataflowGraphResource`
+- New struct `DataflowGraphResourceListResult`
+- New struct `DataflowGraphSchemaSettings`
+- New struct `DataflowGraphSourceNode`
+- New struct `DataflowGraphSourceSettings`
+- New struct `DataflowOpenTelemetryAnonymousAuthentication`
+- New struct `DataflowOpenTelemetryServiceAccountAuthentication`
+- New struct `DataflowOpenTelemetryX509CertificateAuthentication`
+- New struct `InstanceFeature`
+- New struct `RegistryEndpointAnonymousAuthentication`
+- New struct `RegistryEndpointAnonymousSettings`
+- New struct `RegistryEndpointArtifactPullSecretAuthentication`
+- New struct `RegistryEndpointArtifactPullSecretSettings`
+- New struct `RegistryEndpointProperties`
+- New struct `RegistryEndpointResource`
+- New struct `RegistryEndpointResourceListResult`
+- New struct `RegistryEndpointSystemAssignedIdentityAuthentication`
+- New struct `RegistryEndpointSystemAssignedManagedIdentitySettings`
+- New struct `RegistryEndpointTrustedSettings`
+- New struct `RegistryEndpointTrustedSigningKeyConfigMap`
+- New struct `RegistryEndpointTrustedSigningKeySecret`
+- New struct `RegistryEndpointUserAssignedIdentityAuthentication`
+- New struct `RegistryEndpointUserAssignedManagedIdentitySettings`
+- New struct `SecretProviderClassRef`
+- New struct `VolumeClaimResourceRequirementsClaims`
+- New field `AdditionalValidation` in struct `BrokerAuthenticatorMethodX509`
+- New field `Persistence` in struct `BrokerProperties`
+- New field `HostType`, `OpenTelemetrySettings` in struct `DataflowEndpointProperties`
+- New field `AdrNamespaceRef`, `DefaultSecretProviderClassRef`, `Features` in struct `InstanceProperties`
+- New field `Claims` in struct `VolumeClaimResourceRequirements`
+
+
 ## 1.0.0 (2024-12-12)
 ### Breaking Changes
 
