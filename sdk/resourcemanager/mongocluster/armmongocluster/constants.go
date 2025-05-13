@@ -6,7 +6,7 @@ package armmongocluster
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/mongocluster/armmongocluster"
-	moduleVersion = "v1.0.1"
+	moduleVersion = "v1.1.0-beta.1"
 )
 
 // ActionType - Extensible enum. Indicates the action type. "Internal" refers to actions that are for internal only APIs.
@@ -87,6 +87,24 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 		CreatedByTypeKey,
 		CreatedByTypeManagedIdentity,
 		CreatedByTypeUser,
+	}
+}
+
+// DataAPIMode - The mode to apply to the Mongo Data API.
+type DataAPIMode string
+
+const (
+	// DataAPIModeDisabled - Mongo Data API is disabled for the cluster.
+	DataAPIModeDisabled DataAPIMode = "Disabled"
+	// DataAPIModeEnabled - Mongo Data API is enabled for the cluster.
+	DataAPIModeEnabled DataAPIMode = "Enabled"
+)
+
+// PossibleDataAPIModeValues returns the possible values for the DataAPIMode const type.
+func PossibleDataAPIModeValues() []DataAPIMode {
+	return []DataAPIMode{
+		DataAPIModeDisabled,
+		DataAPIModeEnabled,
 	}
 }
 
@@ -182,7 +200,7 @@ type PrivateEndpointServiceConnectionStatus string
 const (
 	// PrivateEndpointServiceConnectionStatusApproved - Connection approved
 	PrivateEndpointServiceConnectionStatusApproved PrivateEndpointServiceConnectionStatus = "Approved"
-	// PrivateEndpointServiceConnectionStatusPending - Connectionaiting for approval or rejection
+	// PrivateEndpointServiceConnectionStatusPending - Connection waiting for approval or rejection
 	PrivateEndpointServiceConnectionStatusPending PrivateEndpointServiceConnectionStatus = "Pending"
 	// PrivateEndpointServiceConnectionStatusRejected - Connection Rejected
 	PrivateEndpointServiceConnectionStatusRejected PrivateEndpointServiceConnectionStatus = "Rejected"
