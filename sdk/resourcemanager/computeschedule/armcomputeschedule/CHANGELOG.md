@@ -1,5 +1,21 @@
 # Release History
 
+## 1.1.0 (2025-05-13)
+### Features Added
+
+- New function `*ScheduledActionsClient.VirtualMachinesExecuteCreate(context.Context, string, ExecuteCreateRequest, *ScheduledActionsClientVirtualMachinesExecuteCreateOptions) (ScheduledActionsClientVirtualMachinesExecuteCreateResponse, error)`
+- New function `*ScheduledActionsClient.VirtualMachinesExecuteDelete(context.Context, string, ExecuteDeleteRequest, *ScheduledActionsClientVirtualMachinesExecuteDeleteOptions) (ScheduledActionsClientVirtualMachinesExecuteDeleteResponse, error)`
+- New function `*ScheduledActionsClient.VirtualMachinesSubmitCreate(context.Context, string, SubmitCreateRequest, *ScheduledActionsClientVirtualMachinesSubmitCreateOptions) (ScheduledActionsClientVirtualMachinesSubmitCreateResponse, error)`
+- New function `*ScheduledActionsClient.VirtualMachinesSubmitDelete(context.Context, string, SubmitDeleteRequest, *ScheduledActionsClientVirtualMachinesSubmitDeleteOptions) (ScheduledActionsClientVirtualMachinesSubmitDeleteResponse, error)`
+- New struct `CreateResourceOperationResponse`
+- New struct `DeleteResourceOperationResponse`
+- New struct `ExecuteCreateRequest`
+- New struct `ExecuteDeleteRequest`
+- New struct `ResourceProvisionPayload`
+- New struct `SubmitCreateRequest`
+- New struct `SubmitDeleteRequest`
+
+
 ## 1.0.0 (2025-01-24)
 ### Breaking Changes
 
