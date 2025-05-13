@@ -1,5 +1,50 @@
 # Release History
 
+## 2.0.0 (2025-05-13)
+### Breaking Changes
+
+- Type of `ContinuousAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `DelayAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `DiscreteAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `ErrorAdditionalInfo.Info` has been changed from `any` to `*ErrorAdditionalInfoInfo`
+- Type of `Experiment.Identity` has been changed from `*ResourceIdentity` to `*ManagedServiceIdentity`
+- Type of `ExperimentAction.Type` has been changed from `*string` to `*ExperimentActionType`
+- Type of `ExperimentUpdate.Identity` has been changed from `*ResourceIdentity` to `*ManagedServiceIdentity`
+- Enum `ResourceIdentityType` has been removed
+- Function `*ExperimentsClient.ExecutionDetails` has been removed
+- Function `*ExperimentsClient.GetExecution` has been removed
+- Function `*ExperimentsClient.NewListAllExecutionsPager` has been removed
+- Function `*OperationsClient.NewListAllPager` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `OperationStatus` has been removed
+- Struct `Resource` has been removed
+- Struct `ResourceIdentity` has been removed
+- Struct `TrackedResource` has been removed
+- Field `Location` of struct `CapabilityType` has been removed
+- Field `OperationStatus` of struct `OperationStatusesClientGetResponse` has been removed
+- Field `AdditionalProperties` of struct `TargetListSelector` has been removed
+- Field `AdditionalProperties` of struct `TargetQuerySelector` has been removed
+- Field `AdditionalProperties` of struct `TargetSelector` has been removed
+- Field `Location` of struct `TargetType` has been removed
+
+### Features Added
+
+- New enum type `ExperimentActionType` with values `ExperimentActionTypeContinuous`, `ExperimentActionTypeDelay`, `ExperimentActionTypeDiscrete`
+- New enum type `ManagedServiceIdentityType` with values `ManagedServiceIdentityTypeNone`, `ManagedServiceIdentityTypeSystemAssigned`, `ManagedServiceIdentityTypeSystemAssignedUserAssigned`, `ManagedServiceIdentityTypeUserAssigned`
+- New function `*ClientFactory.NewExperimentExecutionsClient() *ExperimentExecutionsClient`
+- New function `NewExperimentExecutionsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ExperimentExecutionsClient, error)`
+- New function `*ExperimentExecutionsClient.GetExecution(context.Context, string, string, string, *ExperimentExecutionsClientGetExecutionOptions) (ExperimentExecutionsClientGetExecutionResponse, error)`
+- New function `*ExperimentExecutionsClient.GetExecutionDetails(context.Context, string, string, string, *ExperimentExecutionsClientGetExecutionDetailsOptions) (ExperimentExecutionsClientGetExecutionDetailsResponse, error)`
+- New function `*ExperimentExecutionsClient.NewListAllExecutionsPager(string, string, *ExperimentExecutionsClientListAllExecutionsOptions) *runtime.Pager[ExperimentExecutionsClientListAllExecutionsResponse]`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New struct `ErrorAdditionalInfoInfo`
+- New struct `ManagedServiceIdentity`
+- New struct `OperationStatusResult`
+- New field `RequiredAzureRoleDefinitionIDs` in struct `CapabilityTypeProperties`
+- New field `SystemData` in struct `ExperimentExecution`
+- New anonymous field `OperationStatusResult` in struct `OperationStatusesClientGetResponse`
+
+
 ## 1.1.0 (2024-03-22)
 ### Features Added
 
