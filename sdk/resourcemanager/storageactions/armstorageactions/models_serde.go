@@ -865,6 +865,53 @@ func (s *StorageTaskUpdateParameters) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON implements the json.Marshaller interface for type StorageTaskUpdateProperties.
+func (s StorageTaskUpdateProperties) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "action", s.Action)
+	populateDateTimeRFC3339(objectMap, "creationTimeInUtc", s.CreationTimeInUTC)
+	populate(objectMap, "description", s.Description)
+	populate(objectMap, "enabled", s.Enabled)
+	populate(objectMap, "provisioningState", s.ProvisioningState)
+	populate(objectMap, "taskVersion", s.TaskVersion)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type StorageTaskUpdateProperties.
+func (s *StorageTaskUpdateProperties) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", s, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "action":
+			err = unpopulate(val, "Action", &s.Action)
+			delete(rawMsg, key)
+		case "creationTimeInUtc":
+			err = unpopulateDateTimeRFC3339(val, "CreationTimeInUTC", &s.CreationTimeInUTC)
+			delete(rawMsg, key)
+		case "description":
+			err = unpopulate(val, "Description", &s.Description)
+			delete(rawMsg, key)
+		case "enabled":
+			err = unpopulate(val, "Enabled", &s.Enabled)
+			delete(rawMsg, key)
+		case "provisioningState":
+			err = unpopulate(val, "ProvisioningState", &s.ProvisioningState)
+			delete(rawMsg, key)
+		case "taskVersion":
+			err = unpopulate(val, "TaskVersion", &s.TaskVersion)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", s, err)
+		}
+	}
+	return nil
+}
+
 // MarshalJSON implements the json.Marshaller interface for type StorageTasksListResult.
 func (s StorageTasksListResult) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
