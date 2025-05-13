@@ -7,15 +7,14 @@ package azbatch
 import (
 	"context"
 	"errors"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
 // Client contains the methods for the group.
@@ -87,8 +86,8 @@ func (client *Client) cancelCertificateDeletionCreateRequest(ctx context.Context
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -106,7 +105,7 @@ func (client *Client) cancelCertificateDeletionHandleResponse(resp *http.Respons
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -168,8 +167,8 @@ func (client *Client) createCertificateCreateRequest(ctx context.Context, certif
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -191,7 +190,7 @@ func (client *Client) createCertificateHandleResponse(resp *http.Response) (Crea
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -222,7 +221,7 @@ func (client *Client) createCertificateHandleResponse(resp *http.Response) (Crea
 // Generated from API version 2024-07-01.20.0
 //   - job - The Job to be created.
 //   - options - CreateJobOptions contains the optional parameters for the Client.CreateJob method.
-func (client *Client) CreateJob(ctx context.Context, job CreateJobContent, options *CreateJobOptions) (CreateJobResponse, error) {
+func (client *Client) CreateJob(ctx context.Context, job CreateJobOptions, options *CreateJobOptions) (CreateJobResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.CreateJob", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -243,7 +242,7 @@ func (client *Client) CreateJob(ctx context.Context, job CreateJobContent, optio
 }
 
 // createJobCreateRequest creates the CreateJob request.
-func (client *Client) createJobCreateRequest(ctx context.Context, job CreateJobContent, options *CreateJobOptions) (*policy.Request, error) {
+func (client *Client) createJobCreateRequest(ctx context.Context, job CreateJobOptions, options *CreateJobOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobs"
@@ -261,8 +260,8 @@ func (client *Client) createJobCreateRequest(ctx context.Context, job CreateJobC
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -284,7 +283,7 @@ func (client *Client) createJobHandleResponse(resp *http.Response) (CreateJobRes
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -307,7 +306,7 @@ func (client *Client) createJobHandleResponse(resp *http.Response) (CreateJobRes
 // Generated from API version 2024-07-01.20.0
 //   - jobSchedule - The Job Schedule to be created.
 //   - options - CreateJobScheduleOptions contains the optional parameters for the Client.CreateJobSchedule method.
-func (client *Client) CreateJobSchedule(ctx context.Context, jobSchedule CreateJobScheduleContent, options *CreateJobScheduleOptions) (CreateJobScheduleResponse, error) {
+func (client *Client) CreateJobSchedule(ctx context.Context, jobSchedule CreateJobScheduleOptions, options *CreateJobScheduleOptions) (CreateJobScheduleResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.CreateJobSchedule", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -328,7 +327,7 @@ func (client *Client) CreateJobSchedule(ctx context.Context, jobSchedule CreateJ
 }
 
 // createJobScheduleCreateRequest creates the CreateJobSchedule request.
-func (client *Client) createJobScheduleCreateRequest(ctx context.Context, jobSchedule CreateJobScheduleContent, options *CreateJobScheduleOptions) (*policy.Request, error) {
+func (client *Client) createJobScheduleCreateRequest(ctx context.Context, jobSchedule CreateJobScheduleOptions, options *CreateJobScheduleOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobschedules"
@@ -346,8 +345,8 @@ func (client *Client) createJobScheduleCreateRequest(ctx context.Context, jobSch
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -369,7 +368,7 @@ func (client *Client) createJobScheduleHandleResponse(resp *http.Response) (Crea
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -395,7 +394,7 @@ func (client *Client) createJobScheduleHandleResponse(resp *http.Response) (Crea
 //   - nodeID - The ID of the machine on which you want to create a user Account.
 //   - userParam - The options to use for creating the user.
 //   - options - CreateNodeUserOptions contains the optional parameters for the Client.CreateNodeUser method.
-func (client *Client) CreateNodeUser(ctx context.Context, poolID string, nodeID string, userParam CreateNodeUserContent, options *CreateNodeUserOptions) (CreateNodeUserResponse, error) {
+func (client *Client) CreateNodeUser(ctx context.Context, poolID string, nodeID string, userParam CreateNodeUserOptions, options *CreateNodeUserOptions) (CreateNodeUserResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.CreateNodeUser", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -416,7 +415,7 @@ func (client *Client) CreateNodeUser(ctx context.Context, poolID string, nodeID 
 }
 
 // createNodeUserCreateRequest creates the CreateNodeUser request.
-func (client *Client) createNodeUserCreateRequest(ctx context.Context, poolID string, nodeID string, userParam CreateNodeUserContent, options *CreateNodeUserOptions) (*policy.Request, error) {
+func (client *Client) createNodeUserCreateRequest(ctx context.Context, poolID string, nodeID string, userParam CreateNodeUserOptions, options *CreateNodeUserOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/nodes/{nodeId}/users"
@@ -442,8 +441,8 @@ func (client *Client) createNodeUserCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -465,7 +464,7 @@ func (client *Client) createNodeUserHandleResponse(resp *http.Response) (CreateN
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -490,7 +489,7 @@ func (client *Client) createNodeUserHandleResponse(resp *http.Response) (CreateN
 // Generated from API version 2024-07-01.20.0
 //   - pool - The Pool to be created.
 //   - options - CreatePoolOptions contains the optional parameters for the Client.CreatePool method.
-func (client *Client) CreatePool(ctx context.Context, pool CreatePoolContent, options *CreatePoolOptions) (CreatePoolResponse, error) {
+func (client *Client) CreatePool(ctx context.Context, pool CreatePoolOptions, options *CreatePoolOptions) (CreatePoolResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.CreatePool", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -511,7 +510,7 @@ func (client *Client) CreatePool(ctx context.Context, pool CreatePoolContent, op
 }
 
 // createPoolCreateRequest creates the CreatePool request.
-func (client *Client) createPoolCreateRequest(ctx context.Context, pool CreatePoolContent, options *CreatePoolOptions) (*policy.Request, error) {
+func (client *Client) createPoolCreateRequest(ctx context.Context, pool CreatePoolOptions, options *CreatePoolOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools"
@@ -529,8 +528,8 @@ func (client *Client) createPoolCreateRequest(ctx context.Context, pool CreatePo
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -552,7 +551,7 @@ func (client *Client) createPoolHandleResponse(resp *http.Response) (CreatePoolR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -578,7 +577,7 @@ func (client *Client) createPoolHandleResponse(resp *http.Response) (CreatePoolR
 //   - jobID - The ID of the Job to which the Task is to be created.
 //   - task - The Task to be created.
 //   - options - CreateTaskOptions contains the optional parameters for the Client.CreateTask method.
-func (client *Client) CreateTask(ctx context.Context, jobID string, task CreateTaskContent, options *CreateTaskOptions) (CreateTaskResponse, error) {
+func (client *Client) CreateTask(ctx context.Context, jobID string, task CreateTaskOptions, options *CreateTaskOptions) (CreateTaskResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.CreateTask", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -599,7 +598,7 @@ func (client *Client) CreateTask(ctx context.Context, jobID string, task CreateT
 }
 
 // createTaskCreateRequest creates the CreateTask request.
-func (client *Client) createTaskCreateRequest(ctx context.Context, jobID string, task CreateTaskContent, options *CreateTaskOptions) (*policy.Request, error) {
+func (client *Client) createTaskCreateRequest(ctx context.Context, jobID string, task CreateTaskOptions, options *CreateTaskOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobs/{jobId}/tasks"
@@ -621,8 +620,8 @@ func (client *Client) createTaskCreateRequest(ctx context.Context, jobID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -644,7 +643,7 @@ func (client *Client) createTaskHandleResponse(resp *http.Response) (CreateTaskR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -724,8 +723,8 @@ func (client *Client) createTaskCollectionCreateRequest(ctx context.Context, job
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -744,7 +743,7 @@ func (client *Client) createTaskCollectionHandleResponse(resp *http.Response) (C
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -756,7 +755,7 @@ func (client *Client) createTaskCollectionHandleResponse(resp *http.Response) (C
 	if val := resp.Header.Get("request-id"); val != "" {
 		result.RequestID = &val
 	}
-	if err := runtime.UnmarshalAsJSON(resp, &result.AddTaskCollectionResult); err != nil {
+	if err := runtime.UnmarshalAsJSON(resp, &result.CreateTaskCollectionResult); err != nil {
 		return CreateTaskCollectionResponse{}, err
 	}
 	return result, nil
@@ -818,8 +817,8 @@ func (client *Client) deallocateNodeCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -844,7 +843,7 @@ func (client *Client) deallocateNodeHandleResponse(resp *http.Response) (Dealloc
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -923,8 +922,8 @@ func (client *Client) deleteCertificateCreateRequest(ctx context.Context, thumbp
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -939,7 +938,7 @@ func (client *Client) deleteCertificateHandleResponse(resp *http.Response) (Dele
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -1013,13 +1012,13 @@ func (client *Client) deleteJobCreateRequest(ctx context.Context, jobID string, 
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1027,8 +1026,8 @@ func (client *Client) deleteJobCreateRequest(ctx context.Context, jobID string, 
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1104,13 +1103,13 @@ func (client *Client) deleteJobScheduleCreateRequest(ctx context.Context, jobSch
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1118,8 +1117,8 @@ func (client *Client) deleteJobScheduleCreateRequest(ctx context.Context, jobSch
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1203,8 +1202,8 @@ func (client *Client) deleteNodeFileCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1286,8 +1285,8 @@ func (client *Client) deleteNodeUserCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1367,13 +1366,13 @@ func (client *Client) deletePoolCreateRequest(ctx context.Context, poolID string
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1381,8 +1380,8 @@ func (client *Client) deletePoolCreateRequest(ctx context.Context, poolID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1460,13 +1459,13 @@ func (client *Client) deleteTaskCreateRequest(ctx context.Context, jobID string,
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1474,8 +1473,8 @@ func (client *Client) deleteTaskCreateRequest(ctx context.Context, jobID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1559,8 +1558,8 @@ func (client *Client) deleteTaskFileCreateRequest(ctx context.Context, jobID str
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1594,13 +1593,13 @@ func (client *Client) deleteTaskFileHandleResponse(resp *http.Response) (DeleteT
 //
 // Generated from API version 2024-07-01.20.0
 //   - jobID - The ID of the Job to disable.
-//   - content - The options to use for disabling the Job.
+//   - disableOptions - The options to use for disabling the Job.
 //   - options - DisableJobOptions contains the optional parameters for the Client.DisableJob method.
-func (client *Client) DisableJob(ctx context.Context, jobID string, content DisableJobContent, options *DisableJobOptions) (DisableJobResponse, error) {
+func (client *Client) DisableJob(ctx context.Context, jobID string, disableOptions DisableJobOptions, options *DisableJobOptions) (DisableJobResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.DisableJob", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.disableJobCreateRequest(ctx, jobID, content, options)
+	req, err := client.disableJobCreateRequest(ctx, jobID, disableOptions, options)
 	if err != nil {
 		return DisableJobResponse{}, err
 	}
@@ -1617,7 +1616,7 @@ func (client *Client) DisableJob(ctx context.Context, jobID string, content Disa
 }
 
 // disableJobCreateRequest creates the DisableJob request.
-func (client *Client) disableJobCreateRequest(ctx context.Context, jobID string, content DisableJobContent, options *DisableJobOptions) (*policy.Request, error) {
+func (client *Client) disableJobCreateRequest(ctx context.Context, jobID string, disableOptions DisableJobOptions, options *DisableJobOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobs/{jobId}/disable"
@@ -1637,13 +1636,13 @@ func (client *Client) disableJobCreateRequest(ctx context.Context, jobID string,
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1651,14 +1650,14 @@ func (client *Client) disableJobCreateRequest(ctx context.Context, jobID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, disableOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -1674,7 +1673,7 @@ func (client *Client) disableJobHandleResponse(resp *http.Response) (DisableJobR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -1738,13 +1737,13 @@ func (client *Client) disableJobScheduleCreateRequest(ctx context.Context, jobSc
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -1752,8 +1751,8 @@ func (client *Client) disableJobScheduleCreateRequest(ctx context.Context, jobSc
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1771,7 +1770,7 @@ func (client *Client) disableJobScheduleHandleResponse(resp *http.Response) (Dis
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -1843,8 +1842,8 @@ func (client *Client) disableNodeSchedulingCreateRequest(ctx context.Context, po
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1869,7 +1868,7 @@ func (client *Client) disableNodeSchedulingHandleResponse(resp *http.Response) (
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -1935,8 +1934,8 @@ func (client *Client) disablePoolAutoScaleCreateRequest(ctx context.Context, poo
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -1954,7 +1953,7 @@ func (client *Client) disablePoolAutoScaleHandleResponse(resp *http.Response) (D
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2023,13 +2022,13 @@ func (client *Client) enableJobCreateRequest(ctx context.Context, jobID string, 
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -2037,8 +2036,8 @@ func (client *Client) enableJobCreateRequest(ctx context.Context, jobID string, 
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2056,7 +2055,7 @@ func (client *Client) enableJobHandleResponse(resp *http.Response) (EnableJobRes
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2120,13 +2119,13 @@ func (client *Client) enableJobScheduleCreateRequest(ctx context.Context, jobSch
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -2134,8 +2133,8 @@ func (client *Client) enableJobScheduleCreateRequest(ctx context.Context, jobSch
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2153,7 +2152,7 @@ func (client *Client) enableJobScheduleHandleResponse(resp *http.Response) (Enab
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2225,8 +2224,8 @@ func (client *Client) enableNodeSchedulingCreateRequest(ctx context.Context, poo
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2244,7 +2243,7 @@ func (client *Client) enableNodeSchedulingHandleResponse(resp *http.Response) (E
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2271,13 +2270,13 @@ func (client *Client) enableNodeSchedulingHandleResponse(resp *http.Response) (E
 //
 // Generated from API version 2024-07-01.20.0
 //   - poolID - The ID of the Pool to get.
-//   - content - The options to use for enabling automatic scaling.
+//   - enableAutoScaleOptions - The options to use for enabling automatic scaling.
 //   - options - EnablePoolAutoScaleOptions contains the optional parameters for the Client.EnablePoolAutoScale method.
-func (client *Client) EnablePoolAutoScale(ctx context.Context, poolID string, content EnablePoolAutoScaleContent, options *EnablePoolAutoScaleOptions) (EnablePoolAutoScaleResponse, error) {
+func (client *Client) EnablePoolAutoScale(ctx context.Context, poolID string, enableAutoScaleOptions EnablePoolAutoScaleOptions, options *EnablePoolAutoScaleOptions) (EnablePoolAutoScaleResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.EnablePoolAutoScale", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.enablePoolAutoScaleCreateRequest(ctx, poolID, content, options)
+	req, err := client.enablePoolAutoScaleCreateRequest(ctx, poolID, enableAutoScaleOptions, options)
 	if err != nil {
 		return EnablePoolAutoScaleResponse{}, err
 	}
@@ -2294,7 +2293,7 @@ func (client *Client) EnablePoolAutoScale(ctx context.Context, poolID string, co
 }
 
 // enablePoolAutoScaleCreateRequest creates the EnablePoolAutoScale request.
-func (client *Client) enablePoolAutoScaleCreateRequest(ctx context.Context, poolID string, content EnablePoolAutoScaleContent, options *EnablePoolAutoScaleOptions) (*policy.Request, error) {
+func (client *Client) enablePoolAutoScaleCreateRequest(ctx context.Context, poolID string, enableAutoScaleOptions EnablePoolAutoScaleOptions, options *EnablePoolAutoScaleOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/enableautoscale"
@@ -2314,13 +2313,13 @@ func (client *Client) enablePoolAutoScaleCreateRequest(ctx context.Context, pool
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -2328,14 +2327,14 @@ func (client *Client) enablePoolAutoScaleCreateRequest(ctx context.Context, pool
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, enableAutoScaleOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -2351,7 +2350,7 @@ func (client *Client) enablePoolAutoScaleHandleResponse(resp *http.Response) (En
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2375,13 +2374,13 @@ func (client *Client) enablePoolAutoScaleHandleResponse(resp *http.Response) (En
 //
 // Generated from API version 2024-07-01.20.0
 //   - poolID - The ID of the Pool on which to evaluate the automatic scaling formula.
-//   - content - The options to use for evaluating the automatic scaling formula.
+//   - evaluateAutoScaleOptions - The options to use for evaluating the automatic scaling formula.
 //   - options - EvaluatePoolAutoScaleOptions contains the optional parameters for the Client.EvaluatePoolAutoScale method.
-func (client *Client) EvaluatePoolAutoScale(ctx context.Context, poolID string, content EvaluatePoolAutoScaleContent, options *EvaluatePoolAutoScaleOptions) (EvaluatePoolAutoScaleResponse, error) {
+func (client *Client) EvaluatePoolAutoScale(ctx context.Context, poolID string, evaluateAutoScaleOptions EvaluatePoolAutoScaleOptions, options *EvaluatePoolAutoScaleOptions) (EvaluatePoolAutoScaleResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.EvaluatePoolAutoScale", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.evaluatePoolAutoScaleCreateRequest(ctx, poolID, content, options)
+	req, err := client.evaluatePoolAutoScaleCreateRequest(ctx, poolID, evaluateAutoScaleOptions, options)
 	if err != nil {
 		return EvaluatePoolAutoScaleResponse{}, err
 	}
@@ -2398,7 +2397,7 @@ func (client *Client) EvaluatePoolAutoScale(ctx context.Context, poolID string, 
 }
 
 // evaluatePoolAutoScaleCreateRequest creates the EvaluatePoolAutoScale request.
-func (client *Client) evaluatePoolAutoScaleCreateRequest(ctx context.Context, poolID string, content EvaluatePoolAutoScaleContent, options *EvaluatePoolAutoScaleOptions) (*policy.Request, error) {
+func (client *Client) evaluatePoolAutoScaleCreateRequest(ctx context.Context, poolID string, evaluateAutoScaleOptions EvaluatePoolAutoScaleOptions, options *EvaluatePoolAutoScaleOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/evaluateautoscale"
@@ -2420,14 +2419,14 @@ func (client *Client) evaluatePoolAutoScaleCreateRequest(ctx context.Context, po
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, evaluateAutoScaleOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -2443,7 +2442,7 @@ func (client *Client) evaluatePoolAutoScaleHandleResponse(resp *http.Response) (
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2516,8 +2515,8 @@ func (client *Client) getApplicationCreateRequest(ctx context.Context, applicati
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2532,7 +2531,7 @@ func (client *Client) getApplicationHandleResponse(resp *http.Response) (GetAppl
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2607,8 +2606,8 @@ func (client *Client) getCertificateCreateRequest(ctx context.Context, thumbprin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2623,7 +2622,7 @@ func (client *Client) getCertificateHandleResponse(resp *http.Response) (GetCert
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2696,13 +2695,13 @@ func (client *Client) getJobCreateRequest(ctx context.Context, jobID string, opt
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -2710,8 +2709,8 @@ func (client *Client) getJobCreateRequest(ctx context.Context, jobID string, opt
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2726,7 +2725,7 @@ func (client *Client) getJobHandleResponse(resp *http.Response) (GetJobResponse,
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2797,13 +2796,13 @@ func (client *Client) getJobScheduleCreateRequest(ctx context.Context, jobSchedu
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -2811,8 +2810,8 @@ func (client *Client) getJobScheduleCreateRequest(ctx context.Context, jobSchedu
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2827,7 +2826,7 @@ func (client *Client) getJobScheduleHandleResponse(resp *http.Response) (GetJobS
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2899,8 +2898,8 @@ func (client *Client) getJobTaskCountsCreateRequest(ctx context.Context, jobID s
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -2915,7 +2914,7 @@ func (client *Client) getJobTaskCountsHandleResponse(resp *http.Response) (GetJo
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -2992,8 +2991,8 @@ func (client *Client) getNodeCreateRequest(ctx context.Context, poolID string, n
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3008,7 +3007,7 @@ func (client *Client) getNodeHandleResponse(resp *http.Response) (GetNodeRespons
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3090,8 +3089,8 @@ func (client *Client) getNodeExtensionCreateRequest(ctx context.Context, poolID 
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3106,7 +3105,7 @@ func (client *Client) getNodeExtensionHandleResponse(resp *http.Response) (GetNo
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3190,11 +3189,11 @@ func (client *Client) getNodeFileCreateRequest(ctx context.Context, poolID strin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
-	if options != nil && options.OCPRange != nil {
-		req.Raw().Header["ocp-range"] = []string{*options.OCPRange}
+	if options != nil && options.OcpRange != nil {
+		req.Raw().Header["ocp-range"] = []string{*options.OcpRange}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3219,7 +3218,7 @@ func (client *Client) getNodeFileHandleResponse(resp *http.Response) (GetNodeFil
 		result.ContentType = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3233,20 +3232,20 @@ func (client *Client) getNodeFileHandleResponse(resp *http.Response) (GetNodeFil
 		if err != nil {
 			return GetNodeFileResponse{}, err
 		}
-		result.OCPBatchFileIsDirectory = &ocpBatchFileIsdirectory
+		result.OcpBatchFileIsdirectory = &ocpBatchFileIsdirectory
 	}
 	if val := resp.Header.Get("ocp-batch-file-mode"); val != "" {
-		result.OCPBatchFileMode = &val
+		result.OcpBatchFileMode = &val
 	}
 	if val := resp.Header.Get("ocp-batch-file-url"); val != "" {
-		result.OCPBatchFileURL = &val
+		result.OcpBatchFileURL = &val
 	}
 	if val := resp.Header.Get("ocp-creation-time"); val != "" {
 		ocpCreationTime, err := time.Parse(time.RFC1123, val)
 		if err != nil {
 			return GetNodeFileResponse{}, err
 		}
-		result.OCPCreationTime = &ocpCreationTime
+		result.OcpCreationTime = &ocpCreationTime
 	}
 	if val := resp.Header.Get("request-id"); val != "" {
 		result.RequestID = &val
@@ -3319,8 +3318,8 @@ func (client *Client) getNodeFilePropertiesCreateRequest(ctx context.Context, po
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3342,7 +3341,7 @@ func (client *Client) getNodeFilePropertiesHandleResponse(resp *http.Response) (
 		result.ContentLength = &contentLength
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3356,20 +3355,20 @@ func (client *Client) getNodeFilePropertiesHandleResponse(resp *http.Response) (
 		if err != nil {
 			return GetNodeFilePropertiesResponse{}, err
 		}
-		result.OCPBatchFileIsDirectory = &ocpBatchFileIsdirectory
+		result.OcpBatchFileIsdirectory = &ocpBatchFileIsdirectory
 	}
 	if val := resp.Header.Get("ocp-batch-file-mode"); val != "" {
-		result.OCPBatchFileMode = &val
+		result.OcpBatchFileMode = &val
 	}
 	if val := resp.Header.Get("ocp-batch-file-url"); val != "" {
-		result.OCPBatchFileURL = &val
+		result.OcpBatchFileURL = &val
 	}
 	if val := resp.Header.Get("ocp-creation-time"); val != "" {
 		ocpCreationTime, err := time.Parse(time.RFC1123, val)
 		if err != nil {
 			return GetNodeFilePropertiesResponse{}, err
 		}
-		result.OCPCreationTime = &ocpCreationTime
+		result.OcpCreationTime = &ocpCreationTime
 	}
 	if val := resp.Header.Get("request-id"); val != "" {
 		result.RequestID = &val
@@ -3435,8 +3434,8 @@ func (client *Client) getNodeRemoteLoginSettingsCreateRequest(ctx context.Contex
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3451,7 +3450,7 @@ func (client *Client) getNodeRemoteLoginSettingsHandleResponse(resp *http.Respon
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3522,13 +3521,13 @@ func (client *Client) getPoolCreateRequest(ctx context.Context, poolID string, o
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -3536,8 +3535,8 @@ func (client *Client) getPoolCreateRequest(ctx context.Context, poolID string, o
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3552,7 +3551,7 @@ func (client *Client) getPoolHandleResponse(resp *http.Response) (GetPoolRespons
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3632,13 +3631,13 @@ func (client *Client) getTaskCreateRequest(ctx context.Context, jobID string, ta
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -3646,8 +3645,8 @@ func (client *Client) getTaskCreateRequest(ctx context.Context, jobID string, ta
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3665,7 +3664,7 @@ func (client *Client) getTaskHandleResponse(resp *http.Response) (GetTaskRespons
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3749,11 +3748,11 @@ func (client *Client) getTaskFileCreateRequest(ctx context.Context, jobID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
-	if options != nil && options.OCPRange != nil {
-		req.Raw().Header["ocp-range"] = []string{*options.OCPRange}
+	if options != nil && options.OcpRange != nil {
+		req.Raw().Header["ocp-range"] = []string{*options.OcpRange}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3778,7 +3777,7 @@ func (client *Client) getTaskFileHandleResponse(resp *http.Response) (GetTaskFil
 		result.ContentType = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3792,20 +3791,20 @@ func (client *Client) getTaskFileHandleResponse(resp *http.Response) (GetTaskFil
 		if err != nil {
 			return GetTaskFileResponse{}, err
 		}
-		result.OCPBatchFileIsDirectory = &ocpBatchFileIsdirectory
+		result.OcpBatchFileIsdirectory = &ocpBatchFileIsdirectory
 	}
 	if val := resp.Header.Get("ocp-batch-file-mode"); val != "" {
-		result.OCPBatchFileMode = &val
+		result.OcpBatchFileMode = &val
 	}
 	if val := resp.Header.Get("ocp-batch-file-url"); val != "" {
-		result.OCPBatchFileURL = &val
+		result.OcpBatchFileURL = &val
 	}
 	if val := resp.Header.Get("ocp-creation-time"); val != "" {
 		ocpCreationTime, err := time.Parse(time.RFC1123, val)
 		if err != nil {
 			return GetTaskFileResponse{}, err
 		}
-		result.OCPCreationTime = &ocpCreationTime
+		result.OcpCreationTime = &ocpCreationTime
 	}
 	if val := resp.Header.Get("request-id"); val != "" {
 		result.RequestID = &val
@@ -3878,8 +3877,8 @@ func (client *Client) getTaskFilePropertiesCreateRequest(ctx context.Context, jo
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -3901,7 +3900,7 @@ func (client *Client) getTaskFilePropertiesHandleResponse(resp *http.Response) (
 		result.ContentLength = &contentLength
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -3915,20 +3914,20 @@ func (client *Client) getTaskFilePropertiesHandleResponse(resp *http.Response) (
 		if err != nil {
 			return GetTaskFilePropertiesResponse{}, err
 		}
-		result.OCPBatchFileIsDirectory = &ocpBatchFileIsdirectory
+		result.OcpBatchFileIsdirectory = &ocpBatchFileIsdirectory
 	}
 	if val := resp.Header.Get("ocp-batch-file-mode"); val != "" {
-		result.OCPBatchFileMode = &val
+		result.OcpBatchFileMode = &val
 	}
 	if val := resp.Header.Get("ocp-batch-file-url"); val != "" {
-		result.OCPBatchFileURL = &val
+		result.OcpBatchFileURL = &val
 	}
 	if val := resp.Header.Get("ocp-creation-time"); val != "" {
 		ocpCreationTime, err := time.Parse(time.RFC1123, val)
 		if err != nil {
 			return GetTaskFilePropertiesResponse{}, err
 		}
-		result.OCPCreationTime = &ocpCreationTime
+		result.OcpCreationTime = &ocpCreationTime
 	}
 	if val := resp.Header.Get("request-id"); val != "" {
 		result.RequestID = &val
@@ -3985,13 +3984,13 @@ func (client *Client) jobScheduleExistsCreateRequest(ctx context.Context, jobSch
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -3999,8 +3998,8 @@ func (client *Client) jobScheduleExistsCreateRequest(ctx context.Context, jobSch
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4015,7 +4014,7 @@ func (client *Client) jobScheduleExistsHandleResponse(resp *http.Response) (JobS
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4084,8 +4083,8 @@ func (client *Client) listApplicationsCreateRequest(ctx context.Context, options
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4100,7 +4099,7 @@ func (client *Client) listApplicationsHandleResponse(resp *http.Response) (ListA
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4174,8 +4173,8 @@ func (client *Client) listCertificatesCreateRequest(ctx context.Context, options
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4190,7 +4189,7 @@ func (client *Client) listCertificatesHandleResponse(resp *http.Response) (ListC
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4277,8 +4276,8 @@ func (client *Client) listJobPreparationAndReleaseTaskStatusCreateRequest(ctx co
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4293,7 +4292,7 @@ func (client *Client) listJobPreparationAndReleaseTaskStatusHandleResponse(resp 
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4370,8 +4369,8 @@ func (client *Client) listJobSchedulesCreateRequest(ctx context.Context, options
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4386,7 +4385,7 @@ func (client *Client) listJobSchedulesHandleResponse(resp *http.Response) (ListJ
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4463,8 +4462,8 @@ func (client *Client) listJobsCreateRequest(ctx context.Context, options *ListJo
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4479,7 +4478,7 @@ func (client *Client) listJobsHandleResponse(resp *http.Response) (ListJobsRespo
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4561,8 +4560,8 @@ func (client *Client) listJobsFromScheduleCreateRequest(ctx context.Context, job
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4577,7 +4576,7 @@ func (client *Client) listJobsFromScheduleHandleResponse(resp *http.Response) (L
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4658,8 +4657,8 @@ func (client *Client) listNodeExtensionsCreateRequest(ctx context.Context, poolI
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4674,7 +4673,7 @@ func (client *Client) listNodeExtensionsHandleResponse(resp *http.Response) (Lis
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4758,8 +4757,8 @@ func (client *Client) listNodeFilesCreateRequest(ctx context.Context, poolID str
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4774,7 +4773,7 @@ func (client *Client) listNodeFilesHandleResponse(resp *http.Response) (ListNode
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4853,8 +4852,8 @@ func (client *Client) listNodesCreateRequest(ctx context.Context, poolID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4869,7 +4868,7 @@ func (client *Client) listNodesHandleResponse(resp *http.Response) (ListNodesRes
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -4940,8 +4939,8 @@ func (client *Client) listPoolNodeCountsCreateRequest(ctx context.Context, optio
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -4956,7 +4955,7 @@ func (client *Client) listPoolNodeCountsHandleResponse(resp *http.Response) (Lis
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5033,8 +5032,8 @@ func (client *Client) listPoolsCreateRequest(ctx context.Context, options *ListP
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5049,7 +5048,7 @@ func (client *Client) listPoolsHandleResponse(resp *http.Response) (ListPoolsRes
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5128,8 +5127,8 @@ func (client *Client) listSubTasksCreateRequest(ctx context.Context, jobID strin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5144,7 +5143,7 @@ func (client *Client) listSubTasksHandleResponse(resp *http.Response) (ListSubTa
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5215,8 +5214,8 @@ func (client *Client) listSupportedImagesCreateRequest(ctx context.Context, opti
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5231,7 +5230,7 @@ func (client *Client) listSupportedImagesHandleResponse(resp *http.Response) (Li
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5315,8 +5314,8 @@ func (client *Client) listTaskFilesCreateRequest(ctx context.Context, jobID stri
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5331,7 +5330,7 @@ func (client *Client) listTaskFilesHandleResponse(resp *http.Response) (ListTask
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5415,8 +5414,8 @@ func (client *Client) listTasksCreateRequest(ctx context.Context, jobID string, 
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5431,7 +5430,7 @@ func (client *Client) listTasksHandleResponse(resp *http.Response) (ListTasksRes
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5496,13 +5495,13 @@ func (client *Client) poolExistsCreateRequest(ctx context.Context, poolID string
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -5510,8 +5509,8 @@ func (client *Client) poolExistsCreateRequest(ctx context.Context, poolID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5526,7 +5525,7 @@ func (client *Client) poolExistsHandleResponse(resp *http.Response) (PoolExistsR
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5602,13 +5601,13 @@ func (client *Client) reactivateTaskCreateRequest(ctx context.Context, jobID str
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -5616,8 +5615,8 @@ func (client *Client) reactivateTaskCreateRequest(ctx context.Context, jobID str
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5635,7 +5634,7 @@ func (client *Client) reactivateTaskHandleResponse(resp *http.Response) (Reactiv
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5706,8 +5705,8 @@ func (client *Client) rebootNodeCreateRequest(ctx context.Context, poolID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5732,7 +5731,7 @@ func (client *Client) rebootNodeHandleResponse(resp *http.Response) (RebootNodeR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5805,8 +5804,8 @@ func (client *Client) reimageNodeCreateRequest(ctx context.Context, poolID strin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -5831,7 +5830,7 @@ func (client *Client) reimageNodeHandleResponse(resp *http.Response) (ReimageNod
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -5855,13 +5854,13 @@ func (client *Client) reimageNodeHandleResponse(resp *http.Response) (ReimageNod
 //
 // Generated from API version 2024-07-01.20.0
 //   - poolID - The ID of the Pool to get.
-//   - content - The options to use for removing the node.
+//   - removeOptions - The options to use for removing the node.
 //   - options - RemoveNodesOptions contains the optional parameters for the Client.RemoveNodes method.
-func (client *Client) RemoveNodes(ctx context.Context, poolID string, content RemoveNodeContent, options *RemoveNodesOptions) (RemoveNodesResponse, error) {
+func (client *Client) RemoveNodes(ctx context.Context, poolID string, removeOptions RemoveNodeOptions, options *RemoveNodesOptions) (RemoveNodesResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.RemoveNodes", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.removeNodesCreateRequest(ctx, poolID, content, options)
+	req, err := client.removeNodesCreateRequest(ctx, poolID, removeOptions, options)
 	if err != nil {
 		return RemoveNodesResponse{}, err
 	}
@@ -5878,7 +5877,7 @@ func (client *Client) RemoveNodes(ctx context.Context, poolID string, content Re
 }
 
 // removeNodesCreateRequest creates the RemoveNodes request.
-func (client *Client) removeNodesCreateRequest(ctx context.Context, poolID string, content RemoveNodeContent, options *RemoveNodesOptions) (*policy.Request, error) {
+func (client *Client) removeNodesCreateRequest(ctx context.Context, poolID string, removeOptions RemoveNodeOptions, options *RemoveNodesOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/removenodes"
@@ -5898,13 +5897,13 @@ func (client *Client) removeNodesCreateRequest(ctx context.Context, poolID strin
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -5912,14 +5911,14 @@ func (client *Client) removeNodesCreateRequest(ctx context.Context, poolID strin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, removeOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -5935,7 +5934,7 @@ func (client *Client) removeNodesHandleResponse(resp *http.Response) (RemoveNode
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6002,13 +6001,13 @@ func (client *Client) replaceJobCreateRequest(ctx context.Context, jobID string,
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6016,8 +6015,8 @@ func (client *Client) replaceJobCreateRequest(ctx context.Context, jobID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6039,7 +6038,7 @@ func (client *Client) replaceJobHandleResponse(resp *http.Response) (ReplaceJobR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6108,13 +6107,13 @@ func (client *Client) replaceJobScheduleCreateRequest(ctx context.Context, jobSc
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6122,8 +6121,8 @@ func (client *Client) replaceJobScheduleCreateRequest(ctx context.Context, jobSc
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6145,7 +6144,7 @@ func (client *Client) replaceJobScheduleHandleResponse(resp *http.Response) (Rep
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6172,13 +6171,13 @@ func (client *Client) replaceJobScheduleHandleResponse(resp *http.Response) (Rep
 //   - poolID - The ID of the Pool that contains the Compute Node.
 //   - nodeID - The ID of the machine on which you want to update a user Account.
 //   - userName - The name of the user Account to update.
-//   - content - The options to use for updating the user.
+//   - updateOptions - The options to use for updating the user.
 //   - options - ReplaceNodeUserOptions contains the optional parameters for the Client.ReplaceNodeUser method.
-func (client *Client) ReplaceNodeUser(ctx context.Context, poolID string, nodeID string, userName string, content UpdateNodeUserContent, options *ReplaceNodeUserOptions) (ReplaceNodeUserResponse, error) {
+func (client *Client) ReplaceNodeUser(ctx context.Context, poolID string, nodeID string, userName string, updateOptions UpdateNodeUserOptions, options *ReplaceNodeUserOptions) (ReplaceNodeUserResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.ReplaceNodeUser", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.replaceNodeUserCreateRequest(ctx, poolID, nodeID, userName, content, options)
+	req, err := client.replaceNodeUserCreateRequest(ctx, poolID, nodeID, userName, updateOptions, options)
 	if err != nil {
 		return ReplaceNodeUserResponse{}, err
 	}
@@ -6195,7 +6194,7 @@ func (client *Client) ReplaceNodeUser(ctx context.Context, poolID string, nodeID
 }
 
 // replaceNodeUserCreateRequest creates the ReplaceNodeUser request.
-func (client *Client) replaceNodeUserCreateRequest(ctx context.Context, poolID string, nodeID string, userName string, content UpdateNodeUserContent, options *ReplaceNodeUserOptions) (*policy.Request, error) {
+func (client *Client) replaceNodeUserCreateRequest(ctx context.Context, poolID string, nodeID string, userName string, updateOptions UpdateNodeUserOptions, options *ReplaceNodeUserOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/nodes/{nodeId}/users/{userName}"
@@ -6225,14 +6224,14 @@ func (client *Client) replaceNodeUserCreateRequest(ctx context.Context, poolID s
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, updateOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -6248,7 +6247,7 @@ func (client *Client) replaceNodeUserHandleResponse(resp *http.Response) (Replac
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6274,7 +6273,7 @@ func (client *Client) replaceNodeUserHandleResponse(resp *http.Response) (Replac
 //   - poolID - The ID of the Pool to update.
 //   - pool - The options to use for replacing properties on the pool.
 //   - options - ReplacePoolPropertiesOptions contains the optional parameters for the Client.ReplacePoolProperties method.
-func (client *Client) ReplacePoolProperties(ctx context.Context, poolID string, pool ReplacePoolContent, options *ReplacePoolPropertiesOptions) (ReplacePoolPropertiesResponse, error) {
+func (client *Client) ReplacePoolProperties(ctx context.Context, poolID string, pool ReplacePoolOptions, options *ReplacePoolPropertiesOptions) (ReplacePoolPropertiesResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.ReplacePoolProperties", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -6295,7 +6294,7 @@ func (client *Client) ReplacePoolProperties(ctx context.Context, poolID string, 
 }
 
 // replacePoolPropertiesCreateRequest creates the ReplacePoolProperties request.
-func (client *Client) replacePoolPropertiesCreateRequest(ctx context.Context, poolID string, pool ReplacePoolContent, options *ReplacePoolPropertiesOptions) (*policy.Request, error) {
+func (client *Client) replacePoolPropertiesCreateRequest(ctx context.Context, poolID string, pool ReplacePoolOptions, options *ReplacePoolPropertiesOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/updateproperties"
@@ -6317,8 +6316,8 @@ func (client *Client) replacePoolPropertiesCreateRequest(ctx context.Context, po
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6340,7 +6339,7 @@ func (client *Client) replacePoolPropertiesHandleResponse(resp *http.Response) (
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6408,13 +6407,13 @@ func (client *Client) replaceTaskCreateRequest(ctx context.Context, jobID string
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6422,8 +6421,8 @@ func (client *Client) replaceTaskCreateRequest(ctx context.Context, jobID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6445,7 +6444,7 @@ func (client *Client) replaceTaskHandleResponse(resp *http.Response) (ReplaceTas
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6473,13 +6472,13 @@ func (client *Client) replaceTaskHandleResponse(resp *http.Response) (ReplaceTas
 //
 // Generated from API version 2024-07-01.20.0
 //   - poolID - The ID of the Pool to get.
-//   - content - The options to use for resizing the pool.
+//   - resizeOptions - The options to use for resizing the pool.
 //   - options - ResizePoolOptions contains the optional parameters for the Client.ResizePool method.
-func (client *Client) ResizePool(ctx context.Context, poolID string, content ResizePoolContent, options *ResizePoolOptions) (ResizePoolResponse, error) {
+func (client *Client) ResizePool(ctx context.Context, poolID string, resizeOptions ResizePoolOptions, options *ResizePoolOptions) (ResizePoolResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.ResizePool", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.resizePoolCreateRequest(ctx, poolID, content, options)
+	req, err := client.resizePoolCreateRequest(ctx, poolID, resizeOptions, options)
 	if err != nil {
 		return ResizePoolResponse{}, err
 	}
@@ -6496,7 +6495,7 @@ func (client *Client) ResizePool(ctx context.Context, poolID string, content Res
 }
 
 // resizePoolCreateRequest creates the ResizePool request.
-func (client *Client) resizePoolCreateRequest(ctx context.Context, poolID string, content ResizePoolContent, options *ResizePoolOptions) (*policy.Request, error) {
+func (client *Client) resizePoolCreateRequest(ctx context.Context, poolID string, resizeOptions ResizePoolOptions, options *ResizePoolOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/resize"
@@ -6516,13 +6515,13 @@ func (client *Client) resizePoolCreateRequest(ctx context.Context, poolID string
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6530,14 +6529,14 @@ func (client *Client) resizePoolCreateRequest(ctx context.Context, poolID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, resizeOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -6553,7 +6552,7 @@ func (client *Client) resizePoolHandleResponse(resp *http.Response) (ResizePoolR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6624,8 +6623,8 @@ func (client *Client) startNodeCreateRequest(ctx context.Context, poolID string,
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6643,7 +6642,7 @@ func (client *Client) startNodeHandleResponse(resp *http.Response) (StartNodeRes
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6713,13 +6712,13 @@ func (client *Client) stopPoolResizeCreateRequest(ctx context.Context, poolID st
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6727,8 +6726,8 @@ func (client *Client) stopPoolResizeCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6746,7 +6745,7 @@ func (client *Client) stopPoolResizeHandleResponse(resp *http.Response) (StopPoo
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6818,13 +6817,13 @@ func (client *Client) terminateJobCreateRequest(ctx context.Context, jobID strin
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6832,8 +6831,8 @@ func (client *Client) terminateJobCreateRequest(ctx context.Context, jobID strin
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6858,7 +6857,7 @@ func (client *Client) terminateJobHandleResponse(resp *http.Response) (Terminate
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -6925,13 +6924,13 @@ func (client *Client) terminateJobScheduleCreateRequest(ctx context.Context, job
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -6939,8 +6938,8 @@ func (client *Client) terminateJobScheduleCreateRequest(ctx context.Context, job
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -6958,7 +6957,7 @@ func (client *Client) terminateJobScheduleHandleResponse(resp *http.Response) (T
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7029,13 +7028,13 @@ func (client *Client) terminateTaskCreateRequest(ctx context.Context, jobID stri
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -7043,8 +7042,8 @@ func (client *Client) terminateTaskCreateRequest(ctx context.Context, jobID stri
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -7062,7 +7061,7 @@ func (client *Client) terminateTaskHandleResponse(resp *http.Response) (Terminat
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7088,7 +7087,7 @@ func (client *Client) terminateTaskHandleResponse(resp *http.Response) (Terminat
 //   - jobID - The ID of the Job whose properties you want to update.
 //   - job - The options to use for updating the Job.
 //   - options - UpdateJobOptions contains the optional parameters for the Client.UpdateJob method.
-func (client *Client) UpdateJob(ctx context.Context, jobID string, job UpdateJobContent, options *UpdateJobOptions) (UpdateJobResponse, error) {
+func (client *Client) UpdateJob(ctx context.Context, jobID string, job UpdateJobOptions, options *UpdateJobOptions) (UpdateJobResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.UpdateJob", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -7109,7 +7108,7 @@ func (client *Client) UpdateJob(ctx context.Context, jobID string, job UpdateJob
 }
 
 // updateJobCreateRequest creates the UpdateJob request.
-func (client *Client) updateJobCreateRequest(ctx context.Context, jobID string, job UpdateJobContent, options *UpdateJobOptions) (*policy.Request, error) {
+func (client *Client) updateJobCreateRequest(ctx context.Context, jobID string, job UpdateJobOptions, options *UpdateJobOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobs/{jobId}"
@@ -7129,13 +7128,13 @@ func (client *Client) updateJobCreateRequest(ctx context.Context, jobID string, 
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -7143,8 +7142,8 @@ func (client *Client) updateJobCreateRequest(ctx context.Context, jobID string, 
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -7166,7 +7165,7 @@ func (client *Client) updateJobHandleResponse(resp *http.Response) (UpdateJobRes
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7194,7 +7193,7 @@ func (client *Client) updateJobHandleResponse(resp *http.Response) (UpdateJobRes
 //   - jobScheduleID - The ID of the Job Schedule to update.
 //   - jobSchedule - The options to use for updating the Job Schedule.
 //   - options - UpdateJobScheduleOptions contains the optional parameters for the Client.UpdateJobSchedule method.
-func (client *Client) UpdateJobSchedule(ctx context.Context, jobScheduleID string, jobSchedule UpdateJobScheduleContent, options *UpdateJobScheduleOptions) (UpdateJobScheduleResponse, error) {
+func (client *Client) UpdateJobSchedule(ctx context.Context, jobScheduleID string, jobSchedule UpdateJobScheduleOptions, options *UpdateJobScheduleOptions) (UpdateJobScheduleResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.UpdateJobSchedule", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -7215,7 +7214,7 @@ func (client *Client) UpdateJobSchedule(ctx context.Context, jobScheduleID strin
 }
 
 // updateJobScheduleCreateRequest creates the UpdateJobSchedule request.
-func (client *Client) updateJobScheduleCreateRequest(ctx context.Context, jobScheduleID string, jobSchedule UpdateJobScheduleContent, options *UpdateJobScheduleOptions) (*policy.Request, error) {
+func (client *Client) updateJobScheduleCreateRequest(ctx context.Context, jobScheduleID string, jobSchedule UpdateJobScheduleOptions, options *UpdateJobScheduleOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/jobschedules/{jobScheduleId}"
@@ -7235,13 +7234,13 @@ func (client *Client) updateJobScheduleCreateRequest(ctx context.Context, jobSch
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -7249,8 +7248,8 @@ func (client *Client) updateJobScheduleCreateRequest(ctx context.Context, jobSch
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -7272,7 +7271,7 @@ func (client *Client) updateJobScheduleHandleResponse(resp *http.Response) (Upda
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7298,7 +7297,7 @@ func (client *Client) updateJobScheduleHandleResponse(resp *http.Response) (Upda
 //   - poolID - The ID of the Pool to get.
 //   - pool - The pool properties to update.
 //   - options - UpdatePoolOptions contains the optional parameters for the Client.UpdatePool method.
-func (client *Client) UpdatePool(ctx context.Context, poolID string, pool UpdatePoolContent, options *UpdatePoolOptions) (UpdatePoolResponse, error) {
+func (client *Client) UpdatePool(ctx context.Context, poolID string, pool UpdatePoolOptions, options *UpdatePoolOptions) (UpdatePoolResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.UpdatePool", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
@@ -7319,7 +7318,7 @@ func (client *Client) UpdatePool(ctx context.Context, poolID string, pool Update
 }
 
 // updatePoolCreateRequest creates the UpdatePool request.
-func (client *Client) updatePoolCreateRequest(ctx context.Context, poolID string, pool UpdatePoolContent, options *UpdatePoolOptions) (*policy.Request, error) {
+func (client *Client) updatePoolCreateRequest(ctx context.Context, poolID string, pool UpdatePoolOptions, options *UpdatePoolOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}"
@@ -7339,13 +7338,13 @@ func (client *Client) updatePoolCreateRequest(ctx context.Context, poolID string
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	if options != nil && options.IfMatch != nil {
-		req.Raw().Header["If-Match"] = []string{string(*options.IfMatch)}
+		req.Raw().Header["If-Match"] = []string{*options.IfMatch}
 	}
 	if options != nil && options.IfModifiedSince != nil {
 		req.Raw().Header["If-Modified-Since"] = []string{options.IfModifiedSince.Format(time.RFC1123)}
 	}
 	if options != nil && options.IfNoneMatch != nil {
-		req.Raw().Header["If-None-Match"] = []string{string(*options.IfNoneMatch)}
+		req.Raw().Header["If-None-Match"] = []string{*options.IfNoneMatch}
 	}
 	if options != nil && options.IfUnmodifiedSince != nil {
 		req.Raw().Header["If-Unmodified-Since"] = []string{options.IfUnmodifiedSince.Format(time.RFC1123)}
@@ -7353,8 +7352,8 @@ func (client *Client) updatePoolCreateRequest(ctx context.Context, poolID string
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -7376,7 +7375,7 @@ func (client *Client) updatePoolHandleResponse(resp *http.Response) (UpdatePoolR
 		result.DataServiceID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7404,13 +7403,13 @@ func (client *Client) updatePoolHandleResponse(resp *http.Response) (UpdatePoolR
 //   - poolID - The ID of the Pool that contains the Compute Node.
 //   - nodeID - The ID of the Compute Node for which you want to get the Remote Desktop
 //     Protocol file.
-//   - content - The Azure Batch service log files upload options.
+//   - uploadOptions - The Azure Batch service log files upload options.
 //   - options - UploadNodeLogsOptions contains the optional parameters for the Client.UploadNodeLogs method.
-func (client *Client) UploadNodeLogs(ctx context.Context, poolID string, nodeID string, content UploadNodeLogsContent, options *UploadNodeLogsOptions) (UploadNodeLogsResponse, error) {
+func (client *Client) UploadNodeLogs(ctx context.Context, poolID string, nodeID string, uploadOptions UploadNodeLogsOptions, options *UploadNodeLogsOptions) (UploadNodeLogsResponse, error) {
 	var err error
 	ctx, endSpan := runtime.StartSpan(ctx, "Client.UploadNodeLogs", client.internal.Tracer(), nil)
 	defer func() { endSpan(err) }()
-	req, err := client.uploadNodeLogsCreateRequest(ctx, poolID, nodeID, content, options)
+	req, err := client.uploadNodeLogsCreateRequest(ctx, poolID, nodeID, uploadOptions, options)
 	if err != nil {
 		return UploadNodeLogsResponse{}, err
 	}
@@ -7427,7 +7426,7 @@ func (client *Client) UploadNodeLogs(ctx context.Context, poolID string, nodeID 
 }
 
 // uploadNodeLogsCreateRequest creates the UploadNodeLogs request.
-func (client *Client) uploadNodeLogsCreateRequest(ctx context.Context, poolID string, nodeID string, content UploadNodeLogsContent, options *UploadNodeLogsOptions) (*policy.Request, error) {
+func (client *Client) uploadNodeLogsCreateRequest(ctx context.Context, poolID string, nodeID string, uploadOptions UploadNodeLogsOptions, options *UploadNodeLogsOptions) (*policy.Request, error) {
 	host := "{endpoint}"
 	host = strings.ReplaceAll(host, "{endpoint}", client.endpoint)
 	urlPath := "/pools/{poolId}/nodes/{nodeId}/uploadbatchservicelogs"
@@ -7453,14 +7452,14 @@ func (client *Client) uploadNodeLogsCreateRequest(ctx context.Context, poolID st
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
 	}
 	req.Raw().Header["Content-Type"] = []string{"application/json; odata=minimalmetadata"}
-	if err := runtime.MarshalAsJSON(req, content); err != nil {
+	if err := runtime.MarshalAsJSON(req, uploadOptions); err != nil {
 		return nil, err
 	}
 	return req, nil
@@ -7473,7 +7472,7 @@ func (client *Client) uploadNodeLogsHandleResponse(resp *http.Response) (UploadN
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
@@ -7556,8 +7555,8 @@ func (client *Client) listPoolUsageMetricsCreateRequest(ctx context.Context, opt
 	if options != nil && options.ClientRequestID != nil {
 		req.Raw().Header["client-request-id"] = []string{*options.ClientRequestID}
 	}
-	if options != nil && options.OCPDate != nil {
-		req.Raw().Header["ocp-date"] = []string{options.OCPDate.Format(time.RFC1123)}
+	if options != nil && options.Ocpdate != nil {
+		req.Raw().Header["ocp-date"] = []string{options.Ocpdate.Format(time.RFC1123)}
 	}
 	if options != nil && options.ReturnClientRequestID != nil {
 		req.Raw().Header["return-client-request-id"] = []string{strconv.FormatBool(*options.ReturnClientRequestID)}
@@ -7572,7 +7571,7 @@ func (client *Client) listPoolUsageMetricsHandleResponse(resp *http.Response) (l
 		result.ClientRequestID = &val
 	}
 	if val := resp.Header.Get("ETag"); val != "" {
-		result.ETag = (*azcore.ETag)(&val)
+		result.ETag = &val
 	}
 	if val := resp.Header.Get("Last-Modified"); val != "" {
 		lastModified, err := time.Parse(time.RFC1123, val)
