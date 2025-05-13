@@ -1,5 +1,14 @@
 # Release History
 
+## 1.4.0 (2025-05-13)
+### Features Added
+
+- New field `EventTags`, `IsEventSensitive` in struct `EventProperties`
+- New field `ImpactedServiceGUID` in struct `Impact`
+- New field `PreviousID`, `ServiceGUID` in struct `MetadataSupportedValueDetail`
+- New field `EventTags` in struct `Update`
+
+
 ## 1.4.0-beta.2 (2024-02-07)
 ### Bugs Fixed
 
