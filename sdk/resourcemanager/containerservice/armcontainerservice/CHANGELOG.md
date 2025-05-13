@@ -1,5 +1,18 @@
 # Release History
 
+## 7.0.0 (2025-05-13)
+### Breaking Changes
+
+- Field `EnablePodSecurityPolicy` of struct `ManagedClusterProperties` has been removed
+
+### Features Added
+
+- New value `OSSKUUbuntu2204` added to enum type `OSSKU`
+- New enum type `UndrainableNodeBehavior` with values `UndrainableNodeBehaviorCordon`, `UndrainableNodeBehaviorSchedule`
+- New field `MaxUnavailable`, `UndrainableNodeBehavior` in struct `AgentPoolUpgradeSettings`
+- New field `EnableVnetIntegration`, `SubnetID` in struct `ManagedClusterAPIServerAccessProfile`
+
+
 ## 7.0.0-beta.2 (2025-04-24)
 ### Breaking Changes
 
