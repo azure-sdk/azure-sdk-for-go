@@ -6,23 +6,25 @@ package armelasticsan_test
 
 import (
 	"context"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/elasticsan/armelasticsan"
 	"log"
 )
 
-// Generated from example definition: 2024-07-01-preview/Operations_List_MaximumSet_Gen.json
-func ExampleOperationsClient_NewListPager_operationsListMaximumSetGen() {
+// Generated from example definition: 2024-07-01-preview/Skus_List_MaximumSet_Gen.json
+func ExampleSKUsOperationGroupClient_NewListPager_skusListMaximumSetGen() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armelasticsan.NewClientFactory("<subscriptionID>", cred, nil)
+	clientFactory, err := armelasticsan.NewClientFactory("subscriptionid", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewOperationsClient().NewListPager(nil)
+	pager := clientFactory.NewSKUsOperationGroupClient().NewListPager(&SKUsOperationGroupClientListOptions{
+		Filter: to.Ptr("obwwdrkq")})
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -33,21 +35,31 @@ func ExampleOperationsClient_NewListPager_operationsListMaximumSetGen() {
 			_ = v
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-		// page = armelasticsan.OperationsClientListResponse{
-		// 	OperationListResult: armelasticsan.OperationListResult{
-		// 		NextLink: to.Ptr("ljqzljjgtxaytxufbermmlkrmpy"),
-		// 		Value: []*armelasticsan.Operation{
+		// page = armelasticsan.SKUsOperationGroupClientListResponse{
+		// 	SKUInformationList: armelasticsan.SKUInformationList{
+		// 		NextLink: to.Ptr("venbbrnqqxaqemezvv"),
+		// 		Value: []*armelasticsan.SKUInformation{
 		// 			{
-		// 				Name: to.Ptr("zgtqmglizaqlsx"),
-		// 				ActionType: to.Ptr(armelasticsan.ActionTypeInternal),
-		// 				Display: &armelasticsan.OperationDisplay{
-		// 					Description: to.Ptr("pmkjqzjverubmslnrcadqur"),
-		// 					Operation: to.Ptr("yumtqbnawcvunwda"),
-		// 					Provider: to.Ptr("apbqaoiegbmipkbqdczsuvlak"),
-		// 					Resource: to.Ptr("hjyuuxkj"),
+		// 				Name: to.Ptr(armelasticsan.SKUNamePremiumLRS),
+		// 				Capabilities: []*armelasticsan.SKUCapability{
+		// 					{
+		// 						Name: to.Ptr("qkht"),
+		// 						Value: to.Ptr("eoayvlyzyjjziecxymlpk"),
+		// 					},
 		// 				},
-		// 				IsDataAction: to.Ptr(true),
-		// 				Origin: to.Ptr(armelasticsan.OriginUser),
+		// 				LocationInfo: []*armelasticsan.SKULocationInfo{
+		// 					{
+		// 						Location: to.Ptr("ngycrsoihxdfctigejlf"),
+		// 						Zones: []*string{
+		// 							to.Ptr("1"),
+		// 						},
+		// 					},
+		// 				},
+		// 				Locations: []*string{
+		// 					to.Ptr("ceszpxwqyifrxobqykplm"),
+		// 				},
+		// 				ResourceType: to.Ptr("tlqickysdtjahoanstgancifxfu"),
+		// 				Tier: to.Ptr(armelasticsan.SKUTierPremium),
 		// 			},
 		// 		},
 		// 	},
@@ -55,18 +67,18 @@ func ExampleOperationsClient_NewListPager_operationsListMaximumSetGen() {
 	}
 }
 
-// Generated from example definition: 2024-07-01-preview/Operations_List_MinimumSet_Gen.json
-func ExampleOperationsClient_NewListPager_operationsListMinimumSetGen() {
+// Generated from example definition: 2024-07-01-preview/Skus_List_MinimumSet_Gen.json
+func ExampleSKUsOperationGroupClient_NewListPager_skusListMinimumSetGen() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
 		log.Fatalf("failed to obtain a credential: %v", err)
 	}
 	ctx := context.Background()
-	clientFactory, err := armelasticsan.NewClientFactory("<subscriptionID>", cred, nil)
+	clientFactory, err := armelasticsan.NewClientFactory("subscriptionid", cred, nil)
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewOperationsClient().NewListPager(nil)
+	pager := clientFactory.NewSKUsOperationGroupClient().NewListPager(nil)
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {
@@ -77,8 +89,8 @@ func ExampleOperationsClient_NewListPager_operationsListMinimumSetGen() {
 			_ = v
 		}
 		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-		// page = armelasticsan.OperationsClientListResponse{
-		// 	OperationListResult: armelasticsan.OperationListResult{
+		// page = armelasticsan.SKUsOperationGroupClientListResponse{
+		// 	SKUInformationList: armelasticsan.SKUInformationList{
 		// 	},
 		// }
 	}
