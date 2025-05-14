@@ -1,5 +1,122 @@
 # Release History
 
+## 2.0.0-beta.1 (2025-05-11)
+### Breaking Changes
+
+- Type alias `EmailChannelAuthMethod` type has been changed from `float32` to `int32`
+- Enum `ChannelName` has been removed
+- Enum `RegenerateKeysChannelName` has been removed
+- Function `NewBotConnectionClient` has been removed
+- Function `*BotConnectionClient.Create` has been removed
+- Function `*BotConnectionClient.Delete` has been removed
+- Function `*BotConnectionClient.Get` has been removed
+- Function `*BotConnectionClient.NewListByBotServicePager` has been removed
+- Function `*BotConnectionClient.ListServiceProviders` has been removed
+- Function `*BotConnectionClient.ListWithSecrets` has been removed
+- Function `*BotConnectionClient.Update` has been removed
+- Function `*BotsClient.GetCheckNameAvailability` has been removed
+- Function `NewChannelsClient` has been removed
+- Function `*ChannelsClient.Create` has been removed
+- Function `*ChannelsClient.Delete` has been removed
+- Function `*ChannelsClient.Get` has been removed
+- Function `*ChannelsClient.NewListByResourceGroupPager` has been removed
+- Function `*ChannelsClient.ListWithKeys` has been removed
+- Function `*ChannelsClient.Update` has been removed
+- Function `*ClientFactory.NewBotConnectionClient` has been removed
+- Function `*ClientFactory.NewChannelsClient` has been removed
+- Function `*ClientFactory.NewDirectLineClient` has been removed
+- Function `*ClientFactory.NewEmailClient` has been removed
+- Function `*ClientFactory.NewHostSettingsClient` has been removed
+- Function `*ClientFactory.NewOperationResultsClient` has been removed
+- Function `*ClientFactory.NewPrivateLinkResourcesClient` has been removed
+- Function `*ClientFactory.NewQnAMakerEndpointKeysClient` has been removed
+- Function `NewDirectLineClient` has been removed
+- Function `*DirectLineClient.RegenerateKeys` has been removed
+- Function `NewEmailClient` has been removed
+- Function `*EmailClient.CreateSignInURL` has been removed
+- Function `NewHostSettingsClient` has been removed
+- Function `*HostSettingsClient.Get` has been removed
+- Function `NewOperationResultsClient` has been removed
+- Function `*OperationResultsClient.BeginGet` has been removed
+- Function `NewPrivateLinkResourcesClient` has been removed
+- Function `*PrivateLinkResourcesClient.ListByBotResource` has been removed
+- Function `NewQnAMakerEndpointKeysClient` has been removed
+- Function `*QnAMakerEndpointKeysClient.Get` has been removed
+- Struct `ConnectionItemName` has been removed
+- Struct `Error` has been removed
+- Struct `ErrorBody` has been removed
+- Struct `PrivateLinkResourceBase` has been removed
+- Struct `Resource` has been removed
+
+### Features Added
+
+- New value `PublicNetworkAccessSecuredByPerimeter` added to enum type `PublicNetworkAccess`
+- New enum type `AccessMode` with values `AccessModeAudit`, `AccessModeEnforced`, `AccessModeLearning`
+- New enum type `CreatedByType` with values `CreatedByTypeApplication`, `CreatedByTypeKey`, `CreatedByTypeManagedIdentity`, `CreatedByTypeUser`
+- New enum type `NspAccessRuleDirection` with values `NspAccessRuleDirectionInbound`, `NspAccessRuleDirectionOutbound`
+- New enum type `ProvisioningState` with values `ProvisioningStateAccepted`, `ProvisioningStateCreating`, `ProvisioningStateDeleting`, `ProvisioningStateFailed`, `ProvisioningStateSucceeded`, `ProvisioningStateUpdating`
+- New enum type `Severity` with values `SeverityError`, `SeverityWarning`
+- New function `NewBotChannelsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BotChannelsClient, error)`
+- New function `*BotChannelsClient.Create(context.Context, string, string, string, BotChannel, *BotChannelsClientCreateOptions) (BotChannelsClientCreateResponse, error)`
+- New function `*BotChannelsClient.Delete(context.Context, string, string, string, *BotChannelsClientDeleteOptions) (BotChannelsClientDeleteResponse, error)`
+- New function `*BotChannelsClient.Get(context.Context, string, string, string, *BotChannelsClientGetOptions) (BotChannelsClientGetResponse, error)`
+- New function `*BotChannelsClient.NewListByResourceGroupPager(string, string, *BotChannelsClientListByResourceGroupOptions) *runtime.Pager[BotChannelsClientListByResourceGroupResponse]`
+- New function `*BotChannelsClient.ListWithKeys(context.Context, string, string, string, *BotChannelsClientListWithKeysOptions) (BotChannelsClientListWithKeysResponse, error)`
+- New function `*BotChannelsClient.RegenerateKeys(context.Context, string, string, string, SiteInfo, *BotChannelsClientRegenerateKeysOptions) (BotChannelsClientRegenerateKeysResponse, error)`
+- New function `*BotChannelsClient.Update(context.Context, string, string, string, BotChannel, *BotChannelsClientUpdateOptions) (BotChannelsClientUpdateResponse, error)`
+- New function `NewBotConnectionOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*BotConnectionOperationGroupClient, error)`
+- New function `*BotConnectionOperationGroupClient.ListServiceProviders(context.Context, *BotConnectionOperationGroupClientListServiceProvidersOptions) (BotConnectionOperationGroupClientListServiceProvidersResponse, error)`
+- New function `*BotsClient.CreateSignInURL(context.Context, string, string, *BotsClientCreateSignInURLOptions) (BotsClientCreateSignInURLResponse, error)`
+- New function `*BotsClient.ListByBotResource(context.Context, string, string, *BotsClientListByBotResourceOptions) (BotsClientListByBotResourceResponse, error)`
+- New function `NewBotsOperationGroupClient(azcore.TokenCredential, *arm.ClientOptions) (*BotsOperationGroupClient, error)`
+- New function `*BotsOperationGroupClient.GetCheckNameAvailability(context.Context, CheckNameAvailabilityRequestBody, *BotsOperationGroupClientGetCheckNameAvailabilityOptions) (BotsOperationGroupClientGetCheckNameAvailabilityResponse, error)`
+- New function `*ClientFactory.NewBotChannelsClient() *BotChannelsClient`
+- New function `*ClientFactory.NewBotConnectionOperationGroupClient() *BotConnectionOperationGroupClient`
+- New function `*ClientFactory.NewBotsOperationGroupClient() *BotsOperationGroupClient`
+- New function `*ClientFactory.NewConnectionSettingsClient() *ConnectionSettingsClient`
+- New function `*ClientFactory.NewHostSettingsOperationGroupClient() *HostSettingsOperationGroupClient`
+- New function `*ClientFactory.NewNetworkSecurityPerimeterConfigurationsClient() *NetworkSecurityPerimeterConfigurationsClient`
+- New function `*ClientFactory.NewOperationResultsOperationGroupClient() *OperationResultsOperationGroupClient`
+- New function `*ClientFactory.NewQnAMakerEndpointKeysOperationGroupClient() *QnAMakerEndpointKeysOperationGroupClient`
+- New function `NewConnectionSettingsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectionSettingsClient, error)`
+- New function `*ConnectionSettingsClient.Create(context.Context, string, string, string, ConnectionSetting, *ConnectionSettingsClientCreateOptions) (ConnectionSettingsClientCreateResponse, error)`
+- New function `*ConnectionSettingsClient.Delete(context.Context, string, string, string, *ConnectionSettingsClientDeleteOptions) (ConnectionSettingsClientDeleteResponse, error)`
+- New function `*ConnectionSettingsClient.Get(context.Context, string, string, string, *ConnectionSettingsClientGetOptions) (ConnectionSettingsClientGetResponse, error)`
+- New function `*ConnectionSettingsClient.NewListByBotServicePager(string, string, *ConnectionSettingsClientListByBotServiceOptions) *runtime.Pager[ConnectionSettingsClientListByBotServiceResponse]`
+- New function `*ConnectionSettingsClient.ListWithSecrets(context.Context, string, string, string, *ConnectionSettingsClientListWithSecretsOptions) (ConnectionSettingsClientListWithSecretsResponse, error)`
+- New function `*ConnectionSettingsClient.Update(context.Context, string, string, string, ConnectionSetting, *ConnectionSettingsClientUpdateOptions) (ConnectionSettingsClientUpdateResponse, error)`
+- New function `NewHostSettingsOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*HostSettingsOperationGroupClient, error)`
+- New function `*HostSettingsOperationGroupClient.Get(context.Context, *HostSettingsOperationGroupClientGetOptions) (HostSettingsOperationGroupClientGetResponse, error)`
+- New function `NewOperationResultsOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*OperationResultsOperationGroupClient, error)`
+- New function `*OperationResultsOperationGroupClient.BeginGet(context.Context, string, *OperationResultsOperationGroupClientBeginGetOptions) (*runtime.Poller[OperationResultsOperationGroupClientGetResponse], error)`
+- New function `NewQnAMakerEndpointKeysOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*QnAMakerEndpointKeysOperationGroupClient, error)`
+- New function `*QnAMakerEndpointKeysOperationGroupClient.Get(context.Context, QnAMakerEndpointKeysRequestBody, *QnAMakerEndpointKeysOperationGroupClientGetOptions) (QnAMakerEndpointKeysOperationGroupClientGetResponse, error)`
+- New function `NewNetworkSecurityPerimeterConfigurationsClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NetworkSecurityPerimeterConfigurationsClient, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.Get(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientGetOptions) (NetworkSecurityPerimeterConfigurationsClientGetResponse, error)`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.NewListPager(string, string, *NetworkSecurityPerimeterConfigurationsClientListOptions) *runtime.Pager[NetworkSecurityPerimeterConfigurationsClientListResponse]`
+- New function `*NetworkSecurityPerimeterConfigurationsClient.BeginReconcile(context.Context, string, string, string, *NetworkSecurityPerimeterConfigurationsClientBeginReconcileOptions) (*runtime.Poller[NetworkSecurityPerimeterConfigurationsClientReconcileResponse], error)`
+- New struct `NetworkSecurityPerimeter`
+- New struct `NetworkSecurityPerimeterConfiguration`
+- New struct `NetworkSecurityPerimeterConfigurationList`
+- New struct `NetworkSecurityPerimeterConfigurationProperties`
+- New struct `NspAccessRule`
+- New struct `NspAccessRuleProperties`
+- New struct `NspAccessRulePropertiesSubscriptionsItem`
+- New struct `Profile`
+- New struct `ProvisioningIssue`
+- New struct `ProvisioningIssueProperties`
+- New struct `ResourceAssociation`
+- New struct `SystemData`
+- New field `SystemData` in struct `Bot`
+- New field `SystemData` in struct `BotChannel`
+- New field `NetworkSecurityPerimeterConfigurations` in struct `BotProperties`
+- New field `SystemData` in struct `ConnectionSetting`
+- New field `ID`, `Name` in struct `ConnectionSettingProperties`
+- New field `SystemData` in struct `ListChannelWithKeysResponse`
+- New field `SystemData` in struct `PrivateEndpointConnection`
+- New field `NextLink` in struct `PrivateEndpointConnectionListResult`
+
+
 ## 1.2.0 (2023-11-24)
 ### Features Added
 
