@@ -74,11 +74,14 @@ type DiscoverySourceResourceTagsUpdate struct {
 
 // ExportDependenciesRequest - ExportDependencies request model
 type ExportDependenciesRequest struct {
-	// REQUIRED; Machine arm id
-	FocusedMachineID *string
+	// Appliance Name
+	ApplianceName *string
 
 	// Filters for ExportDependencies
 	Filters *VisualizationFilter
+
+	// Machine arm id
+	FocusedMachineID *string
 }
 
 // GetConnectionsForProcessOnFocusedMachineRequest - GetConnectionsForProcessOnFocusedMachine request model
@@ -183,7 +186,9 @@ func (o *OffAzureDiscoverySourceResourceProperties) GetDiscoverySourceResourcePr
 	}
 }
 
-// Operation - Details of a REST API operation, returned from the Resource Provider Operations API
+// Operation - REST API Operation
+//
+// Details of a REST API operation, returned from the Resource Provider Operations API
 type Operation struct {
 	// Localized display information for this particular operation.
 	Display *OperationDisplay
