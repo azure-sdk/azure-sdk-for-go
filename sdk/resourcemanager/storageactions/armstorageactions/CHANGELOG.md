@@ -1,5 +1,28 @@
 # Release History
 
+## 1.0.0 (2025-05-09)
+### Breaking Changes
+
+- Type of `StorageTaskUpdateParameters.Properties` has been changed from `*StorageTaskProperties` to `*StorageTaskUpdateProperties`
+- Function `*ClientFactory.NewStorageTaskAssignmentClient` has been removed
+- Function `*ClientFactory.NewStorageTasksReportClient` has been removed
+- Function `NewStorageTaskAssignmentClient` has been removed
+- Function `*StorageTaskAssignmentClient.NewListPager` has been removed
+- Function `*StorageTasksClient.PreviewActions` has been removed
+- Function `NewStorageTasksReportClient` has been removed
+- Function `*StorageTasksReportClient.NewListPager` has been removed
+- Field `StorageTask` of struct `StorageTasksClientCreateResponse` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewStorageTasksOperationGroupClient() *StorageTasksOperationGroupClient`
+- New function `*StorageTasksClient.NewListPager(string, string, *StorageTasksClientListOptions) *runtime.Pager[StorageTasksClientListResponse]`
+- New function `*StorageTasksClient.NewStorageTaskAssignmentListPager(string, string, *StorageTasksClientStorageTaskAssignmentListOptions) *runtime.Pager[StorageTasksClientStorageTaskAssignmentListResponse]`
+- New function `NewStorageTasksOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*StorageTasksOperationGroupClient, error)`
+- New function `*StorageTasksOperationGroupClient.PreviewActions(context.Context, string, StorageTaskPreviewAction, *StorageTasksOperationGroupClientPreviewActionsOptions) (StorageTasksOperationGroupClientPreviewActionsResponse, error)`
+- New struct `StorageTaskUpdateProperties`
+
+
 ## 0.2.0 (2025-04-21)
 ### Breaking Changes
 
