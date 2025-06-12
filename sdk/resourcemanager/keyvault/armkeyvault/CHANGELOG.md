@@ -1,5 +1,12 @@
 # Release History
 
+## 1.6.0 (2025-04-30)
+### Features Added
+
+- New struct `MHSMServiceTagRule`
+- New field `ServiceTags` in struct `MHSMNetworkRuleSet`
+
+
 ## 1.5.0 (2025-03-28)
 ### Features Added
 

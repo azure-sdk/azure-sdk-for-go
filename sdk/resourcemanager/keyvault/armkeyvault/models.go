@@ -334,6 +334,9 @@ type MHSMNetworkRuleSet struct {
 	// The list of IP address rules.
 	IPRules []*MHSMIPRule
 
+	// The list of service tags.
+	ServiceTags []*MHSMServiceTagRule
+
 	// The list of virtual network rules.
 	VirtualNetworkRules []*MHSMVirtualNetworkRule
 }
@@ -477,6 +480,12 @@ type MHSMRegionsListResult struct {
 
 	// The region associated with a managed HSM Pools.
 	Value []*MHSMGeoReplicatedRegion
+}
+
+// MHSMServiceTagRule - A rule governing the accessibility of a managed hsm pool from a specific service tags.
+type MHSMServiceTagRule struct {
+	// REQUIRED; Name of the service tag.
+	Tag *string
 }
 
 // MHSMVirtualNetworkRule - A rule governing the accessibility of a managed hsm pool from a specific virtual network.

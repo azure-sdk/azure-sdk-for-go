@@ -7,7 +7,7 @@ package armkeyvault
 
 const (
 	moduleName    = "github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/keyvault/armkeyvault"
-	moduleVersion = "v1.5.0"
+	moduleVersion = "v1.6.0"
 )
 
 type AccessPolicyUpdateKind string

@@ -896,6 +896,7 @@ func (m MHSMNetworkRuleSet) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "bypass", m.Bypass)
 	populate(objectMap, "defaultAction", m.DefaultAction)
 	populate(objectMap, "ipRules", m.IPRules)
+	populate(objectMap, "serviceTags", m.ServiceTags)
 	populate(objectMap, "virtualNetworkRules", m.VirtualNetworkRules)
 	return json.Marshal(objectMap)
 }
@@ -917,6 +918,9 @@ func (m *MHSMNetworkRuleSet) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "ipRules":
 			err = unpopulate(val, "IPRules", &m.IPRules)
+			delete(rawMsg, key)
+		case "serviceTags":
+			err = unpopulate(val, "ServiceTags", &m.ServiceTags)
 			delete(rawMsg, key)
 		case "virtualNetworkRules":
 			err = unpopulate(val, "VirtualNetworkRules", &m.VirtualNetworkRules)
@@ -1298,6 +1302,33 @@ func (m *MHSMRegionsListResult) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "value":
 			err = unpopulate(val, "Value", &m.Value)
+			delete(rawMsg, key)
+		}
+		if err != nil {
+			return fmt.Errorf("unmarshalling type %T: %v", m, err)
+		}
+	}
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaller interface for type MHSMServiceTagRule.
+func (m MHSMServiceTagRule) MarshalJSON() ([]byte, error) {
+	objectMap := make(map[string]any)
+	populate(objectMap, "tag", m.Tag)
+	return json.Marshal(objectMap)
+}
+
+// UnmarshalJSON implements the json.Unmarshaller interface for type MHSMServiceTagRule.
+func (m *MHSMServiceTagRule) UnmarshalJSON(data []byte) error {
+	var rawMsg map[string]json.RawMessage
+	if err := json.Unmarshal(data, &rawMsg); err != nil {
+		return fmt.Errorf("unmarshalling type %T: %v", m, err)
+	}
+	for key, val := range rawMsg {
+		var err error
+		switch key {
+		case "tag":
+			err = unpopulate(val, "Tag", &m.Tag)
 			delete(rawMsg, key)
 		}
 		if err != nil {
