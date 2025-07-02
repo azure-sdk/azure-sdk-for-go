@@ -1,5 +1,43 @@
 # Release History
 
+## 2.0.0-beta.2 (2025-05-13)
+### Breaking Changes
+
+- Type of `SystemData.LastModifiedByType` has been changed from `*LastModifiedByType` to `*CreatedByType`
+- Enum `LastModifiedByType` has been removed
+- Function `*ClientFactory.NewConnectedClusterClient` has been removed
+- Function `NewConnectedClusterClient` has been removed
+- Function `*ConnectedClusterClient.BeginCreateOrReplace` has been removed
+- Function `*ConnectedClusterClient.BeginDelete` has been removed
+- Function `*ConnectedClusterClient.Get` has been removed
+- Function `*ConnectedClusterClient.NewListByResourceGroupPager` has been removed
+- Function `*ConnectedClusterClient.NewListBySubscriptionPager` has been removed
+- Function `*ConnectedClusterClient.ListClusterUserCredential` has been removed
+- Function `*ConnectedClusterClient.Update` has been removed
+- Function `*OperationsClient.NewGetPager` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `Resource` has been removed
+- Struct `TrackedResource` has been removed
+
+### Features Added
+
+- New enum type `ActionType` with values `ActionTypeInternal`
+- New enum type `Origin` with values `OriginSystem`, `OriginUser`, `OriginUserSystem`
+- New function `*ClientFactory.NewConnectedClustersClient() *ConnectedClustersClient`
+- New function `NewConnectedClustersClient(string, azcore.TokenCredential, *arm.ClientOptions) (*ConnectedClustersClient, error)`
+- New function `*ConnectedClustersClient.BeginCreateOrReplace(context.Context, string, string, ConnectedCluster, *ConnectedClustersClientBeginCreateOrReplaceOptions) (*runtime.Poller[ConnectedClustersClientCreateOrReplaceResponse], error)`
+- New function `*ConnectedClustersClient.BeginDelete(context.Context, string, string, *ConnectedClustersClientBeginDeleteOptions) (*runtime.Poller[ConnectedClustersClientDeleteResponse], error)`
+- New function `*ConnectedClustersClient.Get(context.Context, string, string, *ConnectedClustersClientGetOptions) (ConnectedClustersClientGetResponse, error)`
+- New function `*ConnectedClustersClient.NewListByResourceGroupPager(string, *ConnectedClustersClientListByResourceGroupOptions) *runtime.Pager[ConnectedClustersClientListByResourceGroupResponse]`
+- New function `*ConnectedClustersClient.NewListBySubscriptionPager(*ConnectedClustersClientListBySubscriptionOptions) *runtime.Pager[ConnectedClustersClientListBySubscriptionResponse]`
+- New function `*ConnectedClustersClient.ListClusterUserCredential(context.Context, string, string, ListClusterUserCredentialProperties, *ConnectedClustersClientListClusterUserCredentialOptions) (ConnectedClustersClientListClusterUserCredentialResponse, error)`
+- New function `*ConnectedClustersClient.Update(context.Context, string, string, ConnectedClusterPatch, *ConnectedClustersClientUpdateOptions) (ConnectedClustersClientUpdateResponse, error)`
+- New function `*OperationsClient.NewListPager(*OperationsClientListOptions) *runtime.Pager[OperationsClientListResponse]`
+- New field `ActionType`, `IsDataAction`, `Origin` in struct `Operation`
+
+
 ## 2.0.0-beta.1 (2025-03-17)
 ### Breaking Changes
 
