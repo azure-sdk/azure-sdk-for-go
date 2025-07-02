@@ -1,5 +1,94 @@
 # Release History
 
+## 2.0.0-beta.2 (2025-05-09)
+### Breaking Changes
+
+- Function `NewClient` has been removed
+- Function `*Client.CheckNotificationHubAvailability` has been removed
+- Function `*Client.CreateOrUpdate` has been removed
+- Function `*Client.CreateOrUpdateAuthorizationRule` has been removed
+- Function `*Client.DebugSend` has been removed
+- Function `*Client.Delete` has been removed
+- Function `*Client.DeleteAuthorizationRule` has been removed
+- Function `*Client.Get` has been removed
+- Function `*Client.GetAuthorizationRule` has been removed
+- Function `*Client.GetPnsCredentials` has been removed
+- Function `*Client.NewListAuthorizationRulesPager` has been removed
+- Function `*Client.ListKeys` has been removed
+- Function `*Client.NewListPager` has been removed
+- Function `*Client.RegenerateKeys` has been removed
+- Function `*Client.Update` has been removed
+- Function `*ClientFactory.NewClient` has been removed
+- Function `*ClientFactory.NewPrivateEndpointConnectionsClient` has been removed
+- Function `NewPrivateEndpointConnectionsClient` has been removed
+- Function `*PrivateEndpointConnectionsClient.BeginDelete` has been removed
+- Function `*PrivateEndpointConnectionsClient.Get` has been removed
+- Function `*PrivateEndpointConnectionsClient.GetGroupID` has been removed
+- Function `*PrivateEndpointConnectionsClient.NewListGroupIDsPager` has been removed
+- Function `*PrivateEndpointConnectionsClient.NewListPager` has been removed
+- Function `*PrivateEndpointConnectionsClient.BeginUpdate` has been removed
+- Function `*NamespacesClient.CheckAvailability` has been removed
+- Function `*NamespacesClient.BeginCreateOrUpdate` has been removed
+- Function `*NamespacesClient.Delete` has been removed
+- Function `*NamespacesClient.Get` has been removed
+- Function `*NamespacesClient.GetPnsCredentials` has been removed
+- Function `*NamespacesClient.NewListAllPager` has been removed
+- Function `*NamespacesClient.NewListPager` has been removed
+- Function `*NamespacesClient.Update` has been removed
+- Struct `ConnectionDetails` has been removed
+- Struct `ErrorAdditionalInfo` has been removed
+- Struct `ErrorDetail` has been removed
+- Struct `ErrorResponse` has been removed
+- Struct `GroupConnectivityInformation` has been removed
+- Struct `PrivateLinkServiceConnection` has been removed
+- Struct `ProxyResource` has been removed
+- Struct `Resource` has been removed
+- Struct `TrackedResource` has been removed
+
+### Features Added
+
+- New function `*ClientFactory.NewNamespaceResourcesClient() *NamespaceResourcesClient`
+- New function `*ClientFactory.NewNamespacesOperationGroupClient() *NamespacesOperationGroupClient`
+- New function `*ClientFactory.NewNotificationHubResourcesClient() *NotificationHubResourcesClient`
+- New function `*ClientFactory.NewPrivateEndpointConnectionResourcesClient() *PrivateEndpointConnectionResourcesClient`
+- New function `*ClientFactory.NewPrivateLinkResourcesClient() *PrivateLinkResourcesClient`
+- New function `*ClientFactory.NewSharedAccessAuthorizationRuleResourcesClient() *SharedAccessAuthorizationRuleResourcesClient`
+- New function `NewPrivateEndpointConnectionResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateEndpointConnectionResourcesClient, error)`
+- New function `*PrivateEndpointConnectionResourcesClient.BeginDelete(context.Context, string, string, string, *PrivateEndpointConnectionResourcesClientBeginDeleteOptions) (*runtime.Poller[PrivateEndpointConnectionResourcesClientDeleteResponse], error)`
+- New function `*PrivateEndpointConnectionResourcesClient.Get(context.Context, string, string, string, *PrivateEndpointConnectionResourcesClientGetOptions) (PrivateEndpointConnectionResourcesClientGetResponse, error)`
+- New function `*PrivateEndpointConnectionResourcesClient.NewListPager(string, string, *PrivateEndpointConnectionResourcesClientListOptions) *runtime.Pager[PrivateEndpointConnectionResourcesClientListResponse]`
+- New function `*PrivateEndpointConnectionResourcesClient.BeginUpdate(context.Context, string, string, string, PrivateEndpointConnectionResource, *PrivateEndpointConnectionResourcesClientBeginUpdateOptions) (*runtime.Poller[PrivateEndpointConnectionResourcesClientUpdateResponse], error)`
+- New function `NewPrivateLinkResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*PrivateLinkResourcesClient, error)`
+- New function `*PrivateLinkResourcesClient.GetGroupID(context.Context, string, string, string, *PrivateLinkResourcesClientGetGroupIDOptions) (PrivateLinkResourcesClientGetGroupIDResponse, error)`
+- New function `*PrivateLinkResourcesClient.NewListGroupIDsPager(string, string, *PrivateLinkResourcesClientListGroupIDsOptions) *runtime.Pager[PrivateLinkResourcesClientListGroupIDsResponse]`
+- New function `NewSharedAccessAuthorizationRuleResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*SharedAccessAuthorizationRuleResourcesClient, error)`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.CreateOrUpdateAuthorizationRule(context.Context, string, string, string, string, SharedAccessAuthorizationRuleResource, *SharedAccessAuthorizationRuleResourcesClientCreateOrUpdateAuthorizationRuleOptions) (SharedAccessAuthorizationRuleResourcesClientCreateOrUpdateAuthorizationRuleResponse, error)`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.DeleteAuthorizationRule(context.Context, string, string, string, string, *SharedAccessAuthorizationRuleResourcesClientDeleteAuthorizationRuleOptions) (SharedAccessAuthorizationRuleResourcesClientDeleteAuthorizationRuleResponse, error)`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.GetAuthorizationRule(context.Context, string, string, string, string, *SharedAccessAuthorizationRuleResourcesClientGetAuthorizationRuleOptions) (SharedAccessAuthorizationRuleResourcesClientGetAuthorizationRuleResponse, error)`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.NewListAuthorizationRulesPager(string, string, string, *SharedAccessAuthorizationRuleResourcesClientListAuthorizationRulesOptions) *runtime.Pager[SharedAccessAuthorizationRuleResourcesClientListAuthorizationRulesResponse]`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.ListKeys(context.Context, string, string, string, string, *SharedAccessAuthorizationRuleResourcesClientListKeysOptions) (SharedAccessAuthorizationRuleResourcesClientListKeysResponse, error)`
+- New function `*SharedAccessAuthorizationRuleResourcesClient.RegenerateKeys(context.Context, string, string, string, string, PolicyKeyResource, *SharedAccessAuthorizationRuleResourcesClientRegenerateKeysOptions) (SharedAccessAuthorizationRuleResourcesClientRegenerateKeysResponse, error)`
+- New function `NewNamespaceResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NamespaceResourcesClient, error)`
+- New function `*NamespaceResourcesClient.CheckNotificationHubAvailability(context.Context, string, string, CheckAvailabilityParameters, *NamespaceResourcesClientCheckNotificationHubAvailabilityOptions) (NamespaceResourcesClientCheckNotificationHubAvailabilityResponse, error)`
+- New function `*NamespaceResourcesClient.BeginCreateOrUpdate(context.Context, string, string, NamespaceResource, *NamespaceResourcesClientBeginCreateOrUpdateOptions) (*runtime.Poller[NamespaceResourcesClientCreateOrUpdateResponse], error)`
+- New function `*NamespaceResourcesClient.Delete(context.Context, string, string, *NamespaceResourcesClientDeleteOptions) (NamespaceResourcesClientDeleteResponse, error)`
+- New function `*NamespaceResourcesClient.Get(context.Context, string, string, *NamespaceResourcesClientGetOptions) (NamespaceResourcesClientGetResponse, error)`
+- New function `*NamespaceResourcesClient.GetPnsCredentials(context.Context, string, string, *NamespaceResourcesClientGetPnsCredentialsOptions) (NamespaceResourcesClientGetPnsCredentialsResponse, error)`
+- New function `*NamespaceResourcesClient.NewListAllPager(*NamespaceResourcesClientListAllOptions) *runtime.Pager[NamespaceResourcesClientListAllResponse]`
+- New function `*NamespaceResourcesClient.NewListPager(string, *NamespaceResourcesClientListOptions) *runtime.Pager[NamespaceResourcesClientListResponse]`
+- New function `*NamespaceResourcesClient.Update(context.Context, string, string, NamespacePatchParameters, *NamespaceResourcesClientUpdateOptions) (NamespaceResourcesClientUpdateResponse, error)`
+- New function `NewNamespacesOperationGroupClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NamespacesOperationGroupClient, error)`
+- New function `*NamespacesOperationGroupClient.CheckAvailability(context.Context, CheckAvailabilityParameters, *NamespacesOperationGroupClientCheckAvailabilityOptions) (NamespacesOperationGroupClientCheckAvailabilityResponse, error)`
+- New function `NewNotificationHubResourcesClient(string, azcore.TokenCredential, *arm.ClientOptions) (*NotificationHubResourcesClient, error)`
+- New function `*NotificationHubResourcesClient.CreateOrUpdate(context.Context, string, string, string, NotificationHubResource, *NotificationHubResourcesClientCreateOrUpdateOptions) (NotificationHubResourcesClientCreateOrUpdateResponse, error)`
+- New function `*NotificationHubResourcesClient.DebugSend(context.Context, string, string, string, *NotificationHubResourcesClientDebugSendOptions) (NotificationHubResourcesClientDebugSendResponse, error)`
+- New function `*NotificationHubResourcesClient.Delete(context.Context, string, string, string, *NotificationHubResourcesClientDeleteOptions) (NotificationHubResourcesClientDeleteResponse, error)`
+- New function `*NotificationHubResourcesClient.Get(context.Context, string, string, string, *NotificationHubResourcesClientGetOptions) (NotificationHubResourcesClientGetResponse, error)`
+- New function `*NotificationHubResourcesClient.GetPnsCredentials(context.Context, string, string, string, *NotificationHubResourcesClientGetPnsCredentialsOptions) (NotificationHubResourcesClientGetPnsCredentialsResponse, error)`
+- New function `*NotificationHubResourcesClient.NewListPager(string, string, *NotificationHubResourcesClientListOptions) *runtime.Pager[NotificationHubResourcesClientListResponse]`
+- New function `*NotificationHubResourcesClient.Update(context.Context, string, string, string, NotificationHubPatchParameters, *NotificationHubResourcesClientUpdateOptions) (NotificationHubResourcesClientUpdateResponse, error)`
+
+
 ## 2.0.0-beta.1 (2024-03-22)
 ### Breaking Changes
 
