@@ -324,6 +324,9 @@ type FleetProperties struct {
 	// Specifies the updated by a Compute Fleet test v3.
 	UpdatedBy *string
 
+	// Specifies the text by a Compute Fleet test v3.
+	UpdatedTo *string
+
 	// Attribute based Fleet.
 	VMAttributes *VMAttributes
 
