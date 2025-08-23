@@ -1,29 +1,29 @@
-# Azure Compute Fleet Module for Go
+# Azure Contoso Module for Go
 
-The `armcomputefleet` module provides operations for working with Azure Compute Fleet.
+The `armcontoso` module provides operations for working with Azure Contoso.
 
-[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/computefleet/armcomputefleet)
+[Source code](https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/resourcemanager/contoso/armcontoso)
 
 # Getting started
 
 ## Prerequisites
 
-- an [Azure subscription](https://azure.microsoft.com/free/)
+- An [Azure subscription](https://azure.microsoft.com/free/)
 - [Supported](https://aka.ms/azsdk/go/supported-versions) version of Go (You could download and install the latest version of Go from [here](https://go.dev/doc/install). It will replace the existing Go on your machine. If you want to install multiple Go versions on the same machine, you could refer this [doc](https://go.dev/doc/manage-install).)
 
 ## Install the package
 
 This project uses [Go modules](https://github.com/golang/go/wiki/Modules) for versioning and dependency management.
 
-Install the Azure Compute Fleet module:
+Install the Azure Contoso module:
 
 ```sh
-go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/computefleet/armcomputefleet/v2
+go get github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/contoso/armcontoso
 ```
 
 ## Authorization
 
-When creating a client, you will need to provide a credential for authenticating with Azure Compute Fleet. The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
+When creating a client, you will need to provide a credential for authenticating with Azure Contoso.  The `azidentity` module provides facilities for various ways of authenticating with Azure including client/secret, certificate, managed identity, and more.
 
 ```go
 cred, err := azidentity.NewDefaultAzureCredential(nil)
@@ -33,10 +33,10 @@ For more information on authentication, please see the documentation for `aziden
 
 ## Client Factory
 
-Azure Compute Fleet module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
+Azure Contoso module consists of one or more clients. We provide a client factory which could be used to create any client in this module.
 
 ```go
-clientFactory, err := armcomputefleet.NewClientFactory(<subscription ID>, cred, nil)
+clientFactory, err := armcontoso.NewClientFactory(<subscription ID>, cred, nil)
 ```
 
 You can use `ClientOptions` in package `github.com/Azure/azure-sdk-for-go/sdk/azcore/arm` to set endpoint to connect with public and sovereign clouds as well as Azure Stack. For more information, please see the documentation for `azcore` at [pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azcore).
@@ -47,15 +47,15 @@ options := arm.ClientOptions {
         Cloud: cloud.AzureChina,
     },
 }
-clientFactory, err := armcomputefleet.NewClientFactory(<subscription ID>, cred, &options)
+clientFactory, err := armcontoso.NewClientFactory(<subscription ID>, cred, &options)
 ```
 
 ## Clients
 
-A client groups a set of related APIs, providing access to its functionality. Create one or more clients to access the APIs you require using client factory.
+A client groups a set of related APIs, providing access to its functionality.  Create one or more clients to access the APIs you require using client factory.
 
 ```go
-client := clientFactory.NewFleetsClient()
+client := clientFactory.NewEmployeesClient()
 ```
 
 ## Fakes
@@ -68,7 +68,7 @@ Please see https://github.com/Azure/azure-sdk-for-go/tree/main/sdk/samples/fakes
 ## Provide Feedback
 
 If you encounter bugs or have suggestions, please
-[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Compute Fleet` label.
+[open an issue](https://github.com/Azure/azure-sdk-for-go/issues) and assign the `Contoso` label.
 
 # Contributing
 
