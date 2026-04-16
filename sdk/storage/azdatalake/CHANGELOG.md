@@ -3,11 +3,15 @@
 ## 1.4.5-beta.1 (Unreleased)
 
 ### Features Added
+* Added support for service version 2026-04-06.
+* Added cross-tenant support for Principal-Bound User Delegation SAS.
+* Added support for Dynamic User Delegation SAS.
 * Added error code `PathIsTooDeep` which is returned when a path contains more than 63 path segments.
 
 ### Breaking Changes
 
 ### Bugs Fixed
+* Added support for error code `IncrementalCopyOfEarlierSnapshotNotAllowed`.This replaces `IncrementalCopyOfEarlierVersionSnapshotNotAllowed` which has been deprecated.
 
 ### Other Changes
 

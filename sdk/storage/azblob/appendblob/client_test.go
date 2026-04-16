@@ -33,6 +33,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/blob"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/bloberror"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/container"
+	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/internal/exported"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/internal/shared"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/internal/testcommon"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob/lease"
@@ -547,6 +548,127 @@ func (s *AppendBlobUnrecordedTestsSuite) TestAppendBlockFromURWithLRequestIntent
 	_, err = destBlob.DownloadBuffer(context.Background(), destBuffer, &downloadBufferOptions)
 	_require.NoError(err)
 	_require.Equal(destBuffer, sourceData)
+}
+
+func (s *AppendBlobRecordedTestsSuite) TestAppendBlockFromURLSourceCPK() {
+	_require := require.New(s.T())
+	testName := s.T().Name()
+	svcClient, err := testcommon.GetServiceClient(s.T(), testcommon.TestAccountDefault, nil)
+	_require.NoError(err)
+
+	containerName := testcommon.GenerateContainerName(testName)
+	containerClient := testcommon.CreateNewContainer(context.Background(), _require, containerName, svcClient)
+	defer testcommon.DeleteContainer(context.Background(), _require, containerClient)
+
+	// Create source blob with CPK
+	srcBlobName := testcommon.GenerateBlobName("src")
+	srcBlobClient := containerClient.NewAppendBlobClient(srcBlobName)
+
+	cpk := &testcommon.TestCPKByValue
+
+	_, err = srcBlobClient.Create(context.Background(), &appendblob.CreateOptions{
+		CPKInfo: cpk,
+	})
+	_require.NoError(err)
+
+	contentSize := 4 * 1024 // 4KB
+	r, _ := testcommon.GetDataAndReader(testName, contentSize)
+	_, err = srcBlobClient.AppendBlock(context.Background(), streaming.NopCloser(r), &appendblob.AppendBlockOptions{
+		CPKInfo: cpk,
+	})
+	_require.NoError(err)
+
+	// Create SAS for source
+	cred, err := testcommon.GetGenericSharedKeyCredential(testcommon.TestAccountDefault)
+	_require.NoError(err)
+
+	sasQuery, err := sas.BlobSignatureValues{
+		Protocol:      sas.ProtocolHTTPS,
+		StartTime:     time.Now().UTC().Add(-1 * time.Hour),
+		ExpiryTime:    time.Now().UTC().Add(1 * time.Hour),
+		Permissions:   to.Ptr(sas.BlobPermissions{Read: true}).String(),
+		ContainerName: containerName,
+		BlobName:      srcBlobName,
+	}.SignWithSharedKey(cred)
+	_require.NoError(err)
+
+	srcURL := srcBlobClient.URL() + "?" + sasQuery.Encode()
+
+	destBlobName := testcommon.GenerateBlobName("dest")
+	destBlobClient := containerClient.NewAppendBlobClient(destBlobName)
+	_, err = destBlobClient.Create(context.Background(), nil)
+	_require.NoError(err)
+
+	// Test AppendBlockFromURL with Source CPK
+	_, err = destBlobClient.AppendBlockFromURL(context.Background(), srcURL, &appendblob.AppendBlockFromURLOptions{
+		SourceCustomerProvidedKey: &blob.SourceCPKInfo{
+			SourceEncryptionKey:       cpk.EncryptionKey,
+			SourceEncryptionKeySHA256: cpk.EncryptionKeySHA256,
+			SourceEncryptionAlgorithm: cpk.EncryptionAlgorithm,
+		},
+	})
+	_require.NoError(err)
+}
+
+func (s *AppendBlobRecordedTestsSuite) TestAppendBlockFromURLSourceCPKFail() {
+	_require := require.New(s.T())
+	testName := s.T().Name()
+	svcClient, err := testcommon.GetServiceClient(s.T(), testcommon.TestAccountDefault, nil)
+	_require.NoError(err)
+
+	containerName := testcommon.GenerateContainerName(testName)
+	containerClient := testcommon.CreateNewContainer(context.Background(), _require, containerName, svcClient)
+	defer testcommon.DeleteContainer(context.Background(), _require, containerClient)
+
+	// Create source blob with CPK
+	srcBlobName := testcommon.GenerateBlobName("src")
+	srcBlobClient := containerClient.NewAppendBlobClient(srcBlobName)
+
+	cpk := &testcommon.TestCPKByValue
+
+	_, err = srcBlobClient.Create(context.Background(), &appendblob.CreateOptions{
+		CPKInfo: cpk,
+	})
+	_require.NoError(err)
+
+	contentSize := 4 * 1024 // 4KB
+	r, _ := testcommon.GetDataAndReader(testName, contentSize)
+	_, err = srcBlobClient.AppendBlock(context.Background(), streaming.NopCloser(r), &appendblob.AppendBlockOptions{
+		CPKInfo: cpk,
+	})
+	_require.NoError(err)
+
+	// Create SAS for source
+	cred, err := testcommon.GetGenericSharedKeyCredential(testcommon.TestAccountDefault)
+	_require.NoError(err)
+
+	sasQuery, err := sas.BlobSignatureValues{
+		Protocol:      sas.ProtocolHTTPS,
+		StartTime:     time.Now().UTC().Add(-1 * time.Hour),
+		ExpiryTime:    time.Now().UTC().Add(1 * time.Hour),
+		Permissions:   to.Ptr(sas.BlobPermissions{Read: true}).String(),
+		ContainerName: containerName,
+		BlobName:      srcBlobName,
+	}.SignWithSharedKey(cred)
+	_require.NoError(err)
+
+	srcURL := srcBlobClient.URL() + "?" + sasQuery.Encode()
+
+	destBlobName := testcommon.GenerateBlobName("dest")
+	destBlobClient := containerClient.NewAppendBlobClient(destBlobName)
+	_, err = destBlobClient.Create(context.Background(), nil)
+	_require.NoError(err)
+
+	invalidCPK := testcommon.TestInvalidCPKByValue
+	// Test AppendBlockFromURL with Source CPK
+	_, err = destBlobClient.AppendBlockFromURL(context.Background(), srcURL, &appendblob.AppendBlockFromURLOptions{
+		SourceCustomerProvidedKey: &blob.SourceCPKInfo{
+			SourceEncryptionKey:       invalidCPK.EncryptionKey,
+			SourceEncryptionKeySHA256: invalidCPK.EncryptionKeySHA256,
+			SourceEncryptionAlgorithm: invalidCPK.EncryptionAlgorithm,
+		},
+	})
+	_require.Error(err)
 }
 
 func (s *AppendBlobUnrecordedTestsSuite) TestBlobEncryptionScopeSAS() {
@@ -3809,4 +3931,43 @@ func getOIDFromCredential(ctx context.Context, cred azcore.TokenCredential) (str
 		return "", fmt.Errorf("empty oid claim")
 	}
 	return oid, nil
+}
+
+func (s *AppendBlobUnrecordedTestsSuite) TestUserDelegationSASWithDelegatedUserTenantID() {
+	_require := require.New(s.T())
+	testName := s.T().Name()
+
+	now := time.Now().UTC().Add(-time.Minute)
+	expiry := now.Add(30 * time.Minute)
+	serviceCode := "b"
+	version := sas.Version
+	oid := "00000000-0000-0000-0000-000000000000"
+	tid := "11111111-1111-1111-1111-111111111111"
+	skdutid := "22222222-2222-2222-2222-222222222222"
+	val := to.Ptr("AAAAAAAAAAAAAAAAAAAAAA==")
+
+	udk := exported.UserDelegationKey{
+		SignedStart:                 &now,
+		SignedExpiry:                &expiry,
+		SignedService:               &serviceCode,
+		SignedVersion:               &version,
+		SignedOID:                   &oid,
+		SignedTID:                   &tid,
+		SignedDelegatedUserTenantID: &skdutid,
+		Value:                       val,
+	}
+	udc := exported.NewUserDelegationCredential("testaccount", udk)
+
+	containerName := testcommon.GenerateContainerName(testName)
+	sv := sas.BlobSignatureValues{
+		Protocol:      sas.ProtocolHTTPS,
+		StartTime:     now,
+		ExpiryTime:    expiry,
+		Permissions:   (&sas.BlobPermissions{Read: true, Create: true, Write: true}).String(),
+		ContainerName: containerName,
+	}
+	qp, err := sv.SignWithUserDelegation(udc)
+	_require.NoError(err)
+	enc := qp.Encode()
+	_require.Contains(enc, "skdutid="+skdutid)
 }

@@ -3,6 +3,9 @@
 ## 1.5.5-beta.1 (Unreleased)
 
 ### Features Added
+* Added support for service version 2026-04-06.
+* Added cross-tenant support for Principal-Bound User Delegation SAS.
+* Added support for Files Provisioned V2 Guardrails.
 
 ### Breaking Changes
 
