@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v9"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"log"
 )
 
@@ -29,7 +29,7 @@ func ExampleAgentPoolsClient_BeginAbortLatestOperation() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -58,13 +58,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithCapacityRese
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -130,13 +130,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithKubeletConfi
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -202,13 +202,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithDedicatedHos
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -250,13 +250,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithEncryptionAt
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -299,13 +299,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithFipsEnabledO
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -348,13 +348,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithUltraSsdEnab
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -398,13 +398,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithEphemeralOSD
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -472,13 +472,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithGpumig() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -547,13 +547,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithMessageOfThe
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -622,13 +622,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithOssku() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -695,13 +695,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithPpg() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -747,13 +747,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolUsingAnAgentPool
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -809,13 +809,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createSpotAgentPool() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -890,13 +890,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithVirtualMachi
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -982,13 +982,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createUpdateAgentPool() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -1045,13 +1045,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithKrustletAndT
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -1099,13 +1099,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createWindowsAgentPoolWithDisab
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("wnp2"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/wnp2"),
@@ -1151,13 +1151,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_createAgentPoolWithWindowsOssku
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("wnp2"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/wnp2"),
@@ -1198,13 +1198,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_startAgentPool() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -1245,13 +1245,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_stopAgentPool() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -1299,13 +1299,13 @@ func ExampleAgentPoolsClient_BeginCreateOrUpdate_updateAgentPool() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientCreateOrUpdateResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
@@ -1347,7 +1347,7 @@ func ExampleAgentPoolsClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -1373,7 +1373,7 @@ func ExampleAgentPoolsClient_BeginDeleteMachines() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -1396,7 +1396,7 @@ func ExampleAgentPoolsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientGetResponse{
-	// 	AgentPool: &armcontainerservice.AgentPool{
+	// 	AgentPool: armcontainerservice.AgentPool{
 	// 		Name: to.Ptr("agentpool1"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1"),
 	// 		Properties: &armcontainerservice.ManagedClusterAgentPoolProfileProperties{
@@ -1436,7 +1436,7 @@ func ExampleAgentPoolsClient_GetAvailableAgentPoolVersions() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientGetAvailableAgentPoolVersionsResponse{
-	// 	AgentPoolAvailableVersions: &armcontainerservice.AgentPoolAvailableVersions{
+	// 	AgentPoolAvailableVersions: armcontainerservice.AgentPoolAvailableVersions{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/availableAgentpoolVersions"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/availableagentpoolversions"),
@@ -1478,7 +1478,7 @@ func ExampleAgentPoolsClient_GetUpgradeProfile() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.AgentPoolsClientGetUpgradeProfileResponse{
-	// 	AgentPoolUpgradeProfile: &armcontainerservice.AgentPoolUpgradeProfile{
+	// 	AgentPoolUpgradeProfile: armcontainerservice.AgentPoolUpgradeProfile{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools/upgradeProfiles"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/agentPools/agentpool1/upgradeprofiles/default"),
@@ -1559,7 +1559,7 @@ func ExampleAgentPoolsClient_BeginUpgradeNodeImageVersion() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res

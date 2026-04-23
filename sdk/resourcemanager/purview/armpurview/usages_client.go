@@ -7,14 +7,13 @@ package armpurview
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // UsagesClient contains the methods for the Usages group.
@@ -46,7 +45,7 @@ func NewUsagesClient(subscriptionID string, credential azcore.TokenCredential, o
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2024-04-01-preview
-//   - location - The location name.
+//   - location - The name of the Azure region.
 //   - options - UsagesClientGetOptions contains the optional parameters for the UsagesClient.Get method.
 func (client *UsagesClient) Get(ctx context.Context, location string, options *UsagesClientGetOptions) (UsagesClientGetResponse, error) {
 	var err error

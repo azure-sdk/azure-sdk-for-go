@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v9"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"log"
 	"time"
 )
@@ -30,7 +30,7 @@ func ExampleManagedClustersClient_BeginAbortLatestOperation() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -117,13 +117,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithAd
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -302,13 +302,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithAz
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -512,13 +512,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateManagedCluster
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -718,13 +718,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithCa
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -897,13 +897,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithCu
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -1075,13 +1075,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithDe
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -1250,13 +1250,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithRu
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -1450,13 +1450,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateManagedCluster
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -1652,13 +1652,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithEn
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -1828,13 +1828,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithUl
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2004,13 +2004,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithFi
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2189,13 +2189,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithGp
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2382,13 +2382,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithHt
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2558,13 +2558,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithWe
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2734,13 +2734,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithAk
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -2899,13 +2899,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithNo
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3084,13 +3084,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithOs
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3269,13 +3269,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithPp
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3448,13 +3448,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithPo
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3630,13 +3630,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithLo
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3816,13 +3816,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedPrivateCluste
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -3998,13 +3998,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedPrivateCluste
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -4174,13 +4174,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithSe
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -4359,13 +4359,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterUsingA
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -4560,13 +4560,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateManagedCluster
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -4774,13 +4774,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateManagedCluster
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -4977,13 +4977,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateManagedCluster
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -5175,13 +5175,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createUpdateAadManagedClus
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -5354,13 +5354,13 @@ func ExampleManagedClustersClient_BeginCreateOrUpdate_createManagedClusterWithUs
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientCreateOrUpdateResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),
@@ -5445,7 +5445,7 @@ func ExampleManagedClustersClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -5468,7 +5468,7 @@ func ExampleManagedClustersClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ETag: to.Ptr("beywbwei"),
@@ -5593,7 +5593,7 @@ func ExampleManagedClustersClient_GetAccessProfile() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetAccessProfileResponse{
-	// 	ManagedClusterAccessProfile: &armcontainerservice.ManagedClusterAccessProfile{
+	// 	ManagedClusterAccessProfile: armcontainerservice.ManagedClusterAccessProfile{
 	// 		Name: to.Ptr("clusterUser"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/accessProfiles"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/accessProfiles/clusterUser"),
@@ -5624,7 +5624,7 @@ func ExampleManagedClustersClient_GetCommandResult_commandFailedResult() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetCommandResultResponse{
-	// 	RunCommandResult: &armcontainerservice.RunCommandResult{
+	// 	RunCommandResult: armcontainerservice.RunCommandResult{
 	// 		ID: to.Ptr("def7b3ea71bd4f7e9d226ddbc0f00ad9"),
 	// 		Properties: &armcontainerservice.CommandResultProperties{
 	// 			ProvisioningState: to.Ptr("failed"),
@@ -5653,7 +5653,7 @@ func ExampleManagedClustersClient_GetCommandResult_commandSucceedResult() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetCommandResultResponse{
-	// 	RunCommandResult: &armcontainerservice.RunCommandResult{
+	// 	RunCommandResult: armcontainerservice.RunCommandResult{
 	// 		ID: to.Ptr("def7b3ea71bd4f7e9d226ddbc0f00ad9"),
 	// 		Properties: &armcontainerservice.CommandResultProperties{
 	// 			ExitCode: to.Ptr[int32](0),
@@ -5685,7 +5685,7 @@ func ExampleManagedClustersClient_GetMeshRevisionProfile() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetMeshRevisionProfileResponse{
-	// 	MeshRevisionProfile: &armcontainerservice.MeshRevisionProfile{
+	// 	MeshRevisionProfile: armcontainerservice.MeshRevisionProfile{
 	// 		Name: to.Ptr("istio"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/locations/meshRevisionProfiles"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.ContainerService/locations/location1/meshRevisionProfiles/istio"),
@@ -5749,7 +5749,7 @@ func ExampleManagedClustersClient_GetMeshUpgradeProfile() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetMeshUpgradeProfileResponse{
-	// 	MeshUpgradeProfile: &armcontainerservice.MeshUpgradeProfile{
+	// 	MeshUpgradeProfile: armcontainerservice.MeshUpgradeProfile{
 	// 		Name: to.Ptr("istio"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/meshUpgradeProfiles"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/meshUpgradeProfiles/istio"),
@@ -5793,7 +5793,7 @@ func ExampleManagedClustersClient_GetUpgradeProfile() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientGetUpgradeProfileResponse{
-	// 	ManagedClusterUpgradeProfile: &armcontainerservice.ManagedClusterUpgradeProfile{
+	// 	ManagedClusterUpgradeProfile: armcontainerservice.ManagedClusterUpgradeProfile{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/upgradeprofiles"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1/upgradeprofiles/default"),
@@ -6020,7 +6020,7 @@ func ExampleManagedClustersClient_ListClusterAdminCredentials() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientListClusterAdminCredentialsResponse{
-	// 	CredentialResults: &armcontainerservice.CredentialResults{
+	// 	CredentialResults: armcontainerservice.CredentialResults{
 	// 		Kubeconfigs: []*armcontainerservice.CredentialResult{
 	// 			{
 	// 				Name: to.Ptr("credentialName1"),
@@ -6050,7 +6050,7 @@ func ExampleManagedClustersClient_ListClusterMonitoringUserCredentials() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientListClusterMonitoringUserCredentialsResponse{
-	// 	CredentialResults: &armcontainerservice.CredentialResults{
+	// 	CredentialResults: armcontainerservice.CredentialResults{
 	// 		Kubeconfigs: []*armcontainerservice.CredentialResult{
 	// 			{
 	// 				Name: to.Ptr("credentialName1"),
@@ -6080,7 +6080,7 @@ func ExampleManagedClustersClient_ListClusterUserCredentials() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientListClusterUserCredentialsResponse{
-	// 	CredentialResults: &armcontainerservice.CredentialResults{
+	// 	CredentialResults: armcontainerservice.CredentialResults{
 	// 		Kubeconfigs: []*armcontainerservice.CredentialResult{
 	// 			{
 	// 				Name: to.Ptr("credentialName1"),
@@ -6110,7 +6110,7 @@ func ExampleManagedClustersClient_ListKubernetesVersions() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientListKubernetesVersionsResponse{
-	// 	KubernetesVersionListResult: &armcontainerservice.KubernetesVersionListResult{
+	// 	KubernetesVersionListResult: armcontainerservice.KubernetesVersionListResult{
 	// 		Values: []*armcontainerservice.KubernetesVersion{
 	// 			{
 	// 				Capabilities: &armcontainerservice.KubernetesVersionCapabilities{
@@ -6605,7 +6605,7 @@ func ExampleManagedClustersClient_BeginResetAADProfile() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -6634,7 +6634,7 @@ func ExampleManagedClustersClient_BeginResetServicePrincipalProfile() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -6660,7 +6660,7 @@ func ExampleManagedClustersClient_BeginRotateClusterCertificates() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -6681,7 +6681,7 @@ func ExampleManagedClustersClient_BeginRotateServiceAccountSigningKeys() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -6706,13 +6706,13 @@ func ExampleManagedClustersClient_BeginRunCommand() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientRunCommandResponse{
-	// 	RunCommandResult: &armcontainerservice.RunCommandResult{
+	// 	RunCommandResult: armcontainerservice.RunCommandResult{
 	// 		ID: to.Ptr("def7b3ea71bd4f7e9d226ddbc0f00ad9"),
 	// 		Properties: &armcontainerservice.CommandResultProperties{
 	// 			ExitCode: to.Ptr[int32](0),
@@ -6742,7 +6742,7 @@ func ExampleManagedClustersClient_BeginStart() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -6763,7 +6763,7 @@ func ExampleManagedClustersClient_BeginStop() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -6789,13 +6789,13 @@ func ExampleManagedClustersClient_BeginUpdateTags() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.ManagedClustersClientUpdateTagsResponse{
-	// 	ManagedCluster: &armcontainerservice.ManagedCluster{
+	// 	ManagedCluster: armcontainerservice.ManagedCluster{
 	// 		Name: to.Ptr("clustername1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/managedClusters/clustername1"),

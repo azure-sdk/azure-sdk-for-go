@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 )
 
 // ImpactCategoriesServer is a fake server for instances of the armimpactreporting.ImpactCategoriesClient type.
@@ -26,7 +27,7 @@ type ImpactCategoriesServer struct {
 
 	// NewListBySubscriptionPager is the fake for method ImpactCategoriesClient.NewListBySubscriptionPager
 	// HTTP status codes to indicate success: http.StatusOK
-	NewListBySubscriptionPager func(resourceType string, options *armimpactreporting.ImpactCategoriesClientListBySubscriptionOptions) (resp azfake.PagerResponder[armimpactreporting.ImpactCategoriesClientListBySubscriptionResponse])
+	NewListBySubscriptionPager func(options *armimpactreporting.ImpactCategoriesClientListBySubscriptionOptions) (resp azfake.PagerResponder[armimpactreporting.ImpactCategoriesClientListBySubscriptionResponse])
 }
 
 // NewImpactCategoriesServerTransport creates a new instance of ImpactCategoriesServerTransport with the provided implementation.
@@ -58,9 +59,7 @@ func (i *ImpactCategoriesServerTransport) Do(req *http.Request) (*http.Response,
 }
 
 func (i *ImpactCategoriesServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result)
-	defer close(resultChan)
-
+	resultChan := make(chan result, 1)
 	go func() {
 		var intercepted bool
 		var res result
@@ -78,10 +77,7 @@ func (i *ImpactCategoriesServerTransport) dispatchToMethodFake(req *http.Request
 			}
 
 		}
-		select {
-		case resultChan <- res:
-		case <-req.Context().Done():
-		}
+		resultChan <- res
 	}()
 
 	select {
@@ -111,7 +107,7 @@ func (i *ImpactCategoriesServerTransport) dispatchGet(req *http.Request) (*http.
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ImpactCategory, req)
@@ -134,22 +130,16 @@ func (i *ImpactCategoriesServerTransport) dispatchNewListBySubscriptionPager(req
 			return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 		}
 		qp := req.URL.Query()
-		categoryNameUnescaped, err := url.QueryUnescape(qp.Get("categoryName"))
-		if err != nil {
-			return nil, err
-		}
-		categoryNameParam := getOptional(categoryNameUnescaped)
-		resourceTypeParam, err := url.QueryUnescape(qp.Get("resourceType"))
-		if err != nil {
-			return nil, err
-		}
+		categoryNameParam := getOptional(qp.Get("categoryName"))
+		resourceTypeParam := getOptional(qp.Get("resourceType"))
 		var options *armimpactreporting.ImpactCategoriesClientListBySubscriptionOptions
-		if categoryNameParam != nil {
+		if categoryNameParam != nil || resourceTypeParam != nil {
 			options = &armimpactreporting.ImpactCategoriesClientListBySubscriptionOptions{
 				CategoryName: categoryNameParam,
+				ResourceType: resourceTypeParam,
 			}
 		}
-		resp := i.srv.NewListBySubscriptionPager(resourceTypeParam, options)
+		resp := i.srv.NewListBySubscriptionPager(options)
 		newListBySubscriptionPager = &resp
 		i.newListBySubscriptionPager.add(req, newListBySubscriptionPager)
 		server.PagerResponderInjectNextLinks(newListBySubscriptionPager, req, func(page *armimpactreporting.ImpactCategoriesClientListBySubscriptionResponse, createLink func() string) {
@@ -160,7 +150,7 @@ func (i *ImpactCategoriesServerTransport) dispatchNewListBySubscriptionPager(req
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
 		i.newListBySubscriptionPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}

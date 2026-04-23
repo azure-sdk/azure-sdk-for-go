@@ -42,7 +42,7 @@ func NewConnectorsClient(subscriptionID string, credential azcore.TokenCredentia
 // BeginCreateOrUpdate - Create a Connector
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - connectorName - The name of the connector
 //   - resource - Resource create parameters.
 //   - options - ConnectorsClientBeginCreateOrUpdateOptions contains the optional parameters for the ConnectorsClient.BeginCreateOrUpdate
@@ -67,7 +67,7 @@ func (client *ConnectorsClient) BeginCreateOrUpdate(ctx context.Context, connect
 // CreateOrUpdate - Create a Connector
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 func (client *ConnectorsClient) createOrUpdate(ctx context.Context, connectorName string, resource Connector, options *ConnectorsClientBeginCreateOrUpdateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "ConnectorsClient.BeginCreateOrUpdate"
@@ -105,7 +105,7 @@ func (client *ConnectorsClient) createOrUpdateCreateRequest(ctx context.Context,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
@@ -118,7 +118,7 @@ func (client *ConnectorsClient) createOrUpdateCreateRequest(ctx context.Context,
 // Delete - Delete a Connector
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - connectorName - The name of the connector
 //   - options - ConnectorsClientDeleteOptions contains the optional parameters for the ConnectorsClient.Delete method.
 func (client *ConnectorsClient) Delete(ctx context.Context, connectorName string, options *ConnectorsClientDeleteOptions) (ConnectorsClientDeleteResponse, error) {
@@ -158,7 +158,7 @@ func (client *ConnectorsClient) deleteCreateRequest(ctx context.Context, connect
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -166,7 +166,7 @@ func (client *ConnectorsClient) deleteCreateRequest(ctx context.Context, connect
 // Get - Get a Connector
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - connectorName - The name of the connector
 //   - options - ConnectorsClientGetOptions contains the optional parameters for the ConnectorsClient.Get method.
 func (client *ConnectorsClient) Get(ctx context.Context, connectorName string, options *ConnectorsClientGetOptions) (ConnectorsClientGetResponse, error) {
@@ -207,7 +207,7 @@ func (client *ConnectorsClient) getCreateRequest(ctx context.Context, connectorN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -224,7 +224,7 @@ func (client *ConnectorsClient) getHandleResponse(resp *http.Response) (Connecto
 
 // NewListBySubscriptionPager - List Connector resources by subscription ID
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - options - ConnectorsClientListBySubscriptionOptions contains the optional parameters for the ConnectorsClient.NewListBySubscriptionPager
 //     method.
 func (client *ConnectorsClient) NewListBySubscriptionPager(options *ConnectorsClientListBySubscriptionOptions) *runtime.Pager[ConnectorsClientListBySubscriptionResponse] {
@@ -262,7 +262,7 @@ func (client *ConnectorsClient) listBySubscriptionCreateRequest(ctx context.Cont
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -280,11 +280,11 @@ func (client *ConnectorsClient) listBySubscriptionHandleResponse(resp *http.Resp
 // Update - Update a Connector
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - connectorName - The name of the connector
 //   - properties - The resource properties to be updated.
 //   - options - ConnectorsClientUpdateOptions contains the optional parameters for the ConnectorsClient.Update method.
-func (client *ConnectorsClient) Update(ctx context.Context, connectorName string, properties ConnectorUpdate, options *ConnectorsClientUpdateOptions) (ConnectorsClientUpdateResponse, error) {
+func (client *ConnectorsClient) Update(ctx context.Context, connectorName string, properties Connector, options *ConnectorsClientUpdateOptions) (ConnectorsClientUpdateResponse, error) {
 	var err error
 	const operationName = "ConnectorsClient.Update"
 	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
@@ -307,7 +307,7 @@ func (client *ConnectorsClient) Update(ctx context.Context, connectorName string
 }
 
 // updateCreateRequest creates the Update request.
-func (client *ConnectorsClient) updateCreateRequest(ctx context.Context, connectorName string, properties ConnectorUpdate, _ *ConnectorsClientUpdateOptions) (*policy.Request, error) {
+func (client *ConnectorsClient) updateCreateRequest(ctx context.Context, connectorName string, properties Connector, _ *ConnectorsClientUpdateOptions) (*policy.Request, error) {
 	urlPath := "/subscriptions/{subscriptionId}/providers/Microsoft.Impact/connectors/{connectorName}"
 	if client.subscriptionID == "" {
 		return nil, errors.New("parameter client.subscriptionID cannot be empty")
@@ -322,7 +322,7 @@ func (client *ConnectorsClient) updateCreateRequest(ctx context.Context, connect
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}

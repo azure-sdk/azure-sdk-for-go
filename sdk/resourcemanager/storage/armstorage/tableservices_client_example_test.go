@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 )
 
@@ -31,7 +31,7 @@ func ExampleTableServicesClient_GetServiceProperties() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableServicesClientGetServicePropertiesResponse{
-	// 	TableServiceProperties: &armstorage.TableServiceProperties{
+	// 	TableServiceProperties: armstorage.TableServiceProperties{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res4410/providers/Microsoft.Storage/storageAccounts/sto8607/tableServices/default"),
@@ -121,7 +121,7 @@ func ExampleTableServicesClient_List() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableServicesClientListResponse{
-	// 	ListTableServices: &armstorage.ListTableServices{
+	// 	ListTableServices: armstorage.ListTableServices{
 	// 		Value: []*armstorage.TableServiceProperties{
 	// 			{
 	// 				Name: to.Ptr("default"),
@@ -279,7 +279,7 @@ func ExampleTableServicesClient_SetServiceProperties() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableServicesClientSetServicePropertiesResponse{
-	// 	TableServiceProperties: &armstorage.TableServiceProperties{
+	// 	TableServiceProperties: armstorage.TableServiceProperties{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res4410/providers/Microsoft.Storage/storageAccounts/sto8607/tableServices/default"),

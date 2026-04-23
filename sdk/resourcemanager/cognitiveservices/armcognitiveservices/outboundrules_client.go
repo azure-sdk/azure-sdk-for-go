@@ -43,7 +43,6 @@ func NewOutboundRulesClient(subscriptionID string, credential azcore.TokenCreden
 // account.
 //
 // The POST API for updating the outbound rules of the managed network associated with the cognitive services account.
-// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2026-01-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
@@ -51,19 +50,37 @@ func NewOutboundRulesClient(subscriptionID string, credential azcore.TokenCreden
 //   - managedNetworkName - Name of the managedNetwork associated with the cognitive services account. Only 'default' is supported.
 //   - body - The Managed Network Settings object of the account.
 //   - options - OutboundRulesClientBeginPostOptions contains the optional parameters for the OutboundRulesClient.BeginPost method.
-func (client *OutboundRulesClient) BeginPost(ctx context.Context, resourceGroupName string, accountName string, managedNetworkName string, body ManagedNetworkSettingsBasicResource, options *OutboundRulesClientBeginPostOptions) (*runtime.Poller[OutboundRulesClientPostResponse], error) {
+func (client *OutboundRulesClient) BeginPost(ctx context.Context, resourceGroupName string, accountName string, managedNetworkName string, body ManagedNetworkSettingsBasicResource, options *OutboundRulesClientBeginPostOptions) (*runtime.Poller[*runtime.Pager[OutboundRulesClientPostResponse]], error) {
+	pager := runtime.NewPager(runtime.PagingHandler[OutboundRulesClientPostResponse]{
+		More: func(page OutboundRulesClientPostResponse) bool {
+			return page.NextLink != nil && len(*page.NextLink) > 0
+		},
+		Fetcher: func(ctx context.Context, page *OutboundRulesClientPostResponse) (OutboundRulesClientPostResponse, error) {
+			ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, "OutboundRulesClient.BeginPost")
+			resp, err := runtime.FetcherForNextLink(ctx, client.internal.Pipeline(), *page.NextLink, func(ctx context.Context) (*policy.Request, error) {
+				return client.postCreateRequest(ctx, resourceGroupName, accountName, managedNetworkName, body, options)
+			}, nil)
+			if err != nil {
+				return OutboundRulesClientPostResponse{}, err
+			}
+			return client.postHandleResponse(resp)
+		},
+		Tracer: client.internal.Tracer(),
+	})
 	if options == nil || options.ResumeToken == "" {
 		resp, err := client.post(ctx, resourceGroupName, accountName, managedNetworkName, body, options)
 		if err != nil {
 			return nil, err
 		}
-		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[OutboundRulesClientPostResponse]{
-			Tracer: client.internal.Tracer(),
+		poller, err := runtime.NewPoller(resp, client.internal.Pipeline(), &runtime.NewPollerOptions[*runtime.Pager[OutboundRulesClientPostResponse]]{
+			Response: &pager,
+			Tracer:   client.internal.Tracer(),
 		})
 		return poller, err
 	} else {
-		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[OutboundRulesClientPostResponse]{
-			Tracer: client.internal.Tracer(),
+		return runtime.NewPollerFromResumeToken(options.ResumeToken, client.internal.Pipeline(), &runtime.NewPollerFromResumeTokenOptions[*runtime.Pager[OutboundRulesClientPostResponse]]{
+			Response: &pager,
+			Tracer:   client.internal.Tracer(),
 		})
 	}
 }
@@ -71,7 +88,6 @@ func (client *OutboundRulesClient) BeginPost(ctx context.Context, resourceGroupN
 // Post - The POST API for updating the outbound rules of the managed network associated with the cognitive services account.
 //
 // The POST API for updating the outbound rules of the managed network associated with the cognitive services account.
-// If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2026-01-15-preview
 func (client *OutboundRulesClient) post(ctx context.Context, resourceGroupName string, accountName string, managedNetworkName string, body ManagedNetworkSettingsBasicResource, options *OutboundRulesClientBeginPostOptions) (*http.Response, error) {
@@ -127,4 +143,13 @@ func (client *OutboundRulesClient) postCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	return req, nil
+}
+
+// postHandleResponse handles the Post response.
+func (client *OutboundRulesClient) postHandleResponse(resp *http.Response) (OutboundRulesClientPostResponse, error) {
+	result := OutboundRulesClientPostResponse{}
+	if err := runtime.UnmarshalAsJSON(resp, &result.OutboundRuleListResult); err != nil {
+		return OutboundRulesClientPostResponse{}, err
+	}
+	return result, nil
 }

@@ -1,4 +1,4 @@
 directory: specification/postgresql/DBforPostgreSQL.Management
-commit: a20f18373f02dbbc01967c1c56a8c8f50f319b97
+commit: 2972b6fba0b3d15ea24d336b7a982ec570e27626
 repo: Azure/azure-rest-api-specs
 additionalDirectories: 

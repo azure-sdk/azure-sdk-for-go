@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp/v10"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp/v8"
 	"log"
 )
 
@@ -69,13 +69,13 @@ func ExampleActiveDirectoryConfigsClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ActiveDirectoryConfigsClientCreateOrUpdateResponse{
-	// 	ActiveDirectoryConfig: &armnetapp.ActiveDirectoryConfig{
+	// 	ActiveDirectoryConfig: armnetapp.ActiveDirectoryConfig{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/activeDirectoryConfigs/adconfig1"),
 	// 		Name: to.Ptr("adconfig1"),
 	// 		Type: to.Ptr("Microsoft.NetApp/activeDirectoryConfigs"),
@@ -145,7 +145,7 @@ func ExampleActiveDirectoryConfigsClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -168,7 +168,7 @@ func ExampleActiveDirectoryConfigsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ActiveDirectoryConfigsClientGetResponse{
-	// 	ActiveDirectoryConfig: &armnetapp.ActiveDirectoryConfig{
+	// 	ActiveDirectoryConfig: armnetapp.ActiveDirectoryConfig{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/activeDirectoryConfigs/adconfig1"),
 	// 		Name: to.Ptr("adconfig1"),
 	// 		Type: to.Ptr("Microsoft.NetApp/activeDirectoryConfigs"),
@@ -401,13 +401,13 @@ func ExampleActiveDirectoryConfigsClient_BeginUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ActiveDirectoryConfigsClientUpdateResponse{
-	// 	ActiveDirectoryConfig: &armnetapp.ActiveDirectoryConfig{
+	// 	ActiveDirectoryConfig: armnetapp.ActiveDirectoryConfig{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/activeDirectoryConfigs/adconfig1"),
 	// 		Name: to.Ptr("adconfig1"),
 	// 		Type: to.Ptr("Microsoft.NetApp/activeDirectoryConfigs"),

@@ -45,7 +45,7 @@ func NewClient(subscriptionID string, credential azcore.TokenCredential, options
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2025-07-01
-//   - location - The location name.
+//   - location - The name of the Azure region.
 //   - parameters - The request body
 //   - options - ClientCheckFeatureSupportOptions contains the optional parameters for the Client.CheckFeatureSupport method.
 func (client *Client) CheckFeatureSupport(ctx context.Context, location string, parameters FeatureValidationRequestBaseClassification, options *ClientCheckFeatureSupportOptions) (ClientCheckFeatureSupportResponse, error) {

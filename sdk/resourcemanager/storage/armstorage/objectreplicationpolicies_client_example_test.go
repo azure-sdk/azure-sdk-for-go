@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 )
 
@@ -54,7 +54,7 @@ func ExampleObjectReplicationPoliciesClient_CreateOrUpdate_storageAccountCreateO
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ObjectReplicationPoliciesClientCreateOrUpdateResponse{
-	// 	ObjectReplicationPolicy: &armstorage.ObjectReplicationPolicy{
+	// 	ObjectReplicationPolicy: armstorage.ObjectReplicationPolicy{
 	// 		Name: to.Ptr("2a20bb73-5717-4635-985a-5d4cf777438f"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/objectReplicationPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7687/providers/Microsoft.Storage/storageAccounts/dst112/objectReplicationPolicies/2a20bb73-5717-4635-985a-5d4cf777438f"),
@@ -130,7 +130,7 @@ func ExampleObjectReplicationPoliciesClient_CreateOrUpdate_storageAccountCreateO
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ObjectReplicationPoliciesClientCreateOrUpdateResponse{
-	// 	ObjectReplicationPolicy: &armstorage.ObjectReplicationPolicy{
+	// 	ObjectReplicationPolicy: armstorage.ObjectReplicationPolicy{
 	// 		Name: to.Ptr("2a20bb73-5717-4635-985a-5d4cf777438f"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/objectReplicationPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7687/providers/Microsoft.Storage/storageAccounts/src1122/objectReplicationPolicies/2a20bb73-5717-4635-985a-5d4cf777438f"),
@@ -211,7 +211,7 @@ func ExampleObjectReplicationPoliciesClient_CreateOrUpdate_storageAccountUpdateO
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ObjectReplicationPoliciesClientCreateOrUpdateResponse{
-	// 	ObjectReplicationPolicy: &armstorage.ObjectReplicationPolicy{
+	// 	ObjectReplicationPolicy: armstorage.ObjectReplicationPolicy{
 	// 		Name: to.Ptr("2a20bb73-5717-4635-985a-5d4cf777438f"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/objectReplicationPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7687/providers/Microsoft.Storage/storageAccounts/dst112/objectReplicationPolicies/2a20bb73-5717-4635-985a-5d4cf777438f"),
@@ -296,7 +296,7 @@ func ExampleObjectReplicationPoliciesClient_CreateOrUpdate_storageAccountUpdateO
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ObjectReplicationPoliciesClientCreateOrUpdateResponse{
-	// 	ObjectReplicationPolicy: &armstorage.ObjectReplicationPolicy{
+	// 	ObjectReplicationPolicy: armstorage.ObjectReplicationPolicy{
 	// 		Name: to.Ptr("2a20bb73-5717-4635-985a-5d4cf777438f"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/objectReplicationPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7687/providers/Microsoft.Storage/storageAccounts/src1122/objectReplicationPolicies/2a20bb73-5717-4635-985a-5d4cf777438f"),
@@ -375,7 +375,7 @@ func ExampleObjectReplicationPoliciesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ObjectReplicationPoliciesClientGetResponse{
-	// 	ObjectReplicationPolicy: &armstorage.ObjectReplicationPolicy{
+	// 	ObjectReplicationPolicy: armstorage.ObjectReplicationPolicy{
 	// 		Name: to.Ptr("{objectReplicationPolicy-Id}"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/objectReplicationPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res6977/providers/Microsoft.Storage/storageAccounts/sto2527/objectReplicationPolicies/{objectReplicationPolicy-Id}"),

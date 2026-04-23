@@ -12,7 +12,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-05-01-preview/Connectors_CreateOrUpdate.json
+// Generated from example definition: 2026-01-01-preview/Connectors_CreateOrUpdate.json
 func ExampleConnectorsClient_BeginCreateOrUpdate() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -27,25 +27,42 @@ func ExampleConnectorsClient_BeginCreateOrUpdate() {
 		Properties: &armimpactreporting.ConnectorProperties{
 			ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
 		},
+		Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+			Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+			UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+				"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": {},
+			},
+		},
 	}, nil)
 	if err != nil {
 		log.Fatalf("failed to finish the request: %v", err)
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.ConnectorsClientCreateOrUpdateResponse{
-	// 	Connector: &armimpactreporting.Connector{
+	// 	Connector: armimpactreporting.Connector{
 	// 		Properties: &armimpactreporting.ConnectorProperties{
 	// 			ProvisioningState: to.Ptr(armimpactreporting.ProvisioningStateSucceeded),
 	// 			ConnectorID: to.Ptr("430a444e-6a84-4a6f-8c50-124843ca7cd4"),
 	// 			TenantID: to.Ptr("23a8d1da-a7e9-4443-9797-4cd3e3aeb8f8"),
 	// 			ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
 	// 			LastRunTimeStamp: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-19T06:23:56.238Z"); return t}()),
+	// 			ProcessingState: to.Ptr("Initialized"),
+	// 			ProcessingStateMessage: to.Ptr(""),
+	// 		},
+	// 		Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+	// 			Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+	// 			UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+	// 				"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": &armimpactreporting.UserAssignedIdentity{
+	// 					ClientID: to.Ptr("fbe75b66-01c5-4f87-a220-233af3270436"),
+	// 					PrincipalID: to.Ptr("075a0ca6-43f6-4434-9abf-c9b1b79f9219"),
+	// 				},
+	// 			},
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/74f5e23f-d4d9-410a-bb4d-8f0608adb10d/providers/Microsoft.Impact/connectors/testconnector1"),
 	// 		Name: to.Ptr("testconnector1"),
@@ -62,7 +79,7 @@ func ExampleConnectorsClient_BeginCreateOrUpdate() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Connectors_Delete.json
+// Generated from example definition: 2026-01-01-preview/Connectors_Delete.json
 func ExampleConnectorsClient_Delete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -84,7 +101,7 @@ func ExampleConnectorsClient_Delete() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Connectors_Get.json
+// Generated from example definition: 2026-01-01-preview/Connectors_Get.json
 func ExampleConnectorsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -103,13 +120,24 @@ func ExampleConnectorsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.ConnectorsClientGetResponse{
-	// 	Connector: &armimpactreporting.Connector{
+	// 	Connector: armimpactreporting.Connector{
 	// 		Properties: &armimpactreporting.ConnectorProperties{
 	// 			ProvisioningState: to.Ptr(armimpactreporting.ProvisioningStateSucceeded),
 	// 			ConnectorID: to.Ptr("430a444e-6a84-4a6f-8c50-124843ca7cd4"),
 	// 			TenantID: to.Ptr("23a8d1da-a7e9-4443-9797-4cd3e3aeb8f8"),
 	// 			ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
 	// 			LastRunTimeStamp: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-19T06:23:56.238Z"); return t}()),
+	// 			ProcessingState: to.Ptr("Initialized"),
+	// 			ProcessingStateMessage: to.Ptr(""),
+	// 		},
+	// 		Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+	// 			Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+	// 			UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+	// 				"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": &armimpactreporting.UserAssignedIdentity{
+	// 					ClientID: to.Ptr("fbe75b66-01c5-4f87-a220-233af3270436"),
+	// 					PrincipalID: to.Ptr("075a0ca6-43f6-4434-9abf-c9b1b79f9219"),
+	// 				},
+	// 			},
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/74f5e23f-d4d9-410a-bb4d-8f0608adb10d/providers/Microsoft.Impact/connectors/testconnector1"),
 	// 		Name: to.Ptr("testconnector1"),
@@ -126,7 +154,7 @@ func ExampleConnectorsClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Connectors_ListBySubscription.json
+// Generated from example definition: 2026-01-01-preview/Connectors_ListBySubscription.json
 func ExampleConnectorsClient_NewListBySubscriptionPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -158,6 +186,17 @@ func ExampleConnectorsClient_NewListBySubscriptionPager() {
 		// 					TenantID: to.Ptr("23a8d1da-a7e9-4443-9797-4cd3e3aeb8f8"),
 		// 					ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
 		// 					LastRunTimeStamp: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-19T06:23:56.238Z"); return t}()),
+		// 					ProcessingState: to.Ptr("Initialized"),
+		// 					ProcessingStateMessage: to.Ptr(""),
+		// 				},
+		// 				Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+		// 					Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+		// 					UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+		// 						"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": &armimpactreporting.UserAssignedIdentity{
+		// 							ClientID: to.Ptr("fbe75b66-01c5-4f87-a220-233af3270436"),
+		// 							PrincipalID: to.Ptr("075a0ca6-43f6-4434-9abf-c9b1b79f9219"),
+		// 						},
+		// 					},
 		// 				},
 		// 				ID: to.Ptr("/subscriptions/74f5e23f-d4d9-410a-bb4d-8f0608adb10d/providers/Microsoft.Impact/connectors/testconnector1"),
 		// 				Name: to.Ptr("testconnector1"),
@@ -178,7 +217,7 @@ func ExampleConnectorsClient_NewListBySubscriptionPager() {
 	}
 }
 
-// Generated from example definition: 2024-05-01-preview/Connectors_Update.json
+// Generated from example definition: 2026-01-01-preview/Connectors_Update.json
 func ExampleConnectorsClient_Update() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -189,9 +228,15 @@ func ExampleConnectorsClient_Update() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	res, err := clientFactory.NewConnectorsClient().Update(ctx, "testconnector1", armimpactreporting.ConnectorUpdate{
-		Properties: &armimpactreporting.ConnectorUpdateProperties{
+	res, err := clientFactory.NewConnectorsClient().Update(ctx, "testconnector1", armimpactreporting.Connector{
+		Properties: &armimpactreporting.ConnectorProperties{
 			ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
+		},
+		Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+			Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+			UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+				"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": {},
+			},
 		},
 	}, nil)
 	if err != nil {
@@ -201,13 +246,24 @@ func ExampleConnectorsClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.ConnectorsClientUpdateResponse{
-	// 	Connector: &armimpactreporting.Connector{
+	// 	Connector: armimpactreporting.Connector{
 	// 		Properties: &armimpactreporting.ConnectorProperties{
 	// 			ProvisioningState: to.Ptr(armimpactreporting.ProvisioningStateSucceeded),
 	// 			ConnectorID: to.Ptr("430a444e-6a84-4a6f-8c50-124843ca7cd4"),
 	// 			TenantID: to.Ptr("23a8d1da-a7e9-4443-9797-4cd3e3aeb8f8"),
 	// 			ConnectorType: to.Ptr(armimpactreporting.PlatformAzureMonitor),
 	// 			LastRunTimeStamp: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-19T06:23:56.238Z"); return t}()),
+	// 			ProcessingState: to.Ptr("Initialized"),
+	// 			ProcessingStateMessage: to.Ptr(""),
+	// 		},
+	// 		Identity: &armimpactreporting.ManagedServiceIdentityOnlyUserAssigned{
+	// 			Type: to.Ptr(armimpactreporting.ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned),
+	// 			UserAssignedIdentities: map[string]*armimpactreporting.UserAssignedIdentity{
+	// 				"/subscriptions/fa5fc227-a624-475e-b696-cdd604c735bc/resourceGroups/eu2cgroup/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id1": &armimpactreporting.UserAssignedIdentity{
+	// 					ClientID: to.Ptr("fbe75b66-01c5-4f87-a220-233af3270436"),
+	// 					PrincipalID: to.Ptr("075a0ca6-43f6-4434-9abf-c9b1b79f9219"),
+	// 				},
+	// 			},
 	// 		},
 	// 		ID: to.Ptr("/subscriptions/74f5e23f-d4d9-410a-bb4d-8f0608adb10d/providers/Microsoft.Impact/connectors/testconnector1"),
 	// 		Name: to.Ptr("testconnector1"),

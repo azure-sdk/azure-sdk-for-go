@@ -32,7 +32,7 @@ func ExampleTargetsClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.TargetsClientCreateOrUpdateResponse{
-	// 	Target: &armchaos.Target{
+	// 	Target: armchaos.Target{
 	// 		Name: to.Ptr("Microsoft-VirtualMachine"),
 	// 		Type: to.Ptr("Microsoft.Chaos/targets"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Compute/virtualMachines/exampleVM/providers/Microsoft.Chaos/targets/Microsoft-VirtualMachine"),
@@ -87,7 +87,7 @@ func ExampleTargetsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.TargetsClientGetResponse{
-	// 	Target: &armchaos.Target{
+	// 	Target: armchaos.Target{
 	// 		Name: to.Ptr("Microsoft-Agent"),
 	// 		Type: to.Ptr("Microsoft.Chaos/targets"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Compute/virtualMachines/exampleVM/providers/Microsoft.Chaos/targets/Microsoft-Agent"),

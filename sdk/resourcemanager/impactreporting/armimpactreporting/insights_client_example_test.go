@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Generated from example definition: 2024-05-01-preview/Insights_Create.json
+// Generated from example definition: 2026-01-01-preview/Insights_Create.json
 func ExampleInsightsClient_Create() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -48,7 +48,7 @@ func ExampleInsightsClient_Create() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.InsightsClientCreateResponse{
-	// 	Insight: &armimpactreporting.Insight{
+	// 	Insight: armimpactreporting.Insight{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/microsoft.Impact/workloadImpacts/impactid22/insights/insightId12"),
 	// 		Name: to.Ptr("insightId12"),
 	// 		Type: to.Ptr("Microsoft.Impact/insights"),
@@ -71,7 +71,7 @@ func ExampleInsightsClient_Create() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Insights_Delete.json
+// Generated from example definition: 2026-01-01-preview/Insights_Delete.json
 func ExampleInsightsClient_Delete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -93,7 +93,7 @@ func ExampleInsightsClient_Delete() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Insights_Get_diagnostics.json
+// Generated from example definition: 2026-01-01-preview/Insights_Get_diagnostics.json
 func ExampleInsightsClient_Get_getInsightSampleForDiagnosticsCategory() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -112,7 +112,7 @@ func ExampleInsightsClient_Get_getInsightSampleForDiagnosticsCategory() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.InsightsClientGetResponse{
-	// 	Insight: &armimpactreporting.Insight{
+	// 	Insight: armimpactreporting.Insight{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadimpacts/impactid/insights/insight1"),
 	// 		Name: to.Ptr("insight1"),
 	// 		Type: to.Ptr("Microsoft.impact/workloadimpacts/insights"),
@@ -134,7 +134,7 @@ func ExampleInsightsClient_Get_getInsightSampleForDiagnosticsCategory() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Insights_Get_mitigationAction.json
+// Generated from example definition: 2026-01-01-preview/Insights_Get_mitigationAction.json
 func ExampleInsightsClient_Get_getInsightSampleForMitigationActionCategory() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -153,7 +153,7 @@ func ExampleInsightsClient_Get_getInsightSampleForMitigationActionCategory() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.InsightsClientGetResponse{
-	// 	Insight: &armimpactreporting.Insight{
+	// 	Insight: armimpactreporting.Insight{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadimpacts/impactId/insights/HPCUASucceeded"),
 	// 		Name: to.Ptr("HPCUASucceeded"),
 	// 		Type: to.Ptr("Microsoft.impact/workloadimpacts/insights"),
@@ -178,7 +178,7 @@ func ExampleInsightsClient_Get_getInsightSampleForMitigationActionCategory() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Insights_Get_servicehealth.json
+// Generated from example definition: 2026-01-01-preview/Insights_Get_servicehealth.json
 func ExampleInsightsClient_Get_getInsightSampleForServiceHealthCategory() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -197,7 +197,7 @@ func ExampleInsightsClient_Get_getInsightSampleForServiceHealthCategory() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.InsightsClientGetResponse{
-	// 	Insight: &armimpactreporting.Insight{
+	// 	Insight: armimpactreporting.Insight{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/microsoft.Impact/workloadImpacts/impactname/insights/insightname"),
 	// 		Name: to.Ptr("insightname"),
 	// 		Type: to.Ptr("Microsoft.Impact/insights"),
@@ -221,7 +221,7 @@ func ExampleInsightsClient_Get_getInsightSampleForServiceHealthCategory() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/Insights_ListBySubscription.json
+// Generated from example definition: 2026-01-01-preview/Insights_ListBySubscription.json
 func ExampleInsightsClient_NewListBySubscriptionPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

@@ -7,7 +7,7 @@ package armtrafficmanager_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
 	"log"
 )
 
@@ -47,7 +47,7 @@ func ExampleUserMetricsKeysClient_Delete() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.UserMetricsKeysClientDeleteResponse{
-	// 	DeleteOperationResult: &armtrafficmanager.DeleteOperationResult{
+	// 	DeleteOperationResult: armtrafficmanager.DeleteOperationResult{
 	// 	},
 	// }
 }
@@ -71,7 +71,7 @@ func ExampleUserMetricsKeysClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.UserMetricsKeysClientGetResponse{
-	// 	UserMetricsModel: &armtrafficmanager.UserMetricsModel{
+	// 	UserMetricsModel: armtrafficmanager.UserMetricsModel{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerUserMetricsKeys"),
 	// 		ID: to.Ptr("/providers/Microsoft.Network/trafficManagerUserMetricsKeys/default"),

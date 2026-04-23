@@ -27,6 +27,9 @@ type ServerFactory struct {
 	// OperationsServer contains the fakes for client OperationsClient
 	OperationsServer OperationsServer
 
+	// UploadServiceServer contains the fakes for client UploadServiceClient
+	UploadServiceServer UploadServiceServer
+
 	// WorkloadImpactsServer contains the fakes for client WorkloadImpactsClient
 	WorkloadImpactsServer WorkloadImpactsServer
 }
@@ -49,6 +52,7 @@ type ServerFactoryTransport struct {
 	trImpactCategoriesServer *ImpactCategoriesServerTransport
 	trInsightsServer         *InsightsServerTransport
 	trOperationsServer       *OperationsServerTransport
+	trUploadServiceServer    *UploadServiceServerTransport
 	trWorkloadImpactsServer  *WorkloadImpactsServerTransport
 }
 
@@ -66,21 +70,26 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 
 	switch client {
 	case "ConnectorsClient":
-		initServer(s, &s.trConnectorsServer, func() *ConnectorsServerTransport { return NewConnectorsServerTransport(&s.srv.ConnectorsServer) })
+		initServer(&s.trMu, &s.trConnectorsServer, func() *ConnectorsServerTransport { return NewConnectorsServerTransport(&s.srv.ConnectorsServer) })
 		resp, err = s.trConnectorsServer.Do(req)
 	case "ImpactCategoriesClient":
-		initServer(s, &s.trImpactCategoriesServer, func() *ImpactCategoriesServerTransport {
+		initServer(&s.trMu, &s.trImpactCategoriesServer, func() *ImpactCategoriesServerTransport {
 			return NewImpactCategoriesServerTransport(&s.srv.ImpactCategoriesServer)
 		})
 		resp, err = s.trImpactCategoriesServer.Do(req)
 	case "InsightsClient":
-		initServer(s, &s.trInsightsServer, func() *InsightsServerTransport { return NewInsightsServerTransport(&s.srv.InsightsServer) })
+		initServer(&s.trMu, &s.trInsightsServer, func() *InsightsServerTransport { return NewInsightsServerTransport(&s.srv.InsightsServer) })
 		resp, err = s.trInsightsServer.Do(req)
 	case "OperationsClient":
-		initServer(s, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
+		initServer(&s.trMu, &s.trOperationsServer, func() *OperationsServerTransport { return NewOperationsServerTransport(&s.srv.OperationsServer) })
 		resp, err = s.trOperationsServer.Do(req)
+	case "UploadServiceClient":
+		initServer(&s.trMu, &s.trUploadServiceServer, func() *UploadServiceServerTransport {
+			return NewUploadServiceServerTransport(&s.srv.UploadServiceServer)
+		})
+		resp, err = s.trUploadServiceServer.Do(req)
 	case "WorkloadImpactsClient":
-		initServer(s, &s.trWorkloadImpactsServer, func() *WorkloadImpactsServerTransport {
+		initServer(&s.trMu, &s.trWorkloadImpactsServer, func() *WorkloadImpactsServerTransport {
 			return NewWorkloadImpactsServerTransport(&s.srv.WorkloadImpactsServer)
 		})
 		resp, err = s.trWorkloadImpactsServer.Do(req)
@@ -93,12 +102,4 @@ func (s *ServerFactoryTransport) Do(req *http.Request) (*http.Response, error) {
 	}
 
 	return resp, nil
-}
-
-func initServer[T any](s *ServerFactoryTransport, dst **T, src func() *T) {
-	s.trMu.Lock()
-	if *dst == nil {
-		*dst = src()
-	}
-	s.trMu.Unlock()
 }

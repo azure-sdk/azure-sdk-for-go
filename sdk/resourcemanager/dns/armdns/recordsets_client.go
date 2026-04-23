@@ -121,14 +121,6 @@ func (client *RecordSetsClient) createOrUpdateCreateRequest(ctx context.Context,
 // createOrUpdateHandleResponse handles the CreateOrUpdate response.
 func (client *RecordSetsClient) createOrUpdateHandleResponse(resp *http.Response) (RecordSetsClientCreateOrUpdateResponse, error) {
 	result := RecordSetsClientCreateOrUpdateResponse{}
-	if val := resp.Header.Get("Retry-After"); val != "" {
-		retryAfter32, err := strconv.ParseInt(val, 10, 32)
-		retryAfter := int32(retryAfter32)
-		if err != nil {
-			return RecordSetsClientCreateOrUpdateResponse{}, err
-		}
-		result.RetryAfter = &retryAfter
-	}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RecordSet); err != nil {
 		return RecordSetsClientCreateOrUpdateResponse{}, err
 	}

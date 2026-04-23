@@ -7,7 +7,7 @@ package armstorage_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExampleNetworkSecurityPerimeterConfigurationsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.NetworkSecurityPerimeterConfigurationsClientGetResponse{
-	// 	NetworkSecurityPerimeterConfiguration: &armstorage.NetworkSecurityPerimeterConfiguration{
+	// 	NetworkSecurityPerimeterConfiguration: armstorage.NetworkSecurityPerimeterConfiguration{
 	// 		Name: to.Ptr("dbedb4e0-40e6-4145-81f3-f1314c150774.resourceAssociation1"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/networkSecurityPerimeterConfigurations"),
 	// 		ID: to.Ptr("/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/res4410/providers/Microsoft.Storage/storageAccounts/sto8607/networkSecurityPerimeterConfigurations/dbedb4e0-40e6-4145-81f3-f1314c150774.resourceAssociation1"),
@@ -168,6 +168,6 @@ func ExampleNetworkSecurityPerimeterConfigurationsClient_BeginReconcile() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }

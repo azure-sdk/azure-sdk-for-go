@@ -373,9 +373,8 @@ func (client *ServersClient) listBySubscriptionHandleResponse(resp *http.Respons
 	return result, nil
 }
 
-// BeginMigrateNetworkMode - Migrates the network configuration of a PostgreSQL flexible server from customer owned VNET to
-// Microsoft owned VNET with support for private endpoints, or from Microsoft owned VNET with no support for private endpoints
-// to Microsoft owned VNET with support for private endpoints.
+// BeginMigrateNetworkMode - Migrates an Azure Database for PostgreSQL server from VNet integration to a Private Link network
+// model.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2026-01-01-preview
@@ -400,9 +399,7 @@ func (client *ServersClient) BeginMigrateNetworkMode(ctx context.Context, resour
 	}
 }
 
-// MigrateNetworkMode - Migrates the network configuration of a PostgreSQL flexible server from customer owned VNET to Microsoft
-// owned VNET with support for private endpoints, or from Microsoft owned VNET with no support for private endpoints to Microsoft
-// owned VNET with support for private endpoints.
+// MigrateNetworkMode - Migrates an Azure Database for PostgreSQL server from VNet integration to a Private Link network model.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2026-01-01-preview

@@ -297,20 +297,12 @@ type AzureFileShareRecoveryPoint struct {
 
 	// Type of the backup copy. Specifies whether it is a crash consistent backup or app consistent.
 	RecoveryPointType *string
-
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
 }
 
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureFileShareRecoveryPoint.
 func (a *AzureFileShareRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -422,9 +414,6 @@ type AzureFileshareProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -455,7 +444,6 @@ func (a *AzureFileshareProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -666,9 +654,6 @@ type AzureIaaSClassicComputeVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -729,7 +714,6 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		VirtualMachineID:                 a.VirtualMachineID,
 		WorkloadType:                     a.WorkloadType,
@@ -756,7 +740,6 @@ func (a *AzureIaaSClassicComputeVMProtectedItem) GetProtectedItem() *ProtectedIt
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -948,9 +931,6 @@ type AzureIaaSComputeVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -1011,7 +991,6 @@ func (a *AzureIaaSComputeVMProtectedItem) GetAzureIaaSVMProtectedItem() *AzureIa
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		VirtualMachineID:                 a.VirtualMachineID,
 		WorkloadType:                     a.WorkloadType,
@@ -1038,7 +1017,6 @@ func (a *AzureIaaSComputeVMProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -1316,9 +1294,6 @@ type AzureIaaSVMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -1370,7 +1345,6 @@ func (a *AzureIaaSVMProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -1684,9 +1658,6 @@ type AzureSQLProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -1717,7 +1688,6 @@ func (a *AzureSQLProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -2265,9 +2235,6 @@ type AzureVMWorkloadProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -2309,7 +2276,6 @@ func (a *AzureVMWorkloadProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -2359,9 +2325,6 @@ type AzureVMWorkloadProtectionPolicy struct {
 
 	// List of sub-protection policies which includes schedule and retention
 	SubProtectionPolicy []*SubProtectionPolicy
-
-	// Type of the protection policy
-	VMWorkloadPolicyType *VMWorkloadPolicyType
 
 	// Type of workload for the backup management
 	WorkLoadType *WorkloadType
@@ -2540,9 +2503,6 @@ type AzureVMWorkloadSAPAseDatabaseProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -2593,7 +2553,6 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) GetAzureVMWorkloadProtected
 		ServerName:                       a.ServerName,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -2619,7 +2578,6 @@ func (a *AzureVMWorkloadSAPAseDatabaseProtectedItem) GetProtectedItem() *Protect
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -2986,9 +2944,6 @@ type AzureVMWorkloadSAPHanaDBInstanceProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -3039,7 +2994,6 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetAzureVMWorkloadProtec
 		ServerName:                       a.ServerName,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -3065,7 +3019,6 @@ func (a *AzureVMWorkloadSAPHanaDBInstanceProtectedItem) GetProtectedItem() *Prot
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -3235,9 +3188,6 @@ type AzureVMWorkloadSAPHanaDatabaseProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -3288,7 +3238,6 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) GetAzureVMWorkloadProtecte
 		ServerName:                       a.ServerName,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -3314,7 +3263,6 @@ func (a *AzureVMWorkloadSAPHanaDatabaseProtectedItem) GetProtectedItem() *Protec
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -3448,83 +3396,6 @@ func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetAzureVMWorkloadProtectable
 
 // GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaHSRProtectableItem.
 func (a *AzureVMWorkloadSAPHanaHSRProtectableItem) GetWorkloadProtectableItem() *WorkloadProtectableItem {
-	return &WorkloadProtectableItem{
-		BackupManagementType: a.BackupManagementType,
-		FriendlyName:         a.FriendlyName,
-		ProtectableItemType:  a.ProtectableItemType,
-		ProtectionState:      a.ProtectionState,
-		WorkloadType:         a.WorkloadType,
-	}
-}
-
-// AzureVMWorkloadSAPHanaScaleoutProtectableItem - Azure VM workload-specific protectable item representing HANA scale out.
-type AzureVMWorkloadSAPHanaScaleoutProtectableItem struct {
-	// REQUIRED; Type of the backup item.
-	ProtectableItemType *string
-
-	// Type of backup management to backup an item.
-	BackupManagementType *string
-
-	// Friendly name of the backup item.
-	FriendlyName *string
-
-	// Indicates if protectable item is auto-protectable
-	IsAutoProtectable *bool
-
-	// Indicates if protectable item is auto-protected
-	IsAutoProtected *bool
-
-	// Indicates if item is protectable
-	IsProtectable *bool
-
-	// Name for instance or AG
-	ParentName *string
-
-	// Parent Unique Name is added to provide the service formatted URI Name of the Parent
-	// Only Applicable for data bases where the parent would be either Instance or a SQL AG.
-	ParentUniqueName *string
-
-	// Pre-backup validation for protectable objects
-	Prebackupvalidation *PreBackupValidation
-
-	// State of the back up item.
-	ProtectionState *ProtectionStatus
-
-	// Host/Cluster Name for instance or AG
-	ServerName *string
-
-	// For instance or AG, indicates number of DB's present
-	Subinquireditemcount *int32
-
-	// For instance or AG, indicates number of DB's to be protected
-	Subprotectableitemcount *int32
-
-	// Type of workload for the backup management
-	WorkloadType *string
-}
-
-// GetAzureVMWorkloadProtectableItem implements the AzureVMWorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
-func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) GetAzureVMWorkloadProtectableItem() *AzureVMWorkloadProtectableItem {
-	return &AzureVMWorkloadProtectableItem{
-		BackupManagementType:    a.BackupManagementType,
-		FriendlyName:            a.FriendlyName,
-		IsAutoProtectable:       a.IsAutoProtectable,
-		IsAutoProtected:         a.IsAutoProtected,
-		IsProtectable:           a.IsProtectable,
-		ParentName:              a.ParentName,
-		ParentUniqueName:        a.ParentUniqueName,
-		Prebackupvalidation:     a.Prebackupvalidation,
-		ProtectableItemType:     a.ProtectableItemType,
-		ProtectionState:         a.ProtectionState,
-		ServerName:              a.ServerName,
-		Subinquireditemcount:    a.Subinquireditemcount,
-		Subprotectableitemcount: a.Subprotectableitemcount,
-		WorkloadType:            a.WorkloadType,
-	}
-}
-
-// GetWorkloadProtectableItem implements the WorkloadProtectableItemClassification interface for type AzureVMWorkloadSAPHanaScaleoutProtectableItem.
-func (a *AzureVMWorkloadSAPHanaScaleoutProtectableItem) GetWorkloadProtectableItem() *WorkloadProtectableItem {
 	return &WorkloadProtectableItem{
 		BackupManagementType: a.BackupManagementType,
 		FriendlyName:         a.FriendlyName,
@@ -3886,9 +3757,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// Parent name of the DB such as Instance or Availability Group.
 	ParentName *string
 
-	// Parent Protected item in case protected as part of a parent.
-	ParentProtectedItem *string
-
 	// Parent type of protected item, example: for a DB, standalone server or distributed
 	ParentType *string
 
@@ -3904,9 +3772,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 	// Health status of the backup item, evaluated based on last heartbeat received
 	ProtectedItemHealthStatus *ProtectedItemHealthStatus
 
-	// Protection type in case protected as part of a parent.
-	ProtectionLevel *ProtectionLevel
-
 	// Backup state of this backup item.
 	ProtectionState *ProtectionState
 
@@ -3921,9 +3786,6 @@ type AzureVMWorkloadSQLDatabaseProtectedItem struct {
 
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
-
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
 
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
@@ -3975,7 +3837,6 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) GetAzureVMWorkloadProtectedIte
 		ServerName:                       a.ServerName,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -4001,7 +3862,6 @@ func (a *AzureVMWorkloadSQLDatabaseProtectedItem) GetProtectedItem() *ProtectedI
 		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
 		VaultID:                          a.VaultID,
 		WorkloadType:                     a.WorkloadType,
 	}
@@ -4141,184 +4001,6 @@ func (a *AzureVMWorkloadSQLInstanceProtectableItem) GetWorkloadProtectableItem()
 		ProtectableItemType:  a.ProtectableItemType,
 		ProtectionState:      a.ProtectionState,
 		WorkloadType:         a.WorkloadType,
-	}
-}
-
-// AzureVMWorkloadSQLInstanceProtectedItem - Azure VM workload-specific protected item representing SQL Instance.
-type AzureVMWorkloadSQLInstanceProtectedItem struct {
-	// CONSTANT; This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types.
-	// Field has constant value "AzureVmWorkloadSQLInstance", any specified value is ignored.
-	ProtectedItemType *string
-
-	// Name of the backup set the backup item belongs to
-	BackupSetName *string
-
-	// Name of Child Dbs protected under this parent.
-	ChildDBNames []*string
-
-	// Unique name of container
-	ContainerName *string
-
-	// Create mode to indicate recovery of existing soft deleted data source or creation of new data source.
-	CreateMode *CreateMode
-
-	// Time for deferred deletion in UTC
-	DeferredDeleteTimeInUTC *time.Time
-
-	// Time remaining before the DS marked for deferred delete is permanently deleted
-	DeferredDeleteTimeRemaining *string
-
-	// Additional information for this backup item.
-	ExtendedInfo *AzureVMWorkloadProtectedItemExtendedInfo
-
-	// The state of instance protection.
-	InstanceProtectionReadiness *InstanceProtectionReadiness
-
-	// Flag to identify whether datasource is protected in archive
-	IsArchiveEnabled *bool
-
-	// Flag to identify whether the deferred deleted DS is to be purged soon
-	IsDeferredDeleteScheduleUpcoming *bool
-
-	// Flag to identify that deferred deleted DS is to be moved into Pause state
-	IsRehydrate *bool
-
-	// Flag to identify whether the DS is scheduled for deferred delete
-	IsScheduledForDeferredDelete *bool
-
-	// Health details of different KPIs
-	KpisHealths map[string]*KPIResourceHealthDetails
-
-	// Error details in last backup
-	LastBackupErrorDetail *ErrorDetail
-
-	// Last backup operation status. Possible values: Healthy, Unhealthy.
-	LastBackupStatus *LastBackupStatus
-
-	// Timestamp of the last backup operation on this backup item.
-	LastBackupTime *time.Time
-
-	// Timestamp when the last (latest) backup copy was created for this backup item.
-	LastRecoveryPoint *time.Time
-
-	// List of the nodes in case of distributed container.
-	NodesList []*DistributedNodesInfo
-
-	// Parent name of the DB such as Instance or Availability Group.
-	ParentName *string
-
-	// Parent type of protected item, example: for a DB, standalone server or distributed
-	ParentType *string
-
-	// ID of the backup policy with which this item is backed up.
-	PolicyID *string
-
-	// Name of the policy used for protection
-	PolicyName *string
-
-	// Data ID of the protected item.
-	ProtectedItemDataSourceID *string
-
-	// Health status of the backup item, evaluated based on last heartbeat received
-	ProtectedItemHealthStatus *ProtectedItemHealthStatus
-
-	// Backup state of this backup item.
-	ProtectionState *ProtectionState
-
-	// ResourceGuardOperationRequests on which LAC check will be performed
-	ResourceGuardOperationRequests []*string
-
-	// Host/Cluster Name for instance or AG
-	ServerName *string
-
-	// Soft delete retention period in days
-	SoftDeleteRetentionPeriodInDays *int32
-
-	// ARM ID of the resource to be backed up.
-	SourceResourceID *string
-
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
-	// READ-ONLY; Type of backup management for the backed up item.
-	BackupManagementType *BackupManagementType
-
-	// READ-ONLY; Friendly name of the DB represented by this backup item.
-	FriendlyName *string
-
-	// READ-ONLY; Backup status of this backup item.
-	ProtectionStatus *string
-
-	// READ-ONLY; ID of the vault which protects this item
-	VaultID *string
-
-	// READ-ONLY; Type of workload this item represents.
-	WorkloadType *DataSourceType
-}
-
-// GetAzureVMWorkloadProtectedItem implements the AzureVMWorkloadProtectedItemClassification interface for type AzureVMWorkloadSQLInstanceProtectedItem.
-func (a *AzureVMWorkloadSQLInstanceProtectedItem) GetAzureVMWorkloadProtectedItem() *AzureVMWorkloadProtectedItem {
-	return &AzureVMWorkloadProtectedItem{
-		BackupManagementType:             a.BackupManagementType,
-		BackupSetName:                    a.BackupSetName,
-		ContainerName:                    a.ContainerName,
-		CreateMode:                       a.CreateMode,
-		DeferredDeleteTimeInUTC:          a.DeferredDeleteTimeInUTC,
-		DeferredDeleteTimeRemaining:      a.DeferredDeleteTimeRemaining,
-		ExtendedInfo:                     a.ExtendedInfo,
-		FriendlyName:                     a.FriendlyName,
-		IsArchiveEnabled:                 a.IsArchiveEnabled,
-		IsDeferredDeleteScheduleUpcoming: a.IsDeferredDeleteScheduleUpcoming,
-		IsRehydrate:                      a.IsRehydrate,
-		IsScheduledForDeferredDelete:     a.IsScheduledForDeferredDelete,
-		KpisHealths:                      a.KpisHealths,
-		LastBackupErrorDetail:            a.LastBackupErrorDetail,
-		LastBackupStatus:                 a.LastBackupStatus,
-		LastBackupTime:                   a.LastBackupTime,
-		LastRecoveryPoint:                a.LastRecoveryPoint,
-		NodesList:                        a.NodesList,
-		ParentName:                       a.ParentName,
-		ParentType:                       a.ParentType,
-		PolicyID:                         a.PolicyID,
-		PolicyName:                       a.PolicyName,
-		ProtectedItemDataSourceID:        a.ProtectedItemDataSourceID,
-		ProtectedItemHealthStatus:        a.ProtectedItemHealthStatus,
-		ProtectedItemType:                a.ProtectedItemType,
-		ProtectionState:                  a.ProtectionState,
-		ProtectionStatus:                 a.ProtectionStatus,
-		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
-		ServerName:                       a.ServerName,
-		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
-		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
-		VaultID:                          a.VaultID,
-		WorkloadType:                     a.WorkloadType,
-	}
-}
-
-// GetProtectedItem implements the ProtectedItemClassification interface for type AzureVMWorkloadSQLInstanceProtectedItem.
-func (a *AzureVMWorkloadSQLInstanceProtectedItem) GetProtectedItem() *ProtectedItem {
-	return &ProtectedItem{
-		BackupManagementType:             a.BackupManagementType,
-		BackupSetName:                    a.BackupSetName,
-		ContainerName:                    a.ContainerName,
-		CreateMode:                       a.CreateMode,
-		DeferredDeleteTimeInUTC:          a.DeferredDeleteTimeInUTC,
-		DeferredDeleteTimeRemaining:      a.DeferredDeleteTimeRemaining,
-		IsArchiveEnabled:                 a.IsArchiveEnabled,
-		IsDeferredDeleteScheduleUpcoming: a.IsDeferredDeleteScheduleUpcoming,
-		IsRehydrate:                      a.IsRehydrate,
-		IsScheduledForDeferredDelete:     a.IsScheduledForDeferredDelete,
-		LastRecoveryPoint:                a.LastRecoveryPoint,
-		PolicyID:                         a.PolicyID,
-		PolicyName:                       a.PolicyName,
-		ProtectedItemType:                a.ProtectedItemType,
-		ResourceGuardOperationRequests:   a.ResourceGuardOperationRequests,
-		SoftDeleteRetentionPeriodInDays:  a.SoftDeleteRetentionPeriodInDays,
-		SourceResourceID:                 a.SourceResourceID,
-		SourceSideScanInfo:               a.SourceSideScanInfo,
-		VaultID:                          a.VaultID,
-		WorkloadType:                     a.WorkloadType,
 	}
 }
 
@@ -4675,12 +4357,6 @@ type AzureWorkloadPointInTimeRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// List of log ranges
 	TimeRanges []*PointInTimeRange
 
@@ -4702,8 +4378,6 @@ func (a *AzureWorkloadPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPoint() 
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -4711,9 +4385,7 @@ func (a *AzureWorkloadPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPoint() 
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadPointInTimeRecoveryPoint.
 func (a *AzureWorkloadPointInTimeRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -4802,12 +4474,6 @@ type AzureWorkloadRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// Type of restore point
 	Type *RestorePointType
 }
@@ -4820,9 +4486,7 @@ func (a *AzureWorkloadRecoveryPoint) GetAzureWorkloadRecoveryPoint() *AzureWorkl
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadRecoveryPoint.
 func (a *AzureWorkloadRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -4896,12 +4560,6 @@ type AzureWorkloadSAPAsePointInTimeRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// List of log ranges
 	TimeRanges []*PointInTimeRange
 
@@ -4918,8 +4576,6 @@ func (a *AzureWorkloadSAPAsePointInTimeRecoveryPoint) GetAzureWorkloadPointInTim
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		TimeRanges:                     a.TimeRanges,
 		Type:                           a.Type,
 	}
@@ -4933,8 +4589,6 @@ func (a *AzureWorkloadSAPAsePointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPo
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -4942,9 +4596,7 @@ func (a *AzureWorkloadSAPAsePointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPo
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSAPAsePointInTimeRecoveryPoint.
 func (a *AzureWorkloadSAPAsePointInTimeRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -5052,12 +4704,6 @@ type AzureWorkloadSAPAseRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// Type of restore point
 	Type *RestorePointType
 }
@@ -5070,8 +4716,6 @@ func (a *AzureWorkloadSAPAseRecoveryPoint) GetAzureWorkloadRecoveryPoint() *Azur
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -5079,9 +4723,7 @@ func (a *AzureWorkloadSAPAseRecoveryPoint) GetAzureWorkloadRecoveryPoint() *Azur
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSAPAseRecoveryPoint.
 func (a *AzureWorkloadSAPAseRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -5173,12 +4815,6 @@ type AzureWorkloadSAPHanaPointInTimeRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// List of log ranges
 	TimeRanges []*PointInTimeRange
 
@@ -5195,8 +4831,6 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetAzureWorkloadPointInTi
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		TimeRanges:                     a.TimeRanges,
 		Type:                           a.Type,
 	}
@@ -5210,8 +4844,6 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryP
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -5219,9 +4851,7 @@ func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryP
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSAPHanaPointInTimeRecoveryPoint.
 func (a *AzureWorkloadSAPHanaPointInTimeRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -5444,12 +5074,6 @@ type AzureWorkloadSAPHanaRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// Type of restore point
 	Type *RestorePointType
 }
@@ -5462,8 +5086,6 @@ func (a *AzureWorkloadSAPHanaRecoveryPoint) GetAzureWorkloadRecoveryPoint() *Azu
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -5471,9 +5093,7 @@ func (a *AzureWorkloadSAPHanaRecoveryPoint) GetAzureWorkloadRecoveryPoint() *Azu
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSAPHanaRecoveryPoint.
 func (a *AzureWorkloadSAPHanaRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -5720,12 +5340,6 @@ type AzureWorkloadSQLPointInTimeRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// List of log ranges
 	TimeRanges []*PointInTimeRange
 
@@ -5741,8 +5355,6 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetAzureWorkloadRecoveryPoint
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -5756,8 +5368,6 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetAzureWorkloadSQLRecoveryPo
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -5765,9 +5375,7 @@ func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetAzureWorkloadSQLRecoveryPo
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSQLPointInTimeRecoveryPoint.
 func (a *AzureWorkloadSQLPointInTimeRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -6020,12 +5628,6 @@ type AzureWorkloadSQLRecoveryPoint struct {
 	// UTC time at which recovery point was created
 	RecoveryPointTimeInUTC *time.Time
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// Type of restore point
 	Type *RestorePointType
 }
@@ -6038,8 +5640,6 @@ func (a *AzureWorkloadSQLRecoveryPoint) GetAzureWorkloadRecoveryPoint() *AzureWo
 		RecoveryPointProperties:        a.RecoveryPointProperties,
 		RecoveryPointTierDetails:       a.RecoveryPointTierDetails,
 		RecoveryPointTimeInUTC:         a.RecoveryPointTimeInUTC,
-		ThreatInfo:                     a.ThreatInfo,
-		ThreatStatus:                   a.ThreatStatus,
 		Type:                           a.Type,
 	}
 }
@@ -6052,9 +5652,7 @@ func (a *AzureWorkloadSQLRecoveryPoint) GetAzureWorkloadSQLRecoveryPoint() *Azur
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type AzureWorkloadSQLRecoveryPoint.
 func (a *AzureWorkloadSQLRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   a.ObjectType,
-		ThreatInfo:   a.ThreatInfo,
-		ThreatStatus: a.ThreatStatus,
+		ObjectType: a.ObjectType,
 	}
 }
 
@@ -6065,9 +5663,6 @@ type AzureWorkloadSQLRecoveryPointExtendedInfo struct {
 
 	// UTC time at which data directory info was captured
 	DataDirectoryTimeInUTC *time.Time
-
-	// List of databases included in recovery point.
-	IncludedDatabases []*DatabaseInRP
 }
 
 // AzureWorkloadSQLRestoreRequest - AzureWorkload SQL -specific restore. Specifically for full/diff restore
@@ -6522,7 +6117,7 @@ type BackupResourceEncryptionConfigExtendedResource struct {
 	// The geo-location where the resource lives
 	Location *string
 
-	// BackupResourceEncryptionConfigExtendedResource properties
+	// The properties of the backup resource encryption config extended resource
 	Properties *BackupResourceEncryptionConfigExtended
 
 	// Resource tags.
@@ -6548,7 +6143,7 @@ type BackupResourceEncryptionConfigResource struct {
 	// The geo-location where the resource lives
 	Location *string
 
-	// BackupResourceEncryptionConfigResource properties
+	// The properties of the backup resource encryption config
 	Properties *BackupResourceEncryptionConfig
 
 	// Resource tags.
@@ -6835,9 +6430,6 @@ type DPMProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -6868,7 +6460,6 @@ func (d *DPMProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   d.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  d.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 d.SourceResourceID,
-		SourceSideScanInfo:               d.SourceSideScanInfo,
 		VaultID:                          d.VaultID,
 		WorkloadType:                     d.WorkloadType,
 	}
@@ -6937,15 +6528,6 @@ type DailyRetentionSchedule struct {
 type DailySchedule struct {
 	// List of times of day this schedule has to be run.
 	ScheduleRunTimes []*time.Time
-}
-
-// DatabaseInRP - Database included in RP.
-type DatabaseInRP struct {
-	// Datasource Id for the database.
-	DatasourceID *string
-
-	// Datasource name for the database.
-	DatasourceName *string
 }
 
 // Day of the week.
@@ -7551,9 +7133,6 @@ type GenericProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -7584,7 +7163,6 @@ func (g *GenericProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   g.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  g.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 g.SourceResourceID,
-		SourceSideScanInfo:               g.SourceSideScanInfo,
 		VaultID:                          g.VaultID,
 		WorkloadType:                     g.WorkloadType,
 	}
@@ -7640,20 +7218,12 @@ type GenericRecoveryPoint struct {
 
 	// Type of the backup copy.
 	RecoveryPointType *string
-
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
 }
 
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type GenericRecoveryPoint.
 func (g *GenericRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   g.ObjectType,
-		ThreatInfo:   g.ThreatInfo,
-		ThreatStatus: g.ThreatStatus,
+		ObjectType: g.ObjectType,
 	}
 }
 
@@ -7896,12 +7466,6 @@ type IaasVMRecoveryPoint struct {
 	// Storage type of the VM whose backup copy is created.
 	SourceVMStorageType *string
 
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
-
 	// Virtual Machine Size
 	VirtualMachineSize *string
 
@@ -7912,9 +7476,7 @@ type IaasVMRecoveryPoint struct {
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type IaasVMRecoveryPoint.
 func (i *IaasVMRecoveryPoint) GetRecoveryPoint() *RecoveryPoint {
 	return &RecoveryPoint{
-		ObjectType:   i.ObjectType,
-		ThreatInfo:   i.ThreatInfo,
-		ThreatStatus: i.ThreatStatus,
+		ObjectType: i.ObjectType,
 	}
 }
 
@@ -8549,9 +8111,6 @@ type MabFileFolderProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -8582,7 +8141,6 @@ func (m *MabFileFolderProtectedItem) GetProtectedItem() *ProtectedItem {
 		ResourceGuardOperationRequests:   m.ResourceGuardOperationRequests,
 		SoftDeleteRetentionPeriodInDays:  m.SoftDeleteRetentionPeriodInDays,
 		SourceResourceID:                 m.SourceResourceID,
-		SourceSideScanInfo:               m.SourceSideScanInfo,
 		VaultID:                          m.VaultID,
 		WorkloadType:                     m.WorkloadType,
 	}
@@ -8758,10 +8316,6 @@ type NameInfo struct {
 	Value *string
 }
 
-// OkResponse - The request has succeeded.
-type OkResponse struct {
-}
-
 // OperationResultInfo - Operation result info.
 type OperationResultInfo struct {
 	// REQUIRED; This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types.
@@ -8908,18 +8462,6 @@ func (o *OperationStatusValidateOperationExtendedInfo) GetOperationStatusExtende
 	return &OperationStatusExtendedInfo{
 		ObjectType: o.ObjectType,
 	}
-}
-
-// PatchRecoveryPointInput - Recovery Point Contract for Update Recovery Point API.
-type PatchRecoveryPointInput struct {
-	// Properties of Recovery Point
-	RecoveryPointProperties *PatchRecoveryPointPropertiesInput
-}
-
-// PatchRecoveryPointPropertiesInput - Recovery Point Properties Contract for Update Recovery Point API.
-type PatchRecoveryPointPropertiesInput struct {
-	// Expiry time of Recovery Point in UTC.
-	ExpiryTime *time.Time
 }
 
 // PointInTimeRange - Provides details for log ranges
@@ -9194,9 +8736,6 @@ type ProtectedItem struct {
 	// ARM ID of the resource to be backed up.
 	SourceResourceID *string
 
-	// Source side threat information
-	SourceSideScanInfo *SourceSideScanInfo
-
 	// READ-ONLY; Type of backup management for the backed up item.
 	BackupManagementType *BackupManagementType
 
@@ -9431,12 +8970,6 @@ type ProtectionPolicyResourceList struct {
 type RecoveryPoint struct {
 	// REQUIRED; This property will be used as the discriminator for deciding the specific types in the polymorphic chain of types.
 	ObjectType *string
-
-	// Recovery point threat information.
-	ThreatInfo []*ThreatInfo
-
-	// Threat status of the recovery point
-	ThreatStatus *ThreatStatus
 }
 
 // GetRecoveryPoint implements the RecoveryPointClassification interface for type RecoveryPoint.
@@ -9827,15 +9360,6 @@ type SnapshotRestoreParameters struct {
 	SkipAttachAndMount          *bool
 }
 
-// SourceSideScanInfo - Source side threat information
-type SourceSideScanInfo struct {
-	// Threat status of the container
-	SourceSideScanStatus *SourceSideScanStatus
-
-	// Threat summary for the container
-	SourceSideScanSummary *SourceSideScanSummary
-}
-
 // SubProtectionPolicy - Sub-protection policy which includes schedule and retention
 type SubProtectionPolicy struct {
 	// Type of backup policy type
@@ -9908,33 +9432,6 @@ type TargetRestoreInfo struct {
 
 	// Target directory location for restore as files.
 	TargetDirectoryForFileRestore *string
-}
-
-// ThreatInfo - Recovery Point Threat information
-type ThreatInfo struct {
-	// Threat Severity Types
-	ThreatSeverity *ThreatSeverity
-
-	// Threat Status Types
-	ThreatState *ThreatState
-
-	// READ-ONLY; Timestamp when the last (latest)threat information was sent
-	LastUpdatedTime *time.Time
-
-	// READ-ONLY; Threat Description
-	ThreatDescription *string
-
-	// READ-ONLY; End timestamp of the threat
-	ThreatEndTime *time.Time
-
-	// READ-ONLY; Start timestamp of the threat
-	ThreatStartTime *time.Time
-
-	// READ-ONLY; Threat Subject
-	ThreatTitle *string
-
-	// READ-ONLY; threat details link
-	ThreatURI *string
 }
 
 // TieringCostInfo - Base class for tiering cost response
@@ -10052,12 +9549,6 @@ type UnlockDeleteRequest struct {
 type UnlockDeleteResponse struct {
 	// This is the time when unlock delete privileges will get expired.
 	UnlockDeleteExpiryTime *string
-}
-
-// UpdateRecoveryPointRequest - Patch Request content to update recovery point for given RecoveryPointId
-type UpdateRecoveryPointRequest struct {
-	// Resource properties.
-	Properties *PatchRecoveryPointInput
 }
 
 // UserAssignedIdentityProperties - User assigned managed identity properties

@@ -207,8 +207,6 @@ func unmarshalProtectedItemClassification(rawMsg json.RawMessage) (ProtectedItem
 		b = &AzureVMWorkloadSAPHanaDatabaseProtectedItem{}
 	case "AzureVmWorkloadSQLDatabase":
 		b = &AzureVMWorkloadSQLDatabaseProtectedItem{}
-	case "AzureVmWorkloadSQLInstance":
-		b = &AzureVMWorkloadSQLInstanceProtectedItem{}
 	case "DPMProtectedItem":
 		b = &DPMProtectedItem{}
 	case "GenericProtectedItem":
@@ -589,8 +587,6 @@ func unmarshalWorkloadProtectableItemClassification(rawMsg json.RawMessage) (Wor
 		b = &AzureVMWorkloadProtectableItem{}
 	case "HanaHSRContainer":
 		b = &AzureVMWorkloadSAPHanaHSRProtectableItem{}
-	case "HanaScaleoutContainer":
-		b = &AzureVMWorkloadSAPHanaScaleoutProtectableItem{}
 	case "IaaSVMProtectableItem":
 		b = &IaaSVMProtectableItem{}
 	case "Microsoft.ClassicCompute/virtualMachines":

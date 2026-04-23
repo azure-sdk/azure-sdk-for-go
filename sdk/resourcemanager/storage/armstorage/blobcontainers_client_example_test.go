@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 )
 
@@ -37,7 +37,7 @@ func ExampleBlobContainersClient_ClearLegalHold() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientClearLegalHoldResponse{
-	// 	LegalHold: &armstorage.LegalHold{
+	// 	LegalHold: armstorage.LegalHold{
 	// 		HasLegalHold: to.Ptr(false),
 	// 		Tags: []*string{
 	// 		},
@@ -64,7 +64,7 @@ func ExampleBlobContainersClient_Create_putContainers() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientCreateResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/blobServices/default/containers/container6185"),
@@ -96,7 +96,7 @@ func ExampleBlobContainersClient_Create_putContainerWithDefaultEncryptionScope()
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientCreateResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/blobServices/default/containers/container6185"),
@@ -133,7 +133,7 @@ func ExampleBlobContainersClient_Create_putContainerWithObjectLevelWorm() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientCreateResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/blobServices/default/containers/container6185"),
@@ -170,7 +170,7 @@ func ExampleBlobContainersClient_CreateOrUpdateImmutabilityPolicy_createOrUpdate
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d59f830cb130e5\""),
@@ -208,7 +208,7 @@ func ExampleBlobContainersClient_CreateOrUpdateImmutabilityPolicy_createOrUpdate
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientCreateOrUpdateImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d59f830cb130e5\""),
@@ -263,7 +263,7 @@ func ExampleBlobContainersClient_DeleteImmutabilityPolicy() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientDeleteImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d59f81a87b40c0\""),
@@ -300,7 +300,7 @@ func ExampleBlobContainersClient_ExtendImmutabilityPolicy() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientExtendImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d57a8b2ff50332\""),
@@ -332,7 +332,7 @@ func ExampleBlobContainersClient_Get_getContainers() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientGetResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -421,7 +421,7 @@ func ExampleBlobContainersClient_Get_getBlobContainersGetWithAllowProtectedAppen
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientGetResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -518,7 +518,7 @@ func ExampleBlobContainersClient_GetImmutabilityPolicy() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientGetImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d59f828e64b75c\""),
@@ -555,7 +555,7 @@ func ExampleBlobContainersClient_Lease_acquireALeaseOnAContainer() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientLeaseResponse{
-	// 	LeaseContainerResponse: &armstorage.LeaseContainerResponse{
+	// 	LeaseContainerResponse: armstorage.LeaseContainerResponse{
 	// 		LeaseID: to.Ptr("8698f513-fa75-44a1-b8eb-30ba336af27d"),
 	// 	},
 	// }
@@ -584,7 +584,7 @@ func ExampleBlobContainersClient_Lease_breakALeaseOnAContainer() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientLeaseResponse{
-	// 	LeaseContainerResponse: &armstorage.LeaseContainerResponse{
+	// 	LeaseContainerResponse: armstorage.LeaseContainerResponse{
 	// 		LeaseTimeSeconds: to.Ptr("0"),
 	// 	},
 	// }
@@ -733,7 +733,7 @@ func ExampleBlobContainersClient_LockImmutabilityPolicy() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientLockImmutabilityPolicyResponse{
-	// 	ImmutabilityPolicy: &armstorage.ImmutabilityPolicy{
+	// 	ImmutabilityPolicy: armstorage.ImmutabilityPolicy{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers/immutabilityPolicies"),
 	// 		Etag: to.Ptr("\"8d57a8a5edb084a\""),
@@ -763,7 +763,7 @@ func ExampleBlobContainersClient_BeginObjectLevelWorm() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -797,7 +797,7 @@ func ExampleBlobContainersClient_SetLegalHold_setLegalHoldContainers() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientSetLegalHoldResponse{
-	// 	LegalHold: &armstorage.LegalHold{
+	// 	LegalHold: armstorage.LegalHold{
 	// 		HasLegalHold: to.Ptr(true),
 	// 		Tags: []*string{
 	// 			to.Ptr("tag1"),
@@ -834,7 +834,7 @@ func ExampleBlobContainersClient_SetLegalHold_setLegalHoldContainersWithAllowPro
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientSetLegalHoldResponse{
-	// 	LegalHold: &armstorage.LegalHold{
+	// 	LegalHold: armstorage.LegalHold{
 	// 		AllowProtectedAppendWritesAll: to.Ptr(true),
 	// 		HasLegalHold: to.Ptr(true),
 	// 		Tags: []*string{
@@ -872,7 +872,7 @@ func ExampleBlobContainersClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.BlobContainersClientUpdateResponse{
-	// 	BlobContainer: &armstorage.BlobContainer{
+	// 	BlobContainer: armstorage.BlobContainer{
 	// 		Name: to.Ptr("container6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/blobServices/containers"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/blobServices/default/containers/container6185"),

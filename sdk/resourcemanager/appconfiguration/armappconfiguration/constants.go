@@ -197,12 +197,14 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 	}
 }
 
-// PublicNetworkAccess - Control permission for data plane traffic coming from public networks while private endpoint is enabled.
+// PublicNetworkAccess - Control permission for data plane traffic coming from public networks.
 type PublicNetworkAccess string
 
 const (
+	// PublicNetworkAccessDisabled - Disallow public network access to the data plane.
 	PublicNetworkAccessDisabled PublicNetworkAccess = "Disabled"
-	PublicNetworkAccessEnabled  PublicNetworkAccess = "Enabled"
+	// PublicNetworkAccessEnabled - Allow public network access to the data plane.
+	PublicNetworkAccessEnabled PublicNetworkAccess = "Enabled"
 )
 
 // PossiblePublicNetworkAccessValues returns the possible values for the PublicNetworkAccess const type.

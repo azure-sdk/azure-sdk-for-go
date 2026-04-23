@@ -472,7 +472,7 @@ func (client *VirtualMachineImagesClient) listSKUsHandleResponse(resp *http.Resp
 //   - publisherName - A valid image publisher.
 //   - offer - A valid image publisher offer.
 //   - skus - A valid image SKU.
-//   - Expand - The expand expression to apply on the operation.
+//   - expand - The expand expression to apply on the operation.
 //   - options - VirtualMachineImagesClientListWithPropertiesOptions contains the optional parameters for the VirtualMachineImagesClient.ListWithProperties
 //     method.
 func (client *VirtualMachineImagesClient) ListWithProperties(ctx context.Context, location string, publisherName string, offer string, skus string, expand string, options *VirtualMachineImagesClientListWithPropertiesOptions) (VirtualMachineImagesClientListWithPropertiesResponse, error) {

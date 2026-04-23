@@ -208,7 +208,7 @@ type BackupForPatch struct {
 	GeoRedundantBackup *GeographicallyRedundantBackup
 }
 
-// BackupSettings - The settings for the long term backup.
+// BackupSettings - Settings for the long term backup.
 type BackupSettings struct {
 	// REQUIRED; Backup Name for the current backup
 	BackupName *string
@@ -238,12 +238,12 @@ type BackupsLongTermRetentionOperation struct {
 	Type *string
 }
 
-// BackupsLongTermRetentionRequest - The request that is made for a long term retention backup.
+// BackupsLongTermRetentionRequest - Request made for a long term retention backup.
 type BackupsLongTermRetentionRequest struct {
 	// REQUIRED; Backup Settings
 	BackupSettings *BackupSettings
 
-	// REQUIRED; Backup store detail for target server
+	// REQUIRED; Backup store detail for target server.
 	TargetDetails *BackupStoreDetails
 }
 
@@ -280,14 +280,14 @@ type Capability struct {
 	// engine is not supported. Will be deprecated in the future. Look to Supported Features for 'OnlineResize'.
 	OnlineResizeSupported *OnlineStorageResizeSupport
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
 	// READ-ONLY; Indicates if this location is restricted. 'Enabled' means location is restricted. 'Disabled' stands for location
 	// is not restricted. Will be deprecated in the future. Look to Supported Features for 'Restricted'.
 	Restricted *LocationRestricted
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Indicates if storage autogrow is supported in this location. 'Enabled' means storage autogrow is supported.
@@ -623,13 +623,13 @@ type DelegatedSubnetUsage struct {
 
 // FastProvisioningEditionCapability - Capability of a fast provisioning compute tier.
 type FastProvisioningEditionCapability struct {
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
 	// READ-ONLY; Count of servers in cache matching this specification.
 	ServerCount *int32
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Compute name (SKU) supporting fast provisioning.
@@ -737,32 +737,32 @@ type LtrBackupOperationResponseProperties struct {
 	// REQUIRED; Start time of the operation.
 	StartTime *time.Time
 
-	// REQUIRED; Service-set extensible enum indicating the status of operation
+	// REQUIRED; Service-set extensible enum indicating the status of operation.
 	Status *ExecutionStatus
 
 	// Metadata to be stored in RP. Store everything that will be required to perform a successful restore using this Recovery
-	// point. e.g. Versions, DataFormat etc
+	// point. e.g. Versions, DataFormat etc.
 	BackupMetadata *string
 
-	// Name of Backup operation
+	// Name of Backup operation.
 	BackupName *string
 
-	// Data transferred in bytes
+	// Data transferred in bytes.
 	DataTransferredInBytes *int64
 
-	// Size of datasource in bytes
+	// Size of datasource in bytes.
 	DatasourceSizeInBytes *int64
 
 	// End time of the operation.
 	EndTime *time.Time
 
-	// PercentageCompleted
+	// Percentage completed.
 	PercentComplete *float64
 
-	// READ-ONLY; The error code.
+	// READ-ONLY; Error code.
 	ErrorCode *string
 
-	// READ-ONLY; The error message.
+	// READ-ONLY; Error message.
 	ErrorMessage *string
 }
 
@@ -772,7 +772,7 @@ type LtrPreBackupRequest struct {
 	BackupSettings *BackupSettings
 }
 
-// LtrPreBackupResponse - Response for the LTR pre-backup API call
+// LtrPreBackupResponse - Response for the LTR pre-backup API call.
 type LtrPreBackupResponse struct {
 	// REQUIRED; Additional Properties for the pre backup response
 	Properties *BackupsLongTermRetentionResponseProperties
@@ -844,18 +844,18 @@ type MetricSpecification struct {
 	Unit *string
 }
 
-// MigrateNetworkStatus - The status of a network migration operation.
+// MigrateNetworkStatus - Status of a network migration operation.
 type MigrateNetworkStatus struct {
-	// The name of the resource group.
+	// Name of the resource group.
 	ResourceGroupName *string
 
-	// The name of the server.
+	// Name of the server.
 	ServerName *string
 
-	// The ID of the subscription.
+	// Identifier of the subscription.
 	SubscriptionID *string
 
-	// READ-ONLY; The state of the network migration operation.
+	// READ-ONLY; State of the network migration operation.
 	State *NetworkMigrationState
 }
 
@@ -1526,10 +1526,10 @@ type ServerEditionCapability struct {
 	// READ-ONLY; Name of compute tier.
 	Name *string
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; List of supported compute names (SKUs).
@@ -1706,13 +1706,13 @@ type ServerSKUCapability struct {
 	// READ-ONLY; Name of the compute (SKU).
 	Name *string
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
 	// READ-ONLY; Security profile of the compute. Indicates if it's a Confidential Compute virtual machine.
 	SecurityProfile *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Features supported.
@@ -1739,10 +1739,10 @@ type ServerVersionCapability struct {
 	// READ-ONLY; Major version of PostgreSQL database engine.
 	Name *string
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Features supported.
@@ -1792,10 +1792,10 @@ type StorageEditionCapability struct {
 	// READ-ONLY; Name of storage tier.
 	Name *string
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Configurations of storage supported for this storage tier.
@@ -1810,10 +1810,10 @@ type StorageMbCapability struct {
 	// READ-ONLY; Maximum supported size (in MB) of storage.
 	MaximumStorageSizeMb *int64
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 
 	// READ-ONLY; Minimum supported size (in MB) of storage.
@@ -1843,10 +1843,10 @@ type StorageTierCapability struct {
 	// READ-ONLY; Name of the storage tier.
 	Name *string
 
-	// READ-ONLY; The reason for the capability not being available.
+	// READ-ONLY; Reason for the capability not being available.
 	Reason *string
 
-	// READ-ONLY; The status of the capability.
+	// READ-ONLY; Status of the capability.
 	Status *CapabilityStatus
 }
 

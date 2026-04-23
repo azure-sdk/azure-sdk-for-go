@@ -30,7 +30,7 @@ func ExampleSystemAssignedIdentitiesClient_GetByScope() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.SystemAssignedIdentitiesClientGetByScopeResponse{
-	// 	SystemAssignedIdentity: &armmsi.SystemAssignedIdentity{
+	// 	SystemAssignedIdentity: armmsi.SystemAssignedIdentity{
 	// 		Name: to.Ptr("resourceName"),
 	// 		Type: to.Ptr("ResourceProvider"),
 	// 		ID: to.Ptr("/subscriptions/subId/resourceGroups/resourceGroupName/providers/Resource.Provider/resourceType/resourceName/identities/default"),

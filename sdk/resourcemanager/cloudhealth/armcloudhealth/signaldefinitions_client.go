@@ -11,10 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 // SignalDefinitionsClient contains the methods for the SignalDefinitions group.
@@ -295,7 +295,7 @@ func (client *SignalDefinitionsClient) listByHealthModelCreateRequest(ctx contex
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01-preview")
 	if options != nil && options.Timestamp != nil {
-		reqQP.Set("timestamp", options.Timestamp.Format(time.RFC3339Nano))
+		reqQP.Set("timestamp", datetime.RFC3339(*options.Timestamp).String())
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

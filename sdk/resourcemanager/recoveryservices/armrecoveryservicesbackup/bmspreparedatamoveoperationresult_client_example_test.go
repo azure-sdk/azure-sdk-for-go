@@ -7,11 +7,11 @@ package armrecoveryservicesbackup_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
-// Generated from example definition: 2026-01-01-preview/BackupDataMove/PrepareDataMoveOperationResult_Get.json
+// Generated from example definition: 2026-01-01/BackupDataMove/PrepareDataMoveOperationResult_Get.json
 func ExampleBMSPrepareDataMoveOperationResultClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

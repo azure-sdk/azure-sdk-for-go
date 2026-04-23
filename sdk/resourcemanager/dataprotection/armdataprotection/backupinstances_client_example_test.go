@@ -36,7 +36,7 @@ func ExampleBackupInstancesClient_BeginAdhocBackup() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -113,13 +113,13 @@ func ExampleBackupInstancesClient_BeginCreateOrUpdate_createBackupInstance() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientCreateOrUpdateResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("harshitbi2"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/04cf684a-d41f-4550-9f70-7708a3a2283b/resourceGroups/000pikumar/providers/Microsoft.DataProtection/backupVaults/PratikPrivatePreviewVault1/backupInstances/harshitbi2"),
@@ -219,13 +219,13 @@ func ExampleBackupInstancesClient_BeginCreateOrUpdate_createBackupInstanceWithAd
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientCreateOrUpdateResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("19a76f8a-c176-4f7d-819e-95157e2b0077"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/54707983-993e-43de-8d94-074451394eda/resourceGroups/adlsrg/providers/Microsoft.DataProtection/backupVaults/adlsvault/backupInstances/19a76f8a-c176-4f7d-819e-95157e2b0077"),
@@ -346,13 +346,13 @@ func ExampleBackupInstancesClient_BeginCreateOrUpdate_createBackupInstanceWithKu
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientCreateOrUpdateResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("aksbi"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/62b829ee-7936-40c9-a1c9-47a93f9f3965/resourceGroups/aksrg/providers/Microsoft.DataProtection/backupVaults/aksvault/backupInstances/aksbi"),
@@ -483,13 +483,13 @@ func ExampleBackupInstancesClient_BeginCreateOrUpdate_createBackupInstanceToPerf
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientCreateOrUpdateResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("harshitbi2"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/04cf684a-d41f-4550-9f70-7708a3a2283b/resourceGroups/000pikumar/providers/Microsoft.DataProtection/backupVaults/PratikPrivatePreviewVault1/backupInstances/harshitbi2"),
@@ -553,7 +553,7 @@ func ExampleBackupInstancesClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -581,7 +581,7 @@ func ExampleBackupInstancesClient_Get_getBackupInstance() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientGetResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("harshitbi2"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/04cf684a-d41f-4550-9f70-7708a3a2283b/resourceGroups/000pikumar/providers/Microsoft.DataProtection/backupVaults/PratikPrivatePreviewVault1/backupInstances/harshitbi2"),
@@ -642,7 +642,7 @@ func ExampleBackupInstancesClient_Get_getBackupInstanceForAdlsBlob() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientGetResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("adlsbackupinstance"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/54707983-993e-43de-8d94-074451394eda/resourceGroups/adlsrg/providers/Microsoft.DataProtection/backupVaults/adlsvault/backupInstances/adlsbackupinstance"),
@@ -710,7 +710,7 @@ func ExampleBackupInstancesClient_GetBackupInstanceOperationResult() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armdataprotection.BackupInstancesClientGetBackupInstanceOperationResultResponse{
-	// 	BackupInstanceResource: &armdataprotection.BackupInstanceResource{
+	// 	BackupInstanceResource: armdataprotection.BackupInstanceResource{
 	// 		Name: to.Ptr("testInstance1"),
 	// 		Type: to.Ptr("Microsoft.DataProtection/backupVaults/backupInstances"),
 	// 		ID: to.Ptr("/subscriptions/04cf684a-d41f-4550-9f70-7708a3a2283b/resourceGroups/SampleResourceGroup/providers/Microsoft.DataProtection/backupVaults/swaggerExample/backupInstances/testInstance1"),
@@ -831,7 +831,7 @@ func ExampleBackupInstancesClient_BeginResumeBackups() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -857,7 +857,7 @@ func ExampleBackupInstancesClient_BeginResumeProtection() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -883,7 +883,7 @@ func ExampleBackupInstancesClient_BeginStopProtection_stopProtection() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -914,7 +914,7 @@ func ExampleBackupInstancesClient_BeginStopProtection_stopProtectionWithMua() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -945,7 +945,7 @@ func ExampleBackupInstancesClient_BeginSuspendBackups_suspendBackupsWithMua() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -971,7 +971,7 @@ func ExampleBackupInstancesClient_BeginSuspendBackups_suspendBackups() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -999,7 +999,7 @@ func ExampleBackupInstancesClient_BeginSyncBackupInstance() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1066,7 +1066,7 @@ func ExampleBackupInstancesClient_BeginTriggerCrossRegionRestore() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1100,7 +1100,7 @@ func ExampleBackupInstancesClient_BeginTriggerRehydrate() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -1160,7 +1160,7 @@ func ExampleBackupInstancesClient_BeginTriggerRestore_triggerRestore() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1205,7 +1205,7 @@ func ExampleBackupInstancesClient_BeginTriggerRestore_triggerRestoreAsFiles() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1265,7 +1265,7 @@ func ExampleBackupInstancesClient_BeginTriggerRestore_triggerRestoreWithRehydrat
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1336,7 +1336,7 @@ func ExampleBackupInstancesClient_BeginValidateCrossRegionRestore() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1403,7 +1403,7 @@ func ExampleBackupInstancesClient_BeginValidateForBackup() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1470,7 +1470,7 @@ func ExampleBackupInstancesClient_BeginValidateForModifyBackup() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -1532,7 +1532,7 @@ func ExampleBackupInstancesClient_BeginValidateForRestore() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res

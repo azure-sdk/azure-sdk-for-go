@@ -6,12 +6,13 @@ package armimpactreporting_test
 
 import (
 	"context"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/impactreporting/armimpactreporting"
 	"log"
 )
 
-// Generated from example definition: 2024-05-01-preview/ImpactCategories_Get.json
+// Generated from example definition: 2026-01-01-preview/ImpactCategories_Get.json
 func ExampleImpactCategoriesClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -30,7 +31,7 @@ func ExampleImpactCategoriesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.ImpactCategoriesClientGetResponse{
-	// 	ImpactCategory: &armimpactreporting.ImpactCategory{
+	// 	ImpactCategory: armimpactreporting.ImpactCategory{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/microsoft.Impact/ImpactCategories/ARMOperation.Create"),
 	// 		Name: to.Ptr("ARMOperation.Create"),
 	// 		Type: to.Ptr("Microsoft.Impact/impactCategories"),
@@ -48,7 +49,7 @@ func ExampleImpactCategoriesClient_Get() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/ImpactCategories_ListBySubscription.json
+// Generated from example definition: 2026-01-01-preview/ImpactCategories_ListBySubscription.json
 func ExampleImpactCategoriesClient_NewListBySubscriptionPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -59,7 +60,8 @@ func ExampleImpactCategoriesClient_NewListBySubscriptionPager() {
 	if err != nil {
 		log.Fatalf("failed to create client: %v", err)
 	}
-	pager := clientFactory.NewImpactCategoriesClient().NewListBySubscriptionPager("microsoft.compute/virtualmachines", nil)
+	pager := clientFactory.NewImpactCategoriesClient().NewListBySubscriptionPager(&armimpactreporting.ImpactCategoriesClientListBySubscriptionOptions{
+		ResourceType: to.Ptr("microsoft.compute/virtualmachines")})
 	for pager.More() {
 		page, err := pager.NextPage(ctx)
 		if err != nil {

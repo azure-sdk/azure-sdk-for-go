@@ -196,8 +196,8 @@ const (
 	ManagedIdentityTypeNone ManagedIdentityType = "None"
 	// ManagedIdentityTypeSystemAssigned - SystemAssigned
 	ManagedIdentityTypeSystemAssigned ManagedIdentityType = "SystemAssigned"
-	// ManagedIdentityTypeUserAssigned - UserAssigned
-	ManagedIdentityTypeUserAssigned ManagedIdentityType = "UserAssigned"
+	// ManagedIdentityTypeSystemAssignedUserAssigned - Both SystemAssigned and UserAssigned identities.
+	ManagedIdentityTypeSystemAssignedUserAssigned ManagedIdentityType = "SystemAssigned,UserAssigned"
 )
 
 // PossibleManagedIdentityTypeValues returns the possible values for the ManagedIdentityType const type.
@@ -205,7 +205,7 @@ func PossibleManagedIdentityTypeValues() []ManagedIdentityType {
 	return []ManagedIdentityType{
 		ManagedIdentityTypeNone,
 		ManagedIdentityTypeSystemAssigned,
-		ManagedIdentityTypeUserAssigned,
+		ManagedIdentityTypeSystemAssignedUserAssigned,
 	}
 }
 

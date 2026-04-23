@@ -64,7 +64,7 @@ type BackupsAutomaticAndOnDemandClientListByServerResponse struct {
 
 // BackupsLongTermRetentionClientCheckPrerequisitesResponse contains the response from method BackupsLongTermRetentionClient.CheckPrerequisites.
 type BackupsLongTermRetentionClientCheckPrerequisitesResponse struct {
-	// Response for the LTR pre-backup API call
+	// Response for the LTR pre-backup API call.
 	LtrPreBackupResponse
 
 	// A unique ID for the current operation, service generated. All the resource providers must return this value in the response
@@ -321,7 +321,7 @@ type ServersClientListBySubscriptionResponse struct {
 
 // ServersClientMigrateNetworkModeResponse contains the response from method ServersClient.BeginMigrateNetworkMode.
 type ServersClientMigrateNetworkModeResponse struct {
-	// The status of a network migration operation.
+	// Status of a network migration operation.
 	MigrateNetworkStatus
 }
 

@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 )
 
@@ -111,7 +111,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -272,7 +272,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -393,7 +393,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -499,7 +499,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -622,7 +622,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -741,7 +741,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -844,7 +844,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -960,7 +960,7 @@ func ExampleManagementPoliciesClient_CreateOrUpdate_storageAccountSetManagementP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientCreateOrUpdateResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),
@@ -1057,7 +1057,7 @@ func ExampleManagementPoliciesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.ManagementPoliciesClientGetResponse{
-	// 	ManagementPolicy: &armstorage.ManagementPolicy{
+	// 	ManagementPolicy: armstorage.ManagementPolicy{
 	// 		Name: to.Ptr("DefaultManagementPolicy"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/managementPolicies"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res7231/providers/Microsoft.Storage/storageAccounts/sto288/managementPolicies/default"),

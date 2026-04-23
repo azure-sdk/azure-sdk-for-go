@@ -42,7 +42,7 @@ func NewWorkloadImpactsClient(subscriptionID string, credential azcore.TokenCred
 // BeginCreate - Create a WorkloadImpact
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - workloadImpactName - workloadImpact resource
 //   - resource - Resource create parameters.
 //   - options - WorkloadImpactsClientBeginCreateOptions contains the optional parameters for the WorkloadImpactsClient.BeginCreate
@@ -67,7 +67,7 @@ func (client *WorkloadImpactsClient) BeginCreate(ctx context.Context, workloadIm
 // Create - Create a WorkloadImpact
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 func (client *WorkloadImpactsClient) create(ctx context.Context, workloadImpactName string, resource WorkloadImpact, options *WorkloadImpactsClientBeginCreateOptions) (*http.Response, error) {
 	var err error
 	const operationName = "WorkloadImpactsClient.BeginCreate"
@@ -105,7 +105,7 @@ func (client *WorkloadImpactsClient) createCreateRequest(ctx context.Context, wo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
@@ -118,7 +118,7 @@ func (client *WorkloadImpactsClient) createCreateRequest(ctx context.Context, wo
 // Delete - Delete a WorkloadImpact
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - workloadImpactName - workloadImpact resource
 //   - options - WorkloadImpactsClientDeleteOptions contains the optional parameters for the WorkloadImpactsClient.Delete method.
 func (client *WorkloadImpactsClient) Delete(ctx context.Context, workloadImpactName string, options *WorkloadImpactsClientDeleteOptions) (WorkloadImpactsClientDeleteResponse, error) {
@@ -158,7 +158,7 @@ func (client *WorkloadImpactsClient) deleteCreateRequest(ctx context.Context, wo
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
@@ -166,7 +166,7 @@ func (client *WorkloadImpactsClient) deleteCreateRequest(ctx context.Context, wo
 // Get - Get a WorkloadImpact
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - workloadImpactName - workloadImpact resource
 //   - options - WorkloadImpactsClientGetOptions contains the optional parameters for the WorkloadImpactsClient.Get method.
 func (client *WorkloadImpactsClient) Get(ctx context.Context, workloadImpactName string, options *WorkloadImpactsClientGetOptions) (WorkloadImpactsClientGetResponse, error) {
@@ -207,7 +207,7 @@ func (client *WorkloadImpactsClient) getCreateRequest(ctx context.Context, workl
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -224,7 +224,7 @@ func (client *WorkloadImpactsClient) getHandleResponse(resp *http.Response) (Wor
 
 // NewListBySubscriptionPager - List WorkloadImpact resources by subscription ID
 //
-// Generated from API version 2024-05-01-preview
+// Generated from API version 2026-01-01-preview
 //   - options - WorkloadImpactsClientListBySubscriptionOptions contains the optional parameters for the WorkloadImpactsClient.NewListBySubscriptionPager
 //     method.
 func (client *WorkloadImpactsClient) NewListBySubscriptionPager(options *WorkloadImpactsClientListBySubscriptionOptions) *runtime.Pager[WorkloadImpactsClientListBySubscriptionResponse] {
@@ -262,7 +262,7 @@ func (client *WorkloadImpactsClient) listBySubscriptionCreateRequest(ctx context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2024-05-01-preview")
+	reqQP.Set("api-version", "2026-01-01-preview")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil

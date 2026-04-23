@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp/v10"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/netapp/armnetapp/v8"
 	"log"
 )
 
@@ -61,13 +61,13 @@ func ExampleElasticSnapshotPoliciesClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ElasticSnapshotPoliciesClientCreateOrUpdateResponse{
-	// 	ElasticSnapshotPolicy: &armnetapp.ElasticSnapshotPolicy{
+	// 	ElasticSnapshotPolicy: armnetapp.ElasticSnapshotPolicy{
 	// 		Location: to.Ptr("eastus"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/elasticAccounts/account1/elasticSnapshotPolicies/snapshotPolicy1"),
 	// 		Name: to.Ptr("account1/snapshotPolicy1"),
@@ -124,7 +124,7 @@ func ExampleElasticSnapshotPoliciesClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -147,7 +147,7 @@ func ExampleElasticSnapshotPoliciesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ElasticSnapshotPoliciesClientGetResponse{
-	// 	ElasticSnapshotPolicy: &armnetapp.ElasticSnapshotPolicy{
+	// 	ElasticSnapshotPolicy: armnetapp.ElasticSnapshotPolicy{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/elasticAccounts/account1/elasticSnapshotPolicies/snapshotPolicy1"),
 	// 		Name: to.Ptr("account1/snapshotPolicy1"),
 	// 		Type: to.Ptr("Microsoft.NetApp/elasticAccounts/elasticSnapshotPolicies"),
@@ -367,13 +367,13 @@ func ExampleElasticSnapshotPoliciesClient_BeginUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armnetapp.ElasticSnapshotPoliciesClientUpdateResponse{
-	// 	ElasticSnapshotPolicy: &armnetapp.ElasticSnapshotPolicy{
+	// 	ElasticSnapshotPolicy: armnetapp.ElasticSnapshotPolicy{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/myRG/providers/Microsoft.NetApp/elasticAccounts/account1/elasticSnapshotPolicies/snapshotPolicy1"),
 	// 		Name: to.Ptr("account1/snapshotPolicy1"),
 	// 		Type: to.Ptr("Microsoft.NetApp/elasticAccounts/elasticSnapshotPolicies"),

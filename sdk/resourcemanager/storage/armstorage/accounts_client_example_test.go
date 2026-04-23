@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 	"time"
 )
@@ -30,7 +30,7 @@ func ExampleAccountsClient_BeginAbortHierarchicalNamespaceMigration() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -61,7 +61,7 @@ func ExampleAccountsClient_CheckNameAvailability() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCheckNameAvailabilityResponse{
-	// 	CheckNameAvailabilityResult: &armstorage.CheckNameAvailabilityResult{
+	// 	CheckNameAvailabilityResult: armstorage.CheckNameAvailabilityResult{
 	// 		NameAvailable: to.Ptr(true),
 	// 	},
 	// }
@@ -106,13 +106,13 @@ func ExampleAccountsClient_BeginCreate_nfsV3AccountCreate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -211,13 +211,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -370,13 +370,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateAllowedCopyScopeToAad
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -526,13 +526,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateAllowedCopyScopeToPri
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -686,13 +686,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateDisallowPublicNetwork
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -848,13 +848,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateDnsEndpointTypeToAzur
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -1011,13 +1011,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateDnsEndpointTypeToStan
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -1172,13 +1172,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateEnablePublicNetworkAc
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -1313,13 +1313,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreatePremiumBlockBlobStora
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -1421,13 +1421,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateUserAssignedEncryptio
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -1556,13 +1556,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateUserAssignedIdentityW
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -1676,13 +1676,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateWithImmutabilityPolic
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -1789,13 +1789,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreatePlacement() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -1959,13 +1959,13 @@ func ExampleAccountsClient_BeginCreate_storageAccountCreateZones() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientCreateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ExtendedLocation: &armstorage.ExtendedLocation{
@@ -2079,7 +2079,7 @@ func ExampleAccountsClient_BeginCustomerInitiatedMigration() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -2127,7 +2127,7 @@ func ExampleAccountsClient_BeginFailover_storageAccountFailover() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -2154,7 +2154,7 @@ func ExampleAccountsClient_BeginFailover_storageAccountFailoverPlanned() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -2182,7 +2182,7 @@ func ExampleAccountsClient_GetCustomerInitiatedMigration_storageAccountGetMigrat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetCustomerInitiatedMigrationResponse{
-	// 	AccountMigration: &armstorage.AccountMigration{
+	// 	AccountMigration: armstorage.AccountMigration{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/accountMigrations"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/resource-group-name/providers/Microsoft.Storage/storageAccounts/accountname/accountMigrations/default"),
@@ -2215,7 +2215,7 @@ func ExampleAccountsClient_GetCustomerInitiatedMigration_storageAccountGetMigrat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetCustomerInitiatedMigrationResponse{
-	// 	AccountMigration: &armstorage.AccountMigration{
+	// 	AccountMigration: armstorage.AccountMigration{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/accountMigrations"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/resource-group-name/providers/Microsoft.Storage/storageAccounts/accountname/accountMigrations/default"),
@@ -2246,7 +2246,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetAsyncSkuConversionStat
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2289,7 +2289,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetProperties() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2406,7 +2406,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetPropertiesCmkEnabled()
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2522,7 +2522,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetPropertiesCmkVersionEx
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2640,7 +2640,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetPropertiesGeoReplicati
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2758,7 +2758,7 @@ func ExampleAccountsClient_GetProperties_storageAccountGetPropertiesGeoReplicati
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientGetPropertiesResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -2873,7 +2873,7 @@ func ExampleAccountsClient_BeginHierarchicalNamespaceMigration() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -3240,7 +3240,7 @@ func ExampleAccountsClient_ListAccountSAS() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientListAccountSASResponse{
-	// 	ListAccountSasResponse: &armstorage.ListAccountSasResponse{
+	// 	ListAccountSasResponse: armstorage.ListAccountSasResponse{
 	// 		AccountSasToken: to.Ptr("sv=2015-04-05&ss=b&srt=s&sp=r&st=2017-05-24T10%3A42%3A03Z&se=2017-05-24T11%3A42%3A03Z&spr=https,http&sig=Z0I%2BEpM%2BPPlTC8ApfUf%2BcffO2aahMgZim3U0iArqsS0%3D"),
 	// 	},
 	// }
@@ -3359,7 +3359,7 @@ func ExampleAccountsClient_ListKeys() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientListKeysResponse{
-	// 	AccountListKeysResult: &armstorage.AccountListKeysResult{
+	// 	AccountListKeysResult: armstorage.AccountListKeysResult{
 	// 		Keys: []*armstorage.AccountKey{
 	// 			{
 	// 				KeyName: to.Ptr("key1"),
@@ -3400,7 +3400,7 @@ func ExampleAccountsClient_ListServiceSAS() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientListServiceSASResponse{
-	// 	ListServiceSasResponse: &armstorage.ListServiceSasResponse{
+	// 	ListServiceSasResponse: armstorage.ListServiceSasResponse{
 	// 		ServiceSasToken: to.Ptr("sv=2015-04-05&sr=c&se=2017-05-24T11%3A32%3A48Z&sp=l&sig=PoF8yBUGixsjzwroLmw7vG3VbGz4KB2woZC2D4C2oio%3D"),
 	// 	},
 	// }
@@ -3427,7 +3427,7 @@ func ExampleAccountsClient_RegenerateKey_storageAccountRegenerateKerbKey() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientRegenerateKeyResponse{
-	// 	AccountListKeysResult: &armstorage.AccountListKeysResult{
+	// 	AccountListKeysResult: armstorage.AccountListKeysResult{
 	// 		Keys: []*armstorage.AccountKey{
 	// 			{
 	// 				KeyName: to.Ptr("key1"),
@@ -3470,7 +3470,7 @@ func ExampleAccountsClient_RegenerateKey_storageAccountRegenerateKey() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientRegenerateKeyResponse{
-	// 	AccountListKeysResult: &armstorage.AccountListKeysResult{
+	// 	AccountListKeysResult: armstorage.AccountListKeysResult{
 	// 		Keys: []*armstorage.AccountKey{
 	// 			{
 	// 				KeyName: to.Ptr("key1"),
@@ -3516,13 +3516,13 @@ func ExampleAccountsClient_BeginRestoreBlobRanges() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientRestoreBlobRangesResponse{
-	// 	BlobRestoreStatus: &armstorage.BlobRestoreStatus{
+	// 	BlobRestoreStatus: armstorage.BlobRestoreStatus{
 	// 		Parameters: &armstorage.BlobRestoreParameters{
 	// 			BlobRanges: []*armstorage.BlobRestoreRange{
 	// 				{
@@ -3599,7 +3599,7 @@ func ExampleAccountsClient_Update_storageAccountEnableAd() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -3687,7 +3687,7 @@ func ExampleAccountsClient_Update_storageAccountEnableCmk() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -3777,7 +3777,7 @@ func ExampleAccountsClient_Update_storageAccountEnableSmbOAuth() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -3852,7 +3852,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateEnableIpv6Features() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -3979,7 +3979,7 @@ func ExampleAccountsClient_Update_storageAccountUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -4143,7 +4143,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateAllowedCopyScopeToAad() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -4302,7 +4302,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateDisablePublicNetworkAccess
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -4454,7 +4454,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateUserAssignedEncryptionIden
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -4584,7 +4584,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateUserAssignedIdentityWithFe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto4445"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9101/providers/Microsoft.Storage/storageAccounts/sto4445"),
@@ -4691,7 +4691,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateWithImmutabilityPolicy() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -4785,7 +4785,7 @@ func ExampleAccountsClient_Update_storageAccountUpdatePlacement() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),
@@ -4958,7 +4958,7 @@ func ExampleAccountsClient_Update_storageAccountUpdateZones() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.AccountsClientUpdateResponse{
-	// 	Account: &armstorage.Account{
+	// 	Account: armstorage.Account{
 	// 		Name: to.Ptr("sto8596"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res9407/providers/Microsoft.Storage/storageAccounts/sto8596"),

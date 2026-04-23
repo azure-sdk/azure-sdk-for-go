@@ -11,10 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 // DiagnosticsClient contains the methods for the Diagnostics group.
@@ -104,10 +104,10 @@ func (client *DiagnosticsClient) executeSiteAnalysisCreateRequest(ctx context.Co
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -191,10 +191,10 @@ func (client *DiagnosticsClient) executeSiteAnalysisSlotCreateRequest(ctx contex
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -274,10 +274,10 @@ func (client *DiagnosticsClient) executeSiteDetectorCreateRequest(ctx context.Co
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -361,10 +361,10 @@ func (client *DiagnosticsClient) executeSiteDetectorSlotCreateRequest(ctx contex
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -442,10 +442,10 @@ func (client *DiagnosticsClient) getHostingEnvironmentDetectorResponseCreateRequ
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -755,10 +755,10 @@ func (client *DiagnosticsClient) getSiteDetectorResponseCreateRequest(ctx contex
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)
@@ -838,10 +838,10 @@ func (client *DiagnosticsClient) getSiteDetectorResponseSlotCreateRequest(ctx co
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-05-01")
 	if options != nil && options.EndTime != nil {
-		reqQP.Set("endTime", options.EndTime.Format(time.RFC3339Nano))
+		reqQP.Set("endTime", datetime.RFC3339(*options.EndTime).String())
 	}
 	if options != nil && options.StartTime != nil {
-		reqQP.Set("startTime", options.StartTime.Format(time.RFC3339Nano))
+		reqQP.Set("startTime", datetime.RFC3339(*options.StartTime).String())
 	}
 	if options != nil && options.TimeGrain != nil {
 		reqQP.Set("timeGrain", *options.TimeGrain)

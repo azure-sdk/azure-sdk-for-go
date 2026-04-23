@@ -74,6 +74,13 @@ type OperationsClientListResponse struct {
 	OperationListResult
 }
 
+// UploadServiceClientGetUploadTokenResponse contains the response from method UploadServiceClient.GetUploadToken.
+type UploadServiceClientGetUploadTokenResponse struct {
+	// A successful response from getUploadToken will contain an 'uploadUrl' field. This uploadUrl field's value should follow
+	// the format: https://[storage-account-name].blob.core.windows.net/[container-name]/[your-blob.extension]?[SAS-token]
+	UploadTokenResult
+}
+
 // WorkloadImpactsClientCreateResponse contains the response from method WorkloadImpactsClient.BeginCreate.
 type WorkloadImpactsClientCreateResponse struct {
 	// Workload Impact properties

@@ -11,7 +11,7 @@ import (
 	"log"
 )
 
-// Generated from example definition: 2024-05-01-preview/Operations_List.json
+// Generated from example definition: 2026-01-01-preview/Operations_List.json
 func ExampleOperationsClient_NewListPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -61,6 +61,15 @@ func ExampleOperationsClient_NewListPager() {
 		// 					Resource: to.Ptr("impactCategories"),
 		// 					Operation: to.Ptr("read"),
 		// 					Description: to.Ptr("Read impactCategory resources"),
+		// 				},
+		// 			},
+		// 			{
+		// 				Name: to.Ptr("Microsoft.Impact/getUploadToken/action"),
+		// 				Display: &armimpactreporting.OperationDisplay{
+		// 					Provider: to.Ptr("Microsoft.Impact"),
+		// 					Resource: to.Ptr("getUploadToken"),
+		// 					Operation: to.Ptr("Get Upload Token"),
+		// 					Description: to.Ptr("Get an upload token for the storage account and container to upload logs associated with impacts."),
 		// 				},
 		// 			},
 		// 		},

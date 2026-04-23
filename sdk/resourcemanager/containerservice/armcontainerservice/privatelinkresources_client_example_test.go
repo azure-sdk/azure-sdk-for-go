@@ -7,7 +7,7 @@ package armcontainerservice_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v9"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExamplePrivateLinkResourcesClient_List() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.PrivateLinkResourcesClientListResponse{
-	// 	PrivateLinkResourcesListResult: &armcontainerservice.PrivateLinkResourcesListResult{
+	// 	PrivateLinkResourcesListResult: armcontainerservice.PrivateLinkResourcesListResult{
 	// 		Value: []*armcontainerservice.PrivateLinkResource{
 	// 			{
 	// 				Name: to.Ptr("management"),

@@ -570,28 +570,6 @@ func PossibleInquiryStatusValues() []InquiryStatus {
 	}
 }
 
-// InstanceProtectionReadiness - The state of instance protection.
-type InstanceProtectionReadiness string
-
-const (
-	InstanceProtectionReadinessPartialProtection InstanceProtectionReadiness = "PartialProtection"
-	InstanceProtectionReadinessProtectionError   InstanceProtectionReadiness = "ProtectionError"
-	InstanceProtectionReadinessReady             InstanceProtectionReadiness = "Ready"
-	InstanceProtectionReadinessScheduleDisabled  InstanceProtectionReadiness = "ScheduleDisabled"
-	InstanceProtectionReadinessUnknown           InstanceProtectionReadiness = "Unknown"
-)
-
-// PossibleInstanceProtectionReadinessValues returns the possible values for the InstanceProtectionReadiness const type.
-func PossibleInstanceProtectionReadinessValues() []InstanceProtectionReadiness {
-	return []InstanceProtectionReadiness{
-		InstanceProtectionReadinessPartialProtection,
-		InstanceProtectionReadinessProtectionError,
-		InstanceProtectionReadinessReady,
-		InstanceProtectionReadinessScheduleDisabled,
-		InstanceProtectionReadinessUnknown,
-	}
-}
-
 type JobSupportedAction string
 
 const (
@@ -965,22 +943,6 @@ func PossibleProtectionIntentItemTypeValues() []ProtectionIntentItemType {
 	}
 }
 
-// ProtectionLevel - Protection type in case protected as part of a parent.
-type ProtectionLevel string
-
-const (
-	ProtectionLevelDatabase              ProtectionLevel = "Database"
-	ProtectionLevelDatabaseUnderInstance ProtectionLevel = "DatabaseUnderInstance"
-)
-
-// PossibleProtectionLevelValues returns the possible values for the ProtectionLevel const type.
-func PossibleProtectionLevelValues() []ProtectionLevel {
-	return []ProtectionLevel{
-		ProtectionLevelDatabase,
-		ProtectionLevelDatabaseUnderInstance,
-	}
-}
-
 // ProtectionState - Backup state of this backup item.
 type ProtectionState string
 
@@ -1319,44 +1281,6 @@ func PossibleSoftDeleteFeatureStateValues() []SoftDeleteFeatureState {
 	}
 }
 
-// SourceSideScanStatus - Threat status of the container
-type SourceSideScanStatus string
-
-const (
-	SourceSideScanStatusConfigured    SourceSideScanStatus = "Configured"
-	SourceSideScanStatusNotApplicable SourceSideScanStatus = "NotApplicable"
-	SourceSideScanStatusNotConfigured SourceSideScanStatus = "NotConfigured"
-)
-
-// PossibleSourceSideScanStatusValues returns the possible values for the SourceSideScanStatus const type.
-func PossibleSourceSideScanStatusValues() []SourceSideScanStatus {
-	return []SourceSideScanStatus{
-		SourceSideScanStatusConfigured,
-		SourceSideScanStatusNotApplicable,
-		SourceSideScanStatusNotConfigured,
-	}
-}
-
-// SourceSideScanSummary - Threat summary for the container
-type SourceSideScanSummary string
-
-const (
-	SourceSideScanSummaryHealthy       SourceSideScanSummary = "Healthy"
-	SourceSideScanSummaryNotApplicable SourceSideScanSummary = "NotApplicable"
-	SourceSideScanSummarySuspicious    SourceSideScanSummary = "Suspicious"
-	SourceSideScanSummaryUnknown       SourceSideScanSummary = "Unknown"
-)
-
-// PossibleSourceSideScanSummaryValues returns the possible values for the SourceSideScanSummary const type.
-func PossibleSourceSideScanSummaryValues() []SourceSideScanSummary {
-	return []SourceSideScanSummary{
-		SourceSideScanSummaryHealthy,
-		SourceSideScanSummaryNotApplicable,
-		SourceSideScanSummarySuspicious,
-		SourceSideScanSummaryUnknown,
-	}
-}
-
 // StorageType - Storage type
 type StorageType string
 
@@ -1438,68 +1362,6 @@ func PossibleTargetDiskNetworkAccessOptionValues() []TargetDiskNetworkAccessOpti
 	}
 }
 
-// ThreatSeverity - Threat Severity Types
-type ThreatSeverity string
-
-const (
-	ThreatSeverityCritical      ThreatSeverity = "Critical"
-	ThreatSeverityHigh          ThreatSeverity = "High"
-	ThreatSeverityInformational ThreatSeverity = "Informational"
-	ThreatSeverityWarning       ThreatSeverity = "Warning"
-)
-
-// PossibleThreatSeverityValues returns the possible values for the ThreatSeverity const type.
-func PossibleThreatSeverityValues() []ThreatSeverity {
-	return []ThreatSeverity{
-		ThreatSeverityCritical,
-		ThreatSeverityHigh,
-		ThreatSeverityInformational,
-		ThreatSeverityWarning,
-	}
-}
-
-// ThreatState - Threat Status Types
-type ThreatState string
-
-const (
-	ThreatStateActive     ThreatState = "Active"
-	ThreatStateIgnored    ThreatState = "Ignored"
-	ThreatStateInProgress ThreatState = "InProgress"
-	ThreatStateResolved   ThreatState = "Resolved"
-)
-
-// PossibleThreatStateValues returns the possible values for the ThreatState const type.
-func PossibleThreatStateValues() []ThreatState {
-	return []ThreatState{
-		ThreatStateActive,
-		ThreatStateIgnored,
-		ThreatStateInProgress,
-		ThreatStateResolved,
-	}
-}
-
-// ThreatStatus - Threat status of the recovery point
-type ThreatStatus string
-
-const (
-	ThreatStatusHealthy      ThreatStatus = "Healthy"
-	ThreatStatusNotAvailable ThreatStatus = "NotAvailable"
-	ThreatStatusUnHealthy    ThreatStatus = "UnHealthy"
-	ThreatStatusUnknown      ThreatStatus = "Unknown"
-	ThreatStatusWarning      ThreatStatus = "Warning"
-)
-
-// PossibleThreatStatusValues returns the possible values for the ThreatStatus const type.
-func PossibleThreatStatusValues() []ThreatStatus {
-	return []ThreatStatus{
-		ThreatStatusHealthy,
-		ThreatStatusNotAvailable,
-		ThreatStatusUnHealthy,
-		ThreatStatusUnknown,
-		ThreatStatusWarning,
-	}
-}
-
 // TieringMode - Tiering Mode to control automatic tiering of recovery points. Supported values are:
 // 1. TierRecommended: Tier all recovery points recommended to be tiered
 // 2. TierAfter: Tier all recovery points after a fixed period, as specified in duration + durationType below.
@@ -1544,26 +1406,6 @@ func PossibleUsagesUnitValues() []UsagesUnit {
 		UsagesUnitCountPerSecond,
 		UsagesUnitPercent,
 		UsagesUnitSeconds,
-	}
-}
-
-// VMWorkloadPolicyType - Type of the protection policy
-type VMWorkloadPolicyType string
-
-const (
-	VMWorkloadPolicyTypeInvalid    VMWorkloadPolicyType = "Invalid"
-	VMWorkloadPolicyTypeSnapshotV1 VMWorkloadPolicyType = "SnapshotV1"
-	VMWorkloadPolicyTypeSnapshotV2 VMWorkloadPolicyType = "SnapshotV2"
-	VMWorkloadPolicyTypeStreaming  VMWorkloadPolicyType = "Streaming"
-)
-
-// PossibleVMWorkloadPolicyTypeValues returns the possible values for the VMWorkloadPolicyType const type.
-func PossibleVMWorkloadPolicyTypeValues() []VMWorkloadPolicyType {
-	return []VMWorkloadPolicyType{
-		VMWorkloadPolicyTypeInvalid,
-		VMWorkloadPolicyTypeSnapshotV1,
-		VMWorkloadPolicyTypeSnapshotV2,
-		VMWorkloadPolicyTypeStreaming,
 	}
 }
 

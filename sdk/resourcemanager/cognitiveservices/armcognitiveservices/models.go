@@ -1346,18 +1346,6 @@ func (c *CustomKeysConnectionProperties) GetConnectionPropertiesV2() *Connection
 	}
 }
 
-// CustomTopicConfig - Gets or sets the source to which filter applies.
-type CustomTopicConfig struct {
-	// If blocking would occur.
-	Blocking *bool
-
-	// Content source to apply the Content Filters.
-	Source *RaiPolicyContentSource
-
-	// Name of RAI topic.
-	TopicName *string
-}
-
 // DefenderForAISetting - The Defender for AI resource.
 type DefenderForAISetting struct {
 	// The Defender for AI resource properties.
@@ -1489,9 +1477,9 @@ type DeploymentProperties struct {
 	// The name of RAI policy.
 	RaiPolicyName *string
 
-	// Routing configuration for the deployment. This property is only applicable when the deployed model is 'model-router' version
-	// 2025-11-18 or later. Allows you to select the models subset for routing and the routing mode (balanced, accuracy, cost)
-	// for routing across all supported models or the model subset.
+	// Routing configuration for the model-router deployment. This property is only applicable when the deployed model is 'model-router'
+	// version 2025-11-18 or later. Allows you to select the models subset for routing and the routing mode (balanced, quality,
+	// cost) for routing across all supported models or the model subset.
 	Routing *DeploymentRouting
 
 	// Properties of Cognitive Services account deployment model. (Deprecated, please use Deployment.sku instead.)
@@ -1525,13 +1513,14 @@ type DeploymentProperties struct {
 	RateLimits []*ThrottlingRule
 }
 
-// DeploymentRouting - Routing configuration for the deployment. Specifies how requests are routed across multiple models.
+// DeploymentRouting - Routing configuration for the model-router deployment. Specifies how requests are routed across multiple
+// models.
 type DeploymentRouting struct {
-	// The routing mode that determines how requests are distributed across models.
+	// The model-router routing mode that determines how requests are distributed across models.
 	Mode *RoutingMode
 
-	// Optional. The list of models that the model router can use to route requests across. If not specified, the model router
-	// will route to all available models specified in the model-router version.
+	// Optional. The list of model-router supported models that the model router can use to route requests across. If not specified,
+	// the model router will route to all available models specified in the model-router version.
 	Models []*DeploymentModel
 }
 
@@ -3246,9 +3235,6 @@ type RaiPolicyProperties struct {
 
 	// The list of custom Blocklist.
 	CustomBlocklists []*CustomBlocklistConfig
-
-	// The list of custom rai topics.
-	CustomTopics []*CustomTopicConfig
 
 	// Rai policy mode. The enum value mapping is as below: Default = 0, Deferred=1, Blocking=2, Asynchronous_filter =3. Please
 	// use 'Asynchronous_filter' after 2025-06-01. It is the same as 'Deferred' in previous version.

@@ -7,7 +7,7 @@ package armtrafficmanager_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExampleHeatMapClient_Get_heatMapGetWithNullValues() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.HeatMapClientGetResponse{
-	// 	HeatMapModel: &armtrafficmanager.HeatMapModel{
+	// 	HeatMapModel: armtrafficmanager.HeatMapModel{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/heatMaps/default"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880/heatMaps/default"),
@@ -114,7 +114,7 @@ func ExampleHeatMapClient_Get_heatMapGetWithTopLeftBotRight() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.HeatMapClientGetResponse{
-	// 	HeatMapModel: &armtrafficmanager.HeatMapModel{
+	// 	HeatMapModel: armtrafficmanager.HeatMapModel{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/heatMaps/latencyVolumeByLocation"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880/heatMaps/latencyVolumeByLocation"),
@@ -191,7 +191,7 @@ func ExampleHeatMapClient_Get_heatMapGet() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.HeatMapClientGetResponse{
-	// 	HeatMapModel: &armtrafficmanager.HeatMapModel{
+	// 	HeatMapModel: armtrafficmanager.HeatMapModel{
 	// 		Name: to.Ptr("default"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/heatMaps/latencyVolumeByLocation"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880/heatMaps/latencyVolumeByLocation"),

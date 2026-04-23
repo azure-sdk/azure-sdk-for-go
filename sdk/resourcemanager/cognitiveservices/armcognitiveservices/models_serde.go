@@ -3063,41 +3063,6 @@ func (c *CustomKeysConnectionProperties) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// MarshalJSON implements the json.Marshaller interface for type CustomTopicConfig.
-func (c CustomTopicConfig) MarshalJSON() ([]byte, error) {
-	objectMap := make(map[string]any)
-	populate(objectMap, "blocking", c.Blocking)
-	populate(objectMap, "source", c.Source)
-	populate(objectMap, "topicName", c.TopicName)
-	return json.Marshal(objectMap)
-}
-
-// UnmarshalJSON implements the json.Unmarshaller interface for type CustomTopicConfig.
-func (c *CustomTopicConfig) UnmarshalJSON(data []byte) error {
-	var rawMsg map[string]json.RawMessage
-	if err := json.Unmarshal(data, &rawMsg); err != nil {
-		return fmt.Errorf("unmarshalling type %T: %v", c, err)
-	}
-	for key, val := range rawMsg {
-		var err error
-		switch key {
-		case "blocking":
-			err = unpopulate(val, "Blocking", &c.Blocking)
-			delete(rawMsg, key)
-		case "source":
-			err = unpopulate(val, "Source", &c.Source)
-			delete(rawMsg, key)
-		case "topicName":
-			err = unpopulate(val, "TopicName", &c.TopicName)
-			delete(rawMsg, key)
-		}
-		if err != nil {
-			return fmt.Errorf("unmarshalling type %T: %v", c, err)
-		}
-	}
-	return nil
-}
-
 // MarshalJSON implements the json.Marshaller interface for type DefenderForAISetting.
 func (d DefenderForAISetting) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
@@ -7484,7 +7449,6 @@ func (r RaiPolicyProperties) MarshalJSON() ([]byte, error) {
 	populate(objectMap, "basePolicyName", r.BasePolicyName)
 	populate(objectMap, "contentFilters", r.ContentFilters)
 	populate(objectMap, "customBlocklists", r.CustomBlocklists)
-	populate(objectMap, "customTopics", r.CustomTopics)
 	populate(objectMap, "mode", r.Mode)
 	populate(objectMap, "safetyProviders", r.SafetyProviders)
 	populate(objectMap, "type", r.Type)
@@ -7508,9 +7472,6 @@ func (r *RaiPolicyProperties) UnmarshalJSON(data []byte) error {
 			delete(rawMsg, key)
 		case "customBlocklists":
 			err = unpopulate(val, "CustomBlocklists", &r.CustomBlocklists)
-			delete(rawMsg, key)
-		case "customTopics":
-			err = unpopulate(val, "CustomTopics", &r.CustomTopics)
 			delete(rawMsg, key)
 		case "mode":
 			err = unpopulate(val, "Mode", &r.Mode)

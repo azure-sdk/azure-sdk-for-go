@@ -42,6 +42,9 @@ type ImpactCategoriesClientGetOptions struct {
 type ImpactCategoriesClientListBySubscriptionOptions struct {
 	// Filter by category name
 	CategoryName *string
+
+	// Filter by resource type
+	ResourceType *string
 }
 
 // InsightsClientCreateOptions contains the optional parameters for the InsightsClient.Create method.
@@ -67,6 +70,11 @@ type InsightsClientListBySubscriptionOptions struct {
 
 // OperationsClientListOptions contains the optional parameters for the OperationsClient.NewListPager method.
 type OperationsClientListOptions struct {
+	// placeholder for future optional parameters
+}
+
+// UploadServiceClientGetUploadTokenOptions contains the optional parameters for the UploadServiceClient.GetUploadToken method.
+type UploadServiceClientGetUploadTokenOptions struct {
 	// placeholder for future optional parameters
 }
 

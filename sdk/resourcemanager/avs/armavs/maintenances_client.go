@@ -11,10 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
 	"net/http"
 	"net/url"
 	"strings"
-	"time"
 )
 
 // MaintenancesClient contains the methods for the Maintenances group.
@@ -230,7 +230,7 @@ func (client *MaintenancesClient) listCreateRequest(ctx context.Context, resourc
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-09-01")
 	if options != nil && options.From != nil {
-		reqQP.Set("from", options.From.Format(time.RFC3339Nano))
+		reqQP.Set("from", datetime.RFC3339(*options.From).String())
 	}
 	if options != nil && options.StateName != nil {
 		reqQP.Set("stateName", string(*options.StateName))
@@ -239,7 +239,7 @@ func (client *MaintenancesClient) listCreateRequest(ctx context.Context, resourc
 		reqQP.Set("status", string(*options.Status))
 	}
 	if options != nil && options.To != nil {
-		reqQP.Set("to", options.To.Format(time.RFC3339Nano))
+		reqQP.Set("to", datetime.RFC3339(*options.To).String())
 	}
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

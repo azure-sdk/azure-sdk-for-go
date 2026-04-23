@@ -34,6 +34,9 @@ type Connectivity struct {
 
 // Connector - A connector is a resource that can be used to proactively report impacts against workloads in Azure to Microsoft.
 type Connector struct {
+	// The managed service identities assigned to this resource.
+	Identity *ManagedServiceIdentityOnlyUserAssigned
+
 	// The resource-specific properties for this resource.
 	Properties *ConnectorProperties
 
@@ -70,23 +73,17 @@ type ConnectorProperties struct {
 	// READ-ONLY; last run time stamp of this connector in UTC time zone
 	LastRunTimeStamp *time.Time
 
+	// READ-ONLY; returns the processing state of a connector
+	ProcessingState *string
+
+	// READ-ONLY; detailed description of the state and if any associated action that can be taken
+	ProcessingStateMessage *string
+
 	// READ-ONLY; tenant id of this connector
 	TenantID *string
 
 	// READ-ONLY; Resource provisioning state.
 	ProvisioningState *ProvisioningState
-}
-
-// ConnectorUpdate - The type used for update operations of the Connector.
-type ConnectorUpdate struct {
-	// The resource-specific properties for this resource.
-	Properties *ConnectorUpdateProperties
-}
-
-// ConnectorUpdateProperties - The updatable properties of the Connector.
-type ConnectorUpdateProperties struct {
-	// connector type
-	ConnectorType *Platform
 }
 
 // Content - Article details of the insight like title, description etc
@@ -194,6 +191,18 @@ type Insight struct {
 	Type *string
 }
 
+// InsightCategoryGroup - Group of insights for a category
+type InsightCategoryGroup struct {
+	// REQUIRED; Category name
+	Category *string
+
+	// List of insight references in this category
+	Insights []*InsightReference
+
+	// Status of the insights in this category
+	Status *string
+}
+
 // InsightListResult - The response of a Insight list operation.
 type InsightListResult struct {
 	// REQUIRED; The Insight items on this page
@@ -238,6 +247,21 @@ type InsightProperties struct {
 }
 
 type InsightPropertiesAdditionalDetails struct {
+}
+
+// InsightReference - Reference to an Insight resource
+type InsightReference struct {
+	// REQUIRED; Azure resource ID of the insight
+	ID *string
+}
+
+// ManagedServiceIdentityOnlyUserAssigned - Managed service identity (system assigned and/or user assigned identities)
+type ManagedServiceIdentityOnlyUserAssigned struct {
+	// REQUIRED; The type of managed identity assigned to this resource.
+	Type *ManagedServiceIdentityTypeOnlyUserAssigned
+
+	// The identities assigned to this resource by the user.
+	UserAssignedIdentities map[string]*UserAssignedIdentity
 }
 
 // Operation - REST API Operation
@@ -345,6 +369,22 @@ type SystemData struct {
 	LastModifiedByType *CreatedByType
 }
 
+// UploadTokenResult - A successful response from getUploadToken will contain an 'uploadUrl' field. This uploadUrl field's
+// value should follow the format: https://[storage-account-name].blob.core.windows.net/[container-name]/[your-blob.extension]?[SAS-token]
+type UploadTokenResult struct {
+	// REQUIRED; The SAS token URL for uploading
+	UploadURL *string
+}
+
+// UserAssignedIdentity - User assigned identity properties
+type UserAssignedIdentity struct {
+	// READ-ONLY; The client ID of the assigned identity.
+	ClientID *string
+
+	// READ-ONLY; The principal ID of the assigned identity.
+	PrincipalID *string
+}
+
 // Workload - Information about the impacted workload
 type Workload struct {
 	// the scenario for the workload
@@ -409,11 +449,24 @@ type WorkloadImpactProperties struct {
 	// In such cases, the connectivity field will have the details about the network issue
 	Connectivity *Connectivity
 
+	// This field represents the type of impact. Possible values are MetricsThreshold, MetricsAnomaly, BusinessAlert.
+	DetectionType *DetectionType
+
+	// Captures the longest interruption duration within the specified start and end times. For example, it can be used to indicate
+	// network connectivity loss lasting longer than a specified number of seconds within the given time range.
+	DurationInSec *float64
+
+	// This field represents the duration margin in seconds that can be provided while providing endDateTime.
+	DurationMarginInSec *float64
+
 	// Time at which impact has ended
 	EndDateTime *time.Time
 
 	// ARM error code and error message associated with the impact
 	ErrorDetails *ErrorDetailProperties
+
+	// This field represents the number of times a particular issue was observed over a given time range.
+	HitCount *int32
 
 	// A detailed description of the impact
 	ImpactDescription *string
@@ -421,14 +474,24 @@ type WorkloadImpactProperties struct {
 	// Use this field to group impacts
 	ImpactGroupID *string
 
+	// This field represents if an impact is ongoing or not. This is a boolean field.
+	OngoingImpact *bool
+
 	// Details about performance issue. Applicable for performance impacts.
 	Performance []*Performance
+
+	// This field represents the severity of an impact. Severity can be from critical to low severity impact. Severity ranges
+	// from 1 to 5 with 1 being critical, 2 is high, 3 is medium and 4,5 represents low severity impact.
+	Severity *Severity
 
 	// Information about the impacted workload
 	Workload *Workload
 
 	// READ-ONLY; Unique ID of the impact (UUID)
 	ImpactUniqueID *string
+
+	// READ-ONLY; Insights grouped by category. Each category contains status and a list of insight references.
+	InsightsByCategory []*InsightCategoryGroup
 
 	// READ-ONLY; Resource provisioning state.
 	ProvisioningState *ProvisioningState

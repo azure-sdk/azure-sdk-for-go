@@ -8,11 +8,11 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
-// Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperation_RestoreDisk.json
+// Generated from example definition: 2026-01-01/AzureIaasVm/ValidateOperation_RestoreDisk.json
 func ExampleOperationClient_Validate_validateOperation() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -53,7 +53,7 @@ func ExampleOperationClient_Validate_validateOperation() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.OperationClientValidateResponse{
-	// 	ValidateOperationsResponse: &armrecoveryservicesbackup.ValidateOperationsResponse{
+	// 	ValidateOperationsResponse: armrecoveryservicesbackup.ValidateOperationsResponse{
 	// 		ValidateOperationResponse: &armrecoveryservicesbackup.ValidateOperationResponse{
 	// 			ValidationResults: []*armrecoveryservicesbackup.ErrorDetail{
 	// 				{
@@ -69,7 +69,7 @@ func ExampleOperationClient_Validate_validateOperation() {
 	// }
 }
 
-// Generated from example definition: 2026-01-01-preview/AzureIaasVm/ValidateOperation_RestoreDisk_IdentityBasedRestoreDetails.json
+// Generated from example definition: 2026-01-01/AzureIaasVm/ValidateOperation_RestoreDisk_IdentityBasedRestoreDetails.json
 func ExampleOperationClient_Validate_validateOperationWithIdentityBasedRestoreDetails() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -112,7 +112,7 @@ func ExampleOperationClient_Validate_validateOperationWithIdentityBasedRestoreDe
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.OperationClientValidateResponse{
-	// 	ValidateOperationsResponse: &armrecoveryservicesbackup.ValidateOperationsResponse{
+	// 	ValidateOperationsResponse: armrecoveryservicesbackup.ValidateOperationsResponse{
 	// 		ValidateOperationResponse: &armrecoveryservicesbackup.ValidateOperationResponse{
 	// 			ValidationResults: []*armrecoveryservicesbackup.ErrorDetail{
 	// 				{

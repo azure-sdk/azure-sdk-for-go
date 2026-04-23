@@ -7,7 +7,7 @@ package armcontainerservice_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v9"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExampleMachinesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.MachinesClientGetResponse{
-	// 	Machine: &armcontainerservice.Machine{
+	// 	Machine: armcontainerservice.Machine{
 	// 		Name: to.Ptr("aks-nodepool1-25481572-vmss000000"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/managedClusters/agentPools/machines"),
 	// 		ID: to.Ptr("/subscriptions/26fe00f8-9173-4872-9134-bb1d2e00343a/resourceGroups/dummyRG/providers/Microsoft.ContainerService/managedClusters/round/agentPools/nodepool1/machines/aks-nodepool1-25481572-vmss000000"),

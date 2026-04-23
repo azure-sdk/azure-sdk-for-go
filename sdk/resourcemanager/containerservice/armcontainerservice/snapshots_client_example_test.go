@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice/v9"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/containerservice/armcontainerservice"
 	"log"
 )
 
@@ -42,7 +42,7 @@ func ExampleSnapshotsClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.SnapshotsClientCreateOrUpdateResponse{
-	// 	Snapshot: &armcontainerservice.Snapshot{
+	// 	Snapshot: armcontainerservice.Snapshot{
 	// 		Name: to.Ptr("snapshot1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/snapshots"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/snapshots/snapshot1"),
@@ -113,7 +113,7 @@ func ExampleSnapshotsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.SnapshotsClientGetResponse{
-	// 	Snapshot: &armcontainerservice.Snapshot{
+	// 	Snapshot: armcontainerservice.Snapshot{
 	// 		Name: to.Ptr("snapshot1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/snapshots"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/snapshots/snapshot1"),
@@ -283,7 +283,7 @@ func ExampleSnapshotsClient_UpdateTags() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservice.SnapshotsClientUpdateTagsResponse{
-	// 	Snapshot: &armcontainerservice.Snapshot{
+	// 	Snapshot: armcontainerservice.Snapshot{
 	// 		Name: to.Ptr("snapshot1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/snapshots"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg1/providers/Microsoft.ContainerService/snapshots/snapshot1"),

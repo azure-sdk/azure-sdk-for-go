@@ -63,6 +63,14 @@ func (c *ClientFactory) NewOperationsClient() *OperationsClient {
 	}
 }
 
+// NewUploadServiceClient creates a new instance of UploadServiceClient.
+func (c *ClientFactory) NewUploadServiceClient() *UploadServiceClient {
+	return &UploadServiceClient{
+		subscriptionID: c.subscriptionID,
+		internal:       c.internal,
+	}
+}
+
 // NewWorkloadImpactsClient creates a new instance of WorkloadImpactsClient.
 func (c *ClientFactory) NewWorkloadImpactsClient() *WorkloadImpactsClient {
 	return &WorkloadImpactsClient{

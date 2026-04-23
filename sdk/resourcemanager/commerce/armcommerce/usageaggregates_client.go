@@ -7,16 +7,16 @@ package armcommerce
 import (
 	"context"
 	"errors"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
 	"time"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 )
 
 // UsageAggregatesClient contains the methods for the UsageAggregates group.
@@ -91,8 +91,8 @@ func (client *UsageAggregatesClient) listCreateRequest(ctx context.Context, repo
 	if options != nil && options.ContinuationToken != nil {
 		reqQP.Set("continuationToken", *options.ContinuationToken)
 	}
-	reqQP.Set("reportedEndTime", reportedEndTime.Format(time.RFC3339Nano))
-	reqQP.Set("reportedStartTime", reportedStartTime.Format(time.RFC3339Nano))
+	reqQP.Set("reportedEndTime", datetime.RFC3339(reportedEndTime).String())
+	reqQP.Set("reportedStartTime", datetime.RFC3339(reportedStartTime).String())
 	if options != nil && options.ShowDetails != nil {
 		reqQP.Set("showDetails", strconv.FormatBool(*options.ShowDetails))
 	}

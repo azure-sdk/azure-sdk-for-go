@@ -62,26 +62,14 @@ type AccountList struct {
 
 // AccountPatch - NetApp account patch resource
 type AccountPatch struct {
-	// The identity used for the resource.
+	// The managed service identities assigned to this resource.
 	Identity *ManagedServiceIdentity
-
-	// Resource location
-	Location *string
 
 	// NetApp Account properties
 	Properties *AccountPropertiesPatch
 
-	// Resource tags
+	// Resource tags.
 	Tags map[string]*string
-
-	// READ-ONLY; Resource Id
-	ID *string
-
-	// READ-ONLY; Resource name
-	Name *string
-
-	// READ-ONLY; Resource type
-	Type *string
 }
 
 // AccountProperties - NetApp account properties
@@ -112,7 +100,7 @@ type AccountProperties struct {
 	ProvisioningState *string
 }
 
-// AccountPropertiesPatch - NetApp account properties for PATCH operations
+// AccountPropertiesPatch - NetApp account patch properties
 type AccountPropertiesPatch struct {
 	// Active Directories
 	ActiveDirectories []*ActiveDirectory
@@ -124,10 +112,7 @@ type AccountPropertiesPatch struct {
 	EntraIDConfig *EntraIDConfigPatch
 
 	// LDAP Configuration for the account.
-	LdapConfiguration *LdapConfigurationPatch
-
-	// MultiAD Status for the account
-	MultiAdStatus *MultiAdStatus
+	LdapConfiguration *LdapConfiguration
 
 	// Domain for NFSv4 user ID mapping. This property will be set for all NetApp accounts in the subscription and region and
 	// only affect non ldap NFSv4 volumes.
@@ -259,6 +244,9 @@ type ActiveDirectoryConfigProperties struct {
 	// REQUIRED; Access password from Azure KeyVault Secrets to connect Active Directory
 	SecretPassword *SecretPassword
 
+	// REQUIRED; The Active Directory site the service will limit Domain Controller discovery to
+	Site *string
+
 	// Users to be added to the Built-in Administrators active directory group. A list of unique usernames without domain specifier
 	Administrators []*string
 
@@ -274,9 +262,6 @@ type ActiveDirectoryConfigProperties struct {
 	// Domain Users in the Active directory to be given SecurityPrivilege privilege (Needed for SMB Continuously available shares
 	// for SQL). A list of unique usernames without domain specifier
 	SecurityOperators []*string
-
-	// The Active Directory site the service will limit Domain Controller discovery to
-	Site *string
 
 	// NetBIOS name of the SMB server. This name will be registered as a computer account in the AD and used to mount volumes
 	SmbServerName *string
@@ -1125,9 +1110,17 @@ type CifsUser struct {
 
 // ClusterPeerCommandResponse - Information about cluster peering process
 type ClusterPeerCommandResponse struct {
-	// A command that needs to be run on the external ONTAP to accept cluster peering. Will only be present if <code>clusterPeeringStatus</code>
-	// is <code>pending</code>
-	PeerAcceptCommand *string
+	// Represents the properties of the cluster peer command response.
+	Properties *ClusterPeerCommandResponseProperties
+}
+
+// ClusterPeerCommandResponseProperties - Properties of the cluster peer command response.
+type ClusterPeerCommandResponseProperties struct {
+	// ClusterPeeringCommand to run to accept cluster peer. Will only be present if <code>clusterPeeringStatus</code> is <code>pending</code>.
+	ClusterPeeringCommand *string
+
+	// Passphrase for use with cluster peer command
+	Passphrase *string
 }
 
 // CredentialsAkvDetails - Specifies the Azure Key Vault settings for storing the bucket credentials.
@@ -2032,9 +2025,7 @@ type EntraIDAkvConfig struct {
 	UserAssignedIdentity *string
 }
 
-// EntraIDAkvConfigPatch - Using AKV config, certificate will be fetched, which will contain private key & public certificate,
-// that correspond to the public certificate which is uploaded on the application created by customer. This will be used further
-// for authentication.
+// EntraIDAkvConfigPatch - Entra ID Patch configuration for the account.
 type EntraIDAkvConfigPatch struct {
 	// The Azure Key Vault URI where the Entra ID credentials are stored.
 	AzureKeyVaultURI *string
@@ -2231,24 +2222,6 @@ type KeyVaultProperties struct {
 
 // LdapConfiguration - LDAP configuration
 type LdapConfiguration struct {
-	// The CN host name used while generating the certificate, LDAP Over TLS requires the CN host name to create DNS host entry.
-	CertificateCNHost *string
-
-	// Name of the LDAP configuration domain
-	Domain *string
-
-	// Specifies whether or not the LDAP traffic needs to be secured via TLS.
-	LdapOverTLS *bool
-
-	// List of LDAP server IP addresses (IPv4 only) for the LDAP domain.
-	LdapServers []*string
-
-	// When LDAP over SSL/TLS is enabled, the LDAP client is required to have base64 encoded ldap servers CA certificate.
-	ServerCACertificate *string
-}
-
-// LdapConfigurationPatch - LDAP configuration for PATCH operations (no default values)
-type LdapConfigurationPatch struct {
 	// The CN host name used while generating the certificate, LDAP Over TLS requires the CN host name to create DNS host entry.
 	CertificateCNHost *string
 
@@ -2504,7 +2477,7 @@ type OriginClusterInformation struct {
 	// REQUIRED; ONTAP Intercluster LIF IP addresses. One IP address per cluster node is required
 	PeerAddresses []*string
 
-	// REQUIRED; ONTAP cluster name of external cluster hosting the origin volume
+	// REQUIRED; ONTAP cluster name of external cluster hosting the origin volume. Must match the exact cluster name.
 	PeerClusterName *string
 
 	// REQUIRED; External origin volume name associated to this cache
@@ -3300,6 +3273,12 @@ type SuspectFile struct {
 
 // SvmPeerCommandResponse - Information about svm peering process
 type SvmPeerCommandResponse struct {
+	// Represents the properties of the SVM peer command response.
+	Properties *SvmPeerCommandResponseProperties
+}
+
+// SvmPeerCommandResponseProperties - Properties of the SVM peer command response.
+type SvmPeerCommandResponseProperties struct {
 	// A command that needs to be run on the external ONTAP to accept svm peering. Will only be present if <code>svmPeeringStatus</code>
 	// is <code>pending</code>
 	SvmPeeringCommand *string

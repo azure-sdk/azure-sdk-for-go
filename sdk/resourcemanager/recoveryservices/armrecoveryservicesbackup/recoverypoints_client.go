@@ -43,7 +43,7 @@ func NewRecoveryPointsClient(subscriptionID string, credential azcore.TokenCrede
 // To know the status of the operation, call the GetProtectedItemOperationResult API.
 // If the operation fails it returns an *azcore.ResponseError type.
 //
-// Generated from API version 2026-01-01-preview
+// Generated from API version 2026-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - RecoveryPointsClientGetOptions contains the optional parameters for the RecoveryPointsClient.Get method.
 func (client *RecoveryPointsClient) Get(ctx context.Context, vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, options *RecoveryPointsClientGetOptions) (RecoveryPointsClientGetResponse, error) {
@@ -104,7 +104,7 @@ func (client *RecoveryPointsClient) getCreateRequest(ctx context.Context, vaultN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2026-01-01-preview")
+	reqQP.Set("api-version", "2026-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -121,7 +121,7 @@ func (client *RecoveryPointsClient) getHandleResponse(resp *http.Response) (Reco
 
 // NewListPager - Lists the backup copies for the backed up item.
 //
-// Generated from API version 2026-01-01-preview
+// Generated from API version 2026-01-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - options - RecoveryPointsClientListOptions contains the optional parameters for the RecoveryPointsClient.NewListPager method.
 func (client *RecoveryPointsClient) NewListPager(vaultName string, resourceGroupName string, fabricName string, containerName string, protectedItemName string, options *RecoveryPointsClientListOptions) *runtime.Pager[RecoveryPointsClientListResponse] {
@@ -182,7 +182,7 @@ func (client *RecoveryPointsClient) listCreateRequest(ctx context.Context, vault
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", "2026-01-01-preview")
+	reqQP.Set("api-version", "2026-01-01")
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
@@ -193,95 +193,6 @@ func (client *RecoveryPointsClient) listHandleResponse(resp *http.Response) (Rec
 	result := RecoveryPointsClientListResponse{}
 	if err := runtime.UnmarshalAsJSON(resp, &result.RecoveryPointResourceList); err != nil {
 		return RecoveryPointsClientListResponse{}, err
-	}
-	return result, nil
-}
-
-// Update - UpdateRecoveryPoint to update recovery point for given RecoveryPointID.
-// If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2026-01-01-preview
-//   - resourceGroupName - The name of the resource group. The name is case insensitive.
-//   - vaultName - The name of the VaultResource
-//   - fabricName - The name of the BackupFabricResource
-//   - containerName - Name of the container whose details need to be fetched.
-//   - protectedItemName - Backed up item name whose details are to be fetched.
-//   - recoveryPointID - RecoveryPointID represents the backed up data to be fetched.
-//   - parameters - Request body for operation
-//   - options - RecoveryPointsClientUpdateOptions contains the optional parameters for the RecoveryPointsClient.Update method.
-func (client *RecoveryPointsClient) Update(ctx context.Context, resourceGroupName string, vaultName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters UpdateRecoveryPointRequest, options *RecoveryPointsClientUpdateOptions) (RecoveryPointsClientUpdateResponse, error) {
-	var err error
-	const operationName = "RecoveryPointsClient.Update"
-	ctx = context.WithValue(ctx, runtime.CtxAPINameKey{}, operationName)
-	ctx, endSpan := runtime.StartSpan(ctx, operationName, client.internal.Tracer(), nil)
-	defer func() { endSpan(err) }()
-	req, err := client.updateCreateRequest(ctx, resourceGroupName, vaultName, fabricName, containerName, protectedItemName, recoveryPointID, parameters, options)
-	if err != nil {
-		return RecoveryPointsClientUpdateResponse{}, err
-	}
-	httpResp, err := client.internal.Pipeline().Do(req)
-	if err != nil {
-		return RecoveryPointsClientUpdateResponse{}, err
-	}
-	if !runtime.HasStatusCode(httpResp, http.StatusOK) {
-		err = runtime.NewResponseError(httpResp)
-		return RecoveryPointsClientUpdateResponse{}, err
-	}
-	resp, err := client.updateHandleResponse(httpResp)
-	return resp, err
-}
-
-// updateCreateRequest creates the Update request.
-func (client *RecoveryPointsClient) updateCreateRequest(ctx context.Context, resourceGroupName string, vaultName string, fabricName string, containerName string, protectedItemName string, recoveryPointID string, parameters UpdateRecoveryPointRequest, _ *RecoveryPointsClientUpdateOptions) (*policy.Request, error) {
-	urlPath := "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/vaults/{vaultName}/backupFabrics/{fabricName}/protectionContainers/{containerName}/protectedItems/{protectedItemName}/recoveryPoints/{recoveryPointId}"
-	if client.subscriptionID == "" {
-		return nil, errors.New("parameter client.subscriptionID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{subscriptionId}", url.PathEscape(client.subscriptionID))
-	if resourceGroupName == "" {
-		return nil, errors.New("parameter resourceGroupName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{resourceGroupName}", url.PathEscape(resourceGroupName))
-	if vaultName == "" {
-		return nil, errors.New("parameter vaultName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{vaultName}", url.PathEscape(vaultName))
-	if fabricName == "" {
-		return nil, errors.New("parameter fabricName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{fabricName}", url.PathEscape(fabricName))
-	if containerName == "" {
-		return nil, errors.New("parameter containerName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{containerName}", url.PathEscape(containerName))
-	if protectedItemName == "" {
-		return nil, errors.New("parameter protectedItemName cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{protectedItemName}", url.PathEscape(protectedItemName))
-	if recoveryPointID == "" {
-		return nil, errors.New("parameter recoveryPointID cannot be empty")
-	}
-	urlPath = strings.ReplaceAll(urlPath, "{recoveryPointId}", url.PathEscape(recoveryPointID))
-	req, err := runtime.NewRequest(ctx, http.MethodPatch, runtime.JoinPaths(client.internal.Endpoint(), urlPath))
-	if err != nil {
-		return nil, err
-	}
-	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2026-01-01-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
-	req.Raw().Header["Accept"] = []string{"application/json"}
-	req.Raw().Header["Content-Type"] = []string{"application/json"}
-	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
-// updateHandleResponse handles the Update response.
-func (client *RecoveryPointsClient) updateHandleResponse(resp *http.Response) (RecoveryPointsClientUpdateResponse, error) {
-	result := RecoveryPointsClientUpdateResponse{}
-	if err := runtime.UnmarshalAsJSON(resp, &result.RecoveryPointResource); err != nil {
-		return RecoveryPointsClientUpdateResponse{}, err
 	}
 	return result, nil
 }

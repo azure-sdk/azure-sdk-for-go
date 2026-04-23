@@ -574,13 +574,13 @@ type ResourceProvisionPayload struct {
 	// REQUIRED; Number of VMs to be created
 	ResourceCount *int32
 
-	// JSON object that contains VM properties that are common across all VMs in this batch (if you want to create 100 VMs in
-	// this request, and they all have same vmSize, then include vmSize in baseProfile)
+	// Virtual machine profile object that contains VM properties that are common across all VMs in this batch (if you want to
+	// create 100 VMs in this request, and they all have same vmSize, then include vmSize in baseProfile)
 	BaseProfile map[string]any
 
-	// JSON array, that contains VM properties that should to be overridden for each VM in the batch (if you want to create 100
-	// VMs, they all need a distinct computerName property, you pass computerNames for each VM in batch in this array), service
-	// will merge baseProfile with VM specific overrides and create a merged VMProfile.
+	// Virtual machine profile array that contains VM properties that needs to be overridden for each VM in the batch (if you
+	// want to create 100 VMs, they all need a distinct computerName property, you pass computerNames for each VM in batch in
+	// this array), service will merge baseProfile with VM specific overrides and create a merged VMProfile.
 	ResourceOverrides []map[string]any
 
 	// if resourceOverrides doesn't contain "name", service will create name based of prefix and ResourceCount e.g. resourceprefix-0,resourceprefix-1..

@@ -8,11 +8,11 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
-// Generated from example definition: 2026-01-01-preview/Common/BackupProtectedItem_UsageSummary_Get.json
+// Generated from example definition: 2026-01-01/Common/BackupProtectedItem_UsageSummary_Get.json
 func ExampleBackupUsageSummariesClient_NewListPager_getProtectedItemsUsagesSummary() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -89,7 +89,7 @@ func ExampleBackupUsageSummariesClient_NewListPager_getProtectedItemsUsagesSumma
 	}
 }
 
-// Generated from example definition: 2026-01-01-preview/Common/BackupProtectionContainers_UsageSummary_Get.json
+// Generated from example definition: 2026-01-01/Common/BackupProtectionContainers_UsageSummary_Get.json
 func ExampleBackupUsageSummariesClient_NewListPager_getProtectedContainersUsagesSummary() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

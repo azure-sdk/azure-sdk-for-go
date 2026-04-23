@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 )
 
 // ConnectorsServer is a fake server for instances of the armimpactreporting.ConnectorsClient type.
@@ -38,7 +39,7 @@ type ConnectorsServer struct {
 
 	// Update is the fake for method ConnectorsClient.Update
 	// HTTP status codes to indicate success: http.StatusOK
-	Update func(ctx context.Context, connectorName string, properties armimpactreporting.ConnectorUpdate, options *armimpactreporting.ConnectorsClientUpdateOptions) (resp azfake.Responder[armimpactreporting.ConnectorsClientUpdateResponse], errResp azfake.ErrorResponder)
+	Update func(ctx context.Context, connectorName string, properties armimpactreporting.Connector, options *armimpactreporting.ConnectorsClientUpdateOptions) (resp azfake.Responder[armimpactreporting.ConnectorsClientUpdateResponse], errResp azfake.ErrorResponder)
 }
 
 // NewConnectorsServerTransport creates a new instance of ConnectorsServerTransport with the provided implementation.
@@ -72,9 +73,7 @@ func (c *ConnectorsServerTransport) Do(req *http.Request) (*http.Response, error
 }
 
 func (c *ConnectorsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result)
-	defer close(resultChan)
-
+	resultChan := make(chan result, 1)
 	go func() {
 		var intercepted bool
 		var res result
@@ -98,10 +97,7 @@ func (c *ConnectorsServerTransport) dispatchToMethodFake(req *http.Request, meth
 			}
 
 		}
-		select {
-		case resultChan <- res:
-		case <-req.Context().Done():
-		}
+		resultChan <- res
 	}()
 
 	select {
@@ -145,7 +141,7 @@ func (c *ConnectorsServerTransport) dispatchBeginCreateOrUpdate(req *http.Reques
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		c.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
@@ -175,7 +171,7 @@ func (c *ConnectorsServerTransport) dispatchDelete(req *http.Request) (*http.Res
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
@@ -204,7 +200,7 @@ func (c *ConnectorsServerTransport) dispatchGet(req *http.Request) (*http.Respon
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Connector, req)
@@ -237,7 +233,7 @@ func (c *ConnectorsServerTransport) dispatchNewListBySubscriptionPager(req *http
 	if err != nil {
 		return nil, err
 	}
-	if !contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
 		c.newListBySubscriptionPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -257,7 +253,7 @@ func (c *ConnectorsServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 	if len(matches) < 3 {
 		return nil, fmt.Errorf("failed to parse path %s", req.URL.Path)
 	}
-	body, err := server.UnmarshalRequestAsJSON[armimpactreporting.ConnectorUpdate](req)
+	body, err := server.UnmarshalRequestAsJSON[armimpactreporting.Connector](req)
 	if err != nil {
 		return nil, err
 	}
@@ -270,7 +266,7 @@ func (c *ConnectorsServerTransport) dispatchUpdate(req *http.Request) (*http.Res
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).Connector, req)

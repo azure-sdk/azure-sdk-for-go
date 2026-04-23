@@ -1471,24 +1471,24 @@ func PossibleRoutingMethodsValues() []RoutingMethods {
 	}
 }
 
-// RoutingMode - The routing mode that determines how requests are distributed across models.
+// RoutingMode - The model-router routing mode that determines how requests are distributed across models.
 type RoutingMode string
 
 const (
-	// RoutingModeAccuracy - Route requests to maximize accuracy regardless of cost.
-	RoutingModeAccuracy RoutingMode = "accuracy"
-	// RoutingModeBalanced - Balance cost and accuracy when routing requests across models.
+	// RoutingModeBalanced - Balance cost and quality when routing requests across models.
 	RoutingModeBalanced RoutingMode = "balanced"
 	// RoutingModeCost - Route requests to minimize cost while meeting performance requirements.
 	RoutingModeCost RoutingMode = "cost"
+	// RoutingModeQuality - Route requests to maximize quality regardless of cost.
+	RoutingModeQuality RoutingMode = "quality"
 )
 
 // PossibleRoutingModeValues returns the possible values for the RoutingMode const type.
 func PossibleRoutingModeValues() []RoutingMode {
 	return []RoutingMode{
-		RoutingModeAccuracy,
 		RoutingModeBalanced,
 		RoutingModeCost,
+		RoutingModeQuality,
 	}
 }
 

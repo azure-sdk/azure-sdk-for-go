@@ -64,6 +64,27 @@ func PossibleCreatedByTypeValues() []CreatedByType {
 	}
 }
 
+// DetectionType - List of detection types
+type DetectionType string
+
+const (
+	// DetectionTypeBusinessAlert - Use this when impact is alert based.
+	DetectionTypeBusinessAlert DetectionType = "BusinessAlert"
+	// DetectionTypeMetricsAnomaly - Use this when impact is outlier based.
+	DetectionTypeMetricsAnomaly DetectionType = "MetricsAnomaly"
+	// DetectionTypeMetricsThreshold - Use this when impact is metrics or expectations based.
+	DetectionTypeMetricsThreshold DetectionType = "MetricsThreshold"
+)
+
+// PossibleDetectionTypeValues returns the possible values for the DetectionType const type.
+func PossibleDetectionTypeValues() []DetectionType {
+	return []DetectionType{
+		DetectionTypeBusinessAlert,
+		DetectionTypeMetricsAnomaly,
+		DetectionTypeMetricsThreshold,
+	}
+}
+
 // IncidentSource - List of incident interfaces.
 type IncidentSource string
 
@@ -88,6 +109,24 @@ func PossibleIncidentSourceValues() []IncidentSource {
 		IncidentSourceJira,
 		IncidentSourceOther,
 		IncidentSourceServiceNow,
+	}
+}
+
+// ManagedServiceIdentityTypeOnlyUserAssigned - Type of managed service identity, where only UserAssigned type is allowed.
+type ManagedServiceIdentityTypeOnlyUserAssigned string
+
+const (
+	// ManagedServiceIdentityTypeOnlyUserAssignedNone - No identity.
+	ManagedServiceIdentityTypeOnlyUserAssignedNone ManagedServiceIdentityTypeOnlyUserAssigned = "None"
+	// ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned - User assigned managed identity.
+	ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned ManagedServiceIdentityTypeOnlyUserAssigned = "UserAssigned"
+)
+
+// PossibleManagedServiceIdentityTypeOnlyUserAssignedValues returns the possible values for the ManagedServiceIdentityTypeOnlyUserAssigned const type.
+func PossibleManagedServiceIdentityTypeOnlyUserAssignedValues() []ManagedServiceIdentityTypeOnlyUserAssigned {
+	return []ManagedServiceIdentityTypeOnlyUserAssigned{
+		ManagedServiceIdentityTypeOnlyUserAssignedNone,
+		ManagedServiceIdentityTypeOnlyUserAssignedUserAssigned,
 	}
 }
 
@@ -230,6 +269,30 @@ func PossibleProvisioningStateValues() []ProvisioningState {
 		ProvisioningStateCanceled,
 		ProvisioningStateFailed,
 		ProvisioningStateSucceeded,
+	}
+}
+
+// Severity - List of severity of an impact.
+type Severity string
+
+const (
+	// SeverityCritical - Use this when the issue is critical. Consider this to be similar to severity 1 incidents.
+	SeverityCritical Severity = "Critical"
+	// SeverityHigh - Use this when the issue is high impact similar to severity 2 incidents.
+	SeverityHigh Severity = "High"
+	// SeverityLow - Use this for issues that are low impact similar to severity 4 and 5 incidents.
+	SeverityLow Severity = "Low"
+	// SeverityMedium - Use this when the issue is medium impact similar to severity 3 incidents.
+	SeverityMedium Severity = "Medium"
+)
+
+// PossibleSeverityValues returns the possible values for the Severity const type.
+func PossibleSeverityValues() []Severity {
+	return []Severity{
+		SeverityCritical,
+		SeverityHigh,
+		SeverityLow,
+		SeverityMedium,
 	}
 }
 

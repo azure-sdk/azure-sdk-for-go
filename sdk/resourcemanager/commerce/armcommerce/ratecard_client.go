@@ -7,14 +7,13 @@ package armcommerce
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 // RateCardClient contains the methods for the RateCard group.
@@ -48,7 +47,7 @@ func NewRateCardClient(subscriptionID string, credential azcore.TokenCredential,
 // If the operation fails it returns an *azcore.ResponseError type.
 //
 // Generated from API version 2015-06-01-preview
-//   - Filter - The filter to apply on the operation. It ONLY supports the 'eq' and 'and' logical operators at this time. All
+//   - filter - The filter to apply on the operation. It ONLY supports the 'eq' and 'and' logical operators at this time. All
 //     the 4 query parameters 'OfferDurableId', 'Currency', 'Locale', 'Region' are required to be a part of the $filter.
 //   - options - RateCardClientGetOptions contains the optional parameters for the RateCardClient.Get method.
 func (client *RateCardClient) Get(ctx context.Context, filter string, options *RateCardClientGetOptions) (RateCardClientGetResponse, error) {

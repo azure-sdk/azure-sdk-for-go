@@ -37,13 +37,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -115,13 +115,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreateWithA
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		Properties: &armappconfiguration.ConfigurationStoreProperties{
 	// 			ProvisioningState: to.Ptr(armappconfiguration.ProvisioningStateSucceeded),
@@ -193,13 +193,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreateWithD
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -268,13 +268,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreateWithI
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -356,13 +356,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreateWithL
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -433,13 +433,13 @@ func ExampleConfigurationStoresClient_BeginCreate_configurationStoresCreateWithT
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientCreateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -500,7 +500,7 @@ func ExampleConfigurationStoresClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -528,7 +528,7 @@ func ExampleConfigurationStoresClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientGetResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -594,7 +594,7 @@ func ExampleConfigurationStoresClient_GetDeleted() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientGetDeletedResponse{
-	// 	DeletedConfigurationStore: &armappconfiguration.DeletedConfigurationStore{
+	// 	DeletedConfigurationStore: armappconfiguration.DeletedConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/deletedConfigurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/providers/Microsoft.AppConfiguration/locations/westus/deletedConfigurationStores/contoso"),
@@ -965,7 +965,7 @@ func ExampleConfigurationStoresClient_BeginPurgeDeleted() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -995,7 +995,7 @@ func ExampleConfigurationStoresClient_RegenerateKey() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientRegenerateKeyResponse{
-	// 	APIKey: &armappconfiguration.APIKey{
+	// 	APIKey: armappconfiguration.APIKey{
 	// 		Name: to.Ptr("Primary"),
 	// 		ConnectionString: to.Ptr("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"),
 	// 		ID: to.Ptr("439AD01B4BE67DB1"),
@@ -1030,13 +1030,13 @@ func ExampleConfigurationStoresClient_BeginUpdate_configurationStoresUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientUpdateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -1103,13 +1103,13 @@ func ExampleConfigurationStoresClient_BeginUpdate_configurationStoresUpdateDisab
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientUpdateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),
@@ -1181,13 +1181,13 @@ func ExampleConfigurationStoresClient_BeginUpdate_configurationStoresUpdateWithI
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.ConfigurationStoresClientUpdateResponse{
-	// 	ConfigurationStore: &armappconfiguration.ConfigurationStore{
+	// 	ConfigurationStore: armappconfiguration.ConfigurationStore{
 	// 		Name: to.Ptr("contoso"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso"),

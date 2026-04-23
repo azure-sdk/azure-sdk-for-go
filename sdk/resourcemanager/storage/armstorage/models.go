@@ -329,6 +329,7 @@ type AccountProperties struct {
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
+	// Minimum TLS version 1.3 version is not supported.
 	MinimumTLSVersion *MinimumTLSVersion
 
 	// Allow, disallow, or let Network Security Perimeter configuration to evaluate public network access to Storage Account.
@@ -492,6 +493,7 @@ type AccountPropertiesCreateParameters struct {
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
+	// Minimum TLS version 1.3 version is not supported.
 	MinimumTLSVersion *MinimumTLSVersion
 
 	// Network rule set
@@ -579,6 +581,7 @@ type AccountPropertiesUpdateParameters struct {
 	LargeFileSharesState *LargeFileSharesState
 
 	// Set the minimum TLS version to be permitted on requests to storage. The default interpretation is TLS 1.0 for this property.
+	// Minimum TLS version 1.3 version is not supported.
 	MinimumTLSVersion *MinimumTLSVersion
 
 	// Network rule set
@@ -3223,7 +3226,7 @@ type TagProperty struct {
 
 // TaskAssignment - The storage task assignment.
 type TaskAssignment struct {
-	// REQUIRED; Properties of the storage task assignment.
+	// Properties of the storage task assignment.
 	Properties *TaskAssignmentProperties
 
 	// READ-ONLY; Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}
@@ -3231,6 +3234,9 @@ type TaskAssignment struct {
 
 	// READ-ONLY; The name of the resource
 	Name *string
+
+	// READ-ONLY; Azure Resource Manager metadata containing createdBy and modifiedBy information.
+	SystemData *SystemData
 
 	// READ-ONLY; The type of the resource. E.g. "Microsoft.Compute/virtualMachines" or "Microsoft.Storage/storageAccounts"
 	Type *string

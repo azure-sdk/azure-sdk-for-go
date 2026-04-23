@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices"
 	"log"
 )
 
@@ -41,26 +41,34 @@ func ExampleOutboundRulesClient_BeginPost() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
-	// You could use response here. We use blank identifier for just demo purposes.
-	_ = res
-	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
-	// res = armcognitiveservices.OutboundRulesClientPostResponse{
-	// 	OutboundRuleListResult: &armcognitiveservices.OutboundRuleListResult{
-	// 		Value: []*armcognitiveservices.OutboundRuleBasicResource{
-	// 			{
-	// 				Name: to.Ptr("rule_name_1"),
-	// 				Type: to.Ptr("accounts/outboundRules"),
-	// 				ID: to.Ptr("/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/cognitive-account-name/managedNetworks/default/outboundRules/rule_name_1"),
-	// 				Properties: &armcognitiveservices.FqdnOutboundRule{
-	// 					Type: to.Ptr(armcognitiveservices.RuleTypeFQDN),
-	// 					Category: to.Ptr(armcognitiveservices.RuleCategoryRequired),
-	// 					Destination: to.Ptr("destination_of_the_fqdn_rule"),
-	// 					Status: to.Ptr(armcognitiveservices.RuleStatusActive),
-	// 				},
-	// 			},
-	// 		},
-	// 	},
-	// }
+	for res.More() {
+		page, err := res.NextPage(ctx)
+		if err != nil {
+			log.Fatalf("failed to advance page: %v", err)
+		}
+		for _, v := range page.Value {
+			// You could use page here. We use blank identifier for just demo purposes.
+			_ = v
+		}
+		// If the HTTP response code is 200 as defined in example definition, your page structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
+		// page = armcognitiveservices.OutboundRulesClientPostResponse{
+		// 	OutboundRuleListResult: armcognitiveservices.OutboundRuleListResult{
+		// 		Value: []*armcognitiveservices.OutboundRuleBasicResource{
+		// 			{
+		// 				Name: to.Ptr("rule_name_1"),
+		// 				Type: to.Ptr("accounts/outboundRules"),
+		// 				ID: to.Ptr("/subscriptions/00000000-1111-2222-3333-444444444444/resourceGroups/test-rg/providers/Microsoft.CognitiveServices/accounts/cognitive-account-name/managedNetworks/default/outboundRules/rule_name_1"),
+		// 				Properties: &armcognitiveservices.FqdnOutboundRule{
+		// 					Type: to.Ptr(armcognitiveservices.RuleTypeFQDN),
+		// 					Category: to.Ptr(armcognitiveservices.RuleCategoryRequired),
+		// 					Destination: to.Ptr("destination_of_the_fqdn_rule"),
+		// 					Status: to.Ptr(armcognitiveservices.RuleStatusActive),
+		// 				},
+		// 			},
+		// 		},
+		// 	},
+		// }
+	}
 }

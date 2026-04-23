@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-// Generated from example definition: 2024-05-01-preview/WorkloadArmOperation_create.json
+// Generated from example definition: 2026-01-01-preview/WorkloadArmOperation_create.json
 func ExampleWorkloadImpactsClient_BeginCreate_reportingArmOperationFailure() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -48,13 +48,13 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingArmOperationFailure() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.WorkloadImpactsClientCreateResponse{
-	// 	WorkloadImpact: &armimpactreporting.WorkloadImpact{
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadImpacts/impact-001"),
 	// 		Name: to.Ptr("impact-001"),
 	// 		Type: to.Ptr("Microsoft.Impact/workloadImpacts"),
@@ -76,12 +76,20 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingArmOperationFailure() {
 	// 			},
 	// 			ImpactUniqueID: to.Ptr("d7f24d04-e7f0-48bf-b09c-9d36ca9e1777"),
 	// 			ReportedTimeUTC: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2022-06-15T06:01:46.6517821Z"); return t}()),
+	// 			InsightsByCategory: []*armimpactreporting.InsightCategoryGroup{
+	// 				{
+	// 					Category: to.Ptr("service health"),
+	// 					Status: to.Ptr("investigating"),
+	// 					Insights: []*armimpactreporting.InsightReference{
+	// 					},
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadAvailability_Create.json
+// Generated from example definition: 2026-01-01-preview/WorkloadAvailability_Create.json
 func ExampleWorkloadImpactsClient_BeginCreate_reportingAvailabilityRelatedImpact() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -113,15 +121,15 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingAvailabilityRelatedImpact
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.WorkloadImpactsClientCreateResponse{
-	// 	WorkloadImpact: &armimpactreporting.WorkloadImpact{
-	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadImpacts/impact-001"),
-	// 		Name: to.Ptr("impact-001"),
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
+	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadImpacts/impact-002"),
+	// 		Name: to.Ptr("impact-002"),
 	// 		Type: to.Ptr("Microsoft.Impact/workloadImpacts"),
 	// 		Properties: &armimpactreporting.WorkloadImpactProperties{
 	// 			ImpactedResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.Sql/sqlserver/dbservername"),
@@ -138,12 +146,20 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingAvailabilityRelatedImpact
 	// 			},
 	// 			ImpactUniqueID: to.Ptr("d7f24d04-e7f0-48bf-b09c-9d36ca9e1777"),
 	// 			ReportedTimeUTC: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2022-06-15T06:01:46.6517821Z"); return t}()),
+	// 			InsightsByCategory: []*armimpactreporting.InsightCategoryGroup{
+	// 				{
+	// 					Category: to.Ptr("service health"),
+	// 					Status: to.Ptr("investigating"),
+	// 					Insights: []*armimpactreporting.InsightReference{
+	// 					},
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadConnectivityImpact_Create.json
+// Generated from example definition: 2026-01-01-preview/WorkloadConnectivityImpact_Create.json
 func ExampleWorkloadImpactsClient_BeginCreate_reportingAConnectivityImpact() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -185,13 +201,13 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingAConnectivityImpact() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.WorkloadImpactsClientCreateResponse{
-	// 	WorkloadImpact: &armimpactreporting.WorkloadImpact{
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/Impacts-rg/providers/Microsoft.Impact/workloadImpacts/impact-001"),
 	// 		Name: to.Ptr("impact-001"),
 	// 		Type: to.Ptr("Microsoft.Impact/workloadImpacts"),
@@ -220,12 +236,170 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingAConnectivityImpact() {
 	// 				ClientIncidentID: to.Ptr("AA123"),
 	// 				ClientIncidentSource: to.Ptr(armimpactreporting.IncidentSourceJira),
 	// 			},
+	// 			InsightsByCategory: []*armimpactreporting.InsightCategoryGroup{
+	// 				{
+	// 					Category: to.Ptr("service health"),
+	// 					Status: to.Ptr("investigating"),
+	// 					Insights: []*armimpactreporting.InsightReference{
+	// 					},
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadPerformance_Create.json
+// Generated from example definition: 2026-01-01-preview/WorkloadImpacts_Create_MaximumSet_Gen.json
+func ExampleWorkloadImpactsClient_BeginCreate_workloadImpactsCreateMaximumSet() {
+	cred, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		log.Fatalf("failed to obtain a credential: %v", err)
+	}
+	ctx := context.Background()
+	clientFactory, err := armimpactreporting.NewClientFactory("0D045314-435A-41DA-B0A4-2CA7E9F87D12", cred, nil)
+	if err != nil {
+		log.Fatalf("failed to create client: %v", err)
+	}
+	poller, err := clientFactory.NewWorkloadImpactsClient().BeginCreate(ctx, "testWorkloadImpact", armimpactreporting.WorkloadImpact{
+		Properties: &armimpactreporting.WorkloadImpactProperties{
+			StartDateTime:      to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-12-04T19:51:13.274Z"); return t }()),
+			EndDateTime:        to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-12-04T19:51:13.274Z"); return t }()),
+			ImpactedResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.Sql/sqlserver/dbservername"),
+			ImpactCategory:     to.Ptr("Resource.Other"),
+			ImpactDescription:  to.Ptr("test description"),
+			ArmCorrelationIDs: []*string{
+				to.Ptr("4D045314-435A-41DA-B0A4-2CA7E9F87D12"),
+			},
+			Performance: []*armimpactreporting.Performance{
+				{
+					MetricName: to.Ptr("testMetric"),
+					Expected:   to.Ptr[float64](23),
+					Actual:     to.Ptr[float64](20),
+					ExpectedValueRange: &armimpactreporting.ExpectedValueRange{
+						Min: to.Ptr[float64](1),
+						Max: to.Ptr[float64](27),
+					},
+					Unit: to.Ptr(armimpactreporting.MetricUnitByteSeconds),
+				},
+			},
+			Connectivity: &armimpactreporting.Connectivity{
+				Protocol: to.Ptr(armimpactreporting.ProtocolTCP),
+				Port:     to.Ptr[int32](6),
+				Source: &armimpactreporting.SourceOrTarget{
+					AzureResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.compute/virtualmachines/vm1"),
+				},
+				Target: &armimpactreporting.SourceOrTarget{
+					AzureResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.compute/virtualmachines/vm2"),
+				},
+			},
+			AdditionalProperties: map[string]any{},
+			ErrorDetails: &armimpactreporting.ErrorDetailProperties{
+				ErrorCode:    to.Ptr("504"),
+				ErrorMessage: to.Ptr("Gateway timeout error"),
+			},
+			Workload: &armimpactreporting.Workload{
+				Context: to.Ptr("webapp/scenario1"),
+				Toolset: to.Ptr(armimpactreporting.ToolsetOther),
+			},
+			ImpactGroupID:   to.Ptr("testGroup1"),
+			ConfidenceLevel: to.Ptr(armimpactreporting.ConfidenceLevelLow),
+			ClientIncidentDetails: &armimpactreporting.ClientIncidentDetails{
+				ClientIncidentID:     to.Ptr("123456"),
+				ClientIncidentSource: to.Ptr(armimpactreporting.IncidentSourceAzureDevops),
+			},
+			OngoingImpact:       to.Ptr(true),
+			Severity:            to.Ptr(armimpactreporting.SeverityCritical),
+			DurationInSec:       to.Ptr[float64](26),
+			DetectionType:       to.Ptr(armimpactreporting.DetectionTypeBusinessAlert),
+			DurationMarginInSec: to.Ptr[float64](28),
+			HitCount:            to.Ptr[int32](21),
+		},
+	}, nil)
+	if err != nil {
+		log.Fatalf("failed to finish the request: %v", err)
+	}
+	res, err := poller.PollUntilDone(ctx, nil)
+	if err != nil {
+		log.Fatalf("failed to poll the result: %v", err)
+	}
+	// You could use response here. We use blank identifier for just demo purposes.
+	_ = res
+	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
+	// res = armimpactreporting.WorkloadImpactsClientCreateResponse{
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
+	// 		Properties: &armimpactreporting.WorkloadImpactProperties{
+	// 			ProvisioningState: to.Ptr(armimpactreporting.ProvisioningStateSucceeded),
+	// 			StartDateTime: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-12-04T19:51:13.274Z"); return t}()),
+	// 			EndDateTime: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-12-04T19:51:13.274Z"); return t}()),
+	// 			ImpactedResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.compute/virtualmachines/vm1"),
+	// 			ImpactUniqueID: to.Ptr("d7f24d04-e7f0-48bf-b09c-9d36ca9e1777"),
+	// 			ReportedTimeUTC: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-12-04T19:51:13.274Z"); return t}()),
+	// 			ImpactCategory: to.Ptr("Resource.Other"),
+	// 			ImpactDescription: to.Ptr("Test description"),
+	// 			ArmCorrelationIDs: []*string{
+	// 				to.Ptr("4D045314-435A-41DA-B0A4-2CA7E9F87D12"),
+	// 			},
+	// 			Performance: []*armimpactreporting.Performance{
+	// 				{
+	// 					MetricName: to.Ptr("testMetric"),
+	// 					Expected: to.Ptr[float64](23),
+	// 					Actual: to.Ptr[float64](20),
+	// 					ExpectedValueRange: &armimpactreporting.ExpectedValueRange{
+	// 						Min: to.Ptr[float64](1),
+	// 						Max: to.Ptr[float64](27),
+	// 					},
+	// 					Unit: to.Ptr(armimpactreporting.MetricUnitByteSeconds),
+	// 				},
+	// 			},
+	// 			Connectivity: &armimpactreporting.Connectivity{
+	// 				Protocol: to.Ptr(armimpactreporting.ProtocolTCP),
+	// 				Port: to.Ptr[int32](6),
+	// 				Source: &armimpactreporting.SourceOrTarget{
+	// 					AzureResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.compute/virtualmachines/vm1"),
+	// 				},
+	// 				Target: &armimpactreporting.SourceOrTarget{
+	// 					AzureResourceID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/resource-rg/providers/Microsoft.compute/virtualmachines/vm2"),
+	// 				},
+	// 			},
+	// 			AdditionalProperties: map[string]any{
+	// 			},
+	// 			ErrorDetails: &armimpactreporting.ErrorDetailProperties{
+	// 				ErrorCode: to.Ptr("504"),
+	// 				ErrorMessage: to.Ptr("Gateway timeout error"),
+	// 			},
+	// 			Workload: &armimpactreporting.Workload{
+	// 				Context: to.Ptr("webapp/scenario1"),
+	// 				Toolset: to.Ptr(armimpactreporting.ToolsetOther),
+	// 			},
+	// 			ImpactGroupID: to.Ptr("testGroup1"),
+	// 			ConfidenceLevel: to.Ptr(armimpactreporting.ConfidenceLevelLow),
+	// 			ClientIncidentDetails: &armimpactreporting.ClientIncidentDetails{
+	// 				ClientIncidentID: to.Ptr("123456"),
+	// 				ClientIncidentSource: to.Ptr(armimpactreporting.IncidentSourceAzureDevops),
+	// 			},
+	// 			OngoingImpact: to.Ptr(true),
+	// 			Severity: to.Ptr(armimpactreporting.SeverityCritical),
+	// 			DurationInSec: to.Ptr[float64](26),
+	// 			DetectionType: to.Ptr(armimpactreporting.DetectionTypeBusinessAlert),
+	// 			DurationMarginInSec: to.Ptr[float64](28),
+	// 			HitCount: to.Ptr[int32](21),
+	// 		},
+	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/Impacts-rg/providers/Microsoft.Impact/workloadImpacts/impact2"),
+	// 		Name: to.Ptr("testWorkloadImpact"),
+	// 		Type: to.Ptr("Microsoft.Impact/workloadImpacts"),
+	// 		SystemData: &armimpactreporting.SystemData{
+	// 			CreatedBy: to.Ptr("testuser@hotmail.com"),
+	// 			CreatedByType: to.Ptr(armimpactreporting.CreatedByTypeUser),
+	// 			CreatedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-07T06:19:01.6431721Z"); return t}()),
+	// 			LastModifiedBy: to.Ptr("testuser@hotmail.com"),
+	// 			LastModifiedByType: to.Ptr(armimpactreporting.CreatedByTypeUser),
+	// 			LastModifiedAt: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2024-03-15T08:29:20.8549373Z"); return t}()),
+	// 		},
+	// 	},
+	// }
+}
+
+// Generated from example definition: 2026-01-01-preview/WorkloadPerformance_Create.json
 func ExampleWorkloadImpactsClient_BeginCreate_reportingPerformanceRelatedImpact() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -265,13 +439,13 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingPerformanceRelatedImpact(
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.WorkloadImpactsClientCreateResponse{
-	// 	WorkloadImpact: &armimpactreporting.WorkloadImpact{
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/PerformanceImpacts/impact-001"),
 	// 		Name: to.Ptr("impact-001"),
 	// 		Type: to.Ptr("Microsoft.Impact/PerformanceImpacts"),
@@ -298,12 +472,20 @@ func ExampleWorkloadImpactsClient_BeginCreate_reportingPerformanceRelatedImpact(
 	// 			},
 	// 			ImpactUniqueID: to.Ptr("d7f24d04-e7f0-48bf-b09c-9d36ca9e1777"),
 	// 			ReportedTimeUTC: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2022-06-15T06:01:46.6517821Z"); return t}()),
+	// 			InsightsByCategory: []*armimpactreporting.InsightCategoryGroup{
+	// 				{
+	// 					Category: to.Ptr("service health"),
+	// 					Status: to.Ptr("investigating"),
+	// 					Insights: []*armimpactreporting.InsightReference{
+	// 					},
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadImpact_Delete.json
+// Generated from example definition: 2026-01-01-preview/WorkloadImpact_Delete.json
 func ExampleWorkloadImpactsClient_Delete() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -325,7 +507,7 @@ func ExampleWorkloadImpactsClient_Delete() {
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadImpact_Get.json
+// Generated from example definition: 2026-01-01-preview/WorkloadImpact_Get.json
 func ExampleWorkloadImpactsClient_Get() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -344,7 +526,7 @@ func ExampleWorkloadImpactsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armimpactreporting.WorkloadImpactsClientGetResponse{
-	// 	WorkloadImpact: &armimpactreporting.WorkloadImpact{
+	// 	WorkloadImpact: armimpactreporting.WorkloadImpact{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadImpacts/impact-001"),
 	// 		Name: to.Ptr("impact-001"),
 	// 		Type: to.Ptr("Microsoft.Impact/workloadImpacts"),
@@ -363,12 +545,23 @@ func ExampleWorkloadImpactsClient_Get() {
 	// 			},
 	// 			ImpactUniqueID: to.Ptr("d7f24d04-e7f0-48bf-b09c-9d36ca9e1777"),
 	// 			ReportedTimeUTC: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "2022-06-15T06:01:46.6517821Z"); return t}()),
+	// 			InsightsByCategory: []*armimpactreporting.InsightCategoryGroup{
+	// 				{
+	// 					Category: to.Ptr("service health"),
+	// 					Status: to.Ptr("Completed"),
+	// 					Insights: []*armimpactreporting.InsightReference{
+	// 						{
+	// 							ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/providers/Microsoft.Impact/workloadImpacts/impact-001/insight/insightId"),
+	// 						},
+	// 					},
+	// 				},
+	// 			},
 	// 		},
 	// 	},
 	// }
 }
 
-// Generated from example definition: 2024-05-01-preview/WorkloadImpacts_ListBySubscription.json
+// Generated from example definition: 2026-01-01-preview/WorkloadImpacts_ListBySubscription.json
 func ExampleWorkloadImpactsClient_NewListBySubscriptionPager() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {

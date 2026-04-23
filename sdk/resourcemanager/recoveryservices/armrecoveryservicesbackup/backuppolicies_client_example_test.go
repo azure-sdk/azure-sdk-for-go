@@ -8,11 +8,11 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
-// Generated from example definition: 2026-01-01-preview/AzureIaasVm/BackupPolicies_List.json
+// Generated from example definition: 2026-01-01/AzureIaasVm/BackupPolicies_List.json
 func ExampleBackupPoliciesClient_NewListPager_listProtectionPoliciesWithBackupManagementTypeFilterAsAzureIaasVM() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -103,7 +103,7 @@ func ExampleBackupPoliciesClient_NewListPager_listProtectionPoliciesWithBackupMa
 	}
 }
 
-// Generated from example definition: 2026-01-01-preview/AzureIaasVm/V2Policy/v2-List-Policies.json
+// Generated from example definition: 2026-01-01/AzureIaasVm/V2Policy/v2-List-Policies.json
 func ExampleBackupPoliciesClient_NewListPager_listProtectionPoliciesWithBackupManagementTypeFilterAsAzureIaasVMWithBothV1AndV2Policies() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
@@ -225,7 +225,7 @@ func ExampleBackupPoliciesClient_NewListPager_listProtectionPoliciesWithBackupMa
 	}
 }
 
-// Generated from example definition: 2026-01-01-preview/AzureWorkload/BackupPolicies_List.json
+// Generated from example definition: 2026-01-01/AzureWorkload/BackupPolicies_List.json
 func ExampleBackupPoliciesClient_NewListPager_listProtectionPoliciesWithBackupManagementTypeFilterAsAzureWorkload() {
 	cred, err := azidentity.NewDefaultAzureCredential(nil)
 	if err != nil {
