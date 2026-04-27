@@ -7,7 +7,7 @@ package armrecoveryservicesbackup_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExampleBackupOperationStatusesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupOperationStatusesClientGetResponse{
-	// 	OperationStatus: &armrecoveryservicesbackup.OperationStatus{
+	// 	OperationStatus: armrecoveryservicesbackup.OperationStatus{
 	// 		Name: to.Ptr("00000000-0000-0000-0000-000000000000"),
 	// 		EndTime: to.Ptr(func() time.Time { t, _ := time.Parse(time.RFC3339Nano, "0001-01-01T00:00:00.00000Z"); return t}()),
 	// 		ID: to.Ptr("00000000-0000-0000-0000-000000000000"),

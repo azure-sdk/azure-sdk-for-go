@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -53,7 +53,7 @@ func ExampleResourceGuardProxyClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ResourceGuardProxyClientGetResponse{
-	// 	ResourceGuardProxyBaseResource: &armrecoveryservicesbackup.ResourceGuardProxyBaseResource{
+	// 	ResourceGuardProxyBaseResource: armrecoveryservicesbackup.ResourceGuardProxyBaseResource{
 	// 		Name: to.Ptr("swaggerExample"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupResourceGuardProxies"),
 	// 		ID: to.Ptr("/backupmanagement/resources/sampleVault/backupResourceGuardProxies/swaggerExample"),
@@ -99,7 +99,7 @@ func ExampleResourceGuardProxyClient_Put() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ResourceGuardProxyClientPutResponse{
-	// 	ResourceGuardProxyBaseResource: &armrecoveryservicesbackup.ResourceGuardProxyBaseResource{
+	// 	ResourceGuardProxyBaseResource: armrecoveryservicesbackup.ResourceGuardProxyBaseResource{
 	// 		Name: to.Ptr("swaggerExample"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupResourceGuardProxies"),
 	// 		ID: to.Ptr("/backupmanagement/resources/sampleVault/backupResourceGuardProxies/swaggerExample"),
@@ -146,7 +146,7 @@ func ExampleResourceGuardProxyClient_UnlockDelete() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ResourceGuardProxyClientUnlockDeleteResponse{
-	// 	UnlockDeleteResponse: &armrecoveryservicesbackup.UnlockDeleteResponse{
+	// 	UnlockDeleteResponse: armrecoveryservicesbackup.UnlockDeleteResponse{
 	// 		UnlockDeleteExpiryTime: to.Ptr("2021-02-11T13:12:27.7870742Z"),
 	// 	},
 	// }

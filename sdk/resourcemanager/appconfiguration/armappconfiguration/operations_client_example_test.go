@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
 	"log"
 )
 
@@ -34,7 +34,7 @@ func ExampleOperationsClient_CheckNameAvailability_configurationStoresCheckNameA
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.OperationsClientCheckNameAvailabilityResponse{
-	// 	NameAvailabilityStatus: &armappconfiguration.NameAvailabilityStatus{
+	// 	NameAvailabilityStatus: armappconfiguration.NameAvailabilityStatus{
 	// 		Message: to.Ptr("The specified name is available."),
 	// 		NameAvailable: to.Ptr(true),
 	// 	},
@@ -63,7 +63,7 @@ func ExampleOperationsClient_CheckNameAvailability_configurationStoresCheckNameN
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.OperationsClientCheckNameAvailabilityResponse{
-	// 	NameAvailabilityStatus: &armappconfiguration.NameAvailabilityStatus{
+	// 	NameAvailabilityStatus: armappconfiguration.NameAvailabilityStatus{
 	// 		Message: to.Ptr("The specified name is already in use."),
 	// 		NameAvailable: to.Ptr(false),
 	// 		Reason: to.Ptr("AlreadyExists"),
@@ -525,7 +525,7 @@ func ExampleOperationsClient_RegionalCheckNameAvailability_configurationStoresCh
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.OperationsClientRegionalCheckNameAvailabilityResponse{
-	// 	NameAvailabilityStatus: &armappconfiguration.NameAvailabilityStatus{
+	// 	NameAvailabilityStatus: armappconfiguration.NameAvailabilityStatus{
 	// 		Message: to.Ptr("The specified name is available."),
 	// 		NameAvailable: to.Ptr(true),
 	// 	},
@@ -554,7 +554,7 @@ func ExampleOperationsClient_RegionalCheckNameAvailability_configurationStoresCh
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.OperationsClientRegionalCheckNameAvailabilityResponse{
-	// 	NameAvailabilityStatus: &armappconfiguration.NameAvailabilityStatus{
+	// 	NameAvailabilityStatus: armappconfiguration.NameAvailabilityStatus{
 	// 		Message: to.Ptr("The specified name is already in use."),
 	// 		NameAvailable: to.Ptr(false),
 	// 		Reason: to.Ptr("AlreadyExists"),

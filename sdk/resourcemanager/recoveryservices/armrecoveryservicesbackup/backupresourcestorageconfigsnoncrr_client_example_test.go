@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -31,7 +31,7 @@ func ExampleBackupResourceStorageConfigsNonCRRClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupResourceStorageConfigsNonCRRClientGetResponse{
-	// 	BackupResourceConfigResource: &armrecoveryservicesbackup.BackupResourceConfigResource{
+	// 	BackupResourceConfigResource: armrecoveryservicesbackup.BackupResourceConfigResource{
 	// 		Name: to.Ptr("vaultstorageconfig"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupstorageconfig"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupstorageconfig/vaultstorageconfig"),
@@ -90,7 +90,7 @@ func ExampleBackupResourceStorageConfigsNonCRRClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupResourceStorageConfigsNonCRRClientUpdateResponse{
-	// 	BackupResourceConfigResource: &armrecoveryservicesbackup.BackupResourceConfigResource{
+	// 	BackupResourceConfigResource: armrecoveryservicesbackup.BackupResourceConfigResource{
 	// 		Name: to.Ptr("vaultstorageconfig"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupstorageconfig"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupstorageconfig/vaultstorageconfig"),

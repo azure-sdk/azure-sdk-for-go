@@ -39,7 +39,7 @@ func ExampleFederatedIdentityCredentialsClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.FederatedIdentityCredentialsClientCreateOrUpdateResponse{
-	// 	FederatedIdentityCredential: &armmsi.FederatedIdentityCredential{
+	// 	FederatedIdentityCredential: armmsi.FederatedIdentityCredential{
 	// 		Name: to.Ptr("ficResourceName"),
 	// 		Type: to.Ptr("Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials"),
 	// 		ID: to.Ptr("/subscriptions/c267c0e7-0a73-4789-9e17-d26aeb0904e5/resourcegroups/rgName/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityName/federatedIdentityCredentials/ficResourceName"),
@@ -95,7 +95,7 @@ func ExampleFederatedIdentityCredentialsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.FederatedIdentityCredentialsClientGetResponse{
-	// 	FederatedIdentityCredential: &armmsi.FederatedIdentityCredential{
+	// 	FederatedIdentityCredential: armmsi.FederatedIdentityCredential{
 	// 		Name: to.Ptr("ficResourceName"),
 	// 		Type: to.Ptr("Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials"),
 	// 		ID: to.Ptr("/subscriptions/c267c0e7-0a73-4789-9e17-d26aeb0904e5/resourcegroups/rgName/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityName/federatedIdentityCredentials/ficResourceName"),

@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -31,7 +31,7 @@ func ExampleProtectionContainersClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionContainersClientGetResponse{
-	// 	ProtectionContainerResource: &armrecoveryservicesbackup.ProtectionContainerResource{
+	// 	ProtectionContainerResource: armrecoveryservicesbackup.ProtectionContainerResource{
 	// 		Name: to.Ptr("VMAppContainer;Compute;testRG;testSQL"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testRg/providers/Microsoft.RecoveryServices/vaults/testVault/backupFabrics/Azure/protectionContainers/VMAppContainer;Compute;testRG;testSQL"),
@@ -135,13 +135,13 @@ func ExampleProtectionContainersClient_BeginRegister() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionContainersClientRegisterResponse{
-	// 	ProtectionContainerResource: &armrecoveryservicesbackup.ProtectionContainerResource{
+	// 	ProtectionContainerResource: armrecoveryservicesbackup.ProtectionContainerResource{
 	// 		Name: to.Ptr("StorageContainer;Storage;SwaggerTestRg;swaggertestsa"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/swaggertestvault/backupFabrics/Azure/protectionContainers/StorageContainer;Storage;SwaggerTestRg;swaggertestsa"),
 	// 		Properties: &armrecoveryservicesbackup.AzureStorageContainer{

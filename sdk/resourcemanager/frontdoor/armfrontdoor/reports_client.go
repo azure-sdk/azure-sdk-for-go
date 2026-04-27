@@ -7,15 +7,15 @@ package armfrontdoor
 import (
 	"context"
 	"errors"
-	"net/http"
-	"net/url"
-	"strings"
-	"time"
-
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
+	"net/http"
+	"net/url"
+	"strings"
+	"time"
 )
 
 // ReportsClient contains the methods for the Reports group.
@@ -186,11 +186,11 @@ func (client *ReportsClient) getTimeseriesCreateRequest(ctx context.Context, res
 	if options != nil && options.Country != nil {
 		reqQP.Set("country", *options.Country)
 	}
-	reqQP.Set("endDateTimeUTC", endDateTimeUTC.Format(time.RFC3339Nano))
+	reqQP.Set("endDateTimeUTC", datetime.RFC3339(endDateTimeUTC).String())
 	if options != nil && options.Endpoint != nil {
 		reqQP.Set("endpoint", *options.Endpoint)
 	}
-	reqQP.Set("startDateTimeUTC", startDateTimeUTC.Format(time.RFC3339Nano))
+	reqQP.Set("startDateTimeUTC", datetime.RFC3339(startDateTimeUTC).String())
 	reqQP.Set("timeseriesType", string(timeseriesType))
 	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}

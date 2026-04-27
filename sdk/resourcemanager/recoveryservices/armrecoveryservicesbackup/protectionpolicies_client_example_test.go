@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 	"time"
 )
@@ -109,7 +109,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateFullAzureVMPro
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("testPolicy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/testPolicy1"),
@@ -238,7 +238,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateSimpleAzureVMP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("testPolicy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/testPolicy1"),
@@ -370,7 +370,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateEnhancedAzureV
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("v2-daily-sample"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/v2-daily-sample"),
@@ -557,7 +557,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateEnhancedAzureV
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("v2-daily-sample"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/v2-daily-sample"),
@@ -740,7 +740,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateDailyAzureStor
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("dailyPolicy2"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/swaggertestvault/backupPolicies/dailyPolicy2"),
@@ -922,7 +922,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateAzureStorageVa
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("newPolicyV2"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/swaggertestvault/backupPolicies/newPolicyV2"),
@@ -1093,7 +1093,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateHourlyAzureSto
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("newPolicy2"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/swaggertestvault/backupPolicies/newPolicy2"),
@@ -1314,7 +1314,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateFullAzureWorkl
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("testPolicy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/testPolicy1"),
@@ -1558,7 +1558,7 @@ func ExampleProtectionPoliciesClient_CreateOrUpdate_createOrUpdateSapHanaDbInsta
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientCreateOrUpdateResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/testHanaSnapshotV2Policy1"),
 	// 		Name: to.Ptr("testHanaSnapshotV2Policy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
@@ -1681,7 +1681,7 @@ func ExampleProtectionPoliciesClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -1709,7 +1709,7 @@ func ExampleProtectionPoliciesClient_Get_getAzureIaasVMProtectionPolicyDetails()
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientGetResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("testPolicy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/testPolicy1"),
@@ -1761,7 +1761,7 @@ func ExampleProtectionPoliciesClient_Get_getAzureIaasVMEnhancedProtectionPolicyD
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientGetResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		Name: to.Ptr("v2-daily-sample"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/NetSDKTestRsVault/backupPolicies/v2-daily-sample"),
@@ -1817,7 +1817,7 @@ func ExampleProtectionPoliciesClient_Get_getSapHanaDbInstanceWorkloadProtectionP
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectionPoliciesClientGetResponse{
-	// 	ProtectionPolicyResource: &armrecoveryservicesbackup.ProtectionPolicyResource{
+	// 	ProtectionPolicyResource: armrecoveryservicesbackup.ProtectionPolicyResource{
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/HanaTestRsVault/backupPolicies/testHanaSnapshotV2Policy1"),
 	// 		Name: to.Ptr("testHanaSnapshotV2Policy1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupPolicies"),

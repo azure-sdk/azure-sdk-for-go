@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"reflect"
 	"time"
 )
@@ -279,6 +280,9 @@ func (d *DeploymentPreflightModel) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type DeploymentPreflightResource.
 func (d DeploymentPreflightResource) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if d.APIVersion == nil {
+		d.APIVersion = to.Ptr("2024-09-01")
+	}
 	populate(objectMap, "apiVersion", d.APIVersion)
 	populate(objectMap, "location", d.Location)
 	populate(objectMap, "name", d.Name)

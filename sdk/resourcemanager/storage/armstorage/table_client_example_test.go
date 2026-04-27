@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 	"time"
 )
@@ -32,7 +32,7 @@ func ExampleTableClient_Create_tableOperationPut() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableClientCreateResponse{
-	// 	Table: &armstorage.Table{
+	// 	Table: armstorage.Table{
 	// 		Name: to.Ptr("table6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices/tables"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/tableServices/default/tables/table6185"),
@@ -83,7 +83,7 @@ func ExampleTableClient_Create_tableOperationPutOrPatchAcls() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableClientCreateResponse{
-	// 	Table: &armstorage.Table{
+	// 	Table: armstorage.Table{
 	// 		Name: to.Ptr("table6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices/tables"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/tableServices/default/tables/table6185"),
@@ -148,7 +148,7 @@ func ExampleTableClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableClientGetResponse{
-	// 	Table: &armstorage.Table{
+	// 	Table: armstorage.Table{
 	// 		Name: to.Ptr("table6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices/tables"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/tableServices/default/tables/table6185"),
@@ -226,7 +226,7 @@ func ExampleTableClient_Update_tableOperationPatch() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableClientUpdateResponse{
-	// 	Table: &armstorage.Table{
+	// 	Table: armstorage.Table{
 	// 		Name: to.Ptr("table6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices/tables"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/tableServices/default/tables/table6185"),
@@ -277,7 +277,7 @@ func ExampleTableClient_Update_tableOperationPutOrPatchAcls() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.TableClientUpdateResponse{
-	// 	Table: &armstorage.Table{
+	// 	Table: armstorage.Table{
 	// 		Name: to.Ptr("table6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/tableServices/tables"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/tableServices/default/tables/table6185"),

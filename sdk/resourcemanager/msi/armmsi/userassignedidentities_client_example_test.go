@@ -37,7 +37,7 @@ func ExampleUserAssignedIdentitiesClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.UserAssignedIdentitiesClientCreateOrUpdateResponse{
-	// 	Identity: &armmsi.Identity{
+	// 	Identity: armmsi.Identity{
 	// 		Name: to.Ptr("identityName"),
 	// 		Type: to.Ptr("Microsoft.ManagedIdentity/userAssignedIdentities"),
 	// 		ID: to.Ptr("/subscriptions/subid/resourcegroups/rgName/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityName"),
@@ -97,7 +97,7 @@ func ExampleUserAssignedIdentitiesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.UserAssignedIdentitiesClientGetResponse{
-	// 	Identity: &armmsi.Identity{
+	// 	Identity: armmsi.Identity{
 	// 		Name: to.Ptr("identityName"),
 	// 		Type: to.Ptr("Microsoft.ManagedIdentity/userAssignedIdentities"),
 	// 		ID: to.Ptr("/subscriptions/subid/resourcegroups/rgName/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityName"),
@@ -240,7 +240,7 @@ func ExampleUserAssignedIdentitiesClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armmsi.UserAssignedIdentitiesClientUpdateResponse{
-	// 	Identity: &armmsi.Identity{
+	// 	Identity: armmsi.Identity{
 	// 		Name: to.Ptr("identityName"),
 	// 		Type: to.Ptr("Microsoft.ManagedIdentity/userAssignedIdentities"),
 	// 		ID: to.Ptr("/subscriptions/subid/resourcegroups/rgName/providers/Microsoft.ManagedIdentity/userAssignedIdentities/identityName"),

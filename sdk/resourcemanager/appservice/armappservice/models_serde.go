@@ -10,6 +10,7 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"reflect"
 	"time"
 )
@@ -6762,6 +6763,9 @@ func (e *ExtendedLocation) UnmarshalJSON(data []byte) error {
 func (f Facebook) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
 	populate(objectMap, "enabled", f.Enabled)
+	if f.GraphAPIVersion == nil {
+		f.GraphAPIVersion = to.Ptr("2025-05-01")
+	}
 	populate(objectMap, "graphApiVersion", f.GraphAPIVersion)
 	populate(objectMap, "login", f.Login)
 	populate(objectMap, "registration", f.Registration)
@@ -24577,6 +24581,9 @@ func (w *WorkflowTriggerHistoryProperties) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type WorkflowTriggerListCallbackURLQueries.
 func (w WorkflowTriggerListCallbackURLQueries) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if w.APIVersion == nil {
+		w.APIVersion = to.Ptr("2025-05-01")
+	}
 	populate(objectMap, "api-version", w.APIVersion)
 	populate(objectMap, "se", w.Se)
 	populate(objectMap, "sig", w.Sig)

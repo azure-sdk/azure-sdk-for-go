@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"reflect"
 	"time"
 )
@@ -1018,6 +1019,9 @@ func (k *KeyVaultReference) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ManagedResourceReference.
 func (m ManagedResourceReference) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if m.APIVersion == nil {
+		m.APIVersion = to.Ptr("2025-07-01")
+	}
 	populate(objectMap, "apiVersion", m.APIVersion)
 	populate(objectMap, "denyStatus", m.DenyStatus)
 	populate(objectMap, "extension", m.Extension)
@@ -1100,6 +1104,9 @@ func (p *ParametersLink) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ResourceReference.
 func (r ResourceReference) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if r.APIVersion == nil {
+		r.APIVersion = to.Ptr("2025-07-01")
+	}
 	populate(objectMap, "apiVersion", r.APIVersion)
 	populate(objectMap, "extension", r.Extension)
 	populate(objectMap, "id", r.ID)
@@ -1143,6 +1150,9 @@ func (r *ResourceReference) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type ResourceReferenceExtended.
 func (r ResourceReferenceExtended) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if r.APIVersion == nil {
+		r.APIVersion = to.Ptr("2025-07-01")
+	}
 	populate(objectMap, "apiVersion", r.APIVersion)
 	populate(objectMap, "error", r.Error)
 	populate(objectMap, "extension", r.Extension)
@@ -1358,6 +1368,9 @@ func (w *WhatIfPropertyChange) UnmarshalJSON(data []byte) error {
 // MarshalJSON implements the json.Marshaller interface for type WhatIfResourceChange.
 func (w WhatIfResourceChange) MarshalJSON() ([]byte, error) {
 	objectMap := make(map[string]any)
+	if w.APIVersion == nil {
+		w.APIVersion = to.Ptr("2025-07-01")
+	}
 	populate(objectMap, "apiVersion", w.APIVersion)
 	populate(objectMap, "changeCertainty", w.ChangeCertainty)
 	populate(objectMap, "changeType", w.ChangeType)

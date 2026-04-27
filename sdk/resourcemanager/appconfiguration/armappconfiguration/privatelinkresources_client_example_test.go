@@ -7,7 +7,7 @@ package armappconfiguration_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration/v3"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/appconfiguration/armappconfiguration"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExamplePrivateLinkResourcesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armappconfiguration.PrivateLinkResourcesClientGetResponse{
-	// 	PrivateLinkResource: &armappconfiguration.PrivateLinkResource{
+	// 	PrivateLinkResource: armappconfiguration.PrivateLinkResource{
 	// 		Name: to.Ptr("configurationStores"),
 	// 		Type: to.Ptr("Microsoft.AppConfiguration/configurationStores/privateLinkResources"),
 	// 		ID: to.Ptr("/subscriptions/c80fb759-c965-4c6a-9110-9b2b2d038882/resourceGroups/myResourceGroup/providers/Microsoft.AppConfiguration/configurationStores/contoso/privateLinkResources/configurationStores"),

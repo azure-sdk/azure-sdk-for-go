@@ -7,7 +7,7 @@ package armrecoveryservicesbackup_test
 import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -30,7 +30,7 @@ func ExampleBackupEnginesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupEnginesClientGetResponse{
-	// 	BackupEngineBaseResource: &armrecoveryservicesbackup.BackupEngineBaseResource{
+	// 	BackupEngineBaseResource: armrecoveryservicesbackup.BackupEngineBaseResource{
 	// 		Name: to.Ptr("testServer"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupEngines"),
 	// 		ID: to.Ptr("/Subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/testRG/providers/Microsoft.RecoveryServices/vaults/testVault/backupEngines/testServer"),

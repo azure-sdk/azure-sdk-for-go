@@ -29,7 +29,7 @@ func ExampleExperimentsClient_BeginCancel() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -97,13 +97,13 @@ func ExampleExperimentsClient_BeginCreateOrUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.ExperimentsClientCreateOrUpdateResponse{
-	// 	Experiment: &armchaos.Experiment{
+	// 	Experiment: armchaos.Experiment{
 	// 		Name: to.Ptr("exampleExperiment"),
 	// 		Type: to.Ptr("Microsoft.Chaos/experiments"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Chaos/experiments/exampleExperiment"),
@@ -185,7 +185,7 @@ func ExampleExperimentsClient_BeginDelete() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -208,7 +208,7 @@ func ExampleExperimentsClient_ExecutionDetails() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.ExperimentsClientExecutionDetailsResponse{
-	// 	ExperimentExecutionDetails: &armchaos.ExperimentExecutionDetails{
+	// 	ExperimentExecutionDetails: armchaos.ExperimentExecutionDetails{
 	// 		Name: to.Ptr("f24500ad-744e-4a26-864b-b76199eac333"),
 	// 		Type: to.Ptr("Microsoft.Chaos/experiments/executions/getExecutionDetails"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Chaos/experiments/exampleExperiment/executions/f24500ad-744e-4a26-864b-b76199eac333/getExecutionDetails"),
@@ -281,7 +281,7 @@ func ExampleExperimentsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.ExperimentsClientGetResponse{
-	// 	Experiment: &armchaos.Experiment{
+	// 	Experiment: armchaos.Experiment{
 	// 		Name: to.Ptr("exampleExperiment"),
 	// 		Type: to.Ptr("Microsoft.Chaos/experiments"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Chaos/experiments/exampleExperiment"),
@@ -360,7 +360,7 @@ func ExampleExperimentsClient_GetExecution() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.ExperimentsClientGetExecutionResponse{
-	// 	ExperimentExecution: &armchaos.ExperimentExecution{
+	// 	ExperimentExecution: armchaos.ExperimentExecution{
 	// 		Name: to.Ptr("f24500ad-744e-4a26-864b-b76199eac333"),
 	// 		Type: to.Ptr("Microsoft.Chaos/experiments/executions"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Chaos/experiments/exampleExperiment/executions/f24500ad-744e-4a26-864b-b76199eac333"),
@@ -620,7 +620,7 @@ func ExampleExperimentsClient_BeginStart() {
 	}
 	_, err = poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 }
 
@@ -652,13 +652,13 @@ func ExampleExperimentsClient_BeginUpdate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.ExperimentsClientUpdateResponse{
-	// 	Experiment: &armchaos.Experiment{
+	// 	Experiment: armchaos.Experiment{
 	// 		Name: to.Ptr("exampleExperiment"),
 	// 		Type: to.Ptr("Microsoft.Chaos/experiments"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Chaos/experiments/exampleExperiment"),

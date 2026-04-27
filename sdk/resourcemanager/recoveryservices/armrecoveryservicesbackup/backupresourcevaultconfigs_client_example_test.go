@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -31,7 +31,7 @@ func ExampleBackupResourceVaultConfigsClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupResourceVaultConfigsClientGetResponse{
-	// 	BackupResourceVaultConfigResource: &armrecoveryservicesbackup.BackupResourceVaultConfigResource{
+	// 	BackupResourceVaultConfigResource: armrecoveryservicesbackup.BackupResourceVaultConfigResource{
 	// 		Name: to.Ptr("vaultconfig"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupconfig"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/SwaggerTest/backupconfig/vaultconfig"),
@@ -66,7 +66,7 @@ func ExampleBackupResourceVaultConfigsClient_Put() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupResourceVaultConfigsClientPutResponse{
-	// 	BackupResourceVaultConfigResource: &armrecoveryservicesbackup.BackupResourceVaultConfigResource{
+	// 	BackupResourceVaultConfigResource: armrecoveryservicesbackup.BackupResourceVaultConfigResource{
 	// 		Name: to.Ptr("vaultconfig"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupconfig"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/SwaggerTest/backupconfig/vaultconfig"),
@@ -101,7 +101,7 @@ func ExampleBackupResourceVaultConfigsClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.BackupResourceVaultConfigsClientUpdateResponse{
-	// 	BackupResourceVaultConfigResource: &armrecoveryservicesbackup.BackupResourceVaultConfigResource{
+	// 	BackupResourceVaultConfigResource: armrecoveryservicesbackup.BackupResourceVaultConfigResource{
 	// 		Name: to.Ptr("vaultconfig"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupconfig"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/SwaggerTestRg/providers/Microsoft.RecoveryServices/vaults/SwaggerTest/backupconfig/vaultconfig"),

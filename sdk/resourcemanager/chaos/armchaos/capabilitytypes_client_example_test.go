@@ -30,7 +30,7 @@ func ExampleCapabilityTypesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.CapabilityTypesClientGetResponse{
-	// 	CapabilityType: &armchaos.CapabilityType{
+	// 	CapabilityType: armchaos.CapabilityType{
 	// 		Name: to.Ptr("Shutdown-1.0"),
 	// 		Type: to.Ptr("Microsoft.Chaos/locations/targetTypes/capabilityTypes"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/providers/Microsoft.Chaos/locations/westus2/targetTypes/Microsoft-VirtualMachine/capabilityTypes/Shutdown-1.0"),

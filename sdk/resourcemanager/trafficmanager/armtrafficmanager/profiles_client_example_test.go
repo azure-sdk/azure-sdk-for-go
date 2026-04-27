@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
 	"log"
 )
 
@@ -34,7 +34,7 @@ func ExampleProfilesClient_CheckTrafficManagerNameAvailabilityV2_nameAvailabilit
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCheckTrafficManagerNameAvailabilityV2Response{
-	// 	NameAvailability: &armtrafficmanager.NameAvailability{
+	// 	NameAvailability: armtrafficmanager.NameAvailability{
 	// 		Name: to.Ptr("azsmnet5403"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		NameAvailable: to.Ptr(true),
@@ -64,7 +64,7 @@ func ExampleProfilesClient_CheckTrafficManagerNameAvailabilityV2_nameAvailabilit
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCheckTrafficManagerNameAvailabilityV2Response{
-	// 	NameAvailability: &armtrafficmanager.NameAvailability{
+	// 	NameAvailability: armtrafficmanager.NameAvailability{
 	// 		Name: to.Ptr("azsmnet4696"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		Message: to.Ptr("Domain name azsmnet4696.tmpreview.watmtest.azure-test.net already exists. Please choose a different DNS prefix."),
@@ -96,7 +96,7 @@ func ExampleProfilesClient_CheckTrafficManagerRelativeDNSNameAvailability_nameAv
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCheckTrafficManagerRelativeDNSNameAvailabilityResponse{
-	// 	NameAvailability: &armtrafficmanager.NameAvailability{
+	// 	NameAvailability: armtrafficmanager.NameAvailability{
 	// 		Name: to.Ptr("azsmnet5403"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		NameAvailable: to.Ptr(true),
@@ -126,7 +126,7 @@ func ExampleProfilesClient_CheckTrafficManagerRelativeDNSNameAvailability_nameAv
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCheckTrafficManagerRelativeDNSNameAvailabilityResponse{
-	// 	NameAvailability: &armtrafficmanager.NameAvailability{
+	// 	NameAvailability: armtrafficmanager.NameAvailability{
 	// 		Name: to.Ptr("azsmnet4696"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		Message: to.Ptr("Domain name azsmnet4696.tmpreview.watmtest.azure-test.net already exists. Please choose a different DNS prefix."),
@@ -172,7 +172,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutMultiValue() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azsmnet6386"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386"),
@@ -237,7 +237,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutNoEndpoints() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azsmnet6386"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386"),
@@ -317,7 +317,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutWithAliasing() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager6192"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2583/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager6192"),
@@ -453,7 +453,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutWithCustomHeaders() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager6192"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2583/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager6192"),
@@ -560,7 +560,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutWithEndpoints() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager6192"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2583/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager6192"),
@@ -667,7 +667,7 @@ func ExampleProfilesClient_CreateOrUpdate_profilePutWithNestedEndpoints() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientCreateOrUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("parentprofile"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/myresourcegroup/providers/Microsoft.Network/trafficManagerProfiles/parentprofile"),
@@ -745,7 +745,7 @@ func ExampleProfilesClient_Delete() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientDeleteResponse{
-	// 	DeleteOperationResult: &armtrafficmanager.DeleteOperationResult{
+	// 	DeleteOperationResult: armtrafficmanager.DeleteOperationResult{
 	// 	},
 	// }
 }
@@ -769,7 +769,7 @@ func ExampleProfilesClient_Get_profileGetWithEndpoints() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientGetResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager3880"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880"),
@@ -832,7 +832,7 @@ func ExampleProfilesClient_Get_profileGetWithTrafficViewDisabled() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientGetResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager3880"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880"),
@@ -896,7 +896,7 @@ func ExampleProfilesClient_Get_profileGetWithTrafficViewEnabled() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientGetResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager3880"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1323/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager3880"),
@@ -1237,7 +1237,7 @@ func ExampleProfilesClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.ProfilesClientUpdateResponse{
-	// 	Profile: &armtrafficmanager.Profile{
+	// 	Profile: armtrafficmanager.Profile{
 	// 		Name: to.Ptr("azuresdkfornetautoresttrafficmanager6192"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2583/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager6192"),

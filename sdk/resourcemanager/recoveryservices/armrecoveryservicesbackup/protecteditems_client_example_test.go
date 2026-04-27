@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v5"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/recoveryservices/armrecoveryservicesbackup/v4"
 	"log"
 )
 
@@ -35,13 +35,13 @@ func ExampleProtectedItemsClient_BeginCreateOrUpdate_enableProtectionOnAzureIaas
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectedItemsClientCreateOrUpdateResponse{
-	// 	ProtectedItemResource: &armrecoveryservicesbackup.ProtectedItemResource{
+	// 	ProtectedItemResource: armrecoveryservicesbackup.ProtectedItemResource{
 	// 		Name: to.Ptr("VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1/protectedItems/VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1"),
@@ -88,13 +88,13 @@ func ExampleProtectedItemsClient_BeginCreateOrUpdate_stopProtectionWithRetainDat
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectedItemsClientCreateOrUpdateResponse{
-	// 	ProtectedItemResource: &armrecoveryservicesbackup.ProtectedItemResource{
+	// 	ProtectedItemResource: armrecoveryservicesbackup.ProtectedItemResource{
 	// 		Name: to.Ptr("VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1/protectedItems/VM;iaasvmcontainerv2;netsdktestrg;netvmtestv2vm1"),
@@ -159,7 +159,7 @@ func ExampleProtectedItemsClient_Get_getProtectedClassicVirtualMachineDetails() 
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectedItemsClientGetResponse{
-	// 	ProtectedItemResource: &armrecoveryservicesbackup.ProtectedItemResource{
+	// 	ProtectedItemResource: armrecoveryservicesbackup.ProtectedItemResource{
 	// 		Name: to.Ptr("VM;iaasvmcontainer;iaasvm-rg;iaasvm-1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainer;iaasvm-rg;iaasvm-1/protectedItems/VM;iaasvmcontainer;iaasvm-rg;iaasvm-1"),
@@ -204,7 +204,7 @@ func ExampleProtectedItemsClient_Get_getProtectedVirtualMachineDetails() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armrecoveryservicesbackup.ProtectedItemsClientGetResponse{
-	// 	ProtectedItemResource: &armrecoveryservicesbackup.ProtectedItemResource{
+	// 	ProtectedItemResource: armrecoveryservicesbackup.ProtectedItemResource{
 	// 		Name: to.Ptr("VM;iaasvmcontainerv2;iaasvm-rg;iaasvm-1"),
 	// 		Type: to.Ptr("Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems"),
 	// 		ID: to.Ptr("/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/PythonSDKBackupTestRg/providers/Microsoft.RecoveryServices/vaults/PySDKBackupTestRsVault/backupFabrics/Azure/protectionContainers/IaasVMContainer;iaasvmcontainerv2;iaasvm-rg;iaasvm-1/protectedItems/VM;iaasvmcontainerv2;iaasvm-rg;iaasvm-1"),

@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/storage/armstorage/v3"
 	"log"
 	"time"
 )
@@ -32,7 +32,7 @@ func ExampleFileSharesClient_Create_putShares() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientCreateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/fileServices/default/shares/share6185"),
@@ -63,7 +63,7 @@ func ExampleFileSharesClient_Create_putSharesWithAccessTier() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientCreateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1235"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res346/providers/Microsoft.Storage/storageAccounts/sto666/fileServices/default/shares/share1235"),
@@ -97,7 +97,7 @@ func ExampleFileSharesClient_Create_createNfsShares() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientCreateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1235"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res346/providers/Microsoft.Storage/storageAccounts/sto666/fileServices/default/shares/share1235"),
@@ -135,7 +135,7 @@ func ExampleFileSharesClient_Create_putSharesWithPaidBursting() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientCreateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1235"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res346/providers/Microsoft.Storage/storageAccounts/sto666/fileServices/default/shares/share1235"),
@@ -175,7 +175,7 @@ func ExampleFileSharesClient_Create_putSharesProvisionedV2() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientCreateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1235"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res346/providers/Microsoft.Storage/storageAccounts/sto666/fileServices/default/shares/share1235"),
@@ -231,7 +231,7 @@ func ExampleFileSharesClient_Get_getShares() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientGetResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -263,7 +263,7 @@ func ExampleFileSharesClient_Get_getSharePaidBursting() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientGetResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -300,7 +300,7 @@ func ExampleFileSharesClient_Get_getShareProvisionedV2() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientGetResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -340,7 +340,7 @@ func ExampleFileSharesClient_Get_getShareStats() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientGetResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share1634"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		Etag: to.Ptr("\"0x8D592D74CC20EBA\""),
@@ -377,7 +377,7 @@ func ExampleFileSharesClient_Lease_acquireALeaseOnAShare() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientLeaseResponse{
-	// 	LeaseShareResponse: &armstorage.LeaseShareResponse{
+	// 	LeaseShareResponse: armstorage.LeaseShareResponse{
 	// 		LeaseID: to.Ptr("8698f513-fa75-44a1-b8eb-30ba336af27d"),
 	// 	},
 	// }
@@ -406,7 +406,7 @@ func ExampleFileSharesClient_Lease_breakALeaseOnAShare() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientLeaseResponse{
-	// 	LeaseShareResponse: &armstorage.LeaseShareResponse{
+	// 	LeaseShareResponse: armstorage.LeaseShareResponse{
 	// 		LeaseTimeSeconds: to.Ptr("0"),
 	// 	},
 	// }
@@ -758,7 +758,7 @@ func ExampleFileSharesClient_Update_updateShareAcls() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientUpdateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/fileServices/default/shares/share6185"),
@@ -803,7 +803,7 @@ func ExampleFileSharesClient_Update_updateShares() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientUpdateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/fileServices/default/shares/share6185"),
@@ -843,7 +843,7 @@ func ExampleFileSharesClient_Update_updateSharePaidBursting() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientUpdateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/fileServices/default/shares/share6185"),
@@ -883,7 +883,7 @@ func ExampleFileSharesClient_Update_updateShareProvisionedV2() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armstorage.FileSharesClientUpdateResponse{
-	// 	FileShare: &armstorage.FileShare{
+	// 	FileShare: armstorage.FileShare{
 	// 		Name: to.Ptr("share6185"),
 	// 		Type: to.Ptr("Microsoft.Storage/storageAccounts/fileServices/shares"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/res3376/providers/Microsoft.Storage/storageAccounts/sto328/fileServices/default/shares/share6185"),

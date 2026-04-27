@@ -12,11 +12,11 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime/datetime"
 	"net/http"
 	"net/url"
 	"strconv"
 	"strings"
-	"time"
 )
 
 // DpsCertificateClient contains the methods for the DpsCertificate group.
@@ -173,7 +173,7 @@ func (client *DpsCertificateClient) deleteCreateRequest(ctx context.Context, res
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-02-01-preview")
 	if options != nil && options.CertificateCreated != nil {
-		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.created", datetime.RFC3339(*options.CertificateCreated).String())
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
@@ -182,7 +182,7 @@ func (client *DpsCertificateClient) deleteCreateRequest(ctx context.Context, res
 		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
 	}
 	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.lastUpdated", datetime.RFC3339(*options.CertificateLastUpdated).String())
 	}
 	if options != nil && options.CertificateName1 != nil {
 		reqQP.Set("certificate.name", *options.CertificateName1)
@@ -256,7 +256,7 @@ func (client *DpsCertificateClient) generateVerificationCodeCreateRequest(ctx co
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-02-01-preview")
 	if options != nil && options.CertificateCreated != nil {
-		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.created", datetime.RFC3339(*options.CertificateCreated).String())
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
@@ -265,7 +265,7 @@ func (client *DpsCertificateClient) generateVerificationCodeCreateRequest(ctx co
 		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
 	}
 	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.lastUpdated", datetime.RFC3339(*options.CertificateLastUpdated).String())
 	}
 	if options != nil && options.CertificateName1 != nil {
 		reqQP.Set("certificate.name", *options.CertificateName1)
@@ -484,7 +484,7 @@ func (client *DpsCertificateClient) verifyCertificateCreateRequest(ctx context.C
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("api-version", "2025-02-01-preview")
 	if options != nil && options.CertificateCreated != nil {
-		reqQP.Set("certificate.created", options.CertificateCreated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.created", datetime.RFC3339(*options.CertificateCreated).String())
 	}
 	if options != nil && options.CertificateHasPrivateKey != nil {
 		reqQP.Set("certificate.hasPrivateKey", strconv.FormatBool(*options.CertificateHasPrivateKey))
@@ -493,7 +493,7 @@ func (client *DpsCertificateClient) verifyCertificateCreateRequest(ctx context.C
 		reqQP.Set("certificate.isVerified", strconv.FormatBool(*options.CertificateIsVerified))
 	}
 	if options != nil && options.CertificateLastUpdated != nil {
-		reqQP.Set("certificate.lastUpdated", options.CertificateLastUpdated.Format(time.RFC3339Nano))
+		reqQP.Set("certificate.lastUpdated", datetime.RFC3339(*options.CertificateLastUpdated).String())
 	}
 	if options != nil && options.CertificateName1 != nil {
 		reqQP.Set("certificate.name", *options.CertificateName1)

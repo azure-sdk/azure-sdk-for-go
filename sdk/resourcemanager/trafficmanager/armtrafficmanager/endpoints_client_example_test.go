@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager/v2"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/trafficmanager/armtrafficmanager"
 	"log"
 )
 
@@ -40,7 +40,7 @@ func ExampleEndpointsClient_CreateOrUpdate_endpointPutExternalWithAlwaysServe() 
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientCreateOrUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("azsmnet7187"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386/externalEndpoints/azsmnet7187"),
@@ -94,7 +94,7 @@ func ExampleEndpointsClient_CreateOrUpdate_endpointPutExternalWithCustomHeaders(
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientCreateOrUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("azsmnet7187"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386/externalEndpoints/azsmnet7187"),
@@ -150,7 +150,7 @@ func ExampleEndpointsClient_CreateOrUpdate_endpointPutExternalWithGeoMapping() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientCreateOrUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("My external endpoint"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2191/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager8224/externalEndpoints/My external endpoint"),
@@ -196,7 +196,7 @@ func ExampleEndpointsClient_CreateOrUpdate_endpointPutExternalWithLocation() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientCreateOrUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("azsmnet7187"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386/externalEndpoints/azsmnet7187"),
@@ -248,7 +248,7 @@ func ExampleEndpointsClient_CreateOrUpdate_endpointPutExternalWithSubnetMapping(
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientCreateOrUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("My external endpoint"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2191/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager8224/externalEndpoints/My external endpoint"),
@@ -292,7 +292,7 @@ func ExampleEndpointsClient_Delete() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientDeleteResponse{
-	// 	DeleteOperationResult: &armtrafficmanager.DeleteOperationResult{
+	// 	DeleteOperationResult: armtrafficmanager.DeleteOperationResult{
 	// 	},
 	// }
 }
@@ -316,7 +316,7 @@ func ExampleEndpointsClient_Get_endpointGetExternalWithGeoMapping() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientGetResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("My external endpoint"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2191/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager8224/externalEndpoints/My external endpoint"),
@@ -354,7 +354,7 @@ func ExampleEndpointsClient_Get_endpointGetExternalWithLocation() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientGetResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("azsmnet7187"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386/externalEndpoints/azsmnet7187"),
@@ -389,7 +389,7 @@ func ExampleEndpointsClient_Get_endpointGetExternalWithSubnetMapping() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientGetResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("My external endpoint"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager2191/providers/Microsoft.Network/trafficManagerProfiles/azuresdkfornetautoresttrafficmanager8224/externalEndpoints/My external endpoint"),
@@ -440,7 +440,7 @@ func ExampleEndpointsClient_Update() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armtrafficmanager.EndpointsClientUpdateResponse{
-	// 	Endpoint: &armtrafficmanager.Endpoint{
+	// 	Endpoint: armtrafficmanager.Endpoint{
 	// 		Name: to.Ptr("azsmnet7187"),
 	// 		Type: to.Ptr("Microsoft.Network/trafficManagerProfiles/externalEndpoints"),
 	// 		ID: to.Ptr("/subscriptions/{subscription-id}/resourceGroups/azuresdkfornetautoresttrafficmanager1421/providers/Microsoft.Network/trafficManagerProfiles/azsmnet6386/externalEndpoints/azsmnet7187"),

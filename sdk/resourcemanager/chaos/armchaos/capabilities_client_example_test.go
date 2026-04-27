@@ -32,7 +32,7 @@ func ExampleCapabilitiesClient_CreateOrUpdate() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.CapabilitiesClientCreateOrUpdateResponse{
-	// 	Capability: &armchaos.Capability{
+	// 	Capability: armchaos.Capability{
 	// 		Name: to.Ptr("Shutdown-1.0"),
 	// 		Type: to.Ptr("Microsoft.Chaos/targets/capabilities"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Compute/virtualMachines/exampleVM/providers/Microsoft.Chaos/targets/Microsoft-VirtualMachine/capabilities/Shutdown-1.0"),
@@ -92,7 +92,7 @@ func ExampleCapabilitiesClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armchaos.CapabilitiesClientGetResponse{
-	// 	Capability: &armchaos.Capability{
+	// 	Capability: armchaos.Capability{
 	// 		Name: to.Ptr("Shutdown-1.0"),
 	// 		Type: to.Ptr("Microsoft.Chaos/targets/capabilities"),
 	// 		ID: to.Ptr("/subscriptions/6b052e15-03d3-4f17-b2e1-be7f07588291/resourceGroups/exampleRG/providers/Microsoft.Compute/virtualMachines/exampleVM/providers/Microsoft.Chaos/targets/Microsoft-VirtualMachine/capabilities/Shutdown-1.0"),
