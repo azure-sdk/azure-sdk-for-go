@@ -11,10 +11,11 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices/v4"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/cognitiveservices/armcognitiveservices"
 	"net/http"
 	"net/url"
 	"regexp"
+	"slices"
 )
 
 // OutboundRulesServer is a fake server for instances of the armcognitiveservices.OutboundRulesClient type.
@@ -53,9 +54,7 @@ func (o *OutboundRulesServerTransport) Do(req *http.Request) (*http.Response, er
 }
 
 func (o *OutboundRulesServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result)
-	defer close(resultChan)
-
+	resultChan := make(chan result, 1)
 	go func() {
 		var intercepted bool
 		var res result
@@ -71,10 +70,7 @@ func (o *OutboundRulesServerTransport) dispatchToMethodFake(req *http.Request, m
 			}
 
 		}
-		select {
-		case resultChan <- res:
-		case <-req.Context().Done():
-		}
+		resultChan <- res
 	}()
 
 	select {
@@ -126,7 +122,7 @@ func (o *OutboundRulesServerTransport) dispatchBeginPost(req *http.Request) (*ht
 		return nil, err
 	}
 
-	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		o.beginPost.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}

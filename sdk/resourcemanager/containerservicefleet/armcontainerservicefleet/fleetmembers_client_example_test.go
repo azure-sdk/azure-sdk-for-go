@@ -33,13 +33,13 @@ func ExampleFleetMembersClient_BeginCreate() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservicefleet.FleetMembersClientCreateResponse{
-	// 	FleetMember: &armcontainerservicefleet.FleetMember{
+	// 	FleetMember: armcontainerservicefleet.FleetMember{
 	// 		ID: to.Ptr("/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/fleets/fleet-1/members/member-1"),
 	// 		Name: to.Ptr("member-1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/fleets/members"),
@@ -84,7 +84,7 @@ func ExampleFleetMembersClient_BeginDelete() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
@@ -112,7 +112,7 @@ func ExampleFleetMembersClient_Get() {
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservicefleet.FleetMembersClientGetResponse{
-	// 	FleetMember: &armcontainerservicefleet.FleetMember{
+	// 	FleetMember: armcontainerservicefleet.FleetMember{
 	// 		Properties: &armcontainerservicefleet.FleetMemberProperties{
 	// 			ClusterResourceID: to.Ptr("/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/managedClusters/cluster-1"),
 	// 			Group: to.Ptr("fleet1"),
@@ -211,13 +211,13 @@ func ExampleFleetMembersClient_BeginUpdateAsync() {
 	}
 	res, err := poller.PollUntilDone(ctx, nil)
 	if err != nil {
-		log.Fatalf("failed to pull the result: %v", err)
+		log.Fatalf("failed to poll the result: %v", err)
 	}
 	// You could use response here. We use blank identifier for just demo purposes.
 	_ = res
 	// If the HTTP response code is 200 as defined in example definition, your response structure would look as follows. Please pay attention that all the values in the output are fake values for just demo purposes.
 	// res = armcontainerservicefleet.FleetMembersClientUpdateAsyncResponse{
-	// 	FleetMember: &armcontainerservicefleet.FleetMember{
+	// 	FleetMember: armcontainerservicefleet.FleetMember{
 	// 		ID: to.Ptr("/subscriptions/subid1/resourcegroups/rg1/providers/Microsoft.ContainerService/fleets/fleet-1/members/member-1"),
 	// 		Name: to.Ptr("member-1"),
 	// 		Type: to.Ptr("Microsoft.ContainerService/fleets/members"),

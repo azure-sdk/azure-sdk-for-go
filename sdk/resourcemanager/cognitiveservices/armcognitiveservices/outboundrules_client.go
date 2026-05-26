@@ -18,6 +18,8 @@ import (
 
 // OutboundRulesClient contains the methods for the OutboundRules group.
 // Don't use this type directly, use NewOutboundRulesClient() instead.
+//
+// Generated from API version 2026-01-15-preview
 type OutboundRulesClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -44,8 +46,6 @@ func NewOutboundRulesClient(subscriptionID string, credential azcore.TokenCreden
 //
 // The POST API for updating the outbound rules of the managed network associated with the cognitive services account.
 // If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2026-01-15-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - accountName - The name of Cognitive Services account.
 //   - managedNetworkName - Name of the managedNetwork associated with the cognitive services account. Only 'default' is supported.
@@ -72,8 +72,6 @@ func (client *OutboundRulesClient) BeginPost(ctx context.Context, resourceGroupN
 //
 // The POST API for updating the outbound rules of the managed network associated with the cognitive services account.
 // If the operation fails it returns an *azcore.ResponseError type.
-//
-// Generated from API version 2026-01-15-preview
 func (client *OutboundRulesClient) post(ctx context.Context, resourceGroupName string, accountName string, managedNetworkName string, body ManagedNetworkSettingsBasicResource, options *OutboundRulesClientBeginPostOptions) (*http.Response, error) {
 	var err error
 	const operationName = "OutboundRulesClient.BeginPost"
@@ -119,8 +117,8 @@ func (client *OutboundRulesClient) postCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", "2026-01-15-preview")
-	req.Raw().URL.RawQuery = reqQP.Encode()
+	reqQP.Set("api-version", version20260115Preview)
+	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
