@@ -12,11 +12,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v8"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 )
 
 // CapacityReservationsServer is a fake server for instances of the armcompute.CapacityReservationsClient type.
@@ -77,7 +76,9 @@ func (c *CapacityReservationsServerTransport) Do(req *http.Request) (*http.Respo
 }
 
 func (c *CapacityReservationsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -101,7 +102,10 @@ func (c *CapacityReservationsServerTransport) dispatchToMethodFake(req *http.Req
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -153,7 +157,7 @@ func (c *CapacityReservationsServerTransport) dispatchBeginCreateOrUpdate(req *h
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		c.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
@@ -201,7 +205,7 @@ func (c *CapacityReservationsServerTransport) dispatchBeginDelete(req *http.Requ
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		c.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -235,7 +239,11 @@ func (c *CapacityReservationsServerTransport) dispatchGet(req *http.Request) (*h
 	if err != nil {
 		return nil, err
 	}
-	expandParam := getOptional(armcompute.CapacityReservationInstanceViewTypes(qp.Get("$expand")))
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(armcompute.CapacityReservationInstanceViewTypes(expandUnescaped))
 	var options *armcompute.CapacityReservationsClientGetOptions
 	if expandParam != nil {
 		options = &armcompute.CapacityReservationsClientGetOptions{
@@ -247,7 +255,7 @@ func (c *CapacityReservationsServerTransport) dispatchGet(req *http.Request) (*h
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).CapacityReservation, req)
@@ -278,7 +286,11 @@ func (c *CapacityReservationsServerTransport) dispatchNewListByCapacityReservati
 		if err != nil {
 			return nil, err
 		}
-		expandParam := getOptional(armcompute.ExpandTypesForGetCapacityReservationGroups(qp.Get("$expand")))
+		expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+		if err != nil {
+			return nil, err
+		}
+		expandParam := getOptional(armcompute.ExpandTypesForGetCapacityReservationGroups(expandUnescaped))
 		var options *armcompute.CapacityReservationsClientListByCapacityReservationGroupOptions
 		if expandParam != nil {
 			options = &armcompute.CapacityReservationsClientListByCapacityReservationGroupOptions{
@@ -296,7 +308,7 @@ func (c *CapacityReservationsServerTransport) dispatchNewListByCapacityReservati
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		c.newListByCapacityReservationGroupPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -347,7 +359,7 @@ func (c *CapacityReservationsServerTransport) dispatchBeginUpdate(req *http.Requ
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted}, resp.StatusCode) {
 		c.beginUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted", resp.StatusCode)}
 	}

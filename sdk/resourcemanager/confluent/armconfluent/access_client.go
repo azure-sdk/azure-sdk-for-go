@@ -18,8 +18,6 @@ import (
 
 // AccessClient contains the methods for the Access group.
 // Don't use this type directly, use NewAccessClient() instead.
-//
-// Generated from API version 2025-08-18-preview
 type AccessClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -43,6 +41,8 @@ func NewAccessClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // CreateRoleBinding - Organization role bindings
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - Create role binding Request Model
@@ -90,8 +90,8 @@ func (client *AccessClient) createRoleBindingCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -111,6 +111,8 @@ func (client *AccessClient) createRoleBindingHandleResponse(resp *http.Response)
 
 // DeleteRoleBinding - Organization role bindings
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - roleBindingID - Confluent Role binding id
@@ -161,13 +163,15 @@ func (client *AccessClient) deleteRoleBindingCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // InviteUser - Invite user to the organization
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - Invite user account model
@@ -214,8 +218,8 @@ func (client *AccessClient) inviteUserCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -235,6 +239,8 @@ func (client *AccessClient) inviteUserHandleResponse(resp *http.Response) (Acces
 
 // ListClusters - Cluster details
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -281,8 +287,8 @@ func (client *AccessClient) listClustersCreateRequest(ctx context.Context, resou
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -302,6 +308,8 @@ func (client *AccessClient) listClustersHandleResponse(resp *http.Response) (Acc
 
 // ListEnvironments - Environment list of an organization
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -348,8 +356,8 @@ func (client *AccessClient) listEnvironmentsCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -369,6 +377,8 @@ func (client *AccessClient) listEnvironmentsHandleResponse(resp *http.Response) 
 
 // ListInvitations - Organization accounts invitation details
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -415,8 +425,8 @@ func (client *AccessClient) listInvitationsCreateRequest(ctx context.Context, re
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -436,6 +446,8 @@ func (client *AccessClient) listInvitationsHandleResponse(resp *http.Response) (
 
 // ListRoleBindingNameList - Organization role bindings
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -483,8 +495,8 @@ func (client *AccessClient) listRoleBindingNameListCreateRequest(ctx context.Con
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -504,6 +516,8 @@ func (client *AccessClient) listRoleBindingNameListHandleResponse(resp *http.Res
 
 // ListRoleBindings - Organization role bindings
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -550,8 +564,8 @@ func (client *AccessClient) listRoleBindingsCreateRequest(ctx context.Context, r
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -571,6 +585,8 @@ func (client *AccessClient) listRoleBindingsHandleResponse(resp *http.Response) 
 
 // ListServiceAccounts - Organization service accounts details
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -618,8 +634,8 @@ func (client *AccessClient) listServiceAccountsCreateRequest(ctx context.Context
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -639,6 +655,8 @@ func (client *AccessClient) listServiceAccountsHandleResponse(resp *http.Respons
 
 // ListUsers - Organization users details
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - body - List Access Request Model
@@ -685,8 +703,8 @@ func (client *AccessClient) listUsersCreateRequest(ctx context.Context, resource
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {

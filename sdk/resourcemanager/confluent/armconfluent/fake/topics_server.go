@@ -12,11 +12,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 	"strconv"
 )
 
@@ -70,7 +69,9 @@ func (t *TopicsServerTransport) Do(req *http.Request) (*http.Response, error) {
 }
 
 func (t *TopicsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -92,7 +93,10 @@ func (t *TopicsServerTransport) dispatchToMethodFake(req *http.Request, method s
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -142,7 +146,7 @@ func (t *TopicsServerTransport) dispatchCreate(req *http.Request) (*http.Respons
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TopicRecord, req)
@@ -197,7 +201,7 @@ func (t *TopicsServerTransport) dispatchBeginDelete(req *http.Request) (*http.Re
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		t.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -243,7 +247,7 @@ func (t *TopicsServerTransport) dispatchGet(req *http.Request) (*http.Response, 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).TopicRecord, req)
@@ -282,7 +286,11 @@ func (t *TopicsServerTransport) dispatchNewListPager(req *http.Request) (*http.R
 		if err != nil {
 			return nil, err
 		}
-		pageSizeParam, err := parseOptional(qp.Get("pageSize"), func(v string) (int32, error) {
+		pageSizeUnescaped, err := url.QueryUnescape(qp.Get("pageSize"))
+		if err != nil {
+			return nil, err
+		}
+		pageSizeParam, err := parseOptional(pageSizeUnescaped, func(v string) (int32, error) {
 			p, parseErr := strconv.ParseInt(v, 10, 32)
 			if parseErr != nil {
 				return 0, parseErr
@@ -292,7 +300,11 @@ func (t *TopicsServerTransport) dispatchNewListPager(req *http.Request) (*http.R
 		if err != nil {
 			return nil, err
 		}
-		pageTokenParam := getOptional(qp.Get("pageToken"))
+		pageTokenUnescaped, err := url.QueryUnescape(qp.Get("pageToken"))
+		if err != nil {
+			return nil, err
+		}
+		pageTokenParam := getOptional(pageTokenUnescaped)
 		var options *armconfluent.TopicsClientListOptions
 		if pageSizeParam != nil || pageTokenParam != nil {
 			options = &armconfluent.TopicsClientListOptions{
@@ -311,7 +323,7 @@ func (t *TopicsServerTransport) dispatchNewListPager(req *http.Request) (*http.R
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		t.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}

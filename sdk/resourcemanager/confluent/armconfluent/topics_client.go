@@ -19,8 +19,6 @@ import (
 
 // TopicsClient contains the methods for the Topics group.
 // Don't use this type directly, use NewTopicsClient() instead.
-//
-// Generated from API version 2025-08-18-preview
 type TopicsClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -44,6 +42,8 @@ func NewTopicsClient(subscriptionID string, credential azcore.TokenCredential, o
 
 // Create - Create confluent topics by Name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - environmentID - Confluent environment id
@@ -105,8 +105,8 @@ func (client *TopicsClient) createCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, body); err != nil {
@@ -126,6 +126,8 @@ func (client *TopicsClient) createHandleResponse(resp *http.Response) (TopicsCli
 
 // BeginDelete - Delete confluent topic by name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - environmentID - Confluent environment id
@@ -151,6 +153,8 @@ func (client *TopicsClient) BeginDelete(ctx context.Context, resourceGroupName s
 
 // Delete - Delete confluent topic by name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 func (client *TopicsClient) deleteOperation(ctx context.Context, resourceGroupName string, organizationName string, environmentID string, clusterID string, topicName string, options *TopicsClientBeginDeleteOptions) (*http.Response, error) {
 	var err error
 	const operationName = "TopicsClient.BeginDelete"
@@ -204,13 +208,15 @@ func (client *TopicsClient) deleteCreateRequest(ctx context.Context, resourceGro
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // Get - Get confluent topic by Name
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - environmentID - Confluent environment id
@@ -271,8 +277,8 @@ func (client *TopicsClient) getCreateRequest(ctx context.Context, resourceGroupN
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-08-18-preview")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -287,6 +293,8 @@ func (client *TopicsClient) getHandleResponse(resp *http.Response) (TopicsClient
 }
 
 // NewListPager - Lists of all the topics in a clusters
+//
+// Generated from API version 2025-08-18-preview
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - organizationName - Organization resource name
 //   - environmentID - Confluent environment id
@@ -343,14 +351,14 @@ func (client *TopicsClient) listCreateRequest(ctx context.Context, resourceGroup
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250818Preview)
+	reqQP.Set("api-version", "2025-08-18-preview")
 	if options != nil && options.PageSize != nil {
 		reqQP.Set("pageSize", strconv.FormatInt(int64(*options.PageSize), 10))
 	}
 	if options != nil && options.PageToken != nil {
 		reqQP.Set("pageToken", *options.PageToken)
 	}
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

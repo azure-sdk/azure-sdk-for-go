@@ -11,11 +11,10 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v8"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 	"strconv"
 )
 
@@ -75,7 +74,9 @@ func (v *VirtualMachineImagesServerTransport) Do(req *http.Request) (*http.Respo
 }
 
 func (v *VirtualMachineImagesServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -103,7 +104,10 @@ func (v *VirtualMachineImagesServerTransport) dispatchToMethodFake(req *http.Req
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -149,7 +153,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchGet(req *http.Request) (*h
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImage, req)
@@ -186,8 +190,16 @@ func (v *VirtualMachineImagesServerTransport) dispatchList(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	expandParam := getOptional(qp.Get("$expand"))
-	topParam, err := parseOptional(qp.Get("$top"), func(v string) (int32, error) {
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
+	topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+	if err != nil {
+		return nil, err
+	}
+	topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
 		p, parseErr := strconv.ParseInt(v, 10, 32)
 		if parseErr != nil {
 			return 0, parseErr
@@ -197,7 +209,11 @@ func (v *VirtualMachineImagesServerTransport) dispatchList(req *http.Request) (*
 	if err != nil {
 		return nil, err
 	}
-	orderbyParam := getOptional(qp.Get("$orderby"))
+	orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+	if err != nil {
+		return nil, err
+	}
+	orderbyParam := getOptional(orderbyUnescaped)
 	var options *armcompute.VirtualMachineImagesClientListOptions
 	if expandParam != nil || topParam != nil || orderbyParam != nil {
 		options = &armcompute.VirtualMachineImagesClientListOptions{
@@ -211,7 +227,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchList(req *http.Request) (*
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
@@ -244,7 +260,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchListByEdgeZone(req *http.R
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VMImagesInEdgeZoneListResult, req)
@@ -277,7 +293,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchListOffers(req *http.Reque
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
@@ -306,7 +322,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchListPublishers(req *http.R
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
@@ -343,7 +359,7 @@ func (v *VirtualMachineImagesServerTransport) dispatchListSKUs(req *http.Request
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageResourceArray, req)
@@ -380,7 +396,15 @@ func (v *VirtualMachineImagesServerTransport) dispatchListWithProperties(req *ht
 	if err != nil {
 		return nil, err
 	}
-	topParam, err := parseOptional(qp.Get("$top"), func(v string) (int32, error) {
+	expandParam, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	topUnescaped, err := url.QueryUnescape(qp.Get("$top"))
+	if err != nil {
+		return nil, err
+	}
+	topParam, err := parseOptional(topUnescaped, func(v string) (int32, error) {
 		p, parseErr := strconv.ParseInt(v, 10, 32)
 		if parseErr != nil {
 			return 0, parseErr
@@ -390,7 +414,11 @@ func (v *VirtualMachineImagesServerTransport) dispatchListWithProperties(req *ht
 	if err != nil {
 		return nil, err
 	}
-	orderbyParam := getOptional(qp.Get("$orderby"))
+	orderbyUnescaped, err := url.QueryUnescape(qp.Get("$orderby"))
+	if err != nil {
+		return nil, err
+	}
+	orderbyParam := getOptional(orderbyUnescaped)
 	var options *armcompute.VirtualMachineImagesClientListWithPropertiesOptions
 	if topParam != nil || orderbyParam != nil {
 		options = &armcompute.VirtualMachineImagesClientListWithPropertiesOptions{
@@ -398,12 +426,12 @@ func (v *VirtualMachineImagesServerTransport) dispatchListWithProperties(req *ht
 			Orderby: orderbyParam,
 		}
 	}
-	respr, errRespr := v.srv.ListWithProperties(req.Context(), locationParam, publisherNameParam, offerParam, skusParam, qp.Get("$expand"), options)
+	respr, errRespr := v.srv.ListWithProperties(req.Context(), locationParam, publisherNameParam, offerParam, skusParam, expandParam, options)
 	if respErr := server.GetError(errRespr, req); respErr != nil {
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineImageArray, req)

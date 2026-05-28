@@ -19,8 +19,6 @@ import (
 // VirtualMachineScaleSetLifeCycleHookEventsClient contains the methods for the VirtualMachineScaleSetLifeCycleHookEvents
 // group.
 // Don't use this type directly, use NewVirtualMachineScaleSetLifeCycleHookEventsClient() instead.
-//
-// Generated from API version 2025-11-01
 type VirtualMachineScaleSetLifeCycleHookEventsClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -44,6 +42,8 @@ func NewVirtualMachineScaleSetLifeCycleHookEventsClient(subscriptionID string, c
 
 // Get - Gets a virtual machine scale set lifecycle hook event.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-11-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - lifecycleHookEventName - The name of the VMScaleSetLifecycleHookEvent
@@ -95,8 +95,8 @@ func (client *VirtualMachineScaleSetLifeCycleHookEventsClient) getCreateRequest(
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20251101)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -111,6 +111,8 @@ func (client *VirtualMachineScaleSetLifeCycleHookEventsClient) getHandleResponse
 }
 
 // NewListPager - Gets a list of virtual machine scale set lifecycle hook events created for a virtual machine scale set resource.
+//
+// Generated from API version 2025-11-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - options - VirtualMachineScaleSetLifeCycleHookEventsClientListOptions contains the optional parameters for the VirtualMachineScaleSetLifeCycleHookEventsClient.NewListPager
@@ -158,8 +160,8 @@ func (client *VirtualMachineScaleSetLifeCycleHookEventsClient) listCreateRequest
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20251101)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -175,6 +177,8 @@ func (client *VirtualMachineScaleSetLifeCycleHookEventsClient) listHandleRespons
 
 // Update - The operation to update a virtual machine scale set lifecycle hook event.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-11-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - vmScaleSetName - The name of the VM scale set.
 //   - lifecycleHookEventName - The name of the VMScaleSetLifecycleHookEvent
@@ -227,8 +231,8 @@ func (client *VirtualMachineScaleSetLifeCycleHookEventsClient) updateCreateReque
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20251101)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, properties); err != nil {

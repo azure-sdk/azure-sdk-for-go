@@ -4,10 +4,6 @@
 
 package armcostmanagement
 
-const (
-	version20250301 string = "2025-03-01"
-)
-
 // AccumulatedType - Show costs accumulated over time.
 type AccumulatedType string
 

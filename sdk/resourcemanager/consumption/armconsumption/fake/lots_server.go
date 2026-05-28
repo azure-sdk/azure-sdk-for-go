@@ -11,11 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 )
 
 // LotsServer is a fake server for instances of the armconsumption.LotsClient type.
@@ -66,7 +65,9 @@ func (l *LotsServerTransport) Do(req *http.Request) (*http.Response, error) {
 }
 
 func (l *LotsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -86,7 +87,10 @@ func (l *LotsServerTransport) dispatchToMethodFake(req *http.Request, method str
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -114,7 +118,11 @@ func (l *LotsServerTransport) dispatchNewListByBillingAccountPager(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		filterParam := getOptional(qp.Get("$filter"))
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
 		var options *armconsumption.LotsClientListByBillingAccountOptions
 		if filterParam != nil {
 			options = &armconsumption.LotsClientListByBillingAccountOptions{
@@ -132,7 +140,7 @@ func (l *LotsServerTransport) dispatchNewListByBillingAccountPager(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		l.newListByBillingAccountPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -173,7 +181,7 @@ func (l *LotsServerTransport) dispatchNewListByBillingProfilePager(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		l.newListByBillingProfilePager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -204,7 +212,11 @@ func (l *LotsServerTransport) dispatchNewListByCustomerPager(req *http.Request) 
 		if err != nil {
 			return nil, err
 		}
-		filterParam := getOptional(qp.Get("$filter"))
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
 		var options *armconsumption.LotsClientListByCustomerOptions
 		if filterParam != nil {
 			options = &armconsumption.LotsClientListByCustomerOptions{
@@ -222,7 +234,7 @@ func (l *LotsServerTransport) dispatchNewListByCustomerPager(req *http.Request) 
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		l.newListByCustomerPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}

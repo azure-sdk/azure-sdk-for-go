@@ -18,8 +18,6 @@ import (
 
 // SMTPUsernamesClient contains the methods for the SMTPUsernames group.
 // Don't use this type directly, use NewSMTPUsernamesClient() instead.
-//
-// Generated from API version 2025-09-01
 type SMTPUsernamesClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -45,6 +43,8 @@ func NewSMTPUsernamesClient(subscriptionID string, credential azcore.TokenCreden
 //
 // Create or update an SmtpUsernameResource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - smtpUsername - The name of the SmtpUsernameResource.
@@ -97,8 +97,8 @@ func (client *SMTPUsernamesClient) createOrUpdateCreateRequest(ctx context.Conte
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250901)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -120,6 +120,8 @@ func (client *SMTPUsernamesClient) createOrUpdateHandleResponse(resp *http.Respo
 //
 // Operation to delete a single SmtpUsername resource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - smtpUsername - The name of the SmtpUsernameResource.
@@ -169,8 +171,8 @@ func (client *SMTPUsernamesClient) deleteCreateRequest(ctx context.Context, reso
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250901)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
@@ -178,6 +180,8 @@ func (client *SMTPUsernamesClient) deleteCreateRequest(ctx context.Context, reso
 //
 // Get a SmtpUsernameResource.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2025-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - smtpUsername - The name of the SmtpUsernameResource.
@@ -228,8 +232,8 @@ func (client *SMTPUsernamesClient) getCreateRequest(ctx context.Context, resourc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250901)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -246,6 +250,8 @@ func (client *SMTPUsernamesClient) getHandleResponse(resp *http.Response) (SMTPU
 // NewListPager - Get
 //
 // Get all SmtpUsernameResources for a Communication resource.
+//
+// Generated from API version 2025-09-01
 //   - resourceGroupName - The name of the resource group. The name is case insensitive.
 //   - communicationServiceName - The name of the CommunicationService resource.
 //   - options - SMTPUsernamesClientListOptions contains the optional parameters for the SMTPUsernamesClient.NewListPager method.
@@ -292,8 +298,8 @@ func (client *SMTPUsernamesClient) listCreateRequest(ctx context.Context, resour
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20250901)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-09-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
