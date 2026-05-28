@@ -18,8 +18,6 @@ import (
 
 // BudgetsClient contains the methods for the Budgets group.
 // Don't use this type directly, use NewBudgetsClient() instead.
-//
-// Generated from API version 2024-08-01
 type BudgetsClient struct {
 	internal *arm.Client
 }
@@ -41,6 +39,8 @@ func NewBudgetsClient(credential azcore.TokenCredential, options *arm.ClientOpti
 // CreateOrUpdate - The operation to create or update a budget. You can optionally provide an eTag if desired as a form of
 // concurrency control. To obtain the latest eTag for a given budget, perform a get operation prior to your put operation.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01
 //   - scope - The fully qualified Azure Resource manager identifier of the resource.
 //   - budgetName - Budget Name.
 //   - parameters - Parameters supplied to the Create Budget operation.
@@ -83,8 +83,8 @@ func (client *BudgetsClient) createOrUpdateCreateRequest(ctx context.Context, sc
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
 	if err := runtime.MarshalAsJSON(req, parameters); err != nil {
@@ -104,6 +104,8 @@ func (client *BudgetsClient) createOrUpdateHandleResponse(resp *http.Response) (
 
 // Delete - The operation to delete a budget.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01
 //   - scope - The fully qualified Azure Resource manager identifier of the resource.
 //   - budgetName - Budget Name.
 //   - options - BudgetsClientDeleteOptions contains the optional parameters for the BudgetsClient.Delete method.
@@ -144,13 +146,15 @@ func (client *BudgetsClient) deleteCreateRequest(ctx context.Context, scope stri
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	return req, nil
 }
 
 // Get - Gets the budget for the scope by budget name.
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01
 //   - scope - The fully qualified Azure Resource manager identifier of the resource.
 //   - budgetName - Budget Name.
 //   - options - BudgetsClientGetOptions contains the optional parameters for the BudgetsClient.Get method.
@@ -192,8 +196,8 @@ func (client *BudgetsClient) getCreateRequest(ctx context.Context, scope string,
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -208,6 +212,8 @@ func (client *BudgetsClient) getHandleResponse(resp *http.Response) (BudgetsClie
 }
 
 // NewListPager - Lists all budgets for the defined scope.
+//
+// Generated from API version 2024-08-01
 //   - scope - The fully qualified Azure Resource manager identifier of the resource.
 //   - options - BudgetsClientListOptions contains the optional parameters for the BudgetsClient.NewListPager method.
 func (client *BudgetsClient) NewListPager(scope string, options *BudgetsClientListOptions) *runtime.Pager[BudgetsClientListResponse] {
@@ -245,8 +251,8 @@ func (client *BudgetsClient) listCreateRequest(ctx context.Context, scope string
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

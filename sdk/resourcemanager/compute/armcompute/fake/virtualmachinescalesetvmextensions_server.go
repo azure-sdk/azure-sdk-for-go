@@ -11,11 +11,10 @@ import (
 	azfake "github.com/Azure/azure-sdk-for-go/sdk/azcore/fake"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/compute/armcompute/v8"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 )
 
 // VirtualMachineScaleSetVMExtensionsServer is a fake server for instances of the armcompute.VirtualMachineScaleSetVMExtensionsClient type.
@@ -74,7 +73,9 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) Do(req *http.Request
 }
 
 func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -98,7 +99,10 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchToMethodFake
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -154,7 +158,7 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchBeginCreateO
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		v.beginCreateOrUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
@@ -206,7 +210,7 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchBeginDelete(
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		v.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -244,7 +248,11 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchGet(req *htt
 	if err != nil {
 		return nil, err
 	}
-	expandParam := getOptional(qp.Get("$expand"))
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
 	var options *armcompute.VirtualMachineScaleSetVMExtensionsClientGetOptions
 	if expandParam != nil {
 		options = &armcompute.VirtualMachineScaleSetVMExtensionsClientGetOptions{
@@ -256,7 +264,7 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchGet(req *htt
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineScaleSetVMExtension, req)
@@ -289,7 +297,11 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchList(req *ht
 	if err != nil {
 		return nil, err
 	}
-	expandParam := getOptional(qp.Get("$expand"))
+	expandUnescaped, err := url.QueryUnescape(qp.Get("$expand"))
+	if err != nil {
+		return nil, err
+	}
+	expandParam := getOptional(expandUnescaped)
 	var options *armcompute.VirtualMachineScaleSetVMExtensionsClientListOptions
 	if expandParam != nil {
 		options = &armcompute.VirtualMachineScaleSetVMExtensionsClientListOptions{
@@ -301,7 +313,7 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchList(req *ht
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).VirtualMachineScaleSetVMExtensionsListResult, req)
@@ -356,7 +368,7 @@ func (v *VirtualMachineScaleSetVMExtensionsServerTransport) dispatchBeginUpdate(
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		v.beginUpdate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}

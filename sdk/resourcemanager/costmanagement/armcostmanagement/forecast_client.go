@@ -16,6 +16,8 @@ import (
 	"strings"
 )
 
+const defaultForecastClientVersion string = "2025-03-01"
+
 // ForecastClient contains the methods for the Forecast group.
 // Don't use this type directly, use NewForecastClient() instead.
 //
@@ -88,7 +90,7 @@ func (client *ForecastClient) externalCloudProviderUsageCreateRequest(ctx contex
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", version20250301)
+	reqQP.Set("api-version", defaultForecastClientVersion)
 	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}
@@ -157,7 +159,7 @@ func (client *ForecastClient) usageCreateRequest(ctx context.Context, scope stri
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", version20250301)
+	reqQP.Set("api-version", defaultForecastClientVersion)
 	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	req.Raw().Header["Content-Type"] = []string{"application/json"}

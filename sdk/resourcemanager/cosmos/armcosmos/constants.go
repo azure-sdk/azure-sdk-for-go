@@ -4,10 +4,6 @@
 
 package armcosmos
 
-const (
-	version20251101Preview string = "2025-11-01-preview"
-)
-
 // APIType - Enum to indicate the API type of the restorable database account.
 type APIType string
 

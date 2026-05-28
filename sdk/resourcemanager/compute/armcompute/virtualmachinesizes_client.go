@@ -18,8 +18,6 @@ import (
 
 // VirtualMachineSizesClient contains the methods for the VirtualMachineSizes group.
 // Don't use this type directly, use NewVirtualMachineSizesClient() instead.
-//
-// Generated from API version 2025-11-01
 type VirtualMachineSizesClient struct {
 	internal       *arm.Client
 	subscriptionID string
@@ -42,6 +40,8 @@ func NewVirtualMachineSizesClient(subscriptionID string, credential azcore.Token
 }
 
 // NewListPager - This API is deprecated. Use [Resources Skus](https://docs.microsoft.com/rest/api/compute/resourceskus/list)
+//
+// Generated from API version 2025-11-01
 //   - location - The location name.
 //   - options - VirtualMachineSizesClientListOptions contains the optional parameters for the VirtualMachineSizesClient.NewListPager
 //     method.
@@ -84,8 +84,8 @@ func (client *VirtualMachineSizesClient) listCreateRequest(ctx context.Context, 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20251101)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2025-11-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

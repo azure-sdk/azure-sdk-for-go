@@ -17,8 +17,6 @@ import (
 
 // TagsClient contains the methods for the Tags group.
 // Don't use this type directly, use NewTagsClient() instead.
-//
-// Generated from API version 2024-08-01
 type TagsClient struct {
 	internal *arm.Client
 }
@@ -39,6 +37,8 @@ func NewTagsClient(credential azcore.TokenCredential, options *arm.ClientOptions
 
 // Get - Get all available tag keys for the defined scope
 // If the operation fails it returns an *azcore.ResponseError type.
+//
+// Generated from API version 2024-08-01
 //   - scope - The fully qualified Azure Resource manager identifier of the resource.
 //   - options - TagsClientGetOptions contains the optional parameters for the TagsClient.Get method.
 func (client *TagsClient) Get(ctx context.Context, scope string, options *TagsClientGetOptions) (TagsClientGetResponse, error) {
@@ -75,8 +75,8 @@ func (client *TagsClient) getCreateRequest(ctx context.Context, scope string, _ 
 		return nil, err
 	}
 	reqQP := req.Raw().URL.Query()
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

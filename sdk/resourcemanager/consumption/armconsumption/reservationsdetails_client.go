@@ -7,19 +7,18 @@ package armconsumption
 import (
 	"context"
 	"errors"
+	"net/http"
+	"net/url"
+	"strings"
+
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/arm"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/policy"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
-	"net/http"
-	"net/url"
-	"strings"
 )
 
 // ReservationsDetailsClient contains the methods for the ReservationsDetails group.
 // Don't use this type directly, use NewReservationsDetailsClient() instead.
-//
-// Generated from API version 2024-08-01
 type ReservationsDetailsClient struct {
 	internal *arm.Client
 }
@@ -42,6 +41,8 @@ func NewReservationsDetailsClient(credential azcore.TokenCredential, options *ar
 // callers get 400 when the response size exceeds the ARM limit. If the data size is too large, customers may also get 504
 // as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges or a call to Generate
 // Reservation Details Report API should be made as it is asynchronous and will not run into response size time outs.
+//
+// Generated from API version 2024-08-01
 //   - resourceScope - The fully qualified Azure Resource manager identifier of the resource.
 //   - options - ReservationsDetailsClientListOptions contains the optional parameters for the ReservationsDetailsClient.NewListPager
 //     method.
@@ -83,7 +84,7 @@ func (client *ReservationsDetailsClient) listCreateRequest(ctx context.Context, 
 	if options != nil && options.Filter != nil {
 		reqQP.Set("$filter", *options.Filter)
 	}
-	reqQP.Set("api-version", version20240801)
+	reqQP.Set("api-version", "2024-08-01")
 	if options != nil && options.EndDate != nil {
 		reqQP.Set("endDate", *options.EndDate)
 	}
@@ -96,7 +97,7 @@ func (client *ReservationsDetailsClient) listCreateRequest(ctx context.Context, 
 	if options != nil && options.StartDate != nil {
 		reqQP.Set("startDate", *options.StartDate)
 	}
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -115,8 +116,10 @@ func (client *ReservationsDetailsClient) listHandleResponse(resp *http.Response)
 // may also get 504 as the API timed out preparing the data. In such cases, API call should be made with smaller date ranges
 // or a call to Generate Reservation Details Report API should be made as it is asynchronous and will not run into response
 // size time outs.
+//
+// Generated from API version 2024-08-01
 //   - reservationOrderID - Order Id of the reservation
-//   - filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
+//   - Filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
 //     'le' and 'ge'
 //   - options - ReservationsDetailsClientListByReservationOrderOptions contains the optional parameters for the ReservationsDetailsClient.NewListByReservationOrderPager
 //     method.
@@ -156,8 +159,8 @@ func (client *ReservationsDetailsClient) listByReservationOrderCreateRequest(ctx
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }
@@ -176,9 +179,11 @@ func (client *ReservationsDetailsClient) listByReservationOrderHandleResponse(re
 // is too large, customers may also get 504 as the API timed out preparing the data. In such cases, API call should be made
 // with smaller date ranges or a call to Generate Reservation Details Report API should be made as it is asynchronous and
 // will not run into response size time outs.
+//
+// Generated from API version 2024-08-01
 //   - reservationOrderID - Order Id of the reservation
 //   - reservationID - Id of the reservation
-//   - filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
+//   - Filter - Filter reservation details by date range. The properties/UsageDate for start date and end date. The filter supports
 //     'le' and 'ge'
 //   - options - ReservationsDetailsClientListByReservationOrderAndReservationOptions contains the optional parameters for the
 //     ReservationsDetailsClient.NewListByReservationOrderAndReservationPager method.
@@ -222,8 +227,8 @@ func (client *ReservationsDetailsClient) listByReservationOrderAndReservationCre
 	}
 	reqQP := req.Raw().URL.Query()
 	reqQP.Set("$filter", filter)
-	reqQP.Set("api-version", version20240801)
-	req.Raw().URL.RawQuery = strings.ReplaceAll(reqQP.Encode(), "+", "%20")
+	reqQP.Set("api-version", "2024-08-01")
+	req.Raw().URL.RawQuery = reqQP.Encode()
 	req.Raw().Header["Accept"] = []string{"application/json"}
 	return req, nil
 }

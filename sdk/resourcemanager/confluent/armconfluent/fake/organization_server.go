@@ -12,11 +12,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/confluent/armconfluent/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 	"strconv"
 )
 
@@ -128,7 +127,9 @@ func (o *OrganizationServerTransport) Do(req *http.Request) (*http.Response, err
 }
 
 func (o *OrganizationServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -174,7 +175,10 @@ func (o *OrganizationServerTransport) dispatchToMethodFake(req *http.Request, me
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -222,7 +226,7 @@ func (o *OrganizationServerTransport) dispatchBeginCreate(req *http.Request) (*h
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusCreated}, resp.StatusCode) {
 		o.beginCreate.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusCreated", resp.StatusCode)}
 	}
@@ -268,7 +272,7 @@ func (o *OrganizationServerTransport) dispatchCreateAPIKey(req *http.Request) (*
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).APIKeyRecord, req)
@@ -311,7 +315,7 @@ func (o *OrganizationServerTransport) dispatchBeginDelete(req *http.Request) (*h
 		return nil, err
 	}
 
-	if !slices.Contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK, http.StatusAccepted, http.StatusNoContent}, resp.StatusCode) {
 		o.beginDelete.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusAccepted, http.StatusNoContent", resp.StatusCode)}
 	}
@@ -349,7 +353,7 @@ func (o *OrganizationServerTransport) dispatchDeleteClusterAPIKey(req *http.Requ
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK, http.StatusNoContent}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK, http.StatusNoContent", respContent.HTTPStatus)}
 	}
 	resp, err := server.NewResponse(respContent, req, nil)
@@ -382,7 +386,7 @@ func (o *OrganizationServerTransport) dispatchGet(req *http.Request) (*http.Resp
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OrganizationResource, req)
@@ -419,7 +423,7 @@ func (o *OrganizationServerTransport) dispatchGetClusterAPIKey(req *http.Request
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).APIKeyRecord, req)
@@ -460,7 +464,7 @@ func (o *OrganizationServerTransport) dispatchGetClusterByID(req *http.Request) 
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SCClusterRecord, req)
@@ -497,7 +501,7 @@ func (o *OrganizationServerTransport) dispatchGetEnvironmentByID(req *http.Reque
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SCEnvironmentRecord, req)
@@ -538,7 +542,7 @@ func (o *OrganizationServerTransport) dispatchGetSchemaRegistryClusterByID(req *
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).SchemaRegistryClusterRecord, req)
@@ -575,7 +579,7 @@ func (o *OrganizationServerTransport) dispatchNewListByResourceGroupPager(req *h
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		o.newListByResourceGroupPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -608,7 +612,7 @@ func (o *OrganizationServerTransport) dispatchNewListBySubscriptionPager(req *ht
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		o.newListBySubscriptionPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -643,7 +647,11 @@ func (o *OrganizationServerTransport) dispatchNewListClustersPager(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		pageSizeParam, err := parseOptional(qp.Get("pageSize"), func(v string) (int32, error) {
+		pageSizeUnescaped, err := url.QueryUnescape(qp.Get("pageSize"))
+		if err != nil {
+			return nil, err
+		}
+		pageSizeParam, err := parseOptional(pageSizeUnescaped, func(v string) (int32, error) {
 			p, parseErr := strconv.ParseInt(v, 10, 32)
 			if parseErr != nil {
 				return 0, parseErr
@@ -653,7 +661,11 @@ func (o *OrganizationServerTransport) dispatchNewListClustersPager(req *http.Req
 		if err != nil {
 			return nil, err
 		}
-		pageTokenParam := getOptional(qp.Get("pageToken"))
+		pageTokenUnescaped, err := url.QueryUnescape(qp.Get("pageToken"))
+		if err != nil {
+			return nil, err
+		}
+		pageTokenParam := getOptional(pageTokenUnescaped)
 		var options *armconfluent.OrganizationClientListClustersOptions
 		if pageSizeParam != nil || pageTokenParam != nil {
 			options = &armconfluent.OrganizationClientListClustersOptions{
@@ -672,7 +684,7 @@ func (o *OrganizationServerTransport) dispatchNewListClustersPager(req *http.Req
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		o.newListClustersPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -703,7 +715,11 @@ func (o *OrganizationServerTransport) dispatchNewListEnvironmentsPager(req *http
 		if err != nil {
 			return nil, err
 		}
-		pageSizeParam, err := parseOptional(qp.Get("pageSize"), func(v string) (int32, error) {
+		pageSizeUnescaped, err := url.QueryUnescape(qp.Get("pageSize"))
+		if err != nil {
+			return nil, err
+		}
+		pageSizeParam, err := parseOptional(pageSizeUnescaped, func(v string) (int32, error) {
 			p, parseErr := strconv.ParseInt(v, 10, 32)
 			if parseErr != nil {
 				return 0, parseErr
@@ -713,7 +729,11 @@ func (o *OrganizationServerTransport) dispatchNewListEnvironmentsPager(req *http
 		if err != nil {
 			return nil, err
 		}
-		pageTokenParam := getOptional(qp.Get("pageToken"))
+		pageTokenUnescaped, err := url.QueryUnescape(qp.Get("pageToken"))
+		if err != nil {
+			return nil, err
+		}
+		pageTokenParam := getOptional(pageTokenUnescaped)
 		var options *armconfluent.OrganizationClientListEnvironmentsOptions
 		if pageSizeParam != nil || pageTokenParam != nil {
 			options = &armconfluent.OrganizationClientListEnvironmentsOptions{
@@ -732,7 +752,7 @@ func (o *OrganizationServerTransport) dispatchNewListEnvironmentsPager(req *http
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		o.newListEnvironmentsPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -769,7 +789,7 @@ func (o *OrganizationServerTransport) dispatchListRegions(req *http.Request) (*h
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).ListRegionsSuccessResponse, req)
@@ -804,7 +824,11 @@ func (o *OrganizationServerTransport) dispatchNewListSchemaRegistryClustersPager
 		if err != nil {
 			return nil, err
 		}
-		pageSizeParam, err := parseOptional(qp.Get("pageSize"), func(v string) (int32, error) {
+		pageSizeUnescaped, err := url.QueryUnescape(qp.Get("pageSize"))
+		if err != nil {
+			return nil, err
+		}
+		pageSizeParam, err := parseOptional(pageSizeUnescaped, func(v string) (int32, error) {
 			p, parseErr := strconv.ParseInt(v, 10, 32)
 			if parseErr != nil {
 				return 0, parseErr
@@ -814,7 +838,11 @@ func (o *OrganizationServerTransport) dispatchNewListSchemaRegistryClustersPager
 		if err != nil {
 			return nil, err
 		}
-		pageTokenParam := getOptional(qp.Get("pageToken"))
+		pageTokenUnescaped, err := url.QueryUnescape(qp.Get("pageToken"))
+		if err != nil {
+			return nil, err
+		}
+		pageTokenParam := getOptional(pageTokenUnescaped)
 		var options *armconfluent.OrganizationClientListSchemaRegistryClustersOptions
 		if pageSizeParam != nil || pageTokenParam != nil {
 			options = &armconfluent.OrganizationClientListSchemaRegistryClustersOptions{
@@ -833,7 +861,7 @@ func (o *OrganizationServerTransport) dispatchNewListSchemaRegistryClustersPager
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		o.newListSchemaRegistryClustersPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -870,7 +898,7 @@ func (o *OrganizationServerTransport) dispatchUpdate(req *http.Request) (*http.R
 		return nil, respErr
 	}
 	respContent := server.GetResponseContent(respr)
-	if !slices.Contains([]int{http.StatusOK}, respContent.HTTPStatus) {
+	if !contains([]int{http.StatusOK}, respContent.HTTPStatus) {
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", respContent.HTTPStatus)}
 	}
 	resp, err := server.MarshalResponseAsJSON(respContent, server.GetResponse(respr).OrganizationResource, req)

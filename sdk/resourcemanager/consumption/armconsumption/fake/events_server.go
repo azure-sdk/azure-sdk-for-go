@@ -11,11 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 )
 
 // EventsServer is a fake server for instances of the armconsumption.EventsClient type.
@@ -60,7 +59,9 @@ func (e *EventsServerTransport) Do(req *http.Request) (*http.Response, error) {
 }
 
 func (e *EventsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -78,7 +79,10 @@ func (e *EventsServerTransport) dispatchToMethodFake(req *http.Request, method s
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -106,7 +110,11 @@ func (e *EventsServerTransport) dispatchNewListByBillingAccountPager(req *http.R
 		if err != nil {
 			return nil, err
 		}
-		filterParam := getOptional(qp.Get("$filter"))
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
 		var options *armconsumption.EventsClientListByBillingAccountOptions
 		if filterParam != nil {
 			options = &armconsumption.EventsClientListByBillingAccountOptions{
@@ -124,7 +132,7 @@ func (e *EventsServerTransport) dispatchNewListByBillingAccountPager(req *http.R
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		e.newListByBillingAccountPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -155,7 +163,15 @@ func (e *EventsServerTransport) dispatchNewListByBillingProfilePager(req *http.R
 		if err != nil {
 			return nil, err
 		}
-		resp := e.srv.NewListByBillingProfilePager(billingAccountIDParam, billingProfileIDParam, qp.Get("startDate"), qp.Get("endDate"), nil)
+		startDateParam, err := url.QueryUnescape(qp.Get("startDate"))
+		if err != nil {
+			return nil, err
+		}
+		endDateParam, err := url.QueryUnescape(qp.Get("endDate"))
+		if err != nil {
+			return nil, err
+		}
+		resp := e.srv.NewListByBillingProfilePager(billingAccountIDParam, billingProfileIDParam, startDateParam, endDateParam, nil)
 		newListByBillingProfilePager = &resp
 		e.newListByBillingProfilePager.add(req, newListByBillingProfilePager)
 		server.PagerResponderInjectNextLinks(newListByBillingProfilePager, req, func(page *armconsumption.EventsClientListByBillingProfileResponse, createLink func() string) {
@@ -166,7 +182,7 @@ func (e *EventsServerTransport) dispatchNewListByBillingProfilePager(req *http.R
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		e.newListByBillingProfilePager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}

@@ -11,11 +11,10 @@ import (
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/fake/server"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/runtime"
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore/to"
-	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption"
+	"github.com/Azure/azure-sdk-for-go/sdk/resourcemanager/consumption/armconsumption/v2"
 	"net/http"
 	"net/url"
 	"regexp"
-	"slices"
 	"strconv"
 )
 
@@ -61,7 +60,9 @@ func (r *ReservationTransactionsServerTransport) Do(req *http.Request) (*http.Re
 }
 
 func (r *ReservationTransactionsServerTransport) dispatchToMethodFake(req *http.Request, method string) (*http.Response, error) {
-	resultChan := make(chan result, 1)
+	resultChan := make(chan result)
+	defer close(resultChan)
+
 	go func() {
 		var intercepted bool
 		var res result
@@ -79,7 +80,10 @@ func (r *ReservationTransactionsServerTransport) dispatchToMethodFake(req *http.
 			}
 
 		}
-		resultChan <- res
+		select {
+		case resultChan <- res:
+		case <-req.Context().Done():
+		}
 	}()
 
 	select {
@@ -107,12 +111,24 @@ func (r *ReservationTransactionsServerTransport) dispatchNewListPager(req *http.
 		if err != nil {
 			return nil, err
 		}
-		filterParam := getOptional(qp.Get("$filter"))
-		useMarkupIfPartnerParam, err := parseOptional(qp.Get("useMarkupIfPartner"), strconv.ParseBool)
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
 		if err != nil {
 			return nil, err
 		}
-		previewMarkupPercentageParam, err := parseOptional(qp.Get("previewMarkupPercentage"), func(v string) (float64, error) {
+		filterParam := getOptional(filterUnescaped)
+		useMarkupIfPartnerUnescaped, err := url.QueryUnescape(qp.Get("useMarkupIfPartner"))
+		if err != nil {
+			return nil, err
+		}
+		useMarkupIfPartnerParam, err := parseOptional(useMarkupIfPartnerUnescaped, strconv.ParseBool)
+		if err != nil {
+			return nil, err
+		}
+		previewMarkupPercentageUnescaped, err := url.QueryUnescape(qp.Get("previewMarkupPercentage"))
+		if err != nil {
+			return nil, err
+		}
+		previewMarkupPercentageParam, err := parseOptional(previewMarkupPercentageUnescaped, func(v string) (float64, error) {
 			p, parseErr := strconv.ParseFloat(v, 64)
 			if parseErr != nil {
 				return 0, parseErr
@@ -141,7 +157,7 @@ func (r *ReservationTransactionsServerTransport) dispatchNewListPager(req *http.
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		r.newListPager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
@@ -172,7 +188,11 @@ func (r *ReservationTransactionsServerTransport) dispatchNewListByBillingProfile
 		if err != nil {
 			return nil, err
 		}
-		filterParam := getOptional(qp.Get("$filter"))
+		filterUnescaped, err := url.QueryUnescape(qp.Get("$filter"))
+		if err != nil {
+			return nil, err
+		}
+		filterParam := getOptional(filterUnescaped)
 		var options *armconsumption.ReservationTransactionsClientListByBillingProfileOptions
 		if filterParam != nil {
 			options = &armconsumption.ReservationTransactionsClientListByBillingProfileOptions{
@@ -190,7 +210,7 @@ func (r *ReservationTransactionsServerTransport) dispatchNewListByBillingProfile
 	if err != nil {
 		return nil, err
 	}
-	if !slices.Contains([]int{http.StatusOK}, resp.StatusCode) {
+	if !contains([]int{http.StatusOK}, resp.StatusCode) {
 		r.newListByBillingProfilePager.remove(req)
 		return nil, &nonRetriableError{fmt.Errorf("unexpected status code %d. acceptable values are http.StatusOK", resp.StatusCode)}
 	}
